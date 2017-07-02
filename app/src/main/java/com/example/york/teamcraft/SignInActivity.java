@@ -45,6 +45,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
                 .build();
         txtStatus = (TextView) findViewById(R.id.status);
         findViewById(R.id.sign_in_button).setOnClickListener(this);
+        findViewById(R.id.sign_out_button).setOnClickListener(this);
     }
 
     @Override
@@ -53,7 +54,9 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
             case R.id.sign_in_button:
                 signIn();
                 break;
-            // ...
+            case R.id.sign_out_button:
+                signOut();
+                break;
         }
     }
 
@@ -62,16 +65,28 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-       updateUI(currentUser);
+        //updateUI(currentUser);
     }
 
-    private void updateUI(FirebaseUser currentUser) {
-        //txtStatus.setText(currentUser.getDisplayName());
+    //更新UI
+    private void updateUI(boolean signedIn) {
+        if(signedIn == true){   //已登入
+
+        } else{ //未登入
+            txtStatus.setText("尚未登入");
+            txtName.setText("");
+        }
+
     }
 
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    private  void signOut(){
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient);
+        updateUI(false);
     }
 
     @Override
@@ -81,20 +96,25 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            if (result.isSuccess()) {
-                // Google Sign In was successful, authenticate with Firebase
-                GoogleSignInAccount account = result.getSignInAccount();
-                firebaseAuthWithGoogle(account);
-            } else {
-                // Google Sign In failed, update UI appropriately
-                // ...
-            }
+            handleSignInResult(result);
+        }
+    }
+
+    private void handleSignInResult(GoogleSignInResult result) {
+        if (result.isSuccess()) {
+            // Google Sign In was successful, authenticate with Firebase
+            GoogleSignInAccount account = result.getSignInAccount();
+            firebaseAuthWithGoogle(account);
+        } else {
+            // Google Sign In failed, update UI appropriately
+            // ...
         }
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
+        txtStatus.setText("帳號登入中");
         txtName = (TextView) findViewById(R.id.user_name);
-        txtName.setText(account.getDisplayName());
+        txtName.setText(txtName.getText() + account.getDisplayName());
     }
 
     @Override
