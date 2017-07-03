@@ -25,14 +25,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-                <AutoCompleteTextView
-                    android:id="@+id/account_AutoComplete"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Account ID "
-                    android:inputType=""
-                    android:maxLines="1"
-                    android:singleLine="true" />
+        <AutoCompleteTextView
+            android:id="@+id/account_edt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Account ID "
+            android:inputType=""
+            android:maxLines="1"
+            android:singleLine="true" />
 
                 <EditText
                     android:id="@+id/password_edt"
@@ -47,7 +47,7 @@
                     android:singleLine="true" />
 
         <Button
-            android:id="@+id/signin_btn"
+            android:id="@+id/signIn_btn"
             style="?android:textAppearanceSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -91,7 +91,8 @@
     <TextView
         android:id="@+id/name_txtView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="姓名：" />
 
     <Button
         android:id="@+id/signOut_btn"
