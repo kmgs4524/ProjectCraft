@@ -26,8 +26,9 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private GoogleApiClient mGoogleApiClient;
 
-    private TextView txtStatus;
-    private TextView txtName;
+    //UI元件
+    private TextView txtStatus; //登入狀態
+    private TextView txtName;   //姓名
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,18 +44,19 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-        txtStatus = (TextView) findViewById(R.id.status);
-        findViewById(R.id.sign_in_button).setOnClickListener(this);
-        findViewById(R.id.sign_out_button).setOnClickListener(this);
+        txtStatus = (TextView) findViewById(R.id.status_txtView);
+        txtName = (TextView) findViewById(R.id.name_txtView);
+        findViewById(R.id.google_signIn_btn).setOnClickListener(this);
+        findViewById(R.id.signOut_btn).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.sign_in_button:
+            case R.id.google_signIn_btn:
                 signIn();
                 break;
-            case R.id.sign_out_button:
+            case R.id.signOut_btn:
                 signOut();
                 break;
         }
@@ -113,7 +115,6 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
         txtStatus.setText("帳號登入中");
-        txtName = (TextView) findViewById(R.id.user_name);
         txtName.setText(txtName.getText() + account.getDisplayName());
     }
 
