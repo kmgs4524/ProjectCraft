@@ -1,15 +1,21 @@
 package com.example.york.teamcraft;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,12 +33,14 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class SignInActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,
                                                                  View.OnClickListener {
+    /*----------  後端登入 ----------*/
     private static String SEVER_CLIENT_ID = "351544429326-6g982pc3jarftp4017oi8gu526c5m70f.apps.googleusercontent.com";
-    private static int RC_SIGN_IN = 123;
-    private static final String TAG = "SignInActivity";
+    private static int RC_SIGN_IN = 123;    //Request Code
+    private static final String TAG = "SignInActivity"; //log.d()的tag
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();    //Firebase Authentication Instance
     private GoogleApiClient mGoogleApiClient;
+    /*-------------------------------*/
 
     //UI元件
     private AutoCompleteTextView edtAcct;   //帳號欄位
@@ -40,12 +48,19 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     private TextView txtStatus; //登入狀態
     private TextView txtName;   //姓名
 
+    /*----- Drawer相關元件 -------*/
+    private String[] planetTitles;  //用來初始化navigation list的string array
+    private DrawerLayout drawerLayout;
+    private ListView drawerList;
+    /*----------------------------*/
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-        //設置ToolBar
-        initToolBar();
+        //設置UI
+        initToolBar();  //ToolBar
+        initDrawer();   //Drawer
 
         //建立GoogleSignInOptions
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -72,6 +87,46 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     private void initToolBar(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+    }
+
+    private void initDrawer(){
+        planetTitles = getResources().getStringArray(R.array.planets_array);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerList = (ListView) findViewById(R.id.left_drawer);
+
+        //為drawerList設置adapter
+        drawerList.setAdapter(new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, planetTitles));
+        //設置drawerList的listener
+        drawerList.setOnItemClickListener(new DrawerItemClickListener());
+    }
+
+    //AdapterView.OnItemClickListener
+    private class DrawerItemClickListener implements android.widget.AdapterView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            selectItem(position);
+        }
+
+        /** Swaps fragments in the main content view */
+        private void selectItem(int position) {
+            // Create a new fragment and specify the planet to show based on position
+//            Fragment fragment = new PlanetFragment();
+//            Bundle args = new Bundle();
+//            args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
+//            fragment.setArguments(args);
+//
+//            // Insert the fragment by replacing any existing fragment
+//            FragmentManager fragmentManager = getFragmentManager();
+//            fragmentManager.beginTransaction()
+//                    .replace(R.id.content_frame, fragment)
+//                    .commit();
+//
+//            // Highlight the selected item, update the title, and close the drawer
+//            mDrawerList.setItemChecked(position, true);
+//            setTitle(mPlanetTitles[position]);
+//            mDrawerLayout.closeDrawer(mDrawerList);
+        }
     }
 
     @Override
@@ -182,4 +237,5 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         // be available.
         Log.d(TAG, "onConnectionFailed:" + connectionResult);
     }
+
 }

@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">TeamCraft</string>
     <string name="action_sign_in_short">Sign in</string>
+
+    <string-array name="planets_array">
+        <item>個人管理</item>
+        <item>團隊管理</item>
+        <item>帳戶資料</item>
+    </string-array>
 </resources>
