@@ -44,6 +44,8 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+        //設置ToolBar
+        initToolBar();
 
         //建立GoogleSignInOptions
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -64,6 +66,12 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         findViewById(R.id.signIn_btn).setOnClickListener(this); //登入Button
         findViewById(R.id.google_signIn_btn).setOnClickListener(this);  //Google帳號登入Button
         findViewById(R.id.signOut_btn).setOnClickListener(this);    //登出Button
+    }
+    
+    //設置ToolBar為此activity的app bar
+    private void initToolBar(){
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
 
     @Override
