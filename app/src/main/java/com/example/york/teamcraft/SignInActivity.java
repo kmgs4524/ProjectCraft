@@ -67,7 +67,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         findViewById(R.id.google_signIn_btn).setOnClickListener(this);  //Google帳號登入Button
         findViewById(R.id.signOut_btn).setOnClickListener(this);    //登出Button
     }
-    
+
     //設置ToolBar為此activity的app bar
     private void initToolBar(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
