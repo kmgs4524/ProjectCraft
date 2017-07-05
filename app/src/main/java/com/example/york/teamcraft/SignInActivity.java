@@ -111,22 +111,21 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         /** Swaps fragments in the main content view */
         private void selectItem(int position) {
             // Create a new fragment and specify the planet to show based on position
-//            Fragment fragment = new PlanetFragment();
-//            Bundle args = new Bundle();
-//            args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
-//            fragment.setArguments(args);
-//
-//            // Insert the fragment by replacing any existing fragment
-//            FragmentManager fragmentManager = getFragmentManager();
-//            fragmentManager.beginTransaction()
-//                    .replace(R.id.content_frame, fragment)
-//                    .commit();
-//
-//            // Highlight the selected item, update the title, and close the drawer
-//            mDrawerList.setItemChecked(position, true);
-//            setTitle(mPlanetTitles[position]);
-//            mDrawerLayout.closeDrawer(mDrawerList);
+            if(position == 0){
+                Intent intent = new Intent();
+                intent.setClass(SignInActivity.this, MainActivity.class);
+                startActivity(intent);
+                setTitle(planetTitles[position]);
+            }
+
         }
+    }
+
+
+    public void setTitle(String title) {
+        getSupportActionBar().setTitle(title);
+        //Log.d("MainActivity", getActionBar().toString());
+        //Log.d("MainAcitivity", title);
     }
 
     @Override
