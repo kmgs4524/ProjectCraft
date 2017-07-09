@@ -21,6 +21,7 @@
             android:id="@+id/toolbar"
             android:elevation="4dp"
             layout="@layout/toolbar" />
+
         <!-- Login progress -->
         <ProgressBar
             android:id="@+id/login_progress"

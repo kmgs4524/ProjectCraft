@@ -1,15 +1,12 @@
 package com.example.york.teamcraft;
 
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.york.teamcraft.personalsmanage.MainActivity;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -89,6 +87,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         setSupportActionBar(toolbar);
     }
 
+    //設置側邊欄
     private void initDrawer(){
         planetTitles = getResources().getStringArray(R.array.planets_array);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -110,22 +109,18 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
 
         /** Swaps fragments in the main content view */
         private void selectItem(int position) {
-            // Create a new fragment and specify the planet to show based on position
+            //選擇進入
             if(position == 0){
                 Intent intent = new Intent();
-                intent.setClass(SignInActivity.this, MainActivity.class);
+                intent.setClass(SignInActivity.this, com.example.york.teamcraft.personalsmanage.MainActivity.class);
                 startActivity(intent);
-                setTitle(planetTitles[position]);
+            } else if(position == 1){
+                Intent intent = new Intent();
+                intent.setClass(SignInActivity.this, com.example.york.teamcraft.teammanage.MainActivity.class);
+                startActivity(intent);
             }
 
         }
-    }
-
-
-    public void setTitle(String title) {
-        getSupportActionBar().setTitle(title);
-        //Log.d("MainActivity", getActionBar().toString());
-        //Log.d("MainAcitivity", title);
     }
 
     @Override

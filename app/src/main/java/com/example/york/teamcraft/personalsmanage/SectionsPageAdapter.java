@@ -1,4 +1,4 @@
-package com.example.york.teamcraft;
+package com.example.york.teamcraft.personalsmanage;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
