@@ -24,4 +24,6 @@ public class GroupManageFragment extends Fragment {
 
         return view;
     }
+
+
 }

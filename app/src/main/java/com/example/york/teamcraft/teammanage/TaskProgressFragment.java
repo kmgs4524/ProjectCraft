@@ -13,6 +13,7 @@ import com.example.york.teamcraft.R;
  * Created by user on 2017/7/4.
  */
 
+//任務進度Fragment
 public class TaskProgressFragment extends Fragment {
 
     private static final String TAG = "TaskProgressFragment";

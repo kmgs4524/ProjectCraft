@@ -30,7 +30,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/Name_txv"
+                android:id="@+id/name_txtView"
                 android:layout_width="115dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -39,7 +39,7 @@
                 android:textAlignment="center" />
 
             <EditText
-                android:id="@+id/Name_edt"
+                android:id="@+id/name_edt"
                 android:layout_width="300dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -56,7 +56,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/Email_txv"
+                android:id="@+id/email_txtView"
                 android:layout_width="115dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -65,7 +65,7 @@
                 android:textAlignment="center" />
 
             <EditText
-                android:id="@+id/Email_edt"
+                android:id="@+id/email_edt"
                 android:layout_width="300dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -82,7 +82,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/Password_txv"
+                android:id="@+id/password_txtView"
                 android:layout_width="115dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -91,7 +91,7 @@
                 android:textAlignment="center" />
 
             <EditText
-                android:id="@+id/Password_edt"
+                android:id="@+id/password_edt"
                 android:layout_width="300dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -108,16 +108,16 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/identifyPassword_txv"
+                android:id="@+id/confirm_password_txtView"
                 android:layout_width="115dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="驗證密碼"
+                android:text="確認密碼"
                 android:textAlignment="center" />
 
             <EditText
-                android:id="@+id/identifyPassword_edt"
+                android:id="@+id/confirm_password_edt"
                 android:layout_width="300dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -136,7 +136,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/Portrait_txv"
+                android:id="@+id/portrait_txtView"
                 android:layout_width="91dp"
                 android:layout_height="180dp"
                 android:gravity="center"
@@ -159,7 +159,7 @@
                 <TableRow>
 
                     <Button
-                        android:id="@+id/Portrait_btn"
+                        android:id="@+id/portrait_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/Portrait_img"
@@ -177,7 +177,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/entollOk_btn"
+                android:id="@+id/confirm_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="確定" />

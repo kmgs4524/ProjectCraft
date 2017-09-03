@@ -12,6 +12,8 @@
         <activity android:name=".ViewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
+
             </intent-filter>
         </activity>
         <activity android:name=".SignInActivity">
@@ -24,6 +26,7 @@
         <activity android:name=".personalsmanage.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".teammanage.MainActivity">
@@ -35,7 +38,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
         </activity>
     </application>

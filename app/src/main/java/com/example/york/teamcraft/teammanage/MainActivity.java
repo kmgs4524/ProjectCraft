@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(mViewPager);
     }
 
+    //設置ToolBar
     private void initToolBar(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -61,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new BoardFragment(),"佈告欄");
         adapter.addFragment(new GroupManageFragment(),"群組管理");
         adapter.addFragment(new TaskProgressFragment(),"任務進度");
-        adapter.addFragment(new TeamCalendarFragment(),"行事曆");
         viewPager.setAdapter(adapter);
     }
 
