@@ -18,7 +18,7 @@ public class GroupActivity extends AppCompatActivity {
     private void initToolBar(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("團隊管理");
+        getSupportActionBar().setTitle("群組管理");
         Log.d("MainActivity", "init ToolBar");
     }
 }
