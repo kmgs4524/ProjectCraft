@@ -7,4 +7,7 @@
         <item>團隊管理</item>
         <item>帳戶資料</item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
