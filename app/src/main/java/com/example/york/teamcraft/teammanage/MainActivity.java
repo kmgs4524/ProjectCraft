@@ -20,8 +20,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
     /*----- Pager相關元件 -------*/
-    private SectionsPageAdapter mSectionsPageAdapter;
-    private ViewPager mViewPager;
+    private SectionsPageAdapter mSectionsPageAdapter;   //繼承FragmentPageAdapter的adapter
+    private ViewPager mViewPager;   //可讓使用者左右翻動頁面的class，此外必須提供PageAdapter來產生pages
     /*----------------------------*/
 
     /*----- Drawer相關元件 -------*/
@@ -36,19 +36,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.team_activity_main);
         Log.d(TAG,"onCreate: ");
 
-        initToolBar();
-        initDrawer();   //Drawer
+        initToolBar();  //初始化ToolBar
+        initDrawer();   //初始化Drawer
 
         mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
 
         //Set up  the ViewPager with the section adapter.
-        mViewPager=(ViewPager)findViewById(R.id.container);
+        mViewPager = (ViewPager)findViewById(R.id.container);
         setupViewPager(mViewPager);
 
         TabLayout tabLayout=(TabLayout)findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
+        tabLayout.setupWithViewPager(mViewPager);   //The one-stop shop for setting up this TabLayout with a ViewPager.
     }
 
+    //設置ToolBar
     private void initToolBar(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -56,13 +57,14 @@ public class MainActivity extends AppCompatActivity {
         Log.d("MainActivity", "init ToolBar");
     }
 
+    //設置ViewPager
     private void setupViewPager(ViewPager viewPager){
-        SectionsPageAdapter adapter=new SectionsPageAdapter(getSupportFragmentManager());
-        adapter.addFragment(new BoardFragment(),"佈告欄");
-        adapter.addFragment(new GroupManageFragment(),"群組管理");
-        adapter.addFragment(new TaskProgressFragment(),"任務進度");
-        adapter.addFragment(new TeamCalendarFragment(),"行事曆");
-        viewPager.setAdapter(adapter);
+        SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
+        // 將Fragement加入 mFragmentList, 標題
+        adapter.addFragment(new BoardFragment(),"佈告欄"); //加入Fragment
+        adapter.addFragment(new GroupManageFragment(),"群組管理");  //加入Fragment
+        adapter.addFragment(new TaskProgressFragment(),"任務進度"); //加入Fragment
+        viewPager.setAdapter(adapter);  //設置ViewPager的adapter
     }
 
     //設置側邊欄

@@ -12,28 +12,33 @@
         <activity android:name=".ViewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
-
             </intent-filter>
         </activity>
         <activity android:name=".SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".personalsmanage.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-
             </intent-filter>
         </activity>
         <activity android:name=".teammanage.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".SignUpActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".GroupActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
             </intent-filter>
         </activity>

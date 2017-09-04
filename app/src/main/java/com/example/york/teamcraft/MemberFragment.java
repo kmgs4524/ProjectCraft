@@ -1,10 +1,8 @@
-package com.example.york.teamcraft.teammanage;
+package com.example.york.teamcraft;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -15,31 +13,34 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.york.teamcraft.GroupActivity;
-import com.example.york.teamcraft.R;
+import com.example.york.teamcraft.teammanage.GroupManageFragment;
+
 import java.util.ArrayList;
 
-/**
- * Created by user on 2017/7/4.
- */
-//群組管理分頁
-public class GroupManageFragment extends Fragment {
+public class MemberFragment extends Fragment {
     private static final String TAG = "GroupManageFragment";
 
     //存放Drawable的list
-    private  ArrayList<Integer> drawableList = new ArrayList<>();
+    private ArrayList<Integer> drawableList = new ArrayList<>();
 
     //介面元件
     private GridView gridView;
     private FloatingActionButton fab;
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.team_groupmanage_fragment, container, false);
+    public MemberFragment() {
+        // 當Fragment被銷毀並重新創造時，會自動呼叫這個無參數的建構子
+        // Required empty public constructor
+    }
 
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.team_groupmanage_fragment, container, false);
         initGrid(view);
         initFab(view);
         return view;
@@ -68,13 +69,9 @@ public class GroupManageFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getContext(), "item clicked", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent();
-                intent.setClass(getContext(), GroupActivity.class);
-                startActivity(intent);
             }
         });
     }
-
 
     private class ImageAdapter extends BaseAdapter {
         private Context context;
@@ -122,4 +119,21 @@ public class GroupManageFragment extends Fragment {
         gridView.setAdapter(new ImageAdapter(getContext(), drawableList));
         Log.d(TAG, String.valueOf(gridView));
     }
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//        if (context instanceof OnFragmentInteractionListener) {
+//            mListener = (OnFragmentInteractionListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnFragmentInteractionListener");
+//        }
+//    }
+//
+//    @Override
+//    public void onDetach() {
+//        super.onDetach();
+//        mListener = null;
+//    }
+
 }
