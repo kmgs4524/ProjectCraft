@@ -7,6 +7,7 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -23,13 +24,12 @@ import com.example.york.teamcraft.SignInActivity;
 //個人管理主頁面
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
-    private SectionsPageAdapter mSectionsPageAdapter;
-    private ViewPager mViewPager;
 
-    /*----- Drawer相關元件 -------*/
+    /*----- Drawer and ToolBar -------*/
     private String[] planetTitles;  //用來初始化navigation list的string array
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+    private ActionBarDrawerToggle drawerToggle;
 //    private ListView drawerList;
     /*----------------------------*/
 
@@ -40,23 +40,21 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG,"onCreate: ");
 
         //設置UI
-        initToolBar();
         initDrawer();   //Drawer
+        initToolBar();
 
-        mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
-
-        //Set up  the ViewPager with the section adapter.
-        mViewPager=(ViewPager)findViewById(R.id.container);
-        setupViewPager(mViewPager);
-
-        TabLayout tabLayout=(TabLayout)findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
     }
 
     private void initToolBar(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("個人管理");
+        getSupportActionBar().setTitle("個人記事");
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close); // 給定的Activity會連接給定的DrawerLayout, 使用此constructor會設置listener點擊icon便切換drawer
+        drawerLayout.addDrawerListener(drawerToggle);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);  // 啟用ActionBar的home button的回到上一層功能並加上回上層的圖標
+        getSupportActionBar().setHomeButtonEnabled(true);   // 啟用home button，決定home button是否能點擊
+        drawerToggle.syncState();   // 同步drawer指標狀態到連接的DrawerLayout
+
         Log.d("MainActivity", "init ToolBar");
     }
 
@@ -131,12 +129,6 @@ public class MainActivity extends AppCompatActivity {
 //        }
 //    }
 
-    private void setupViewPager(ViewPager viewPager){
-        SectionsPageAdapter adapter=new SectionsPageAdapter(getSupportFragmentManager());
-        adapter.addFragment(new ScheduleFragment(),"行事曆");
-        adapter.addFragment(new NotebookFragment(),"記事本");
-        viewPager.setAdapter(adapter);
-    }
 }
 
 

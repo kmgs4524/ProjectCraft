@@ -9,7 +9,7 @@
         android:id="@+id/txt_target"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="目標：睡稿稿"
+        android:text="目標：睡覺"
         android:textSize="24sp" />
 
     <TextView
@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txt_target"
-        android:text="日期：就在津天"
+        android:text="日期：9/4"
         android:textSize="24sp" />
 
     <TextView
