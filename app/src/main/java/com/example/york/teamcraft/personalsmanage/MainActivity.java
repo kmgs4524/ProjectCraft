@@ -1,6 +1,7 @@
 package com.example.york.teamcraft.personalsmanage;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -17,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.york.teamcraft.R;
@@ -58,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         initDrawer();   //Drawer
         initToolBar();
         initRecycleView();
-
+//        initDB(dataSet);
         btnNote = (FloatingActionButton) findViewById(R.id.fab);
         btnNote.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,7 +144,11 @@ public class MainActivity extends AppCompatActivity {
 
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new ItemViewAdapter(dataSet);
+
+        Cursor cursor = initDB();
+
+        adapter = new ItemViewAdapter(dataSet, cursor, this);
+
         recyclerView.setAdapter(adapter);
         // 加入item之間的分隔線
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
@@ -159,6 +165,27 @@ public class MainActivity extends AppCompatActivity {
         list.add(note3);
     }
 
+    public Cursor initDB(){
+        NotesDbHelper helper = NotesDbHelper.getInstance(this);
+        Cursor cursor = helper.getReadableDatabase().query(
+                NotesContract.Notes.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
+        return cursor;
+//        cursor.moveToFirst();
+//        String itemTitle = cursor.getString(
+//                cursor.getColumnIndexOrThrow(NotesContract.Notes.COLUMN_NAME_TITLE)
+//        );
+//        String itemContent = cursor.getString(
+//                cursor.getColumnIndexOrThrow(NotesContract.Notes.COLUMN_NAME_CONTENT)
+//        );
+//        Log.d("Title", itemTitle);
+//        Log.d("Content", itemContent);
+    }
 
 
     //AdapterView.OnItemClickListener

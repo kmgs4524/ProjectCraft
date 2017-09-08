@@ -1,5 +1,9 @@
 package com.example.york.teamcraft.personalsmanage;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +16,9 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 
 import com.example.york.teamcraft.R;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class AddItemActivity extends AppCompatActivity {
     private static String TAG = "AddItemActivity";
@@ -51,13 +58,19 @@ public class AddItemActivity extends AppCompatActivity {
         final EditText edtTime = (EditText) findViewById(R.id.edt_item_time);
         Button btnCreate = (Button) findViewById(R.id.btn_create);
 
+        final HashMap<String, String> itemMap = new HashMap<>();
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("edtTitle",  edtTitle.getText().toString());
-                Log.d("edtContent", edtContent.getText().toString());
-                Log.d("edtDate", edtDate.getText().toString());
-                Log.d("edtTime", edtTime.getText().toString());
+//                Log.d("edtTitle",  edtTitle.getText().toString());
+                itemMap.put("title", edtTitle.getText().toString());
+//                Log.d("edtContent", edtContent.getText().toString());
+                itemMap.put("content", edtContent.getText().toString());
+//                Log.d("edtDate", edtDate.getText().toString());
+                itemMap.put("date", edtDate.getText().toString());
+//                Log.d("edtTime", edtTime.getText().toString());
+                itemMap.put("time", edtTime.getText().toString());
+                addData(itemMap);
             }
         });
     }
@@ -84,5 +97,22 @@ public class AddItemActivity extends AppCompatActivity {
             default:
                 return 0;
         }
+    }
+
+    public void addData(HashMap<String, String> map) {
+        //取得資料庫
+        NotesDbHelper dbHelper = new NotesDbHelper(this);
+        SQLiteDatabase db = dbHelper.getWritableDatabase(); //Database Reference
+
+        //
+        ContentValues values = new ContentValues();
+        values.put(NotesContract.Notes.COLUMN_NAME_TITLE, map.get("title"));
+        values.put(NotesContract.Notes.COLUMN_NAME_CONTENT, map.get("content"));
+//        values.put(NotesContract.Notes.COLUMN_NAME_DATE, map.get("date"));
+//        values.put(NotesContract.Notes.COLUMN_NAME_TIME, map.get("time"));
+
+        long newRowId;
+        newRowId = db.insert(NotesContract.Notes.TABLE_NAME, null, values);
+        Log.d("addData", Long.toString(newRowId));
     }
 }
