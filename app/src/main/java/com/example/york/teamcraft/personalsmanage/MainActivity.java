@@ -1,37 +1,52 @@
 package com.example.york.teamcraft.personalsmanage;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.view.ViewGroup;
+import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.SignInActivity;
+
+import java.util.ArrayList;
+
 
 //個人管理主頁面
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
-    private SectionsPageAdapter mSectionsPageAdapter;
-    private ViewPager mViewPager;
 
-    /*----- Drawer相關元件 -------*/
+    /*----- Drawer and ToolBar -------*/
     private String[] planetTitles;  //用來初始化navigation list的string array
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-//    private ListView drawerList;
+    private ActionBarDrawerToggle drawerToggle;
+
     /*----------------------------*/
+
+    /*----- RecyclerView -------*/
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
+    /*--------------------------------*/
+
+    private FloatingActionButton btnNote;
+
+    private ArrayList<Note> dataSet =  new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,24 +54,35 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.personals_activity_main);
         Log.d(TAG,"onCreate: ");
 
+        addNote(dataSet);   // 新增資料到ArrayList
+
         //設置UI
-        initToolBar();
         initDrawer();   //Drawer
-
-        mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
-
-        //Set up  the ViewPager with the section adapter.
-        mViewPager=(ViewPager)findViewById(R.id.container);
-        setupViewPager(mViewPager);
-
-        TabLayout tabLayout=(TabLayout)findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
+        initToolBar();
+        initRecycleView();
+//        initDB(dataSet);
+        btnNote = (FloatingActionButton) findViewById(R.id.fab);
+        btnNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, AddItemActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
+    // 設置ToolBar
     private void initToolBar(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("個人管理");
+        getSupportActionBar().setTitle("個人記事");
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close); // 給定的Activity會連接給定的DrawerLayout, 使用此constructor會設置listener點擊icon便切換drawer
+        drawerLayout.addDrawerListener(drawerToggle);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);  // 啟用ActionBar的home button的回到上一層功能並加上回上層的圖標
+        getSupportActionBar().setHomeButtonEnabled(true);   // 啟用home button，決定home button是否能點擊
+        drawerToggle.syncState();   // 同步drawer指標狀態到連接的DrawerLayout
+
         Log.d("MainActivity", "init ToolBar");
     }
 
@@ -99,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Something Error", Toast.LENGTH_SHORT);
                         return  true;
                 }
+
             }
         });
 
@@ -108,7 +135,58 @@ public class MainActivity extends AppCompatActivity {
 //                android.R.layout.simple_list_item_1, planetTitles));
 //        //設置drawerList的listener
 //        drawerList.setOnItemClickListener(new MainActivity.DrawerItemClickListener());
+        Log.d(TAG, "init Drawer");
     }
+
+    public void initRecycleView() {
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recyclerView.setHasFixedSize(true);
+
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        Cursor cursor = initDB();
+
+        adapter = new ItemViewAdapter(dataSet, cursor, this);
+
+        recyclerView.setAdapter(adapter);
+        // 加入item之間的分隔線
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(dividerItemDecoration);
+    }
+
+    public void addNote(ArrayList<Note> list) {
+        Note note = new Note("Android設計手冊", "如何從零開始設計Android, 你想的到的都在這邊", "9/7", 1);
+        Note note2 = new Note("React設計手冊", "如何從零開始設計ReactNative, 你想的到的都在這邊", "9/8", 2);
+        Note note3 = new Note("iOS設計手冊", "如何從零開始設計iOS, 你想的到的都在這邊", "9/9", 3);
+
+        list.add(note);
+        list.add(note2);
+        list.add(note3);
+    }
+
+    public Cursor initDB(){
+        NotesDbHelper helper = NotesDbHelper.getInstance(this);
+        Cursor cursor = helper.getReadableDatabase().query(
+                NotesContract.Notes.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
+        return cursor;
+//        cursor.moveToFirst();
+//        String itemTitle = cursor.getString(
+//                cursor.getColumnIndexOrThrow(NotesContract.Notes.COLUMN_NAME_TITLE)
+//        );
+//        String itemContent = cursor.getString(
+//                cursor.getColumnIndexOrThrow(NotesContract.Notes.COLUMN_NAME_CONTENT)
+//        );
+//        Log.d("Title", itemTitle);
+//        Log.d("Content", itemContent);
+    }
+
 
     //AdapterView.OnItemClickListener
 //    private class DrawerItemClickListener implements android.widget.AdapterView.OnItemClickListener {
@@ -131,12 +209,6 @@ public class MainActivity extends AppCompatActivity {
 //        }
 //    }
 
-    private void setupViewPager(ViewPager viewPager){
-        SectionsPageAdapter adapter=new SectionsPageAdapter(getSupportFragmentManager());
-        adapter.addFragment(new ScheduleFragment(),"行事曆");
-        adapter.addFragment(new NotebookFragment(),"記事本");
-        viewPager.setAdapter(adapter);
-    }
 }
 
 

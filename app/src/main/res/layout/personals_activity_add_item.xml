@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.york.teamcraft.personalsmanage.AddItemActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        android:elevation="4dp"
+        layout="@layout/toolbar" />
+
+    <TextView
+        android:id="@+id/txt_item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="40dp"
+        android:text="標題"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/edt_item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/txt_item_title"
+        android:layout_marginLeft="40dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text=""
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/txt_item_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edt_item_title"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="40dp"
+        android:text="內容"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/edt_item_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_item_content"
+        android:layout_marginLeft="40dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text=""
+        android:textSize="24sp" />
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edt_item_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="60dp">
+
+        <TextView
+            android:id="@+id/txt_item_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="日期："
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/edt_item_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/txt_target_date"
+            android:layout_toRightOf="@+id/txt_target_date"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Name" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout_date"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="60dp">
+
+        <TextView
+            android:id="@+id/txt_item_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="時間："
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/edt_item_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/txt_target_date"
+            android:layout_toRightOf="@+id/txt_target_date"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Name" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/linearLayout_importance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout_time">
+    <TextView
+        android:id="@+id/txt_item_importance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="40dp"
+        android:text="重要性"
+        android:textSize="24sp" />
+
+    <!-- 分隔線 -->
+    <View style="@style/Divider"
+        android:id="@+id/divider"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@+id/txt_item_importance"></View>
+
+    <!-- 重要性選項 -->
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/divider"
+        android:layout_alignLeft="@+id/txt_item_importance"
+        android:orientation="horizontal">
+
+        <!-- 急迫 -->
+        <RadioButton android:id="@+id/radio_urgent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="急迫"
+            android:onClick="onRadioButtonClicked"/>
+        <!-- 適中 -->
+        <RadioButton android:id="@+id/radio_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="適中"
+            android:onClick="onRadioButtonClicked"/>
+        <!-- 充裕 -->
+        <RadioButton android:id="@+id/radio_ample"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="充裕"
+            android:onClick="onRadioButtonClicked"/>
+    </RadioGroup>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/linearLayout_importance">
+
+        <Button
+            android:id="@+id/btn_create"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+
+            android:layout_weight="1"
+            android:text="創建"
+            android:textSize="18sp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

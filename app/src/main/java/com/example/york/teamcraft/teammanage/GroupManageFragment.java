@@ -2,7 +2,6 @@ package com.example.york.teamcraft.teammanage;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -17,6 +16,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.york.teamcraft.CreateGroupActivity;
 import com.example.york.teamcraft.GroupActivity;
 import com.example.york.teamcraft.R;
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ public class GroupManageFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.team_groupmanage_fragment, container, false);
+        View view=inflater.inflate(R.layout.team_fragment_manage_group, container, false);
 
         initGrid(view);
         initFab(view);
@@ -51,7 +51,10 @@ public class GroupManageFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 Toast.makeText(getActivity(), "FAB Clicked", Toast.LENGTH_SHORT).show();
-                addImg();
+                Intent intent = new Intent();
+                intent.setClass(getContext(), CreateGroupActivity.class);
+                startActivity(intent);
+                //addImg();
             }
         });
     }
@@ -70,7 +73,7 @@ public class GroupManageFragment extends Fragment {
                 Toast.makeText(getContext(), "item clicked", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent();
                 intent.setClass(getContext(), GroupActivity.class);
-                startActivity(intent);
+                startActivity(intent);  // 進入CreateGroupActivity
             }
         });
     }
