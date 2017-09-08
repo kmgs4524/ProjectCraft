@@ -29,8 +29,6 @@ dependencies {
     /*FirebaseUI版本需與Firebase、Google-Service一致 */
     //Firebase
 
-    
-
 
     compile 'com.android.support:appcompat-v7:25.0.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -44,6 +42,7 @@ dependencies {
     compile 'com.android.support:design:25.3.1'
     testCompile 'junit:junit:4.12'
 }
+
 
 
 
