@@ -42,7 +42,6 @@ public  class ItemViewAdapter extends RecyclerView.Adapter<ItemViewAdapter.TextH
 
             }
 
-
         };
     }
 

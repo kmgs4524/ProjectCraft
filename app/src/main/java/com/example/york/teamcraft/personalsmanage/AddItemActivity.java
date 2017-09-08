@@ -2,6 +2,7 @@ package com.example.york.teamcraft.personalsmanage;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.drawable.Drawable;
@@ -71,6 +72,10 @@ public class AddItemActivity extends AppCompatActivity {
 //                Log.d("edtTime", edtTime.getText().toString());
                 itemMap.put("time", edtTime.getText().toString());
                 addData(itemMap);
+
+                Intent intent = new Intent();
+                intent.setClass(AddItemActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
     }
