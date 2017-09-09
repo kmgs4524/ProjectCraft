@@ -14,11 +14,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.york.teamcraft.R;
@@ -40,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     /*----- RecyclerView -------*/
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
+    private ItemViewAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     /*--------------------------------*/
 
@@ -128,13 +126,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-// 下列註解區塊為舊的listView用法
-//        //為drawerList設置adapter
-//        drawerList.setAdapter(new ArrayAdapter<String>(this,
-//                android.R.layout.simple_list_item_1, planetTitles));
-//        //設置drawerList的listener
-//        drawerList.setOnItemClickListener(new MainActivity.DrawerItemClickListener());
         Log.d(TAG, "init Drawer");
     }
 
@@ -148,8 +139,8 @@ public class MainActivity extends AppCompatActivity {
         Cursor cursor = initDB();
 
         adapter = new ItemViewAdapter(dataSet, cursor, this);
-
         recyclerView.setAdapter(adapter);
+
         // 加入item之間的分隔線
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
@@ -187,28 +178,15 @@ public class MainActivity extends AppCompatActivity {
 //        Log.d("Content", itemContent);
     }
 
-
-    //AdapterView.OnItemClickListener
-//    private class DrawerItemClickListener implements android.widget.AdapterView.OnItemClickListener {
-//        @Override
-//        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//            selectItem(position);
-//        }
-//
-//        /** Swaps fragments in the main content view */
-//        private void selectItem(int position) {
-//            if(position == 0){
-////                Intent intent = new Intent();
-////                intent.setClass(MainActivity.this, MainActivity.class);
-////                startActivity(intent);
-//            } else if(position == 1){
-//                Intent intent = new Intent();
-//                intent.setClass(MainActivity.this, com.example.york.teamcraft.teammanage.MainActivity.class);
-//                startActivity(intent);
-//            }
-//        }
-//    }
-
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Cursor cursor = initDB();
+        adapter.changeCursor(cursor);
+//        adapter = new ItemViewAdapter(dataSet, cursor, this);
+//        recyclerView.setAdapter(adapter);
+        Log.d(TAG, "Call onRestart");
+    }
 }
 
 

@@ -2,6 +2,7 @@ package com.example.york.teamcraft.personalsmanage;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DataSetObserver;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -22,8 +23,8 @@ public  class ItemViewAdapter extends RecyclerView.Adapter<ItemViewAdapter.TextH
     private static String TAG = "ItemViewAdapter";
     private ArrayList<Note> viewDataSet;
 
-    CursorAdapter cursorAdapter;
-    Context activityContext;
+    private CursorAdapter cursorAdapter;
+    private Context activityContext;
 
     public ItemViewAdapter(ArrayList<Note> dataSet, Cursor cursor, Context context) {
         activityContext = context;
@@ -43,6 +44,7 @@ public  class ItemViewAdapter extends RecyclerView.Adapter<ItemViewAdapter.TextH
             }
 
         };
+
     }
 
     public class TextHolder extends RecyclerView.ViewHolder {
@@ -73,18 +75,20 @@ public  class ItemViewAdapter extends RecyclerView.Adapter<ItemViewAdapter.TextH
 //        Log.d(TAG, "call onCreateViewHolder()");
 //        return textHolder;
 
+
         View v = cursorAdapter.newView(activityContext, cursorAdapter.getCursor(), parent);
         Log.d("newView.view", v.toString());
         return new TextHolder(v);
     }
 
+    // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(TextHolder holder, int position) {
 //        holder.txtTitle.setText(viewDataSet.get(position).getTitle());
 //        holder.txtContent.setText(viewDataSet.get(position).getContent());
 //        holder.txtDate.setText(viewDataSet.get(position).getDate());
 
-
+        Log.d("position", Integer.toString(position));
         // Passing the binding operation to cursor loader
         cursorAdapter.getCursor().moveToPosition(position); //EDITED: added this line as suggested in the comments below, thanks :)
         Cursor cursor = cursorAdapter.getCursor();
@@ -100,11 +104,10 @@ public  class ItemViewAdapter extends RecyclerView.Adapter<ItemViewAdapter.TextH
 
     }
 
-// Replace the contents of a view (invoked by the layout manager)
-
-//    public void onBindViewHolder(ViewHolder holder, int position) {
-//
-//    }
+    public void changeCursor(Cursor cursor){
+        cursorAdapter.changeCursor(cursor);
+        notifyDataSetChanged();
+    }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
