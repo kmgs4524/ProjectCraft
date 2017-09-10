@@ -29,11 +29,9 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
     /*----- Drawer and ToolBar -------*/
-    private String[] planetTitles;  //用來初始化navigation list的string array
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private ActionBarDrawerToggle drawerToggle;
-
     /*----------------------------*/
 
     /*----- RecyclerView -------*/
@@ -77,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("個人記事");
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close); // 給定的Activity會連接給定的DrawerLayout, 使用此constructor會設置listener點擊icon便切換drawer
         drawerLayout.addDrawerListener(drawerToggle);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);  // 啟用ActionBar的home button的回到上一層功能並加上回上層的圖標
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);  // 啟用ActionBar左上角的home button的回到上一層功能並加上回上層的圖標
         getSupportActionBar().setHomeButtonEnabled(true);   // 啟用home button，決定home button是否能點擊
         drawerToggle.syncState();   // 同步drawer指標狀態到連接的DrawerLayout
 
@@ -86,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
 
     //設置側邊欄
     private void initDrawer(){
-        planetTitles = getResources().getStringArray(R.array.planets_array);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
 //        drawerList = (ListView) findViewById(R.id.left_drawer);
@@ -94,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Toast.makeText(getApplicationContext(), "轉至個人管理", Toast.LENGTH_SHORT);
                 // 先檢查點擊的item是否為checked
                 if(item.isChecked()) {
                     item.setChecked(false);
@@ -102,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                     item.setChecked(true);
                 }
 
-                drawerLayout.closeDrawers();    //關閉drawer
+                drawerLayout.closeDrawers();    // 點擊Drawer的選項後，關閉drawer
                 Intent intent;
 
                 switch (item.getItemId()) {
@@ -117,10 +113,8 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                         return  true;
                     case R.id.drawer_account:
-                        Toast.makeText(getApplicationContext(), "轉至帳戶資料", Toast.LENGTH_SHORT);
                         return  true;
                     default:
-                        Toast.makeText(getApplicationContext(), "Something Error", Toast.LENGTH_SHORT);
                         return  true;
                 }
 
@@ -133,12 +127,20 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
 
-        layoutManager = new LinearLayoutManager(this);
+        layoutManager = new LinearLayoutManager(this);  // 建立RecyclerView的LayoutManager
         recyclerView.setLayoutManager(layoutManager);
 
-        Cursor cursor = initDB();
+        Cursor cursor = initDB();   // 建立Cursor
 
-        adapter = new ItemViewAdapter(dataSet, cursor, this);
+        adapter = new ItemViewAdapter(dataSet, cursor, this);   // 將Cursor放入ItemViewAdapter
+        adapter.setClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int pos = recyclerView.indexOfChild(v);
+                Log.d(TAG, Integer.toString(pos));
+            }
+        });
+
         recyclerView.setAdapter(adapter);
 
         // 加入item之間的分隔線
@@ -157,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public Cursor initDB(){
-        NotesDbHelper helper = NotesDbHelper.getInstance(this);
+        NotesDbHelper helper = NotesDbHelper.getInstance(this); // 取得掌控資料庫的DB Helper
         Cursor cursor = helper.getReadableDatabase().query(
                 NotesContract.Notes.TABLE_NAME,
                 null,
@@ -178,13 +180,12 @@ public class MainActivity extends AppCompatActivity {
 //        Log.d("Content", itemContent);
     }
 
+    // 當Activity離開螢幕進入Stop狀態後，再次顯現在螢幕時會呼叫此方法
     @Override
     protected void onRestart() {
         super.onRestart();
         Cursor cursor = initDB();
         adapter.changeCursor(cursor);
-//        adapter = new ItemViewAdapter(dataSet, cursor, this);
-//        recyclerView.setAdapter(adapter);
         Log.d(TAG, "Call onRestart");
     }
 }

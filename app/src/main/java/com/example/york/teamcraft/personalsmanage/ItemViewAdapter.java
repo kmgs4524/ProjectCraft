@@ -1,8 +1,11 @@
 package com.example.york.teamcraft.personalsmanage;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.DataSetObserver;
+import android.os.Bundle;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -26,6 +29,8 @@ public  class ItemViewAdapter extends RecyclerView.Adapter<ItemViewAdapter.TextH
     private CursorAdapter cursorAdapter;
     private Context activityContext;
 
+    private View.OnClickListener onClickListener;
+
     public ItemViewAdapter(ArrayList<Note> dataSet, Cursor cursor, Context context) {
         activityContext = context;
         viewDataSet = dataSet;
@@ -33,9 +38,7 @@ public  class ItemViewAdapter extends RecyclerView.Adapter<ItemViewAdapter.TextH
         cursorAdapter = new CursorAdapter(context, cursor, 0) {
             @Override
             public View newView(Context context, Cursor cursor, ViewGroup parent) {
-                View view = LayoutInflater.from(parent.getContext())   //
-                .inflate(R.layout.recycle_view_item, parent, false); // ViewGroup root則可以是null，null時就只創建一個resource對應的View，不是null時，會將創建的view自動加為root的child。
-                return view;
+                return null;
             }
 
             @Override
@@ -61,7 +64,6 @@ public  class ItemViewAdapter extends RecyclerView.Adapter<ItemViewAdapter.TextH
     // Create new views (invoked by the layout manager)
     @Override
     public TextHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.d(TAG, "call onCreateViewHolder()");
         // create a new view
         // LayoutInflater.from(Context c): static LayoutInflater; Obtains the LayoutInflater from the given context.
         // 	inflate(int resource, ViewGroup root, boolean attachToRoot): View view; Inflate a new view hierarchy from the specified xml resource.
@@ -76,14 +78,16 @@ public  class ItemViewAdapter extends RecyclerView.Adapter<ItemViewAdapter.TextH
 //        return textHolder;
 
 
-        View v = cursorAdapter.newView(activityContext, cursorAdapter.getCursor(), parent);
-        Log.d("newView.view", v.toString());
-        return new TextHolder(v);
+        View view = LayoutInflater.from(parent.getContext())   //
+                .inflate(R.layout.recycle_view_item, parent, false); // ViewGroup root則可以是null，null時就只創建一個resource對應的View，不是null時，會將創建的view自動加為root的child。
+        Log.d("newView.view", view.toString());
+
+        return new TextHolder(view);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(TextHolder holder, int position) {
+    public void onBindViewHolder(TextHolder holder, final int position) {
 //        holder.txtTitle.setText(viewDataSet.get(position).getTitle());
 //        holder.txtContent.setText(viewDataSet.get(position).getContent());
 //        holder.txtDate.setText(viewDataSet.get(position).getDate());
@@ -92,18 +96,38 @@ public  class ItemViewAdapter extends RecyclerView.Adapter<ItemViewAdapter.TextH
         // Passing the binding operation to cursor loader
         cursorAdapter.getCursor().moveToPosition(position); //EDITED: added this line as suggested in the comments below, thanks :)
         Cursor cursor = cursorAdapter.getCursor();
+        // entry's _id
+        final int itemId = cursor.getInt(
+                cursor.getColumnIndexOrThrow(NotesContract.Notes._ID)
+        );
+        // entry's 標題
         String itemTitle = cursor.getString(
                 cursor.getColumnIndexOrThrow(NotesContract.Notes.COLUMN_NAME_TITLE)
         );
+        // entry's 內容
         String itemContent = cursor.getString(
                 cursor.getColumnIndexOrThrow(NotesContract.Notes.COLUMN_NAME_CONTENT)
         );
         holder.txtTitle.setText(itemTitle);
         holder.txtContent.setText(itemContent);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                onClickListener.onClick(v);
+                Log.d(TAG, Integer.toString(itemId));
+                Intent intent = new Intent();
+                Bundle bundle = new Bundle();
+                bundle.putInt("ItemId", itemId);
+                intent.putExtras(bundle);
+                intent.setClass(activityContext, NoteContentActivity.class);
+                activityContext.startActivity(intent);
+            }
+        });
 //        cursorAdapter.bindView(holder., activityContext, cursorAdapter.getCursor());
 
     }
 
+    // 資料庫變動後，改變Query Result的Cursor
     public void changeCursor(Cursor cursor){
         cursorAdapter.changeCursor(cursor);
         notifyDataSetChanged();
@@ -114,6 +138,10 @@ public  class ItemViewAdapter extends RecyclerView.Adapter<ItemViewAdapter.TextH
     public int getItemCount() {
 //        return viewDataSet.size();
         return cursorAdapter.getCount();
+    }
+
+    public void setClickListener(View.OnClickListener callBack) {
+        onClickListener = callBack;
     }
 
 }

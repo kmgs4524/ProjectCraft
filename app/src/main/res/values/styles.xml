@@ -8,12 +8,12 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
-    <!-- Custom Theme extends -->
+    <!-- 自製Theme繼承原生Theme -->
     <style name="MyMaterialTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
     </style>
 
-    <!-- 各API通用的基底theme -->
+    <!-- 實際套用的Theme，繼承MyMaterialTheme -->
     <style name="MyMaterialTheme.Base" parent="MyMaterialTheme">
         <item name="android:windowNoTitle">true</item>
         <!-- 不需要 ActionBar 了,因為改用Toolbar -->
