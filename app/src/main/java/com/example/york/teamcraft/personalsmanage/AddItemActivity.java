@@ -42,7 +42,7 @@ public class AddItemActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);  // 啟用ActionBar的home button的回到上一層功能並加上回上層的圖標
 //        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        Log.d("MainActivity", "init ToolBar");
+        Log.d("AddItemActivity", "init ToolBar");
     }
 
     //按左上角的返回，將回到上頁
@@ -73,9 +73,6 @@ public class AddItemActivity extends AppCompatActivity {
                 itemMap.put("time", edtTime.getText().toString());
                 addData(itemMap);
 
-                Intent intent = new Intent();
-                intent.setClass(AddItemActivity.this, MainActivity.class);
-                startActivity(intent);
             }
         });
     }
@@ -118,6 +115,6 @@ public class AddItemActivity extends AppCompatActivity {
 
         long newRowId;
         newRowId = db.insert(NotesContract.Notes.TABLE_NAME, null, values);
-        Log.d("addData", Long.toString(newRowId));
+        Log.d("AddItemActivity", Long.toString(newRowId));
     }
 }

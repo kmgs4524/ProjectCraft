@@ -35,7 +35,7 @@
             android:scrollbars="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/appbar"/>
+            android:layout_below="@+id/appbar" />
 
         <!-- Floating Button -->
         <android.support.design.widget.FloatingActionButton
