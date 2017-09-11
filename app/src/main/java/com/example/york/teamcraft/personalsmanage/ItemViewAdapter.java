@@ -1,10 +1,8 @@
 package com.example.york.teamcraft.personalsmanage;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v7.widget.RecyclerView;
@@ -69,7 +67,7 @@ public  class ItemViewAdapter extends RecyclerView.Adapter<ItemViewAdapter.TextH
         // 	inflate(int resource, ViewGroup root, boolean attachToRoot): View view; Inflate a new view hierarchy from the specified xml resource.
 
 //        View v = LayoutInflater.from(parent.getContext())   //
-//                .inflate(R.layout.recycle_view_item, parent, false); // ViewGroup root則可以是null，null時就只創建一個resource對應的View，不是null時，會將創建的view自動加為root的child。
+//                .inflate(R.layout.recycler_view_item, parent, false); // ViewGroup root則可以是null，null時就只創建一個resource對應的View，不是null時，會將創建的view自動加為root的child。
 
         // set the view's size, margins, paddings and layout parameters
 
@@ -79,7 +77,7 @@ public  class ItemViewAdapter extends RecyclerView.Adapter<ItemViewAdapter.TextH
 
 
         View view = LayoutInflater.from(parent.getContext())   //
-                .inflate(R.layout.recycle_view_item, parent, false); // ViewGroup root則可以是null，null時就只創建一個resource對應的View，不是null時，會將創建的view自動加為root的child。
+                .inflate(R.layout.recycler_view_item, parent, false); // ViewGroup root則可以是null，null時就只創建一個resource對應的View，不是null時，會將創建的view自動加為root的child。
         Log.d("newView.view", view.toString());
 
         return new TextHolder(view);
