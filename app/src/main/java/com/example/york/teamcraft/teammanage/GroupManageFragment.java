@@ -67,18 +67,22 @@ public class GroupManageFragment extends Fragment {
         gridView.setAdapter(new ImageAdapter(getContext(), drawableList));
         Log.d(TAG, "setAdapter");
 
+        //
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getContext(), "item clicked", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent();
+                Bundle bundle = new Bundle();
+                bundle.putString("DATA_GROUP_NAME", "宅宅笑嘻嘻");
+                intent.putExtras(bundle);
                 intent.setClass(getContext(), GroupActivity.class);
                 startActivity(intent);  // 進入CreateGroupActivity
             }
         });
     }
 
-
+    // GridView的Adapter，存放圖片
     private class ImageAdapter extends BaseAdapter {
         private Context context;
         private ArrayList<Integer> drawableList;
@@ -88,6 +92,7 @@ public class GroupManageFragment extends Fragment {
             drawableList = list;
         }
 
+        // 會被GirdView呼叫，return null的話不會顯示任何東西
         // How many items are in the data set represented by this Adapter.
         @Override
         public int getCount() {
@@ -108,10 +113,10 @@ public class GroupManageFragment extends Fragment {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            ImageView imageView = new ImageView(context);
+            ImageView imageView = new ImageView(context);   //顯示drawable的View
             imageView.setLayoutParams(new GridView.LayoutParams(GridView.LayoutParams.WRAP_CONTENT, GridView.LayoutParams.WRAP_CONTENT));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setImageResource(drawableList.get(position));
+            imageView.setImageResource(drawableList.get(position)); // 設定ImageView來源為drawable檔案(圖片檔)
             return imageView;
         }
 
