@@ -38,7 +38,6 @@ public class CalendarItemAdapter extends RecyclerView.Adapter<CalendarItemAdapte
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycler_cardview_item, parent, false);
