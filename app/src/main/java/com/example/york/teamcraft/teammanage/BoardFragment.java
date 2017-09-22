@@ -26,12 +26,12 @@ public class BoardFragment extends Fragment {
     private RecyclerView.Adapter calendarItemAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
-    private ArrayList<TeamTasks> dataList = new ArrayList<>();
+    private ArrayList<TeamTasks> dataList = new ArrayList<>();  // 存放RecyclerView顯示的資料
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.team_fragment_board,container,false);
+        View view = inflater.inflate(R.layout.team_fragment_board, container, false);
 
         // 放入Adapter的資料
         addData();

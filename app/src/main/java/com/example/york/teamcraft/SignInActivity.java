@@ -41,7 +41,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     /*-------------------------------*/
 
     //UI元件
-    private AutoCompleteTextView edtAcct;   //帳號欄位
+    private EditText edtAcct;   //帳號欄位
     private EditText edtPwd;    //密碼欄位
     private TextView txtStatus; //登入狀態
     private TextView txtName;   //姓名
@@ -56,6 +56,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
         //設置UI
         initToolBar();  //ToolBar
         initDrawer();   //Drawer
@@ -74,8 +75,8 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         txtStatus = (TextView) findViewById(R.id.status_txtView);
         txtName = (TextView) findViewById(R.id.name_txtView);
 
-        edtAcct = (AutoCompleteTextView) findViewById(R.id.account_edt);
-        edtPwd = (EditText) findViewById(R.id.password_edt);
+        edtAcct = (EditText) findViewById(R.id.edt_acct);
+        edtPwd = (EditText) findViewById(R.id.edt_pwd);
         findViewById(R.id.signIn_btn).setOnClickListener(this); //登入Button
         findViewById(R.id.google_signIn_btn).setOnClickListener(this);  //Google帳號登入Button
         findViewById(R.id.signOut_btn).setOnClickListener(this);    //登出Button

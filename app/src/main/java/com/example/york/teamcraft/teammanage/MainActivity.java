@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabLayout=(TabLayout)findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);   //The one-stop shop for setting up this TabLayout with a ViewPager.
+
     }
 
     //設置ToolBar
@@ -117,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
     //設置ViewPager
     private void setupViewPager(ViewPager viewPager){
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
-        // 將Fragement加入 mFragmentList, 標題
+        // 將 Fragement 加入 mFragmentList, 標題
         adapter.addFragment(new BoardFragment(),"佈告欄"); //加入Fragment
         adapter.addFragment(new GroupManageFragment(),"群組管理");  //加入Fragment
         adapter.addFragment(new TaskProgressFragment(),"任務進度"); //加入Fragment
