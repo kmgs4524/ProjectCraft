@@ -32,4 +32,9 @@
         android:layout_height="wrap_content"
         android:text="Button" />
 
+    <TextView
+        android:id="@+id/txt_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>

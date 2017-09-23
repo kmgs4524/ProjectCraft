@@ -1,20 +1,26 @@
 package com.example.york.teamcraft;
 
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class ListActivity extends AppCompatActivity {
     private String TAG = "ListActivity";
     private Button btnOK;
     private Button btnRead;
     private EditText edtEmail;
+    private TextView txtName;
 
-    WriteData writeUser;
-    ReadUser readUser;
+    private WriteData writeUser;
+    private ReadUser readUser;
+
+//    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +41,32 @@ public class ListActivity extends AppCompatActivity {
 
         edtEmail = (EditText) findViewById(R.id.edt_email);
 
+        txtName = (TextView) findViewById(R.id.txt_name);
         btnRead = (Button) findViewById(R.id.btn_read);
         btnRead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                readUser.readUserData();
+                if(edtEmail.getText().toString().equals("")) {
+                    Toast.makeText(ListActivity.this, "請輸入要查詢的信箱", Toast.LENGTH_SHORT).show();
+                } else {
+                    String email = edtEmail.getText().toString();
+//                    ReadUserTask task = new ReadUserTask();
+//                    task.execute(email);
+                    readUser.readUserData(email, new CallBack() {
+                        @Override
+                        public void updateTextView(User user) {
+                            txtName.setText(user.getName());
+                        }
+                    });
+//                    try{
+//                        user = readUser.getUser();
+//                        txtName.setText(user.getName());
+//                    } catch (Exception e) {
+//                        Log.d("Exception", e.toString());
+//                    }
+
+                }
+
             }
         });
     }
