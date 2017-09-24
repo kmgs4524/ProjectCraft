@@ -2,6 +2,7 @@ package com.example.york.teamcraft;
 
 import android.util.Log;
 
+import com.example.york.teamcraft.databasemodel.ReadDatabase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -16,7 +17,7 @@ import java.util.Map;
  * Created by York on 2017/9/22.
  */
 
-public class ReadUser {
+public class ReadUser implements ReadDatabase {
     private DatabaseReference rootRef;
     private DatabaseReference usersRef;
     private Map<String, Object> userMap;
@@ -100,4 +101,8 @@ public class ReadUser {
         return user;
     }
 
+    @Override
+    public void readData() {
+
+    }
 }

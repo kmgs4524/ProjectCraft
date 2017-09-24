@@ -20,6 +20,10 @@ import java.util.ArrayList;
 public class BoardFragment extends Fragment {
     private static final String TAG = "BoardFragment";
 
+    // Database Model
+
+
+    // UI View
     private RecyclerView recyclerView;
     private RecyclerView.Adapter calendarItemAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -31,8 +35,7 @@ public class BoardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.team_fragment_board, container, false);
 
-        // 放入Adapter的資料
-        addData();
+        addData(); // 將後端資料放入Adapter
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_calendar);
 
@@ -52,6 +55,7 @@ public class BoardFragment extends Fragment {
 
     }
 
+    // 將資料放入Adapter
     public void addData() {
         TeamActivities teamActivities1 = new TeamActivities("開檢討會", "9/16");
         TeamActivities teamActivities2 = new TeamActivities("準備器材", "9/20");
