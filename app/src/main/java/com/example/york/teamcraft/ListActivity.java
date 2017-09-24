@@ -27,7 +27,7 @@ public class ListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list);
 
         writeUser = new WriteUser();
-        readUser = new ReadUser();
+        readUser = new ReadUser("");
 
         btnOK = (Button) findViewById(R.id.btn_ok);
         btnOK.setOnClickListener(new View.OnClickListener() {
@@ -51,9 +51,9 @@ public class ListActivity extends AppCompatActivity {
                     String email = edtEmail.getText().toString();
 //                    ReadUserTask task = new ReadUserTask();
 //                    task.execute(email);
-                    readUser.readUserData(email, new CallBack() {
+                    readUser.readUserData(email, new CallBack<User>() {
                         @Override
-                        public void update(User user) {
+                        public void update(User user, String key) {
                             txtName.setText(user.getName());
                         }
                     });

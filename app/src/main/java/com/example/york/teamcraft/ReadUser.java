@@ -1,8 +1,12 @@
 package com.example.york.teamcraft;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.example.york.teamcraft.databasemodel.ReadDatabase;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -12,20 +16,23 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Iterator;
 import java.util.Map;
+import java.util.concurrent.Callable;
 
 /**
  * Created by York on 2017/9/22.
  */
 
-public class ReadUser implements ReadDatabase {
+public class ReadUser implements Callable<String> {
     private DatabaseReference rootRef;
     private DatabaseReference usersRef;
     private Map<String, Object> userMap;
+    private String email;
     private User user;
 
-    public ReadUser() {
+    public ReadUser(String e) {
         rootRef = FirebaseDatabase.getInstance().getReference();
         usersRef = rootRef.child("users");
+        email = e;
 
     }
 
@@ -33,7 +40,8 @@ public class ReadUser implements ReadDatabase {
         return user;
     }
 
-    public User readUserData(String email, final CallBack callBack) {
+    // 可藉由email找出user的其他資料並放入User object，並利用CallBack與User object互動
+    public void readUserData(String email, final CallBack callBack) {
         Query query = usersRef.orderByChild("email").equalTo(email);    // 搜尋出想要的email
 //        query.addChildEventListener(new ChildEventListener() {
 //            @Override
@@ -77,13 +85,13 @@ public class ReadUser implements ReadDatabase {
                 DataSnapshot snap;
                 while (iterator.hasNext()) {
                     snap = iterator.next();
-                    String key = snap.getKey();
+                    String uId = snap.getKey();
                     user = snap.getValue(User.class);
-                    Log.d("doInBackground", key);
+                    Log.d("doInBackground", uId);
                     Log.d("doInBackground", user.getName());
                     Log.d("doInBackground", user.getEmail());
                     Log.d("doInBackground", user.getPassword());
-                    callBack.update(user);
+                    callBack.update(user, uId);
                     // callback.updateTxtView(user);
 
                 }
@@ -98,11 +106,53 @@ public class ReadUser implements ReadDatabase {
             }
 
         });
-        return user;
+
     }
 
     @Override
-    public void readData() {
+    public String call() throws Exception {
+        Log.d("ReadUser", "call()");
+//        final TaskCompletionSource<String> dbSource = new TaskCompletionSource<>();
+//        Task<String> task = dbSource.getTask();
+        final String[] uId = new String[1];
+        Query query = usersRef.orderByChild("email").equalTo(email);
 
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d("ReadUser", "onDataChange");
+                Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();
+                DataSnapshot snap;
+                while (iterator.hasNext()) {
+                    snap = iterator.next();
+                    uId[0] = snap.getKey();
+//                    dbSource.setResult(snap.getKey());
+                    user = snap.getValue(User.class);
+                    Log.d("doInBackground", user.getName());
+                    Log.d("doInBackground", user.getEmail());
+                    Log.d("doInBackground", user.getPassword());
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                if(databaseError != null) {
+//                    dbSource.setException(databaseError.toException());
+                    Log.d("onCancelled", databaseError.getMessage());
+                }
+            }
+
+        });
+
+//        task.addOnCompleteListener(new OnCompleteListener() {
+//            @Override
+//            public void onComplete(@NonNull Task task) {
+//                uId[0] = task.getResult();
+//            }
+//        });
+
+        return uId[0];
     }
 }

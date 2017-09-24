@@ -39,7 +39,7 @@ public class CreateTeamActivity extends AppCompatActivity {
         user = auth.getCurrentUser();
 
         // init ReadUserModel
-        readUser = new ReadUser();
+        readUser = new ReadUser("b10323030@yuntech.edu.tw");
         writeTeam = new WriteTeam();
 
         // init UI View
@@ -50,9 +50,9 @@ public class CreateTeamActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d(TAG, "BTN click");
 //                Log.d(TAG, user.getEmail());
-                readUser.readUserData(user.getEmail(), new CallBack() {
+                readUser.readUserData(user.getEmail(), new CallBack<User>() {
                     @Override
-                    public void update(User user) {
+                    public void update(User user, String key) {
                         Log.d(TAG, user.getName());
                     }
                 });

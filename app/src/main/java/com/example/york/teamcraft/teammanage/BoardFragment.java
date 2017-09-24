@@ -1,6 +1,7 @@
 package com.example.york.teamcraft.teammanage;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.york.teamcraft.R;
+import com.example.york.teamcraft.databasemodel.ReadTeam;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
+import com.google.android.gms.tasks.Tasks;
 
 import java.util.ArrayList;
 
@@ -21,7 +27,7 @@ public class BoardFragment extends Fragment {
     private static final String TAG = "BoardFragment";
 
     // Database Model
-
+    private ReadTeam readTeam;
 
     // UI View
     private RecyclerView recyclerView;
@@ -34,6 +40,9 @@ public class BoardFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.team_fragment_board, container, false);
+
+        readTeam = new ReadTeam();
+        readTeam.readData();
 
         addData(); // 將後端資料放入Adapter
 
