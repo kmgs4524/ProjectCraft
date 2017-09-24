@@ -99,12 +99,11 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                         return  true;
                     case R.id.drawer_team:
-                        intent = new Intent();
-                        intent.setClass(MainActivity.this, com.example.york.teamcraft.teammanage.MainActivity.class);
-                        startActivity(intent);
                         return  true;
                     case R.id.drawer_account:
-                        Toast.makeText(getApplicationContext(), "轉至帳戶資料", Toast.LENGTH_SHORT);
+                        intent = new Intent();
+                        intent.setClass(MainActivity.this, SignInActivity.class);
+                        startActivity(intent);
                         return  true;
                     default:
                         Toast.makeText(getApplicationContext(), "Something Error", Toast.LENGTH_SHORT);

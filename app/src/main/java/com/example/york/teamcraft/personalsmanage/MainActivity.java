@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.york.teamcraft.R;
+import com.example.york.teamcraft.SignInActivity;
 
 import java.util.ArrayList;
 
@@ -103,9 +104,6 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (item.getItemId()) {
                     case R.id.drawer_personals:
-                        intent = new Intent();
-                        intent.setClass(MainActivity.this, com.example.york.teamcraft.personalsmanage.MainActivity.class);
-                        startActivity(intent);
                         return  true;
                     case R.id.drawer_team:
                         intent = new Intent();
@@ -113,6 +111,9 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                         return  true;
                     case R.id.drawer_account:
+                        intent = new Intent();
+                        intent.setClass(MainActivity.this, SignInActivity.class);
+                        startActivity(intent);
                         return  true;
                     default:
                         return  true;
