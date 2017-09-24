@@ -13,7 +13,7 @@
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:paddingBottom="@dimen/activity_vertical_margin"
-        tools:context="com.example.york.teamcraft.SignInActivity">
+        tools:context="com.example.york.teamcraft.accountdata.SignInActivity">
 
         <!-- Toolbar -->
         <include

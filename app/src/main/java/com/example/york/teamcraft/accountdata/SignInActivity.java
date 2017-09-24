@@ -1,4 +1,4 @@
-package com.example.york.teamcraft;
+package com.example.york.teamcraft.accountdata;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -11,14 +11,12 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.personalsmanage.MainActivity;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;

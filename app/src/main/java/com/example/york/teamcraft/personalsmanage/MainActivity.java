@@ -16,11 +16,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
+
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.SignInActivity;
+import com.example.york.teamcraft.accountdata.SignInActivity;
 
 import java.util.ArrayList;
 
