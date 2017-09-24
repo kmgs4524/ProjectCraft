@@ -4,11 +4,11 @@ package com.example.york.teamcraft.teammanage;
  * Created by York on 2017/9/11.
  */
 
-public class TeamTasks {
+public class TeamActivities {
     private String title;
     private String date;
 
-    public TeamTasks(String title, String date) {
+    public TeamActivities(String title, String date) {
         this.title = title;
         this.date = date;
     }

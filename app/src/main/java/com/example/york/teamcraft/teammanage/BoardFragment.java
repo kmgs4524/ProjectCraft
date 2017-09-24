@@ -10,8 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.personalsmanage.*;
-import com.example.york.teamcraft.personalsmanage.ItemViewAdapter;
 
 import java.util.ArrayList;
 
@@ -26,7 +24,7 @@ public class BoardFragment extends Fragment {
     private RecyclerView.Adapter calendarItemAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
-    private ArrayList<TeamTasks> dataList = new ArrayList<>();  // 存放RecyclerView顯示的資料
+    private ArrayList<TeamActivities> dataList = new ArrayList<>();  // 存放RecyclerView顯示的資料
 
     @Nullable
     @Override
@@ -47,7 +45,7 @@ public class BoardFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         // 建立CalendarItemAdapter
-        calendarItemAdapter = new CalendarItemAdapter(dataList);
+        calendarItemAdapter = new BoardItemAdapter(dataList);
         recyclerView.setAdapter(calendarItemAdapter);
 
         return view;
@@ -55,10 +53,10 @@ public class BoardFragment extends Fragment {
     }
 
     public void addData() {
-        TeamTasks teamTasks1 = new TeamTasks("開檢討會", "9/16");
-        TeamTasks teamTasks2 = new TeamTasks("準備器材", "9/20");
+        TeamActivities teamActivities1 = new TeamActivities("開檢討會", "9/16");
+        TeamActivities teamActivities2 = new TeamActivities("準備器材", "9/20");
 
-        dataList.add(teamTasks1);
-        dataList.add(teamTasks2);
+        dataList.add(teamActivities1);
+        dataList.add(teamActivities2);
     }
 }

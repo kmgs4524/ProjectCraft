@@ -1,6 +1,5 @@
 package com.example.york.teamcraft;
 
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,7 +16,7 @@ public class ListActivity extends AppCompatActivity {
     private EditText edtEmail;
     private TextView txtName;
 
-    private WriteData writeUser;
+    private WriteUser writeUser;
     private ReadUser readUser;
 
 //    private User user;
@@ -27,7 +26,7 @@ public class ListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        writeUser = new WriteData();
+        writeUser = new WriteUser();
         readUser = new ReadUser();
 
         btnOK = (Button) findViewById(R.id.btn_ok);
@@ -54,7 +53,7 @@ public class ListActivity extends AppCompatActivity {
 //                    task.execute(email);
                     readUser.readUserData(email, new CallBack() {
                         @Override
-                        public void updateTextView(User user) {
+                        public void update(User user) {
                             txtName.setText(user.getName());
                         }
                     });

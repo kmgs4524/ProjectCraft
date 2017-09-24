@@ -1,10 +1,7 @@
 package com.example.york.teamcraft;
 
-import android.provider.ContactsContract;
 import android.util.Log;
-import android.widget.TextView;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -14,7 +11,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Created by York on 2017/9/22.
@@ -86,7 +82,7 @@ public class ReadUser {
                     Log.d("doInBackground", user.getName());
                     Log.d("doInBackground", user.getEmail());
                     Log.d("doInBackground", user.getPassword());
-                    callBack.updateTextView(user);
+                    callBack.update(user);
                     // callback.updateTxtView(user);
 
                 }

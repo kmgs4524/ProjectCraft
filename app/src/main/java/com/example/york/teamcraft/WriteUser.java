@@ -16,13 +16,13 @@ import java.util.Map;
  * Created by York on 2017/9/22.
  */
 
-public class WriteData {
+public class WriteUser {
     private DatabaseReference rootRef;
     private DatabaseReference usersRef;
     private Map<String, Object> userMap;
     private User user;
 
-    public WriteData() {
+    public WriteUser() {
         rootRef = FirebaseDatabase.getInstance().getReference();
         usersRef = rootRef.child("users");
         userMap = new HashMap<>();

@@ -15,10 +15,10 @@ import java.util.ArrayList;
  * Created by York on 2017/9/11.
  */
 
-public class CalendarItemAdapter extends RecyclerView.Adapter<CalendarItemAdapter.ViewHolder>{
-    private static String TAG = "CalendarItemAdapter";
+public class BoardItemAdapter extends RecyclerView.Adapter<BoardItemAdapter.ViewHolder>{
+    private static String TAG = "BoardItemAdapter";
 
-    private ArrayList<TeamTasks> dataList;  // 存放TeamTasks的List
+    private ArrayList<TeamActivities> dataList;  // 存放TeamTasks的List
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView txtTitle;
@@ -31,7 +31,7 @@ public class CalendarItemAdapter extends RecyclerView.Adapter<CalendarItemAdapte
         }
     }
 
-    public CalendarItemAdapter(ArrayList<TeamTasks> list) {
+    public BoardItemAdapter(ArrayList<TeamActivities> list) {
         dataList = list;
     }
 

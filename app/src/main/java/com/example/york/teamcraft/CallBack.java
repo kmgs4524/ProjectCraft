@@ -5,5 +5,5 @@ package com.example.york.teamcraft;
  */
 
 public interface CallBack {
-    public abstract void updateTextView(User user);
+    public abstract void update(User user);
 }
