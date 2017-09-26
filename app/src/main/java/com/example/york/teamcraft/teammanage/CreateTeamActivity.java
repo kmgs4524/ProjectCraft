@@ -50,13 +50,13 @@ public class CreateTeamActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d(TAG, "BTN click");
 //                Log.d(TAG, user.getEmail());
-                readUser.readUserData(user.getEmail(), new CallBack<User>() {
-                    @Override
-                    public void update(User user, String key) {
-                        Log.d(TAG, user.getName());
-                    }
-                });
-                writeTeam.pushData();
+//                readUser.readUserData(user.getEmail(), new CallBack<User>() {
+//                    @Override
+//                    public void update(User user, String key) {
+//                        Log.d(TAG, user.getName());
+//                    }
+//                });
+//                writeTeam.pushData();
             }
         });
     }

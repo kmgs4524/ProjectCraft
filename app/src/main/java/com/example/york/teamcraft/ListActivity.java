@@ -49,20 +49,13 @@ public class ListActivity extends AppCompatActivity {
                     Toast.makeText(ListActivity.this, "請輸入要查詢的信箱", Toast.LENGTH_SHORT).show();
                 } else {
                     String email = edtEmail.getText().toString();
-//                    ReadUserTask task = new ReadUserTask();
-//                    task.execute(email);
-                    readUser.readUserData(email, new CallBack<User>() {
-                        @Override
-                        public void update(User user, String key) {
-                            txtName.setText(user.getName());
-                        }
-                    });
-//                    try{
-//                        user = readUser.getUser();
-//                        txtName.setText(user.getName());
-//                    } catch (Exception e) {
-//                        Log.d("Exception", e.toString());
-//                    }
+
+//                    readUser.readUserData(email, new CallBack<User>() {
+//                        @Override
+//                        public void update(User user, String key) {
+//                            txtName.setText(user.getName());
+//                        }
+//                    });
 
                 }
 

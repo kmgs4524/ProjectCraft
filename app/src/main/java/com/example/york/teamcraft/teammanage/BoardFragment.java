@@ -41,8 +41,18 @@ public class BoardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.team_fragment_board, container, false);
 
-        readTeam = new ReadTeam();
-        readTeam.readData();
+        final TaskCompletionSource<ReadTeam> source = new TaskCompletionSource();
+        source.setResult(new ReadTeam());
+        Task<ReadTeam> task = source.getTask();
+        task.addOnCompleteListener(new OnCompleteListener<ReadTeam>() {
+            @Override
+            public void onComplete(@NonNull Task<ReadTeam> task) {
+                readTeam = task.getResult();
+                readTeam.readData();
+            }
+        });
+
+
 
         addData(); // 將後端資料放入Adapter
 

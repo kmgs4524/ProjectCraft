@@ -10,6 +10,7 @@ import com.example.york.teamcraft.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -20,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Iterator;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
@@ -40,30 +42,27 @@ public class ReadTeam implements ReadDatabase {
     private DatabaseReference teamsRef;
 
     private ReadUser readUser;
+    private DataSnapshot dataSnapshot;
     private String uId;
 
     public ReadTeam() {
         user = FirebaseAuth.getInstance().getCurrentUser();
         rootRef = FirebaseDatabase.getInstance().getReference();
         teamsRef = rootRef.child("teams").getRef();
-        Log.d("ReadUser", user.getEmail());
         readUser = new ReadUser(user.getEmail());
-        readUser.readUserData(user.getEmail(), new CallBack() {
-            @Override
-            public void update(Object o, String key) {
-                Log.d("ReadUser", "callback");
-                uId = key;
-            }
-        });
+//      readUser.readUserData(user.getEmail());
 
-//        final Task<String> task = Tasks.call(readUser);
-//        task.addOnSuccessListener(new OnSuccessListener<String>() {
-//            @Override
-//            public void onSuccess(String s) {
-//                uId = task.getResult();
-//                Log.d(TAG, uId);
-//            }
-//        });
+
+        dataSnapshot = readUser.readUserData(user.getEmail()).getResult();
+
+        Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();
+        DataSnapshot snap;
+        while (iterator.hasNext()) {
+            snap = iterator.next();
+            Log.d("ReadUser", snap.toString());
+            uId = snap.getKey();
+            Log.d("ReadUser", "uId=" + uId);
+        }
 
     }
 
@@ -72,8 +71,12 @@ public class ReadTeam implements ReadDatabase {
         teamsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
-                Team team = dataSnapshot.child(uId).getValue(Team.class);
-                Log.d("readData", team.getName());
+                try {
+                    Team team = dataSnapshot.child(uId).getValue(Team.class);
+                    Log.d("ReadUser", "team name" + team.getName());
+                } catch (Exception e) {
+                    Log.d("ReadUser", "team name error" + e.getMessage());
+                }
 
             }
 
