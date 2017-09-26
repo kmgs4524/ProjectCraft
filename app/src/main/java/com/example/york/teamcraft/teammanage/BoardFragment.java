@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.android.gms.tasks.Tasks;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by user on 2017/7/4.
@@ -41,16 +42,8 @@ public class BoardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.team_fragment_board, container, false);
 
-        final TaskCompletionSource<ReadTeam> source = new TaskCompletionSource();
-        source.setResult(new ReadTeam());
-        Task<ReadTeam> task = source.getTask();
-        task.addOnCompleteListener(new OnCompleteListener<ReadTeam>() {
-            @Override
-            public void onComplete(@NonNull Task<ReadTeam> task) {
-                readTeam = task.getResult();
-                readTeam.readData();
-            }
-        });
+//        ReadTeam readTeam = new ReadTeam();
+//        readTeam.readData();
 
 
 

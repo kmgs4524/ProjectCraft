@@ -37,12 +37,8 @@ public class ReadUser implements Callable<String> {
 
     }
 
-    public User getUser() {
-        return user;
-    }
-
     // 可藉由email找出user的其他資料並放入User object，並利用CallBack與User object互動
-    public Task<DataSnapshot> readUserData(String email) {
+    public Task<String> readUserData(String email) {
 
         Query query = usersRef.orderByChild("email").equalTo(email);    // 搜尋出想要的email
 //        query.addChildEventListener(new ChildEventListener() {
@@ -79,28 +75,30 @@ public class ReadUser implements Callable<String> {
 //                }
 //            }
 //        });
-        final TaskCompletionSource<DataSnapshot> dbSource = new TaskCompletionSource<>();
-        final Task<DataSnapshot> task = dbSource.getTask();
+        final TaskCompletionSource<String> dbSource = new TaskCompletionSource<>();
+        final Task<String> task = dbSource.getTask();
 
         Log.d("read", "before add");
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
-                dbSource.setResult(dataSnapshot);
+//                dbSource.setResult(dataSnapshot);
 
-//                Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();
-//                DataSnapshot snap;
-//                while (iterator.hasNext()) {
-//                    snap = iterator.next();
+                Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();
+                DataSnapshot snap;
+                while (iterator.hasNext()) {
+                    snap = iterator.next();
 //                    String uId = snap.getKey();
-//                    user = snap.getValue(User.class);
+                    dbSource.setResult(snap.getKey());
+                    Log.d("ReadUser", "dbSource.setResult(snap.getKey());");
+                    user = snap.getValue(User.class);
 //                    Log.d("doInBackground", uId);
-//                    Log.d("doInBackground", user.getName());
-//                    Log.d("doInBackground", user.getEmail());
-//                    Log.d("doInBackground", user.getPassword());
-////                    callBack.update(user, uId);
-//
-//                }
+                    Log.d("doInBackground", user.getName());
+                    Log.d("doInBackground", user.getEmail());
+                    Log.d("doInBackground", user.getPassword());
+//                    callBack.update(user, uId);
+
+                }
             }
 
             @Override

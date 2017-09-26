@@ -1,5 +1,6 @@
 package com.example.york.teamcraft.databasemodel;
 
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -42,7 +43,6 @@ public class ReadTeam implements ReadDatabase {
     private DatabaseReference teamsRef;
 
     private ReadUser readUser;
-    private DataSnapshot dataSnapshot;
     private String uId;
 
     public ReadTeam() {
@@ -53,16 +53,15 @@ public class ReadTeam implements ReadDatabase {
 //      readUser.readUserData(user.getEmail());
 
 
-        dataSnapshot = readUser.readUserData(user.getEmail()).getResult();
+        Task<String> task = readUser.readUserData(user.getEmail());
+        task.addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                uId = task.getResult();
+                Log.d("ReadUser", "uId in new ReadTeam() = " + uId);
+            }
+        });
 
-        Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();
-        DataSnapshot snap;
-        while (iterator.hasNext()) {
-            snap = iterator.next();
-            Log.d("ReadUser", snap.toString());
-            uId = snap.getKey();
-            Log.d("ReadUser", "uId=" + uId);
-        }
 
     }
 
@@ -75,7 +74,7 @@ public class ReadTeam implements ReadDatabase {
                     Team team = dataSnapshot.child(uId).getValue(Team.class);
                     Log.d("ReadUser", "team name" + team.getName());
                 } catch (Exception e) {
-                    Log.d("ReadUser", "team name error" + e.getMessage());
+                    Log.d("ReadUser", "team name error: " + e.getMessage());
                 }
 
             }
