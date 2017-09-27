@@ -1,24 +1,26 @@
 package com.example.york.teamcraft.teammanage;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.york.teamcraft.R;
+import com.example.york.teamcraft.ReadUser;
+import com.example.york.teamcraft.Team;
 import com.example.york.teamcraft.databasemodel.ReadTeam;
-import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.android.gms.tasks.Tasks;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by user on 2017/7/4.
@@ -28,7 +30,10 @@ public class BoardFragment extends Fragment {
     private static final String TAG = "BoardFragment";
 
     // Database Model
+
+    private FirebaseUser user;
     private ReadTeam readTeam;
+    private ReadUser readUser;
 
     // UI View
     private RecyclerView recyclerView;
@@ -41,6 +46,17 @@ public class BoardFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.team_fragment_board, container, false);
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        readUser = new ReadUser(user.getEmail());
+        Task<Team> task = readUser.readUserData()
+                .continueWith(new ReadTeam());
+        task.addOnSuccessListener(new OnSuccessListener<Team>() {
+            @Override
+            public void onSuccess(Team team) {
+                Log.d("getTeam", "onSuccess: " + team.getName());
+            }
+        });
 
 //        ReadTeam readTeam = new ReadTeam();
 //        readTeam.readData();
@@ -75,4 +91,5 @@ public class BoardFragment extends Fragment {
         dataList.add(teamActivities1);
         dataList.add(teamActivities2);
     }
+
 }
