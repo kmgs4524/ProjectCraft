@@ -8,11 +8,13 @@ public class User {
     private String email;
     private String name;
     private String password;
+    private String teamId;
 
-    public User(String n, String e, String p) {
+    public User(String n, String e, String p, String tId) {
         name = n;
         email = e;
         password = p;
+        teamId = tId;
     }
 
     public User() {
@@ -31,4 +33,7 @@ public class User {
         return password;
     }
 
+    public String getTeamId() {
+        return teamId;
+    }
 }

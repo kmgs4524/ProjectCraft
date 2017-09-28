@@ -44,7 +44,7 @@ public class WriteUser {
     }
 
     public void updateUser() {
-        userMap.put("2", new User(null, null, "235"));
+        userMap.put("2", new User(null, null, "235", null));
 //        userMap.put("3/password", "1045");
 
         usersRef.updateChildren(userMap, new DatabaseReference.CompletionListener() {
@@ -62,7 +62,7 @@ public class WriteUser {
 
     public void pushUser() {
 //        DatabaseReference newUserRef = usersRef.push();
-        usersRef.child("1").push().setValue(new User("李宗碩", "chu123@gmail.com", "2424"));
+        usersRef.child("1").push().setValue(new User("李宗碩", "chu123@gmail.com", "2424", null));
     }
 
     public void getUser() {

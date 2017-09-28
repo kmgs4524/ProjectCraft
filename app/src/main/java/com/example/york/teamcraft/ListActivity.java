@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.york.teamcraft.databasemodel.ReadUser;
+
 public class ListActivity extends AppCompatActivity {
     private String TAG = "ListActivity";
     private Button btnOK;
@@ -50,7 +52,7 @@ public class ListActivity extends AppCompatActivity {
                 } else {
                     String email = edtEmail.getText().toString();
 
-//                    readUser.readUserData(email, new CallBack<User>() {
+//                    readUser.getUserId(email, new CallBack<User>() {
 //                        @Override
 //                        public void update(User user, String key) {
 //                            txtName.setText(user.getName());

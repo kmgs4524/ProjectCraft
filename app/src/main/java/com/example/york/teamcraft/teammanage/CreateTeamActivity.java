@@ -7,10 +7,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.ReadUser;
-import com.example.york.teamcraft.User;
+import com.example.york.teamcraft.databasemodel.ReadUser;
 import com.example.york.teamcraft.WriteTeam;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -50,7 +48,7 @@ public class CreateTeamActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d(TAG, "BTN click");
 //                Log.d(TAG, user.getEmail());
-//                readUser.readUserData(user.getEmail(), new CallBack<User>() {
+//                readUser.getUserId(user.getEmail(), new CallBack<User>() {
 //                    @Override
 //                    public void update(User user, String key) {
 //                        Log.d(TAG, user.getName());

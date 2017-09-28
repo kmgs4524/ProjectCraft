@@ -1,9 +1,11 @@
-package com.example.york.teamcraft;
+package com.example.york.teamcraft.databasemodel;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.example.york.teamcraft.User;
 import com.example.york.teamcraft.databasemodel.ReadDatabase;
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
@@ -22,7 +24,7 @@ import java.util.concurrent.Callable;
  * Created by York on 2017/9/22.
  */
 
-public class ReadUser implements Callable<String> {
+public class ReadUser {
     private DatabaseReference rootRef;
     private DatabaseReference usersRef;
     private Map<String, Object> userMap;
@@ -38,7 +40,7 @@ public class ReadUser implements Callable<String> {
     }
 
     // 可藉由email找出user的其他資料並放入User object，並利用CallBack與User object互動
-    public Task<String> readUserData() {
+    public Task<String> getUserId() {
 
         Query query = usersRef.orderByChild("email").equalTo(email);    // 搜尋出想要的email
 //        query.addChildEventListener(new ChildEventListener() {
@@ -111,37 +113,40 @@ public class ReadUser implements Callable<String> {
         return dbTask;
     }
 
-    @Override
-    public String call() throws Exception {
+    public Task<User> getUserData() {
         Query query = usersRef.orderByChild("email").equalTo(email);    // 搜尋出想要的email
-        Log.d("getTeam", query.getRef().getKey());
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
 
-            }
-        }).start();
+        final TaskCompletionSource<User> dbSource = new TaskCompletionSource<>();
+//        final Task dbTask = dbSource.getTask();
+
+        Log.d("read", "before add");
         query.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("getTeam", "in onDataChange "+ dataSnapshot.toString());
+            public void onDataChange(final DataSnapshot dataSnapshot) {
+                Log.d("getTeam",  "current thread in ValueEventListener.onDataChange(): " + Thread.currentThread().getName());
                 Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();
                 DataSnapshot snap;
                 while (iterator.hasNext()) {
                     snap = iterator.next();
-                    String key = snap.getKey();
-                    Log.d("getTeam", "In ReadUser key= " + key);
                     user = snap.getValue(User.class);
+                    dbSource.setResult(user);
+                    Log.d("getUser", user.getName());
+                    Log.d("getUser", user.getEmail());
+                    Log.d("getUser", user.getPassword());
+                    Log.d("getUser", user.getTeamId());
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.d("ReadUser", databaseError.getMessage());
+                if(databaseError != null) {
+                    Log.d("onCancelled", databaseError.getMessage());
+                }
             }
-        });
-        Log.d("getTeam", "after addListener");
 
-        return key;
+        });
+
+        return dbSource.getTask();
     }
+
 }

@@ -10,17 +10,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.york.teamcraft.Activity;
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.ReadUser;
+import com.example.york.teamcraft.databasemodel.ReadUser;
 import com.example.york.teamcraft.Team;
 import com.example.york.teamcraft.databasemodel.ReadTeam;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 /**
  * Created by user on 2017/7/4.
@@ -28,6 +30,7 @@ import java.util.ArrayList;
 
 public class BoardFragment extends Fragment {
     private static final String TAG = "BoardFragment";
+    private static final Executor NETWORK_EXECUTOR = Executors.newCachedThreadPool();
 
     // Database Model
 
@@ -40,7 +43,9 @@ public class BoardFragment extends Fragment {
     private RecyclerView.Adapter calendarItemAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
-    private ArrayList<TeamActivities> dataList = new ArrayList<>();  // 存放RecyclerView顯示的資料
+    private Team team;
+    private Activity activity;
+    private ArrayList<Activity> dataList = new ArrayList<>();  // 存放RecyclerView顯示的資料
 
     @Nullable
     @Override
@@ -48,19 +53,28 @@ public class BoardFragment extends Fragment {
         View view = inflater.inflate(R.layout.team_fragment_board, container, false);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
-        readUser = new ReadUser(user.getEmail());
-        Task<Team> task = readUser.readUserData()
-                .continueWith(new ReadTeam());
-        task.addOnSuccessListener(new OnSuccessListener<Team>() {
-            @Override
-            public void onSuccess(Team team) {
-                Log.d("getTeam", "onSuccess: " + team.getName());
-            }
-        });
 
-//        ReadTeam readTeam = new ReadTeam();
-//        readTeam.readData();
+        readTeam = new ReadTeam();
+        readTeam.getTeamAct(dataList);
+//        final Task< ArrayList<Activity> > task = readTeam.getTeamAct(dataList);
+//        task.addOnSuccessListener(new OnSuccessListener<ArrayList<Activity>>() {
+//            @Override
+//            public void onSuccess(ArrayList<Activity> list) {
+//                Log.d("getAct", "list size in board: " + list.size());
+//                Log.d("getAct", "list in board " + list.get(0).getTopic());
+//                Log.d("getAct", "list size in board: " + list.get(1).getTopic());
+//            }
+//        });
 
+
+//        final Task<Team> task = readTeam.getTeamData();
+//        task.addOnSuccessListener(new OnSuccessListener<Team>() {
+//            @Override
+//            public void onSuccess(Team t) {
+//                Log.d("getTeam", team.getName());
+//                team = t;
+//            }
+//        });
 
 
         addData(); // 將後端資料放入Adapter
@@ -84,12 +98,8 @@ public class BoardFragment extends Fragment {
     }
 
     // 將資料放入Adapter
-    public void addData() {
-        TeamActivities teamActivities1 = new TeamActivities("開檢討會", "9/16");
-        TeamActivities teamActivities2 = new TeamActivities("準備器材", "9/20");
+    public Task< ArrayList<Activity> > addData() {
 
-        dataList.add(teamActivities1);
-        dataList.add(teamActivities2);
     }
 
 }

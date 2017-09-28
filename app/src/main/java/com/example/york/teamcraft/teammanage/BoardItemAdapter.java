@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.york.teamcraft.Activity;
 import com.example.york.teamcraft.R;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 public class BoardItemAdapter extends RecyclerView.Adapter<BoardItemAdapter.ViewHolder>{
     private static String TAG = "BoardItemAdapter";
 
-    private ArrayList<TeamActivities> dataList;  // 存放TeamTasks的List
+    private ArrayList<Activity> dataList;  // 存放TeamTasks的List
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView txtTitle;
@@ -31,7 +32,7 @@ public class BoardItemAdapter extends RecyclerView.Adapter<BoardItemAdapter.View
         }
     }
 
-    public BoardItemAdapter(ArrayList<TeamActivities> list) {
+    public BoardItemAdapter(ArrayList<Activity> list) {
         dataList = list;
     }
 
@@ -52,7 +53,7 @@ public class BoardItemAdapter extends RecyclerView.Adapter<BoardItemAdapter.View
     public void onBindViewHolder(ViewHolder holder, int position) {
         String TAG = "onBindViewHolder";
 
-        String title = dataList.get(position).getTitle();
+        String title = dataList.get(position).getTopic();
         String date = dataList.get(position).getDate();
         Log.d(TAG, title);
         Log.d(TAG, date);

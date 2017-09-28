@@ -11,9 +11,7 @@ public class Team {
         name = n;
     }
 
-    public Team() {
-
-    }
+    public Team() {}
 
     public String getName() {
         return name;
