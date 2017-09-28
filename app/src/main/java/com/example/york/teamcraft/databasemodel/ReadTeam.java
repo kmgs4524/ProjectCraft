@@ -1,10 +1,17 @@
 package com.example.york.teamcraft.databasemodel;
 
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.pm.ActivityInfoCompat;
+import android.support.v4.widget.ContentLoadingProgressBar;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.example.york.teamcraft.Activity;
+import com.example.york.teamcraft.CallBack;
+import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.Team;
 import com.example.york.teamcraft.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,7 +37,7 @@ import java.util.Iterator;
  */
 
 // 負責取得個人的團隊資料
-public class ReadTeam {
+public class ReadTeam extends AsyncTask<CallBack, Void, CallBack>{
     private String TAG = "ReadTeam";
 
     // Firebase User Instance
@@ -46,52 +53,90 @@ public class ReadTeam {
     private ArrayList<Activity> actList;
     private Activity act;
 
-    public ReadTeam() {
+    private FragmentActivity fragActivity;
+
+    public ReadTeam(FragmentActivity fa) {
         rootRef = FirebaseDatabase.getInstance().getReference();
         teamRef = rootRef.child("teams").getRef();
         teamActRef = rootRef.child("teamActivities");
         user = FirebaseAuth.getInstance().getCurrentUser();
         readUser = new ReadUser(user.getEmail());
+        actList = new ArrayList<>();
+
+        fragActivity = fa;
 
     }
 
-    public Task<Team> getTeamData() {
-        final Task<String> task = readUser.getUserId();
-        final TaskCompletionSource source = new TaskCompletionSource();
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
 
-        teamRef.addValueEventListener(new ValueEventListener() {
+    }
+
+    @Override
+    protected void onPostExecute(CallBack callBack) {
+        super.onPostExecute(callBack);
+
+    }
+
+    @Override
+    protected CallBack doInBackground(final CallBack... params) {
+        final Task<User> userTask = readUser.getUserData();
+        final TaskCompletionSource< ArrayList<Activity> > source = new TaskCompletionSource();
+        Log.d("getAct", "doInBackground");
+
+        userTask.addOnSuccessListener(new OnSuccessListener<User>() {
             @Override
-            public void onDataChange(final DataSnapshot dataSnapshot) {
-                try {
-                    task.addOnCompleteListener(new OnCompleteListener<String>() {
-                        @Override
-                        public void onComplete(@NonNull Task<String> task) {
-                            team = dataSnapshot.child(task.getResult()).getValue(Team.class);
-                            source.setResult(team);
-                            Log.d("getTeam", "team name: " + team.getName());
-                        }
-                    });
+            public void onSuccess(User user) {
+                DatabaseReference ref = teamActRef.child(user.getTeamId()).getRef();    // 搜尋出想要的email
+                Log.d("getAct", ref.getKey());
 
+                ref.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        Log.d("getAct", dataSnapshot.getValue().toString());
+                        act = dataSnapshot.getValue(Activity.class);
+                        Log.d("getAct", act.getDate());
+                        Log.d("getAct", act.getContent());
+                        actList.add(act);
+                        Log.d("getAct", "list size: " + Integer.toString(actList.size()));
+                        params[0].update(actList);
 
-                } catch (Exception e) {
-                    Log.d("getTeam", "team name error: " + e.getMessage());
-                }
+                    }
 
-            }
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.d("getTeam", "Error in ReadTeam " + databaseError.getMessage());
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+//                source.setResult(actList);
+
             }
         });
 
-        return source.getTask();
+        return params[0];
     }
 
     public void getTeamAct(final ArrayList<Activity> list) {
         final Task<User> task = readUser.getUserData();
         final TaskCompletionSource< ArrayList<Activity> > source = new TaskCompletionSource();
-//        actList = new ArrayList<>();
+
 
         task.addOnSuccessListener(new OnSuccessListener<User>() {
             @Override
@@ -132,14 +177,44 @@ public class ReadTeam {
                     }
                 });
 
-                source.setResult(actList);
+//                source.setResult(actList);
 
             }
         });
 
+    }
 
-//        return source.getTask();
+    public Task<Team> getTeamData() {
+        final Task<String> task = readUser.getUserId();
+        final TaskCompletionSource source = new TaskCompletionSource();
 
+        teamRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(final DataSnapshot dataSnapshot) {
+                try {
+                    task.addOnCompleteListener(new OnCompleteListener<String>() {
+                        @Override
+                        public void onComplete(@NonNull Task<String> task) {
+                            team = dataSnapshot.child(task.getResult()).getValue(Team.class);
+                            source.setResult(team);
+                            Log.d("getTeam", "team name: " + team.getName());
+                        }
+                    });
+
+
+                } catch (Exception e) {
+                    Log.d("getTeam", "team name error: " + e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("getTeam", "Error in ReadTeam " + databaseError.getMessage());
+            }
+        });
+
+        return source.getTask();
     }
 
 

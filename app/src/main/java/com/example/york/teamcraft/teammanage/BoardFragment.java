@@ -1,5 +1,6 @@
 package com.example.york.teamcraft.teammanage;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,14 +10,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.example.york.teamcraft.Activity;
+import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.databasemodel.ReadUser;
 import com.example.york.teamcraft.Team;
 import com.example.york.teamcraft.databasemodel.ReadTeam;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -42,6 +46,7 @@ public class BoardFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter calendarItemAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    private ProgressBar progressBar;
 
     private Team team;
     private Activity activity;
@@ -54,8 +59,10 @@ public class BoardFragment extends Fragment {
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 
-        readTeam = new ReadTeam();
-        readTeam.getTeamAct(dataList);
+        readTeam = new ReadTeam(getActivity());
+
+//        readTeam.getTeamAct(dataList);
+
 //        final Task< ArrayList<Activity> > task = readTeam.getTeamAct(dataList);
 //        task.addOnSuccessListener(new OnSuccessListener<ArrayList<Activity>>() {
 //            @Override
@@ -65,20 +72,7 @@ public class BoardFragment extends Fragment {
 //                Log.d("getAct", "list size in board: " + list.get(1).getTopic());
 //            }
 //        });
-
-
-//        final Task<Team> task = readTeam.getTeamData();
-//        task.addOnSuccessListener(new OnSuccessListener<Team>() {
-//            @Override
-//            public void onSuccess(Team t) {
-//                Log.d("getTeam", team.getName());
-//                team = t;
-//            }
-//        });
-
-
-        addData(); // 將後端資料放入Adapter
-
+        progressBar = (ProgressBar) view.findViewById(R.id.progress_act);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_calendar);
 
         // use this setting to improve performance if you know that changes
@@ -89,16 +83,20 @@ public class BoardFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
+        readTeam.execute(new CallBack() {
+            @Override
+            public void update(ArrayList<Activity> list) {
+                progressBar.setVisibility(View.GONE);
+                calendarItemAdapter = new BoardItemAdapter(list);
+                recyclerView.setAdapter(calendarItemAdapter);
+            }
+        });
+
         // 建立CalendarItemAdapter
-        calendarItemAdapter = new BoardItemAdapter(dataList);
-        recyclerView.setAdapter(calendarItemAdapter);
+//        calendarItemAdapter = new BoardItemAdapter(dataList);
+//        recyclerView.setAdapter(calendarItemAdapter);
 
         return view;
-
-    }
-
-    // 將資料放入Adapter
-    public Task< ArrayList<Activity> > addData() {
 
     }
 
