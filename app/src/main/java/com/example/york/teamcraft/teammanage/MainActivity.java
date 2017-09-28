@@ -12,14 +12,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.SignInActivity;
+import com.example.york.teamcraft.accountdata.SignInActivity;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -54,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabLayout=(TabLayout)findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);   //The one-stop shop for setting up this TabLayout with a ViewPager.
+
     }
 
     //設置ToolBar
@@ -98,12 +95,11 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                         return  true;
                     case R.id.drawer_team:
-                        intent = new Intent();
-                        intent.setClass(MainActivity.this, com.example.york.teamcraft.teammanage.MainActivity.class);
-                        startActivity(intent);
                         return  true;
                     case R.id.drawer_account:
-                        Toast.makeText(getApplicationContext(), "轉至帳戶資料", Toast.LENGTH_SHORT);
+                        intent = new Intent();
+                        intent.setClass(MainActivity.this, SignInActivity.class);
+                        startActivity(intent);
                         return  true;
                     default:
                         Toast.makeText(getApplicationContext(), "Something Error", Toast.LENGTH_SHORT);
@@ -117,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
     //設置ViewPager
     private void setupViewPager(ViewPager viewPager){
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
-        // 將Fragement加入 mFragmentList, 標題
+        // 將 Fragement 加入 mFragmentList, 標題
         adapter.addFragment(new BoardFragment(),"佈告欄"); //加入Fragment
         adapter.addFragment(new GroupManageFragment(),"群組管理");  //加入Fragment
         adapter.addFragment(new TaskProgressFragment(),"任務進度"); //加入Fragment
