@@ -9,7 +9,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.york.teamcraft.databasemodel.ReadUser;
+import com.example.york.teamcraft.teammanage.model.ReadUser;
+import com.example.york.teamcraft.teammanage.model.WriteUser;
 
 public class ListActivity extends AppCompatActivity {
     private String TAG = "ListActivity";

@@ -1,8 +1,8 @@
-package com.example.york.teamcraft;
+package com.example.york.teamcraft.teammanage.model;
 
-import android.provider.ContactsContract;
 import android.util.Log;
 
+import com.example.york.teamcraft.teammanage.model.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

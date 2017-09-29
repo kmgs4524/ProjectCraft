@@ -1,4 +1,4 @@
-package com.example.york.teamcraft.databasemodel;
+package com.example.york.teamcraft.teammanage.model;
 
 import java.util.concurrent.Callable;
 

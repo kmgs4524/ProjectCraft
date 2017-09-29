@@ -15,7 +15,8 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.accountdata.SignInActivity;
+import com.example.york.teamcraft.login.SignInActivity;
+import com.example.york.teamcraft.teammanage.view.BoardFragment;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -120,26 +121,4 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);  //設置ViewPager的adapter
     }
 
-// 下列註解區塊為舊的listView用法
-    //AdapterView.OnItemClickListener
-//    private class DrawerItemClickListener implements android.widget.AdapterView.OnItemClickListener {
-//        @Override
-//        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//            selectItem(position);
-//        }
-//
-//        /** Swaps fragments in the main content view */
-//        private void selectItem(int position) {
-//            if(position == 0){
-//                Intent intent = new Intent();
-//                intent.setClass(MainActivity.this, com.example.york.teamcraft.personalsmanage.MainActivity.class);
-//                startActivity(intent);
-//            } else if(position == 1){
-////                Intent intent = new Intent();
-////                intent.setClass(MainActivity.this, com.example.york.teamcraft.teammanage.MainActivity.class);
-////                startActivity(intent);
-//            }
-//
-//        }
-//    }
 }

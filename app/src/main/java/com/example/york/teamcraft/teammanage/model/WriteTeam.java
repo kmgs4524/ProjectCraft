@@ -1,5 +1,7 @@
-package com.example.york.teamcraft;
+package com.example.york.teamcraft.teammanage.model;
 
+import com.example.york.teamcraft.teammanage.model.Team;
+import com.example.york.teamcraft.teammanage.model.WriteDatabase;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 

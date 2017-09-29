@@ -1,24 +1,16 @@
-package com.example.york.teamcraft.databasemodel;
+package com.example.york.teamcraft.teammanage.model;
 
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.pm.ActivityInfoCompat;
-import android.support.v4.widget.ContentLoadingProgressBar;
 import android.util.Log;
-import android.view.View;
-import android.widget.ProgressBar;
 
 import com.example.york.teamcraft.Activity;
 import com.example.york.teamcraft.CallBack;
-import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.Team;
-import com.example.york.teamcraft.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
-import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -26,11 +18,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * Created by York on 2017/9/24.

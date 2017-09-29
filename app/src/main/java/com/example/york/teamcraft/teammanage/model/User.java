@@ -1,4 +1,4 @@
-package com.example.york.teamcraft;
+package com.example.york.teamcraft.teammanage.model;
 
 /**
  * Created by York on 2017/9/22.

@@ -1,9 +1,5 @@
 package com.example.york.teamcraft;
 
-import android.support.v7.widget.RecyclerView;
-
-import com.example.york.teamcraft.teammanage.BoardItemAdapter;
-
 import java.util.ArrayList;
 
 /**

@@ -1,12 +1,7 @@
-package com.example.york.teamcraft.databasemodel;
+package com.example.york.teamcraft.teammanage.model;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.example.york.teamcraft.User;
-import com.example.york.teamcraft.databasemodel.ReadDatabase;
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.firebase.database.DataSnapshot;
@@ -18,7 +13,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Iterator;
 import java.util.Map;
-import java.util.concurrent.Callable;
 
 /**
  * Created by York on 2017/9/22.

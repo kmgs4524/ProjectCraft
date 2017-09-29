@@ -1,4 +1,4 @@
-package com.example.york.teamcraft.teammanage;
+package com.example.york.teamcraft.teammanage.view;
 
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
