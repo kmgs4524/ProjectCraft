@@ -38,7 +38,7 @@ public class CreateTeamActivity extends AppCompatActivity implements BoardView{
         user = auth.getCurrentUser();
 
         // init ReadUserModel
-        readUser = new ReadUser("b10323030@yuntech.edu.tw");
+        readUser = new ReadUser();
         writeTeam = new WriteTeam();
 
         // init UI View

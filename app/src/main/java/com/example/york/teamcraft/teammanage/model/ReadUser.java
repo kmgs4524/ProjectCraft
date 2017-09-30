@@ -4,6 +4,8 @@ import android.util.Log;
 
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,17 +21,17 @@ import java.util.Map;
  */
 
 public class ReadUser {
+    private FirebaseUser firebaseUser;
     private DatabaseReference rootRef;
     private DatabaseReference usersRef;
-    private Map<String, Object> userMap;
     private String email;
     private User user;
     private String key;
 
-    public ReadUser(String e) {
+    public ReadUser() {
         rootRef = FirebaseDatabase.getInstance().getReference();
         usersRef = rootRef.child("users");
-        email = e;
+        email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
     }
 
@@ -86,10 +88,10 @@ public class ReadUser {
                     dbSource.setResult(key);
                     Log.d("getTeam", "key= " + key);
                     user = snap.getValue(User.class);
-//                    Log.d("doInBackground", uId);
-                    Log.d("doInBackground", user.getName());
-                    Log.d("doInBackground", user.getEmail());
-                    Log.d("doInBackground", user.getPassword());
+//                    Log.d("getTeamAct", uId);
+                    Log.d("getTeamAct", user.getName());
+                    Log.d("getTeamAct", user.getEmail());
+                    Log.d("getTeamAct", user.getPassword());
 //                    callBack.update(user, uId);
 
                 }

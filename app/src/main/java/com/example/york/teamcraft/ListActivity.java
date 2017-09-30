@@ -30,7 +30,7 @@ public class ListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list);
 
         writeUser = new WriteUser();
-        readUser = new ReadUser("");
+        readUser = new ReadUser();
 
         btnOK = (Button) findViewById(R.id.btn_ok);
         btnOK.setOnClickListener(new View.OnClickListener() {

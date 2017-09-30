@@ -10,12 +10,17 @@ import java.util.Map;
  */
 
 public class WriteActivity implements WriteDatabase{
-    private DatabaseReference rootRef;
-    private DatabaseReference rootRef;
+    private DatabaseReference teamActRef;
+    private ReadUser readUser;
+
+    public WriteActivity() {
+        teamActRef= FirebaseDatabase.getInstance().getReference().child("teamActivities");
+        readUser = new ReadUser();
+    }
 
     @Override
     public void updateData() {
-        rootRef= FirebaseDatabase.getInstance().getReference();
+
     }
 
     @Override
