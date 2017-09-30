@@ -16,9 +16,10 @@ import java.util.Map;
 public class AddItemPresenterImpl implements AddItemPresenter{
     private static String TAG = "AddItemPresenterImpl";
 
-    private AddItemView addItemView;    // Activity
+    private AddItemView addItemView;    // 新增項目的Activity
+    private WriteActivity writeActivity;    // Database Model
+
     private String[] date = new String[3];
-    private WriteActivity writeActivity;
 
     public AddItemPresenterImpl(AddItemView v) {
         addItemView = v;
@@ -42,11 +43,11 @@ public class AddItemPresenterImpl implements AddItemPresenter{
     @Override
     public void addNewActivity(String title, String date, String content) {
         Log.d(TAG, "data: " + title + " " + date + " " + content);
-        Map<String, String> dataMap = new HashMap<>();
+        Map<String, String> dataMap = new HashMap<>();  // 存放Activity的HashMap
         dataMap.put("title", title);
         dataMap.put("date", date);
         dataMap.put("content", content);
-
+        writeActivity.pushData(dataMap);    // 將Activity的內容寫入資料庫
 
     }
 
