@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.support.v4.app.DialogFragment;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -116,6 +114,7 @@ public class AddItemActivity extends AppCompatActivity implements AddItemView, V
         addItemPresenter.showTextDate(year, month, dayOfMonth);
     }
 
+    // 顯示選擇的日期
     @Override
     public void setTextDate(String[] d) {
         txtDate.setText(d[0] + "/" + d[1] + "/" + d[2]);

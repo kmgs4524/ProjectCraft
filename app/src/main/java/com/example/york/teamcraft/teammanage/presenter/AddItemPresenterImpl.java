@@ -41,10 +41,10 @@ public class AddItemPresenterImpl implements AddItemPresenter{
     }
 
     @Override
-    public void addNewActivity(String title, String date, String content) {
-        Log.d(TAG, "data: " + title + " " + date + " " + content);
+    public void addNewActivity(String topic, String date, String content) {
+        Log.d(TAG, "data: " + topic + " " + date + " " + content);
         Map<String, String> dataMap = new HashMap<>();  // 存放Activity的HashMap
-        dataMap.put("title", title);
+        dataMap.put("topic", topic);
         dataMap.put("date", date);
         dataMap.put("content", content);
         writeActivity.pushData(dataMap);    // 將Activity的內容寫入資料庫

@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,6 +76,7 @@ public class BoardFragment extends Fragment {
             @Override
             public void update(ArrayList<Activity> list) {
                 progressBar.setVisibility(View.GONE);
+                Log.d("getAct", Integer.toString(list.size()));
                 calendarItemAdapter = new BoardItemAdapter(list);
                 recyclerView.setAdapter(calendarItemAdapter);
             }
