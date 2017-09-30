@@ -5,4 +5,6 @@ package com.example.york.teamcraft.teammanage.view;
  */
 
 public interface AddItemView {
+    public abstract void showDatePickerDialog();
+    public abstract void setTextDate(String[] d);
 }

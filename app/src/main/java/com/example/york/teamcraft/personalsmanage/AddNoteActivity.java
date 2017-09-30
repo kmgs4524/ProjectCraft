@@ -117,4 +117,5 @@ public class AddNoteActivity extends AppCompatActivity {
         newRowId = db.insert(NotesContract.Notes.TABLE_NAME, null, values);
         Log.d("AddNoteActivity", Long.toString(newRowId));
     }
+
 }
