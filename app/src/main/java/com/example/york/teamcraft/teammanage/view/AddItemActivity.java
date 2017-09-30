@@ -50,7 +50,7 @@ public class AddItemActivity extends AppCompatActivity implements AddItemView, V
         // findView
 
         edtTitle = (EditText) findViewById(R.id.edt_title);
-        edtContent = (EditText) findViewById(R.id.edt_target_content);
+        edtContent = (EditText) findViewById(R.id.edt_content);
         imgDate = (ImageView) findViewById(R.id.img_date);
         imgDate.setOnClickListener(this);
         txtDate = (TextView) findViewById(R.id.txt_date);
@@ -95,7 +95,7 @@ public class AddItemActivity extends AppCompatActivity implements AddItemView, V
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_done:
-                addItemPresenter.addNewActivity(edtTitle.getText().toString(), edtDate.getText().toString(), edtContent.getText().toString());
+                addItemPresenter.addNewActivity(edtTitle.getText().toString(), txtDate.getText().toString(), edtContent.getText().toString());
         }
 
         return super.onOptionsItemSelected(item);

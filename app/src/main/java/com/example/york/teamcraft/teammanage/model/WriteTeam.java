@@ -29,7 +29,7 @@ public class WriteTeam implements WriteDatabase {
     }
 
     @Override
-    public void pushData() {
+    public void pushData(Map map) {
 //        DatabaseReference newUserRef = usersRef.push();
         String key = rootRef.push().getKey();
         teamMap.put(key, new Team("春暉成果發表"));
