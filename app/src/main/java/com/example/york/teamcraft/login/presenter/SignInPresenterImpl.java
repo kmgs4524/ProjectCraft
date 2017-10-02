@@ -40,14 +40,27 @@ public class SignInPresenterImpl implements SignInPresenter{
         task.addOnSuccessListener(new OnSuccessListener<FirebaseUser>() {
             @Override
             public void onSuccess(FirebaseUser firebaseUser) {
-                Log.d("sign in", firebaseUser.getEmail());
+                user = firebaseUser;
+                Log.d("sign in", user.getEmail());
                 showStatus();
             }
         });
     }
 
+    @Override
+    public void signOut() {
+        FirebaseAuth.getInstance().signOut();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        showStatus();
+    }
+
+
     public void showStatus() {
-//        Log.d("sign in", user.toString());
+        if(user == null) {
+            Log.d("sign in", "user is null");
+        } else {
+            Log.d("sign in", user.getEmail());
+        }
         signInActivity.showStatus(user);
     }
 }

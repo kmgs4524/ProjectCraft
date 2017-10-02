@@ -142,7 +142,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
                 googleSignIn();
                 break;
             case R.id.signOut_btn:
-                signOut();
+                signInPresenter.signOut();
                 break;
         }
     }
@@ -189,6 +189,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     //登出
     private void signOut() {
         mAuth.signOut();
+        Log.d("sign in", "user sign out");
         signInPresenter.showStatus();
 //        updateUI(mAuth.getCurrentUser()); //User已登出，更新UI
     }
@@ -209,7 +210,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     public void showStatus(FirebaseUser user) {
         if (user != null) {   //已登入
             txtStatus.setText("帳號登入中");
-            txtName.setText(txtName.getText() + user.getDisplayName());
+            txtName.setText(txtName.getText() + user.getEmail());
         } else { //未登入
             txtStatus.setText("尚未登入");
             txtName.setText("姓名：");

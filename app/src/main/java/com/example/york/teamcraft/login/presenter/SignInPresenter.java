@@ -6,4 +6,5 @@ package com.example.york.teamcraft.login.presenter;
 
 public interface SignInPresenter {
     public void signIn(String e, String p);
+    public void signOut();
 }
