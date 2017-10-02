@@ -73,7 +73,7 @@ public class BoardFragment extends Fragment {
 
         readTeam.getTeamAct(new CallBack() {
             @Override
-            public void update(ArrayList<Work> list) {
+            public void update(final ArrayList<Work> list) {
                 progressBar.setVisibility(View.GONE);
                 Log.d("getAct", Integer.toString(list.size()));
                 calendarItemAdapter = new BoardItemAdapter(list, new View.OnClickListener() {
@@ -81,7 +81,12 @@ public class BoardFragment extends Fragment {
                     public void onClick(View v) {
                         int pos = recyclerView.indexOfChild(v);
                         Log.d("pos", Integer.toString(pos));
-
+                        Intent intent = new Intent();
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable("Work", list.get(pos));    // Work Parcelable
+                        intent.putExtras(bundle);
+                        intent.setClass(getActivity(), ActContentActivity.class);
+                        startActivity(intent);
 
                     }
                 });
