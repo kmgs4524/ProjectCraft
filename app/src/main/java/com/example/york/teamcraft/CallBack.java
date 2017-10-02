@@ -7,5 +7,5 @@ import java.util.ArrayList;
  */
 
 public interface CallBack {
-    public abstract void update(ArrayList<Activity> list);
+    public abstract void update(ArrayList<Work> list);
 }

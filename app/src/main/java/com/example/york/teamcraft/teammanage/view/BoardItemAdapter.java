@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.york.teamcraft.Activity;
+import com.example.york.teamcraft.Work;
 import com.example.york.teamcraft.R;
 
 import java.util.ArrayList;
@@ -20,9 +20,9 @@ public class BoardItemAdapter extends RecyclerView.Adapter<BoardItemAdapter.View
     private static String TAG = "BoardItemAdapter";
 
     private View.OnClickListener listener;
-    private ArrayList<Activity> dataList;  // 存放TeamTasks的List
+    private ArrayList<Work> dataList;  // 存放TeamTasks的List
 
-    public BoardItemAdapter(ArrayList<Activity> list, View.OnClickListener listn) {
+    public BoardItemAdapter(ArrayList<Work> list, View.OnClickListener listn) {
         dataList = list;
         listener = listn;
     }

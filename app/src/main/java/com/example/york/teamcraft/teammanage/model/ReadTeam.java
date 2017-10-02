@@ -1,16 +1,12 @@
 package com.example.york.teamcraft.teammanage.model;
 
-import android.os.AsyncTask;
-import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
-import com.example.york.teamcraft.Activity;
+import com.example.york.teamcraft.Work;
 import com.example.york.teamcraft.CallBack;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -18,7 +14,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -40,8 +35,8 @@ public class ReadTeam {
 
     private ReadUser readUser;
     private Team team;
-    private ArrayList<Activity> actList;
-    private Activity act;
+    private ArrayList<Work> actList;
+    private Work act;
 
     private FragmentActivity fragActivity;
 
@@ -71,7 +66,7 @@ public class ReadTeam {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                         Log.d("getAct", dataSnapshot.getValue().toString());
-                        act = dataSnapshot.getValue(Activity.class);
+                        act = dataSnapshot.getValue(Work.class);
                         Log.d("getAct", act.getDate());
                         Log.d("getAct", act.getContent());
                         actList.add(act);

@@ -13,10 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.example.york.teamcraft.Activity;
+import com.example.york.teamcraft.Work;
 import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.personalsmanage.*;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
 import com.example.york.teamcraft.teammanage.model.Team;
 import com.example.york.teamcraft.teammanage.model.ReadTeam;
@@ -49,8 +48,8 @@ public class BoardFragment extends Fragment {
     private FloatingActionButton fabAdd;
 
     private Team team;
-    private Activity activity;
-    private ArrayList<Activity> dataList = new ArrayList<>();  // 存放RecyclerView顯示的資料
+    private Work work;
+    private ArrayList<Work> dataList = new ArrayList<>();  // 存放RecyclerView顯示的資料
 
     @Nullable
     @Override
@@ -74,7 +73,7 @@ public class BoardFragment extends Fragment {
 
         readTeam.getTeamAct(new CallBack() {
             @Override
-            public void update(ArrayList<Activity> list) {
+            public void update(ArrayList<Work> list) {
                 progressBar.setVisibility(View.GONE);
                 Log.d("getAct", Integer.toString(list.size()));
                 calendarItemAdapter = new BoardItemAdapter(list, new View.OnClickListener() {
@@ -82,6 +81,8 @@ public class BoardFragment extends Fragment {
                     public void onClick(View v) {
                         int pos = recyclerView.indexOfChild(v);
                         Log.d("pos", Integer.toString(pos));
+
+
                     }
                 });
                 recyclerView.setAdapter(calendarItemAdapter);
