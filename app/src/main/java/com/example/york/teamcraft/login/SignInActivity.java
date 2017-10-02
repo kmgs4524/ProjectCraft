@@ -92,7 +92,6 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     private void initDrawer(){
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
-//        drawerList = (ListView) findViewById(R.id.left_drawer);
         Log.d(TAG, navigationView.toString());
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -127,29 +126,6 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
             }
         });
         Log.d(TAG, "init Drawer");
-    }
-
-    //AdapterView.OnItemClickListener
-    private class DrawerItemClickListener implements android.widget.AdapterView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            selectItem(position);
-        }
-
-        /** Swaps fragments in the main content view */
-        private void selectItem(int position) {
-            //選擇進入
-            if(position == 0){
-                Intent intent = new Intent();
-                intent.setClass(SignInActivity.this, com.example.york.teamcraft.personalsmanage.MainActivity.class);
-                startActivity(intent);
-            } else if(position == 1){
-                Intent intent = new Intent();
-                intent.setClass(SignInActivity.this, com.example.york.teamcraft.teammanage.MainActivity.class);
-                startActivity(intent);
-            }
-
-        }
     }
 
     // 按下登入、登出的事件
