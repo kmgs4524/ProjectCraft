@@ -19,7 +19,13 @@ import java.util.ArrayList;
 public class BoardItemAdapter extends RecyclerView.Adapter<BoardItemAdapter.ViewHolder>{
     private static String TAG = "BoardItemAdapter";
 
+    private View.OnClickListener listener;
     private ArrayList<Activity> dataList;  // 存放TeamTasks的List
+
+    public BoardItemAdapter(ArrayList<Activity> list, View.OnClickListener listn) {
+        dataList = list;
+        listener = listn;
+    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView txtTitle;
@@ -32,10 +38,6 @@ public class BoardItemAdapter extends RecyclerView.Adapter<BoardItemAdapter.View
         }
     }
 
-    public BoardItemAdapter(ArrayList<Activity> list) {
-        dataList = list;
-    }
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -44,6 +46,7 @@ public class BoardItemAdapter extends RecyclerView.Adapter<BoardItemAdapter.View
                 .inflate(R.layout.recycler_cardview_item, parent, false);
         // set the view's size, margins, paddings and layout parameters
 
+        v.setOnClickListener(listener);
         Log.d(TAG, "onCreateViewHolder");
         ViewHolder vh = new ViewHolder(v);
         return vh;

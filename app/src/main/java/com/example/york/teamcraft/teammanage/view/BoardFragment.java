@@ -43,7 +43,7 @@ public class BoardFragment extends Fragment {
 
     // UI View
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter calendarItemAdapter;
+    private BoardItemAdapter calendarItemAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private ProgressBar progressBar;
     private FloatingActionButton fabAdd;
@@ -77,7 +77,13 @@ public class BoardFragment extends Fragment {
             public void update(ArrayList<Activity> list) {
                 progressBar.setVisibility(View.GONE);
                 Log.d("getAct", Integer.toString(list.size()));
-                calendarItemAdapter = new BoardItemAdapter(list);
+                calendarItemAdapter = new BoardItemAdapter(list, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int pos = recyclerView.indexOfChild(v);
+                        Log.d("pos", Integer.toString(pos));
+                    }
+                });
                 recyclerView.setAdapter(calendarItemAdapter);
             }
         });
