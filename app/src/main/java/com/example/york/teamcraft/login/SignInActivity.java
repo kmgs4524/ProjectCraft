@@ -1,4 +1,4 @@
-package com.example.york.teamcraft.accountdata;
+package com.example.york.teamcraft.login;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;

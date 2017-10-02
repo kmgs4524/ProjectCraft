@@ -8,12 +8,13 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.databasemodel.ReadUser;
-import com.example.york.teamcraft.WriteTeam;
+import com.example.york.teamcraft.teammanage.model.ReadUser;
+import com.example.york.teamcraft.teammanage.model.WriteTeam;
+import com.example.york.teamcraft.teammanage.view.BoardView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class CreateTeamActivity extends AppCompatActivity {
+public class CreateTeamActivity extends AppCompatActivity implements BoardView{
     private static String TAG = "CreateTeamActivity";
 
     // UI 元件
@@ -37,7 +38,7 @@ public class CreateTeamActivity extends AppCompatActivity {
         user = auth.getCurrentUser();
 
         // init ReadUserModel
-        readUser = new ReadUser("b10323030@yuntech.edu.tw");
+        readUser = new ReadUser();
         writeTeam = new WriteTeam();
 
         // init UI View
@@ -74,6 +75,5 @@ public class CreateTeamActivity extends AppCompatActivity {
 
         Log.d("MainActivity", "init ToolBar");
     }
-
 
 }

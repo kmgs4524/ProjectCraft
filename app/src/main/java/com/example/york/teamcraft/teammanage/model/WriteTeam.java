@@ -1,5 +1,7 @@
-package com.example.york.teamcraft;
+package com.example.york.teamcraft.teammanage.model;
 
+import com.example.york.teamcraft.teammanage.model.Team;
+import com.example.york.teamcraft.teammanage.model.WriteDatabase;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -27,7 +29,7 @@ public class WriteTeam implements WriteDatabase {
     }
 
     @Override
-    public void pushData() {
+    public void pushData(Map map) {
 //        DatabaseReference newUserRef = usersRef.push();
         String key = rootRef.push().getKey();
         teamMap.put(key, new Team("春暉成果發表"));

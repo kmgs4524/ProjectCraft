@@ -18,7 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.accountdata.SignInActivity;
+import com.example.york.teamcraft.login.SignInActivity;
 
 import java.util.ArrayList;
 
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.setClass(MainActivity.this, AddItemActivity.class);
+                intent.setClass(MainActivity.this, AddNoteActivity.class);
                 startActivity(intent);
             }
         });

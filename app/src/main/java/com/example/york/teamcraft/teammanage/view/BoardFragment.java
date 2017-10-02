@@ -1,8 +1,9 @@
-package com.example.york.teamcraft.teammanage;
+package com.example.york.teamcraft.teammanage.view;
 
-import android.os.AsyncTask;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,15 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.example.york.teamcraft.Activity;
+import com.example.york.teamcraft.Work;
 import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.databasemodel.ReadUser;
-import com.example.york.teamcraft.Team;
-import com.example.york.teamcraft.databasemodel.ReadTeam;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.TaskCompletionSource;
+import com.example.york.teamcraft.teammanage.model.ReadUser;
+import com.example.york.teamcraft.teammanage.model.Team;
+import com.example.york.teamcraft.teammanage.model.ReadTeam;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -44,13 +42,14 @@ public class BoardFragment extends Fragment {
 
     // UI View
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter calendarItemAdapter;
+    private BoardItemAdapter calendarItemAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private ProgressBar progressBar;
+    private FloatingActionButton fabAdd;
 
     private Team team;
-    private Activity activity;
-    private ArrayList<Activity> dataList = new ArrayList<>();  // 存放RecyclerView顯示的資料
+    private Work work;
+    private ArrayList<Work> dataList = new ArrayList<>();  // 存放RecyclerView顯示的資料
 
     @Nullable
     @Override
@@ -61,17 +60,6 @@ public class BoardFragment extends Fragment {
 
         readTeam = new ReadTeam(getActivity());
 
-//        readTeam.getTeamAct(dataList);
-
-//        final Task< ArrayList<Activity> > task = readTeam.getTeamAct(dataList);
-//        task.addOnSuccessListener(new OnSuccessListener<ArrayList<Activity>>() {
-//            @Override
-//            public void onSuccess(ArrayList<Activity> list) {
-//                Log.d("getAct", "list size in board: " + list.size());
-//                Log.d("getAct", "list in board " + list.get(0).getTopic());
-//                Log.d("getAct", "list size in board: " + list.get(1).getTopic());
-//            }
-//        });
         progressBar = (ProgressBar) view.findViewById(R.id.progress_act);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_calendar);
 
@@ -83,12 +71,36 @@ public class BoardFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        readTeam.execute(new CallBack() {
+        readTeam.getTeamAct(new CallBack() {
             @Override
-            public void update(ArrayList<Activity> list) {
+            public void update(final ArrayList<Work> list) {
                 progressBar.setVisibility(View.GONE);
-                calendarItemAdapter = new BoardItemAdapter(list);
+                Log.d("getAct", Integer.toString(list.size()));
+                calendarItemAdapter = new BoardItemAdapter(list, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int pos = recyclerView.indexOfChild(v);
+                        Log.d("pos", Integer.toString(pos));
+                        Intent intent = new Intent();
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable("Work", list.get(pos));    // Work Parcelable
+                        intent.putExtras(bundle);
+                        intent.setClass(getActivity(), ActContentActivity.class);
+                        startActivity(intent);
+
+                    }
+                });
                 recyclerView.setAdapter(calendarItemAdapter);
+            }
+        });
+
+        fabAdd = (FloatingActionButton) view.findViewById(R.id.fab_add);
+        fabAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), AddItemActivity.class);
+                startActivity(intent);
             }
         });
 

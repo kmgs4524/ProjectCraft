@@ -1,4 +1,4 @@
-package com.example.york.teamcraft.teammanage;
+package com.example.york.teamcraft.teammanage.view;
 
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.york.teamcraft.Activity;
+import com.example.york.teamcraft.Work;
 import com.example.york.teamcraft.R;
 
 import java.util.ArrayList;
@@ -19,7 +19,13 @@ import java.util.ArrayList;
 public class BoardItemAdapter extends RecyclerView.Adapter<BoardItemAdapter.ViewHolder>{
     private static String TAG = "BoardItemAdapter";
 
-    private ArrayList<Activity> dataList;  // 存放TeamTasks的List
+    private View.OnClickListener listener;
+    private ArrayList<Work> dataList;  // 存放TeamTasks的List
+
+    public BoardItemAdapter(ArrayList<Work> list, View.OnClickListener listn) {
+        dataList = list;
+        listener = listn;
+    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView txtTitle;
@@ -32,10 +38,6 @@ public class BoardItemAdapter extends RecyclerView.Adapter<BoardItemAdapter.View
         }
     }
 
-    public BoardItemAdapter(ArrayList<Activity> list) {
-        dataList = list;
-    }
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -44,6 +46,7 @@ public class BoardItemAdapter extends RecyclerView.Adapter<BoardItemAdapter.View
                 .inflate(R.layout.recycler_cardview_item, parent, false);
         // set the view's size, margins, paddings and layout parameters
 
+        v.setOnClickListener(listener);
         Log.d(TAG, "onCreateViewHolder");
         ViewHolder vh = new ViewHolder(v);
         return vh;

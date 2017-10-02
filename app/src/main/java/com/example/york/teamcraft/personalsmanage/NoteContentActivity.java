@@ -1,10 +1,8 @@
 package com.example.york.teamcraft.personalsmanage;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -58,7 +56,7 @@ public class NoteContentActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.actionbutton, menu);
+        inflater.inflate(R.menu.note_content_actionbutton, menu);
 
         return super.onCreateOptionsMenu(menu);
     }

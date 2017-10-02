@@ -21,8 +21,8 @@ import com.example.york.teamcraft.R;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class AddItemActivity extends AppCompatActivity {
-    private static String TAG = "AddItemActivity";
+public class AddNoteActivity extends AppCompatActivity {
+    private static String TAG = "AddNoteActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class AddItemActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);  // 啟用ActionBar的home button的回到上一層功能並加上回上層的圖標
 //        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        Log.d("AddItemActivity", "init ToolBar");
+        Log.d("AddNoteActivity", "init ToolBar");
     }
 
     //按左上角的返回，將回到上頁
@@ -115,6 +115,7 @@ public class AddItemActivity extends AppCompatActivity {
 
         long newRowId;
         newRowId = db.insert(NotesContract.Notes.TABLE_NAME, null, values);
-        Log.d("AddItemActivity", Long.toString(newRowId));
+        Log.d("AddNoteActivity", Long.toString(newRowId));
     }
+
 }
