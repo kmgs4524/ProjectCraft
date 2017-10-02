@@ -1,4 +1,4 @@
-package com.example.york.teamcraft.login;
+package com.example.york.teamcraft.login.view;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -10,13 +10,14 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.example.york.teamcraft.R;
+import com.example.york.teamcraft.login.presenter.SignInPresenter;
+import com.example.york.teamcraft.login.presenter.SignInPresenterImpl;
 import com.example.york.teamcraft.personalsmanage.MainActivity;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -31,8 +32,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class SignInActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,
-                                                                 View.OnClickListener {
+        View.OnClickListener, SignInView {
     /*----------  後端登入 ----------*/
+    private SignInPresenterImpl signInPresenter;
     private static String SEVER_CLIENT_ID = "351544429326-6g982pc3jarftp4017oi8gu526c5m70f.apps.googleusercontent.com";
     private static int RC_SIGN_IN = 123;    // Request Code
     private static final String TAG = "SignInActivity";
@@ -56,6 +58,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
 
         //設置UI
         initToolBar();  //ToolBar
@@ -83,13 +86,13 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     }
 
     //設置ToolBar為此activity的app bar
-    private void initToolBar(){
+    private void initToolBar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
 
     //設置側邊欄
-    private void initDrawer(){
+    private void initDrawer() {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
         Log.d(TAG, navigationView.toString());
@@ -97,7 +100,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 // 先檢查點擊的item是否為checked
-                if(item.isChecked()) {
+                if (item.isChecked()) {
                     item.setChecked(false);
                 } else {
                     item.setChecked(true);
@@ -111,16 +114,16 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
                         intent = new Intent();
                         intent.setClass(SignInActivity.this, MainActivity.class);
                         startActivity(intent);
-                        return  true;
+                        return true;
                     case R.id.drawer_team:
                         intent = new Intent();
                         intent.setClass(SignInActivity.this, com.example.york.teamcraft.teammanage.MainActivity.class);
                         startActivity(intent);
-                        return  true;
+                        return true;
                     case R.id.drawer_account:
-                        return  true;
+                        return true;
                     default:
-                        return  true;
+                        return true;
                 }
 
             }
@@ -133,7 +136,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.signIn_btn:
-                signIn();
+                signInPresenter.signIn(edtAcct.getText().toString(), edtPwd.getText().toString());
                 break;
             case R.id.google_signIn_btn:
                 googleSignIn();
@@ -147,36 +150,11 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     @Override
     public void onStart() {
         super.onStart();
-        // 檢查User是否登入中
-        FirebaseUser user = mAuth.getCurrentUser();
-        updateUI(user);
-    }
+        // Presenter
+        signInPresenter = new SignInPresenterImpl(this);
 
-    private void signIn() {
-        String acct = edtAcct.getText().toString(); //帳號(Email)
-        String pwd = edtPwd.getText().toString();   //密碼
-
-        // 當user登入App時，傳送帳號及密碼到 signInWithEmailAndPassword()
-        mAuth.signInWithEmailAndPassword(acct, pwd)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // 登入成功
-                            Log.d(TAG, "signInWithEmail:success");
-                            FirebaseUser currentUser = mAuth.getCurrentUser();
-                            updateUI(currentUser);
-                        } else {
-                            // 登入失敗
-                            Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(SignInActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            updateUI(null);
-                        }
-
-                        // ...
-                    }
-                });
+        // 顯示登入的使用者狀態
+        showStatus(signInPresenter.getCurrentUser());
     }
 
     private void googleSignIn() {
@@ -209,23 +187,11 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     }
 
     //登出
-    private  void signOut(){
+    private void signOut() {
         mAuth.signOut();
-        updateUI(mAuth.getCurrentUser()); //User已登出，更新UI
+        signInPresenter.showStatus();
+//        updateUI(mAuth.getCurrentUser()); //User已登出，更新UI
     }
-
-    //更新UI
-    private void updateUI(FirebaseUser currentUser) {
-        if(currentUser != null){   //已登入
-            txtStatus.setText("帳號登入中");
-            txtName.setText(txtName.getText() + currentUser.getDisplayName());
-        } else { //未登入
-            txtStatus.setText("尚未登入");
-            txtName.setText("姓名：");
-        }
-
-    }
-
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
         txtStatus.setText("帳號登入中");
@@ -239,4 +205,14 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         Log.d(TAG, "onConnectionFailed:" + connectionResult);
     }
 
+    @Override
+    public void showStatus(FirebaseUser user) {
+        if (user != null) {   //已登入
+            txtStatus.setText("帳號登入中");
+            txtName.setText(txtName.getText() + user.getDisplayName());
+        } else { //未登入
+            txtStatus.setText("尚未登入");
+            txtName.setText("姓名：");
+        }
+    }
 }

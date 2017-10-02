@@ -18,7 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.login.SignInActivity;
+import com.example.york.teamcraft.login.view.SignInActivity;
 
 import java.util.ArrayList;
 
