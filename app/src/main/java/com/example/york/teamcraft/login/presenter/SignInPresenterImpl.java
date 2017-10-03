@@ -77,9 +77,9 @@ public class SignInPresenterImpl implements SignInPresenter{
         });
     }
 
-    public void googleSignIn() {
+    public void googleSignIn(int reqCode) {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        signInActivity.startActivityForResult(signInIntent, RC_SIGN_IN);
+        signInActivity.startActivityForResult(signInIntent, reqCode);
     }
 
     // 利用GoogleSignInAccount的ID Token，轉換成Firebase的授權

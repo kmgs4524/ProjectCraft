@@ -35,14 +35,12 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class SignInActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener, SignInView {
-    /*----------  後端登入 ----------*/
-    private SignInPresenterImpl signInPresenter;
-    private static String SEVER_CLIENT_ID = "351544429326-6g982pc3jarftp4017oi8gu526c5m70f.apps.googleusercontent.com";
-    private static int RC_SIGN_IN = 123;    // Request Code
     private static final String TAG = "SignInActivity";
 
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();    //Firebase Authentication Instance
-    private GoogleApiClient mGoogleApiClient;
+    /*----------  後端登入 ----------*/
+    private SignInPresenterImpl signInPresenter;
+    //    private static String SEVER_CLIENT_ID = "351544429326-6g982pc3jarftp4017oi8gu526c5m70f.apps.googleusercontent.com";
+    private static int RC_SIGN_IN = 123;    // Request Code
     /*-------------------------------*/
 
     //UI元件
@@ -137,12 +135,20 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         switch (v.getId()) {
             case R.id.signIn_btn:
                 // Email Sign In程序由SignInPresenter負責
-                signInPresenter.signIn(edtAcct.getText().toString(), edtPwd.getText().toString());
-                break;
+                if (signInPresenter.getCurrentUser() == null) {
+                    signInPresenter.signIn(edtAcct.getText().toString(), edtPwd.getText().toString());
+                    break;
+                } else {
+                    break;
+                }
             case R.id.google_signIn_btn:
-                // Google Sign In程序由SignInPresenter負責
-                signInPresenter.googleSignIn(); // 建立GoogleSignInApi的intent，並呼叫startActivityForResult(intent)
-                break;
+                if (signInPresenter.getCurrentUser() == null) {
+                    // Google Sign In程序由SignInPresenter負責
+                    signInPresenter.googleSignIn(RC_SIGN_IN); // 建立GoogleSignInApi的intent，並呼叫startActivityForResult(intent)
+                    break;
+                } else {
+                    break;
+                }
             case R.id.signOut_btn:
                 // Sign Out程序由SignInPresenter負責
                 signInPresenter.signOut();
@@ -159,7 +165,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            if(result.isSuccess()) {
+            if (result.isSuccess()) {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
 //                firebaseAuthWithGoogle(account);
