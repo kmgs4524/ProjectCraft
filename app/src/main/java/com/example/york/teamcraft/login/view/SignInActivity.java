@@ -71,21 +71,9 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-
         //設置UI
         initToolBar();  //ToolBar
         initDrawer();   //Drawer
-
-        //建立GoogleSignInOptions
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(SEVER_CLIENT_ID)
-                .requestEmail()
-                .build();
-
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
 
         txtStatus = (TextView) findViewById(R.id.status_txtView);   // 登入狀態
         txtName = (TextView) findViewById(R.id.name_txtView);   //
@@ -148,24 +136,22 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.signIn_btn:
+                // Email Sign In程序由SignInPresenter負責
                 signInPresenter.signIn(edtAcct.getText().toString(), edtPwd.getText().toString());
                 break;
             case R.id.google_signIn_btn:
-                googleSignIn();
+                // Google Sign In程序由SignInPresenter負責
+                signInPresenter.googleSignIn(); // 建立GoogleSignInApi的intent，並呼叫startActivityForResult(intent)
                 break;
             case R.id.signOut_btn:
+                // Sign Out程序由SignInPresenter負責
                 signInPresenter.signOut();
                 break;
         }
     }
 
-
-
-    private void googleSignIn() {
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
-
+    // 負責Google Sign In 的程序
+    // 執行signInActivity.startActivityForResult(signInIntent, RC_SIGN_IN)後，自動呼叫此callback(onActivityResult());
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -176,34 +162,13 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
             if(result.isSuccess()) {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
-                firebaseAuthWithGoogle(account);
+//                firebaseAuthWithGoogle(account);
+                signInPresenter.firebaseAuthWithGoogle(account);    // 將成功後取得的account交給Presenter轉換成Firebase User
             } else {
                 // Google Sign In failed, update UI appropriately
                 // ...
             }
         }
-    }
-
-    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            showStatus(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            showStatus(null);
-                        }
-
-                        // ...
-                    }
-                });
     }
 
     @Override
