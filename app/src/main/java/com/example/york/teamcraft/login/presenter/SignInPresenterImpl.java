@@ -7,6 +7,8 @@ import android.util.Log;
 import com.example.york.teamcraft.login.model.EmailSignIn;
 import com.example.york.teamcraft.login.view.SignInActivity;
 import com.example.york.teamcraft.login.view.SignInView;
+import com.example.york.teamcraft.teammanage.model.ReadUser;
+import com.example.york.teamcraft.teammanage.model.User;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -45,6 +47,7 @@ public class SignInPresenterImpl implements SignInPresenter{
     }
 
     public SignInPresenterImpl(SignInActivity a) {
+        // view and model
         signInActivity = a;
         emailSignIn = new EmailSignIn();
 
@@ -109,6 +112,18 @@ public class SignInPresenterImpl implements SignInPresenter{
         FirebaseAuth.getInstance().signOut();
         user = FirebaseAuth.getInstance().getCurrentUser();
         showStatus();
+    }
+
+    public void confirmUserExist() {
+        ReadUser readUser = new ReadUser();
+        Task<User> task = readUser.getUserData();
+        task.addOnSuccessListener(new OnSuccessListener<User>() {
+            @Override
+            public void onSuccess(User user) {
+                Log.d("user", user.getName());
+                Log.d("user", user.getEmail());
+            }
+        });
     }
 
 

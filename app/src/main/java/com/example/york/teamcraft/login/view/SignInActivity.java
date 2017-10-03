@@ -142,11 +142,12 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
                     break;
                 }
             case R.id.google_signIn_btn:
-                if (signInPresenter.getCurrentUser() == null) {
+                if (signInPresenter.getCurrentUser() == null) { // 尚未登入
                     // Google Sign In程序由SignInPresenter負責
                     signInPresenter.googleSignIn(RC_SIGN_IN); // 建立GoogleSignInApi的intent，並呼叫startActivityForResult(intent)
                     break;
-                } else {
+                } else {    // 已登入
+                    signInPresenter.confirmUserExist(); // 判斷是否註冊使用者資料
                     break;
                 }
             case R.id.signOut_btn:

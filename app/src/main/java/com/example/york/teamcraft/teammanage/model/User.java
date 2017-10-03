@@ -33,7 +33,5 @@ public class User {
         return password;
     }
 
-    public String getTeamId() {
-        return teamId;
-    }
+    public String getTeamId() { return teamId; }
 }
