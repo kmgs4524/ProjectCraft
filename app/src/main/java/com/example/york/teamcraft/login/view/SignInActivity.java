@@ -27,9 +27,11 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 public class SignInActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener, SignInView {
@@ -53,6 +55,16 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     /*----------------------------*/
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Presenter
+        signInPresenter = new SignInPresenterImpl(this);
+
+        // 顯示登入的使用者狀態
+        showStatus(signInPresenter.getCurrentUser());
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,15 +159,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         }
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Presenter
-        signInPresenter = new SignInPresenterImpl(this);
 
-        // 顯示登入的使用者狀態
-        showStatus(signInPresenter.getCurrentUser());
-    }
 
     private void googleSignIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
@@ -169,34 +173,37 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            handleSignInResult(result);
+            if(result.isSuccess()) {
+                // Google Sign In was successful, authenticate with Firebase
+                GoogleSignInAccount account = result.getSignInAccount();
+                firebaseAuthWithGoogle(account);
+            } else {
+                // Google Sign In failed, update UI appropriately
+                // ...
+            }
         }
     }
 
-    private void handleSignInResult(GoogleSignInResult result) {
-        if (result.isSuccess()) {
-            // Google Sign In was successful, authenticate with Firebase
-            GoogleSignInAccount account = result.getSignInAccount();
-//            FirebaseUser user = mAuth.getCurrentUser();
-//            updateUI(user);
-            firebaseAuthWithGoogle(account);
-        } else {
-            // Google Sign In failed, update UI appropriately
-            // ...
-        }
-    }
+    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithCredential:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            showStatus(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            showStatus(null);
+                        }
 
-    //登出
-    private void signOut() {
-        mAuth.signOut();
-        Log.d("sign in", "user sign out");
-        signInPresenter.showStatus();
-//        updateUI(mAuth.getCurrentUser()); //User已登出，更新UI
-    }
-
-    private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
-        txtStatus.setText("帳號登入中");
-        txtName.setText(txtName.getText() + account.getDisplayName());
+                        // ...
+                    }
+                });
     }
 
     @Override
