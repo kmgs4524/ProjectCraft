@@ -57,11 +57,6 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".ListActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
         <activity android:name=".teammanage.CreateTeamActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

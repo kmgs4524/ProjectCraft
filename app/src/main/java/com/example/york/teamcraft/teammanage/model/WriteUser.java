@@ -48,9 +48,8 @@ public class WriteUser {
 
     public void pushData() {
         String key = usersRef.push().getKey();
-        userMap.put(key, new User(user.getDisplayName(), user.getEmail(), null));
+        userMap.put(key, new User(user.getDisplayName(), user.getEmail(), "0"));
         usersRef.updateChildren(userMap);
     }
-
 
 }
