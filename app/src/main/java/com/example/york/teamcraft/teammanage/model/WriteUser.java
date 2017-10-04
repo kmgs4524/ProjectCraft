@@ -3,6 +3,8 @@ package com.example.york.teamcraft.teammanage.model;
 import android.util.Log;
 
 import com.example.york.teamcraft.teammanage.model.User;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,33 +22,17 @@ public class WriteUser {
     private DatabaseReference rootRef;
     private DatabaseReference usersRef;
     private Map<String, Object> userMap;
-    private User user;
+    private FirebaseUser user;
 
     public WriteUser() {
         rootRef = FirebaseDatabase.getInstance().getReference();
         usersRef = rootRef.child("users");
         userMap = new HashMap<>();
-
-        ValueEventListener listener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-//                user = dataSnapshot.child("1").getValue(User.class);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.d("The read failed", databaseError.getMessage());
-            }
-        };
-
-        usersRef.addValueEventListener(listener);
-
+        user = FirebaseAuth.getInstance().getCurrentUser();
     }
 
     public void updateUser() {
-        userMap.put("2", new User(null, null, "235", null));
-//        userMap.put("3/password", "1045");
-
+//        userMap.put("2", new User(null, null, "235", null));
         usersRef.updateChildren(userMap, new DatabaseReference.CompletionListener() {
             // 檢查寫入資料庫是否成功
             @Override
@@ -60,14 +46,10 @@ public class WriteUser {
         });
     }
 
-    public void pushUser() {
-//        DatabaseReference newUserRef = usersRef.push();
-        usersRef.child("1").push().setValue(new User("李宗碩", "chu123@gmail.com", "2424", null));
-    }
-
-    public void getUser() {
-//        Log.d("getKey", firstRef.getKey());
-
+    public void pushData() {
+        String key = usersRef.push().getKey();
+        userMap.put(key, new User(user.getDisplayName(), user.getEmail(), null));
+        usersRef.updateChildren(userMap);
     }
 
 

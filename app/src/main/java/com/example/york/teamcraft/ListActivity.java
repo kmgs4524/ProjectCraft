@@ -36,7 +36,7 @@ public class ListActivity extends AppCompatActivity {
         btnOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                writeUser.pushUser();
+                writeUser.pushData();
                 Log.d(TAG, "onClick()");
             }
         });
