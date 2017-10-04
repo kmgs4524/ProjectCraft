@@ -26,6 +26,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
@@ -83,52 +84,6 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         findViewById(R.id.signOut_btn).setOnClickListener(this);    //登出Button
     }
 
-    //設置ToolBar為此activity的app bar
-    private void initToolBar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-    }
-
-    //設置側邊欄
-    private void initDrawer() {
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        navigationView = (NavigationView) findViewById(R.id.navigation_view);
-        Log.d(TAG, navigationView.toString());
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                // 先檢查點擊的item是否為checked
-                if (item.isChecked()) {
-                    item.setChecked(false);
-                } else {
-                    item.setChecked(true);
-                }
-
-                drawerLayout.closeDrawers();    // 點擊Drawer的選項後，關閉drawer
-                Intent intent;
-
-                switch (item.getItemId()) {
-                    case R.id.drawer_personals:
-                        intent = new Intent();
-                        intent.setClass(SignInActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        return true;
-                    case R.id.drawer_team:
-                        intent = new Intent();
-                        intent.setClass(SignInActivity.this, com.example.york.teamcraft.teammanage.MainActivity.class);
-                        startActivity(intent);
-                        return true;
-                    case R.id.drawer_account:
-                        return true;
-                    default:
-                        return true;
-                }
-
-            }
-        });
-        Log.d(TAG, "init Drawer");
-    }
-
     // 按下登入、登出的事件
     @Override
     public void onClick(View v) {
@@ -145,8 +100,10 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
                 if (signInPresenter.getCurrentUser() == null) { // 尚未登入
                     // Google Sign In程序由SignInPresenter負責
                     signInPresenter.googleSignIn(RC_SIGN_IN); // 建立GoogleSignInApi的intent，並呼叫startActivityForResult(intent)
+//                    signInPresenter.confirmUserExist(); // 判斷是否註冊使用者資料
                     break;
                 } else {    // 已登入
+                    boolean[] exist = new boolean[1];
                     signInPresenter.confirmUserExist(); // 判斷是否註冊使用者資料
                     break;
                 }
@@ -195,4 +152,52 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
             txtName.setText("姓名：");
         }
     }
+
+    //設置ToolBar為此activity的app bar
+    private void initToolBar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+    }
+
+    //設置側邊欄
+    private void initDrawer() {
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        Log.d(TAG, navigationView.toString());
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                // 先檢查點擊的item是否為checked
+                if (item.isChecked()) {
+                    item.setChecked(false);
+                } else {
+                    item.setChecked(true);
+                }
+
+                drawerLayout.closeDrawers();    // 點擊Drawer的選項後，關閉drawer
+                Intent intent;
+
+                switch (item.getItemId()) {
+                    case R.id.drawer_personals:
+                        intent = new Intent();
+                        intent.setClass(SignInActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.drawer_team:
+                        intent = new Intent();
+                        intent.setClass(SignInActivity.this, com.example.york.teamcraft.teammanage.MainActivity.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.drawer_account:
+                        return true;
+                    default:
+                        return true;
+                }
+
+            }
+        });
+        Log.d(TAG, "init Drawer");
+    }
+
+
 }

@@ -17,6 +17,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -115,15 +116,8 @@ public class SignInPresenterImpl implements SignInPresenter{
     }
 
     public void confirmUserExist() {
-        ReadUser readUser = new ReadUser();
-        Task<User> task = readUser.getUserData();
-        task.addOnSuccessListener(new OnSuccessListener<User>() {
-            @Override
-            public void onSuccess(User user) {
-                Log.d("user", user.getName());
-                Log.d("user", user.getEmail());
-            }
-        });
+        final ReadUser readUser = new ReadUser();
+        readUser.checkUserExist();
     }
 
 

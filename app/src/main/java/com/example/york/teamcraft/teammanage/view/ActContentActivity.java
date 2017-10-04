@@ -26,7 +26,6 @@ public class ActContentActivity extends AppCompatActivity {
         // get bundle
         Bundle bundle = getIntent().getExtras();
         Work work = bundle.getParcelable("Work");
-        Log.d("work", work.getTopic());
 
         txtTopic.setText(work.getTopic());
         txtDate.setText(work.getDate());
