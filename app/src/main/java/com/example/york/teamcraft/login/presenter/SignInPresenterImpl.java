@@ -117,7 +117,15 @@ public class SignInPresenterImpl implements SignInPresenter{
 
     public void confirmUserExist() {
         final ReadUser readUser = new ReadUser();
-        readUser.checkUserExist();
+        Task<Boolean> task = readUser.checkUserExist();
+        task.addOnSuccessListener(new OnSuccessListener<Boolean>() {
+            @Override
+            public void onSuccess(Boolean aBoolean) {
+                if(aBoolean == false) {
+                    Log.d("exist", "false");
+                }
+            }
+        });
     }
 
 

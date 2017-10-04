@@ -71,7 +71,9 @@ public class ReadUser {
         return dbSource.getTask();
     }
 
-    public void checkUserExist() {
+    public Task<Boolean> checkUserExist() {
+        final TaskCompletionSource<Boolean> dbSource = new TaskCompletionSource<>();
+
         usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -83,7 +85,8 @@ public class ReadUser {
 
                     }
                 }
-                Log.d("exist", Boolean.toString(exist));
+                dbSource.setResult(exist);
+//                Log.d("exist", Boolean.toString(exist));
             }
 
             @Override
@@ -91,36 +94,7 @@ public class ReadUser {
 
             }
         });
-
-
-//        exist.addChildEventListener(new ChildEventListener() {
-//            @Override
-//            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-////                dbSource.setResult(dataSnapshot.exists());
-//                Log.d("exist", Boolean.toString(dataSnapshot.exists()));
-//            }
-//
-//            @Override
-//            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-//            }
-//
-//            @Override
-//            public void onChildRemoved(DataSnapshot dataSnapshot) {
-//
-//            }
-//
-//            @Override
-//            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-
-//        return dbSource.getTask();
+        return dbSource.getTask();
     }
 
 }
