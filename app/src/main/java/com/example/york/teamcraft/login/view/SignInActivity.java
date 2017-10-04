@@ -100,7 +100,6 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
                 if (signInPresenter.getCurrentUser() == null) { // 尚未登入
                     // Google Sign In程序由SignInPresenter負責
                     signInPresenter.googleSignIn(RC_SIGN_IN); // 建立GoogleSignInApi的intent，並呼叫startActivityForResult(intent)
-//                    signInPresenter.confirmUserExist(); // 判斷是否註冊使用者資料
                     break;
                 } else {    // 已登入
                     boolean[] exist = new boolean[1];

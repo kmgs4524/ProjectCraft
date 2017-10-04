@@ -7,13 +7,11 @@ package com.example.york.teamcraft.teammanage.model;
 public class User {
     private String email;
     private String name;
-    private String password;
     private String teamId;
 
-    public User(String n, String e, String p, String tId) {
+    public User(String n, String e, String tId) {
         name = n;
         email = e;
-        password = p;
         teamId = tId;
     }
 
@@ -27,10 +25,6 @@ public class User {
 
     public String getName() {
         return name;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public String getTeamId() { return teamId; }

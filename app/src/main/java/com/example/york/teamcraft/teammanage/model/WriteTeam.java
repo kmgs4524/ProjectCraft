@@ -34,5 +34,6 @@ public class WriteTeam implements WriteDatabase {
         String key = rootRef.push().getKey();
         teamMap.put(key, new Team("春暉成果發表"));
         teamsRef.updateChildren(teamMap);
+
     }
 }

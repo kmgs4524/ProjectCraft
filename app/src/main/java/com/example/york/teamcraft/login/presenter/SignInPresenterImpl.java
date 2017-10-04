@@ -9,6 +9,7 @@ import com.example.york.teamcraft.login.view.SignInActivity;
 import com.example.york.teamcraft.login.view.SignInView;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
 import com.example.york.teamcraft.teammanage.model.User;
+import com.example.york.teamcraft.teammanage.model.WriteUser;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -97,6 +98,7 @@ public class SignInPresenterImpl implements SignInPresenter{
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("google sign in", "signInWithCredential:success");
                             user = auth.getCurrentUser();
+                            confirmUserExist();
                             showStatus();
                         } else {
                             // If sign in fails, display a message to the user.
@@ -123,6 +125,8 @@ public class SignInPresenterImpl implements SignInPresenter{
             public void onSuccess(Boolean aBoolean) {
                 if(aBoolean == false) {
                     Log.d("exist", "false");
+                    WriteUser writeUser = new WriteUser();
+                    writeUser.pushData();
                 }
             }
         });
