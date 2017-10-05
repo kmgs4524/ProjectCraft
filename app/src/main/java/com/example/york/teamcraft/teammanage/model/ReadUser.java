@@ -39,7 +39,7 @@ public class ReadUser {
 
     // 可藉由email找出user的其他資料並放入User object，並利用CallBack與User object互動
 
-    public Task<String> getUserId(Callback c) {
+    public void getUserId(final CallBack<String> c) {
         Query query = usersRef.orderByChild("email").equalTo(email);    // 搜尋出想要的email
         final TaskCompletionSource<String> source = new TaskCompletionSource<>();
         query.addValueEventListener(new ValueEventListener() {
@@ -50,7 +50,8 @@ public class ReadUser {
                 if (iterator.hasNext()) {
                     snap = iterator.next();
                     String key = snap.getKey();    // user Id
-                    source.setResult(key);
+                    c.update(key);
+//                    source.setResult(key);
                 }
             }
 
@@ -63,7 +64,7 @@ public class ReadUser {
 
         });
 
-        return source.getTask();
+//        return source.getTask();
     }
 
     public Task<User> getUserData() {

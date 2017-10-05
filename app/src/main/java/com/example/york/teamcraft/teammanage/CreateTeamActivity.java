@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
 import com.example.york.teamcraft.teammanage.model.WriteTeam;
@@ -62,14 +63,20 @@ public class CreateTeamActivity extends AppCompatActivity implements BoardView{
                     @Override
                     public void onSuccess(String s) {
                         final String teamId = s;
-                        Task<String> taskReadUser = readUser.getUserId();
-                        taskReadUser.addOnSuccessListener(new OnSuccessListener<String>() {
+                        readUser.getUserId(new CallBack<String>() {
                             @Override
-                            public void onSuccess(String s) {
-                                Log.d("modify", "set team id");
-                                writeUser.updateUserTeam(s, teamId);
+                            public void update(String data) {
+                                writeUser.updateUserTeam(data, teamId);
                             }
                         });
+//                        Task<String> taskReadUser = readUser.getUserId();
+//                        taskReadUser.addOnSuccessListener(new OnSuccessListener<String>() {
+//                            @Override
+//                            public void onSuccess(String s) {
+//                                Log.d("modify", "set team id");
+//                                writeUser.updateUserTeam(s, teamId);
+//                            }
+//                        });
                     }
                 });
 //                Log.d(TAG, user.getEmail());

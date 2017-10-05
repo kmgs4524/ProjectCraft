@@ -52,7 +52,7 @@ public class ReadTeam {
 
     }
 
-    public void getTeamAct(final CallBack callback) {
+    public void getTeamAct(final CallBack< ArrayList<Work> > callback) {
         final Task<User> userTask = readUser.getUserData(); // 取得擁有User Data的Task
         Log.d("getAct", "getTeamAct");
 

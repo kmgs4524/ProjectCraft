@@ -71,7 +71,7 @@ public class BoardFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        readTeam.getTeamAct(new CallBack() {
+        readTeam.getTeamAct(new CallBack<ArrayList<Work>>() {
             @Override
             public void update(final ArrayList<Work> list) {
                 progressBar.setVisibility(View.GONE);
