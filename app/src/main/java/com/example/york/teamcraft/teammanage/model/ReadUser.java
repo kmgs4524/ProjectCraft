@@ -124,5 +124,34 @@ public class ReadUser {
         return dbSource.getTask();
     }
 
+    public Task<Boolean> checkUserTeam() {
+        final TaskCompletionSource<Boolean> idSource = new TaskCompletionSource<>();
+
+        Query childRef = usersRef.orderByChild("email").equalTo(email);
+        childRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> iterable = dataSnapshot.getChildren();
+                for(DataSnapshot data: iterable) {
+                    String teamId = data.child("teamId").getValue(String.class);
+//                    Log.d("data", teamId);
+                    if(! teamId.equals("0")) {
+                        idSource.setResult(true);
+                    } else {
+                        idSource.setResult(false);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("error", databaseError.getMessage());
+            }
+        });
+
+        return idSource.getTask();
+    }
+
 
 }

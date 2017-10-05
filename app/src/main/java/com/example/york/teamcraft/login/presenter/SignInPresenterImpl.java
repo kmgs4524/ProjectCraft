@@ -9,6 +9,7 @@ import com.example.york.teamcraft.login.model.EmailSignIn;
 import com.example.york.teamcraft.login.view.SignInActivity;
 import com.example.york.teamcraft.login.view.SignInView;
 import com.example.york.teamcraft.teammanage.CreateTeamActivity;
+import com.example.york.teamcraft.teammanage.MainActivity;
 import com.example.york.teamcraft.teammanage.SelectTeamActivity;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
 import com.example.york.teamcraft.teammanage.model.User;
@@ -133,7 +134,7 @@ public class SignInPresenterImpl implements SignInPresenter {
     public void confirmUserExist() {
         final ReadUser readUser = new ReadUser();
 
-        Task<Boolean> taskCheck = readUser.checkUserExist();    // 確認users node是否已有目前登入使用者的資料
+        final Task<Boolean> taskCheck = readUser.checkUserExist();    // 確認users node是否已有目前登入使用者的資料
         taskCheck.addOnSuccessListener(new OnSuccessListener<Boolean>() {
             @Override
             public void onSuccess(Boolean aBoolean) {
@@ -143,8 +144,19 @@ public class SignInPresenterImpl implements SignInPresenter {
                     startCreateTeam();
                     Log.d("goto", "create team");
                 } else {    // 若已有資料
-                    Log.d("goto", "true");
-                    startCreateTeam();
+                    Task<Boolean> taskCheckTeam = readUser.checkUserTeam();
+                    taskCheck.addOnSuccessListener(new OnSuccessListener<Boolean>() {
+                        @Override
+                        public void onSuccess(Boolean aBoolean) {
+                            if (!aBoolean) {    // 若尚未擁有團隊
+                                startCreateTeam();
+                            } else {
+                                startTeamMain();
+                            }
+                        }
+                    });
+//                    Log.d("goto", "true");
+//                    startCreateTeam();
                 }
             }
         });
@@ -155,6 +167,12 @@ public class SignInPresenterImpl implements SignInPresenter {
     public void startCreateTeam() {
         Intent intent = new Intent();
         intent.setClass(signInActivity, SelectTeamActivity.class);
+        signInActivity.startActivity(intent);
+    }
+
+    public void startTeamMain() {
+        Intent intent = new Intent();
+        intent.setClass(signInActivity, MainActivity.class);
         signInActivity.startActivity(intent);
     }
 
