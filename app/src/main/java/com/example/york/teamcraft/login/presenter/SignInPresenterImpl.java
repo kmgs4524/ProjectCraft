@@ -9,6 +9,7 @@ import com.example.york.teamcraft.login.model.EmailSignIn;
 import com.example.york.teamcraft.login.view.SignInActivity;
 import com.example.york.teamcraft.login.view.SignInView;
 import com.example.york.teamcraft.teammanage.CreateTeamActivity;
+import com.example.york.teamcraft.teammanage.SelectTeamActivity;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
 import com.example.york.teamcraft.teammanage.model.User;
 import com.example.york.teamcraft.teammanage.model.WriteUser;
@@ -78,7 +79,7 @@ public class SignInPresenterImpl implements SignInPresenter {
         mGoogleApiClient.disconnect();
     }
 
-    // 一般信箱登入(由EmailSignIn Model負責)
+    // 一般信箱登入(由EmailSignIn Model
     @Override
     public void signIn(String e, String p) {
         Log.d("sign in", "enter presenter");
@@ -153,7 +154,7 @@ public class SignInPresenterImpl implements SignInPresenter {
     // 進入創建團隊的畫面
     public void startCreateTeam() {
         Intent intent = new Intent();
-        intent.setClass(signInActivity, CreateTeamActivity.class);
+        intent.setClass(signInActivity, SelectTeamActivity.class);
         signInActivity.startActivity(intent);
     }
 
