@@ -78,6 +78,7 @@ public class SignInPresenterImpl implements SignInPresenter {
         mGoogleApiClient.disconnect();
     }
 
+    // 一般信箱登入(由EmailSignIn Model負責)
     @Override
     public void signIn(String e, String p) {
         Log.d("sign in", "enter presenter");
@@ -92,6 +93,7 @@ public class SignInPresenterImpl implements SignInPresenter {
         });
     }
 
+    // 以Google帳號登入(尚未使用額外的Business Model來處理Google登入事項)
     public void googleSignIn(int reqCode) {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         signInActivity.startActivityForResult(signInIntent, reqCode);
@@ -99,8 +101,8 @@ public class SignInPresenterImpl implements SignInPresenter {
 
     // 利用GoogleSignInAccount的ID Token，轉換成Firebase的授權
     public void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-        auth.signInWithCredential(credential)
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);  // 取得Google憑證
+        auth.signInWithCredential(credential)   // 以Google憑證登入FireBase Project
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -108,8 +110,7 @@ public class SignInPresenterImpl implements SignInPresenter {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("google sign in", "signInWithCredential:success");
                             user = auth.getCurrentUser();
-                            confirmUserExist();
-//                            showStatus();
+                            confirmUserExist(); // 確認資料庫是否已有使用者的資料
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("google sign in", "signInWithCredential:failure", task.getException());
@@ -119,6 +120,7 @@ public class SignInPresenterImpl implements SignInPresenter {
                 });
     }
 
+    // 登出帳號
     @Override
     public void signOut() {
         FirebaseAuth.getInstance().signOut();
@@ -126,6 +128,7 @@ public class SignInPresenterImpl implements SignInPresenter {
         showStatus();
     }
 
+    // 確認資料庫中是否存在使用者的資料
     public void confirmUserExist() {
         final ReadUser readUser = new ReadUser();
 
@@ -147,12 +150,14 @@ public class SignInPresenterImpl implements SignInPresenter {
 
     }
 
+    // 進入創建團隊的畫面
     public void startCreateTeam() {
         Intent intent = new Intent();
         intent.setClass(signInActivity, CreateTeamActivity.class);
         signInActivity.startActivity(intent);
     }
 
+    // 顯示登入狀態
     public void showStatus() {
         if (user == null) {
             Log.d("sign in", "user is null");
