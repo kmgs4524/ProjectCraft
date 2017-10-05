@@ -46,11 +46,15 @@ public class WriteUser {
         });
     }
 
+    // 在users插入新的user object
     public void pushData() {
         String key = usersRef.push().getKey();
-        userMap.put(key, new User(user.getDisplayName(), user.getEmail(), null));
+        userMap.put(key, new User(user.getDisplayName(), user.getEmail(), "0"));
         usersRef.updateChildren(userMap);
     }
 
-
+    public void updateUserTeam(String userId, String teamId) {
+        DatabaseReference childRef = usersRef.child(userId);
+        childRef.child("teamId").setValue(teamId);
+    }
 }

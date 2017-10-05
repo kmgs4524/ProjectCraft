@@ -2,6 +2,7 @@ package com.example.york.teamcraft.teammanage.model;
 
 import android.util.Log;
 
+import com.example.york.teamcraft.CallBack;
 import com.google.android.gms.common.api.BooleanResult;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
@@ -28,7 +29,6 @@ public class ReadUser {
     private DatabaseReference usersRef;
     private String email;
     private User user;
-    private String key;
 
     public ReadUser() {
         rootRef = FirebaseDatabase.getInstance().getReference();
@@ -38,6 +38,34 @@ public class ReadUser {
     }
 
     // 可藉由email找出user的其他資料並放入User object，並利用CallBack與User object互動
+
+    public void getUserId(final CallBack<String> c) {
+        Query query = usersRef.orderByChild("email").equalTo(email);    // 搜尋出想要的email
+        final TaskCompletionSource<String> source = new TaskCompletionSource<>();
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(final DataSnapshot dataSnapshot) {
+                Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();
+                DataSnapshot snap;
+                if (iterator.hasNext()) {
+                    snap = iterator.next();
+                    String key = snap.getKey();    // user Id
+                    c.update(key);
+//                    source.setResult(key);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                if (databaseError != null) {
+                    Log.d("onCancelled", databaseError.getMessage());
+                }
+            }
+
+        });
+
+//        return source.getTask();
+    }
 
     public Task<User> getUserData() {
         Query query = usersRef.orderByChild("email").equalTo(email);    // 搜尋出想要的email
@@ -86,7 +114,6 @@ public class ReadUser {
                     }
                 }
                 dbSource.setResult(exist);
-//                Log.d("exist", Boolean.toString(exist));
             }
 
             @Override
@@ -96,5 +123,35 @@ public class ReadUser {
         });
         return dbSource.getTask();
     }
+
+    public Task<Boolean> checkUserTeam() {
+        final TaskCompletionSource<Boolean> idSource = new TaskCompletionSource<>();
+
+        Query childRef = usersRef.orderByChild("email").equalTo(email);
+        childRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> iterable = dataSnapshot.getChildren();
+                for(DataSnapshot data: iterable) {
+                    String teamId = data.child("teamId").getValue(String.class);
+//                    Log.d("data", teamId);
+                    if(! teamId.equals("0")) {
+                        idSource.setResult(true);
+                    } else {
+                        idSource.setResult(false);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("error", databaseError.getMessage());
+            }
+        });
+
+        return idSource.getTask();
+    }
+
 
 }

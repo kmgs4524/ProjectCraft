@@ -56,12 +56,16 @@ public class BoardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.team_fragment_board, container, false);
 
+        // init FirebaseUser
         user = FirebaseAuth.getInstance().getCurrentUser();
 
+        // init Database Model
         readTeam = new ReadTeam(getActivity());
 
+        // find view
         progressBar = (ProgressBar) view.findViewById(R.id.progress_act);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_calendar);
+        fabAdd = (FloatingActionButton) view.findViewById(R.id.fab_add);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -71,12 +75,13 @@ public class BoardFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        readTeam.getTeamAct(new CallBack() {
+        readTeam.getTeamAct(new CallBack<ArrayList<Work>>() {
             @Override
             public void update(final ArrayList<Work> list) {
                 progressBar.setVisibility(View.GONE);
                 Log.d("getAct", Integer.toString(list.size()));
-                calendarItemAdapter = new BoardItemAdapter(list, new View.OnClickListener() {
+                // 設定CalendarItemAdapter
+                calendarItemAdapter = new BoardItemAdapter(list, new View.OnClickListener() {   // 傳入listener callback
                     @Override
                     public void onClick(View v) {
                         int pos = recyclerView.indexOfChild(v);
@@ -94,7 +99,7 @@ public class BoardFragment extends Fragment {
             }
         });
 
-        fabAdd = (FloatingActionButton) view.findViewById(R.id.fab_add);
+        // set listener
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
