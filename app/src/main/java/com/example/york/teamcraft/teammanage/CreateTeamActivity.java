@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
 import com.example.york.teamcraft.teammanage.model.WriteTeam;
+import com.example.york.teamcraft.teammanage.model.WriteUser;
 import com.example.york.teamcraft.teammanage.view.BoardView;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -33,6 +34,7 @@ public class CreateTeamActivity extends AppCompatActivity implements BoardView{
     // Database Model
     private ReadUser readUser;
     private WriteTeam writeTeam;
+    private WriteUser writeUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +45,10 @@ public class CreateTeamActivity extends AppCompatActivity implements BoardView{
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
 
-        // init ReadUserModel
+        // init Database Model
         readUser = new ReadUser();
         writeTeam = new WriteTeam();
+        writeUser = new WriteUser();
 
         // find view and set listener
         edtTeamName = (TextInputEditText) findViewById(R.id.edt_team_name);
@@ -58,7 +61,15 @@ public class CreateTeamActivity extends AppCompatActivity implements BoardView{
                 taskPushTeam.addOnSuccessListener(new OnSuccessListener<String>() {
                     @Override
                     public void onSuccess(String s) {
-
+                        final String teamId = s;
+                        Task<String> taskReadUser = readUser.getUserId();
+                        taskReadUser.addOnSuccessListener(new OnSuccessListener<String>() {
+                            @Override
+                            public void onSuccess(String s) {
+                                Log.d("modify", "set team id");
+                                writeUser.updateUserTeam(s, teamId);
+                            }
+                        });
                     }
                 });
 //                Log.d(TAG, user.getEmail());
