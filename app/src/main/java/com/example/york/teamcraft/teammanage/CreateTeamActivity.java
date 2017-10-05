@@ -1,5 +1,6 @@
 package com.example.york.teamcraft.teammanage;
 
+import android.content.Intent;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -67,16 +68,11 @@ public class CreateTeamActivity extends AppCompatActivity implements BoardView{
                             @Override
                             public void update(String data) {
                                 writeUser.updateUserTeam(data, teamId);
+                                Intent intent = new Intent();
+                                intent.setClass(CreateTeamActivity.this, MainActivity.class);
+                                startActivity(intent);
                             }
                         });
-//                        Task<String> taskReadUser = readUser.getUserId();
-//                        taskReadUser.addOnSuccessListener(new OnSuccessListener<String>() {
-//                            @Override
-//                            public void onSuccess(String s) {
-//                                Log.d("modify", "set team id");
-//                                writeUser.updateUserTeam(s, teamId);
-//                            }
-//                        });
                     }
                 });
 //                Log.d(TAG, user.getEmail());
