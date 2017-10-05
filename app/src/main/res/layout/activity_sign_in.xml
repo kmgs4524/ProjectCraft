@@ -20,6 +20,11 @@
             layout="@layout/toolbar"
             android:elevation="4dp" />
 
+        <!-- Space Area between Toolbar and Login Form-->
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+
         <!-- Login progress -->
         <ProgressBar
             android:id="@+id/login_progress"
@@ -83,6 +88,7 @@
                 android:textColor="@android:color/background_light"
                 android:textSize="12sp" />
 
+            <!-- Divider -->
             <include
                 android:id="@+id/divider_or"
                 layout="@layout/divider_or" />

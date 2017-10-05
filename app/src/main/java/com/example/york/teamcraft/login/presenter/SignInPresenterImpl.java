@@ -70,8 +70,6 @@ public class SignInPresenterImpl implements SignInPresenter {
                 .enableAutoManage(signInActivity /* FragmentActivity */, signInActivity /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-
-
     }
 
     // 呼叫SignInActivity.onStop時，呼叫此Callback
@@ -91,6 +89,7 @@ public class SignInPresenterImpl implements SignInPresenter {
                 user = firebaseUser;
                 Log.d("sign in", user.getEmail());
                 showStatus();
+                confirmUserExist();
             }
         });
     }
