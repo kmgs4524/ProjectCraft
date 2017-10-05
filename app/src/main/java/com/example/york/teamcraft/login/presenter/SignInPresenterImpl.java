@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.example.york.teamcraft.CreateGroupActivity;
 import com.example.york.teamcraft.login.model.EmailSignIn;
 import com.example.york.teamcraft.login.view.SignInActivity;
 import com.example.york.teamcraft.login.view.SignInView;
+import com.example.york.teamcraft.teammanage.CreateTeamActivity;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
 import com.example.york.teamcraft.teammanage.model.User;
 import com.example.york.teamcraft.teammanage.model.WriteUser;
@@ -29,7 +31,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
  * Created by York on 2017/10/3.
  */
 
-public class SignInPresenterImpl implements SignInPresenter{
+public class SignInPresenterImpl implements SignInPresenter {
     // const
     private static final String SEVER_CLIENT_ID = "351544429326-6g982pc3jarftp4017oi8gu526c5m70f.apps.googleusercontent.com";
     private static final int RC_SIGN_IN = 123;
@@ -66,6 +68,13 @@ public class SignInPresenterImpl implements SignInPresenter{
                 .enableAutoManage(signInActivity /* FragmentActivity */, signInActivity /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+
+
+    }
+
+    public void destoryGoogleClient() {
+        mGoogleApiClient.stopAutoManage(signInActivity);
+        mGoogleApiClient.disconnect();
     }
 
     @Override
@@ -99,11 +108,11 @@ public class SignInPresenterImpl implements SignInPresenter{
                             Log.d("google sign in", "signInWithCredential:success");
                             user = auth.getCurrentUser();
                             confirmUserExist();
-                            showStatus();
+                            startCreateTeam();
+//                            showStatus();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("google sign in", "signInWithCredential:failure", task.getException());
-                            showStatus();
                         }
 
                     }
@@ -119,26 +128,46 @@ public class SignInPresenterImpl implements SignInPresenter{
 
     public void confirmUserExist() {
         final ReadUser readUser = new ReadUser();
-        Task<Boolean> task = readUser.checkUserExist();
-        task.addOnSuccessListener(new OnSuccessListener<Boolean>() {
+
+        Task<Boolean> taskCheck = readUser.checkUserExist();
+        taskCheck.addOnSuccessListener(new OnSuccessListener<Boolean>() {
             @Override
             public void onSuccess(Boolean aBoolean) {
-                if(aBoolean == false) {
-                    Log.d("exist", "false");
+                if (aBoolean == false) {
                     WriteUser writeUser = new WriteUser();
                     writeUser.pushData();
+                    startCreateTeam();
+                    Log.d("goto", "create team");
+                } else {
+                    Log.d("goto", "false");
+                    Task<User> taskUser = readUser.getUserData();
+//                    taskUser.addOnSuccessListener(new OnSuccessListener<User>() {
+//                        @Override
+//                        public void onSuccess(User user) {
+//                            if(user.getTeamId() == "0") {
+//                                startCreateTeam();
+//                            }
+//                        }
+//                    });
                 }
             }
         });
+
     }
 
+    public void startCreateTeam() {
+        Intent intent = new Intent();
+        intent.setClass(signInActivity, CreateTeamActivity.class);
+        signInActivity.startActivity(intent);
+    }
 
     public void showStatus() {
-        if(user == null) {
+        if (user == null) {
             Log.d("sign in", "user is null");
         } else {
             Log.d("sign in", user.getEmail());
         }
         signInActivity.showStatus(user);
     }
+
 }

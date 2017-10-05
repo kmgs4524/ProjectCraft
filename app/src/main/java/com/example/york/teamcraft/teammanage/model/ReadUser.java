@@ -86,7 +86,6 @@ public class ReadUser {
                     }
                 }
                 dbSource.setResult(exist);
-//                Log.d("exist", Boolean.toString(exist));
             }
 
             @Override
@@ -96,5 +95,6 @@ public class ReadUser {
         });
         return dbSource.getTask();
     }
+
 
 }
