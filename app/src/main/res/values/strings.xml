@@ -16,6 +16,8 @@
     <string name="action_settings">settings button</string>
     <string name="action_done">settings button</string>
 
+    <!-- TextView underline -->
+    <string name="txt_sign_up"><u>註冊新帳號</u></string>
     <!-- Divider or-->
     <string name="divider_or">or</string>
 

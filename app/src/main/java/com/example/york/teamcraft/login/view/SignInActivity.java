@@ -38,6 +38,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     private EditText edtPwd;    //密碼欄位
     private TextView txtStatus; //登入狀態
     private TextView txtName;   //姓名
+    private TextView txtSignUp;
 
     /*----- Drawer相關元件 -------*/
     private DrawerLayout drawerLayout;
@@ -64,13 +65,15 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         initDrawer();   //Drawer
 
         txtStatus = (TextView) findViewById(R.id.status_txtView);   // 登入狀態
-        txtName = (TextView) findViewById(R.id.name_txtView);   //
+        txtName = (TextView) findViewById(R.id.name_txtView);   // 信箱
+        txtSignUp = (TextView) findViewById(R.id.txt_sign_up);   // 註冊新帳號
 
         edtAcct = (EditText) findViewById(R.id.edt_acct);
         edtPwd = (EditText) findViewById(R.id.edt_pwd);
         findViewById(R.id.signIn_btn).setOnClickListener(this); //登入Button
         findViewById(R.id.google_signIn_btn).setOnClickListener(this);  //Google帳號登入Button
         findViewById(R.id.signOut_btn).setOnClickListener(this);    //登出Button
+        findViewById(R.id.txt_sign_up).setOnClickListener(this);    //登出Button
     }
 
     @Override
@@ -105,6 +108,8 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
                 // Sign Out程序由SignInPresenter負責
                 signInPresenter.signOut();
                 break;
+            case R.id.txt_sign_up:
+                signInPresenter.startSignUp();
         }
     }
 

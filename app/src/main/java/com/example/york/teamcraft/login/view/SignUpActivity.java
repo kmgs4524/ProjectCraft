@@ -1,4 +1,4 @@
-package com.example.york.teamcraft.login;
+package com.example.york.teamcraft.login.view;
 
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -46,6 +46,7 @@ public class SignUpActivity extends AppCompatActivity {
     //設置ToolBar為此activity的app bar
     private void initToolBar(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("註冊帳號");
         setSupportActionBar(toolbar);
     }
 

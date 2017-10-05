@@ -4,25 +4,20 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.example.york.teamcraft.CreateGroupActivity;
+import com.example.york.teamcraft.login.view.SignUpActivity;
 import com.example.york.teamcraft.login.model.EmailSignIn;
 import com.example.york.teamcraft.login.view.SignInActivity;
-import com.example.york.teamcraft.login.view.SignInView;
-import com.example.york.teamcraft.teammanage.CreateTeamActivity;
 import com.example.york.teamcraft.teammanage.MainActivity;
 import com.example.york.teamcraft.teammanage.SelectTeamActivity;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
-import com.example.york.teamcraft.teammanage.model.User;
 import com.example.york.teamcraft.teammanage.model.WriteUser;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -169,9 +164,17 @@ public class SignInPresenterImpl implements SignInPresenter {
         signInActivity.startActivity(intent);
     }
 
+    // 進入Team Manage的MainActivity
     public void startTeamMain() {
         Intent intent = new Intent();
         intent.setClass(signInActivity, MainActivity.class);
+        signInActivity.startActivity(intent);
+    }
+
+    // 進入註冊新帳號畫面
+    public void startSignUp() {
+        Intent intent = new Intent();
+        intent.setClass(signInActivity, SignUpActivity.class);
         signInActivity.startActivity(intent);
     }
 
