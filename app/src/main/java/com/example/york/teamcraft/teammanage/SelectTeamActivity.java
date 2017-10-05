@@ -22,7 +22,7 @@ public class SelectTeamActivity extends AppCompatActivity {
         btnJoinTeam = (Button) findViewById(R.id.btn_join_team);
 
         // set listener
-        btnJoinTeam.setOnClickListener(new View.OnClickListener() {
+        btnCreateTeam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();

@@ -12,35 +12,31 @@
         android:elevation="4dp"
         layout="@layout/toolbar" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="團隊名稱" />
-
-    <android.support.design.widget.TextInputLayout
+    <RelativeLayout
+        android:id="@+id/relativeLayout_team_name"
+        android:layout_below="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.design.widget.TextInputEditText
+        <TextView
+            android:id="@+id/txt_teamname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="團隊名稱" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_teamname"
+            android:layout_below="@id/txt_teamname"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
 
-    </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </android.support.design.widget.TextInputLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="團隊名稱" />
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <android.support.design.widget.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </android.support.design.widget.TextInputLayout>
+    </RelativeLayout>
 
     <Button
         android:id="@+id/btn_create"
@@ -48,5 +44,6 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="創建團隊" />
+        android:text="創建" />
+
 </RelativeLayout>
