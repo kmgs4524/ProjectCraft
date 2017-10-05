@@ -148,6 +148,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     //設置ToolBar為此activity的app bar
     private void initToolBar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("登入");
         setSupportActionBar(toolbar);
     }
 
