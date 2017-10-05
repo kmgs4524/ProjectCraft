@@ -72,6 +72,7 @@ public class SignInPresenterImpl implements SignInPresenter {
 
     }
 
+    // 呼叫SignInActivity.onStop時，呼叫此Callback
     public void destoryGoogleClient() {
         mGoogleApiClient.stopAutoManage(signInActivity);
         mGoogleApiClient.disconnect();
@@ -108,7 +109,6 @@ public class SignInPresenterImpl implements SignInPresenter {
                             Log.d("google sign in", "signInWithCredential:success");
                             user = auth.getCurrentUser();
                             confirmUserExist();
-                            startCreateTeam();
 //                            showStatus();
                         } else {
                             // If sign in fails, display a message to the user.
@@ -129,26 +129,18 @@ public class SignInPresenterImpl implements SignInPresenter {
     public void confirmUserExist() {
         final ReadUser readUser = new ReadUser();
 
-        Task<Boolean> taskCheck = readUser.checkUserExist();
+        Task<Boolean> taskCheck = readUser.checkUserExist();    // 確認users node是否已有目前登入使用者的資料
         taskCheck.addOnSuccessListener(new OnSuccessListener<Boolean>() {
             @Override
             public void onSuccess(Boolean aBoolean) {
-                if (aBoolean == false) {
+                if (aBoolean == false) {    // 若尚未有資料
                     WriteUser writeUser = new WriteUser();
                     writeUser.pushData();
                     startCreateTeam();
                     Log.d("goto", "create team");
-                } else {
-                    Log.d("goto", "false");
-                    Task<User> taskUser = readUser.getUserData();
-//                    taskUser.addOnSuccessListener(new OnSuccessListener<User>() {
-//                        @Override
-//                        public void onSuccess(User user) {
-//                            if(user.getTeamId() == "0") {
-//                                startCreateTeam();
-//                            }
-//                        }
-//                    });
+                } else {    // 若已有資料
+                    Log.d("goto", "true");
+                    startCreateTeam();
                 }
             }
         });
