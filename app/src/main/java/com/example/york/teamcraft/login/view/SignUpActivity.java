@@ -36,6 +36,7 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText edtName;
     private EditText edtEmail;
     private EditText edtPwd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,6 +124,5 @@ public class SignUpActivity extends AppCompatActivity {
         intent.setClass(this, SelectTeamActivity.class);
         startActivity(intent);
     }
-
 
 }
