@@ -6,12 +6,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include
+        android:id="@+id/cardview_my_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/cardview_my_group" />
+
     <!-- 大頭貼圖示 -->
     <GridView
         android:id="@+id/gridView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:numColumns="5">
+        android:layout_below="@+id/cardview_my_group"
+        android:numColumns="2">
     </GridView>
 
     <!-- Floating Button -->
