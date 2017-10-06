@@ -1,24 +1,17 @@
-package com.example.york.teamcraft.teammanage;
+package com.example.york.teamcraft.teammanage.groupmanage;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.york.teamcraft.CreateGroupActivity;
-import com.example.york.teamcraft.GroupActivity;
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.teammanage.model.Group;
 

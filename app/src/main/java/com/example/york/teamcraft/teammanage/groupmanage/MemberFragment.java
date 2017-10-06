@@ -1,4 +1,4 @@
-package com.example.york.teamcraft;
+package com.example.york.teamcraft.teammanage.groupmanage;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,6 +13,8 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.example.york.teamcraft.R;
 
 import java.util.ArrayList;
 

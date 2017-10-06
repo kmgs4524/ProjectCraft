@@ -1,4 +1,4 @@
-package com.example.york.teamcraft;
+package com.example.york.teamcraft.teammanage.groupmanage;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.example.york.teamcraft.R;
 
 public class CreateGroupActivity extends AppCompatActivity {
     private EditText edtGroupName;

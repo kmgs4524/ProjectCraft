@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.Work;
+import com.example.york.teamcraft.teammanage.model.Work;
 
 public class ActContentActivity extends AppCompatActivity {
     private TextView txtTopic;

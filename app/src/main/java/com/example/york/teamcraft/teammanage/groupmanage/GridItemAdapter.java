@@ -1,4 +1,4 @@
-package com.example.york.teamcraft.teammanage;
+package com.example.york.teamcraft.teammanage.groupmanage;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;

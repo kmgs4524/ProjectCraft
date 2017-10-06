@@ -4,12 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-        <com.example.york.teamcraft.teammanage.ProgressWheel
+        <com.example.york.teamcraft.teammanage.taskprogress.ProgressWheel
             android:id="@+id/circular_progress"
             android:layout_width="match_parent"
             android:layout_height="300dp" >
 
-        </com.example.york.teamcraft.teammanage.ProgressWheel>
+        </com.example.york.teamcraft.teammanage.taskprogress.ProgressWheel>
 
         <LinearLayout
             android:id="@+id/progress_act"

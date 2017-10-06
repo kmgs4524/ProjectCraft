@@ -3,7 +3,6 @@ package com.example.york.teamcraft.teammanage.model;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
-import com.example.york.teamcraft.Work;
 import com.example.york.teamcraft.CallBack;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;

@@ -36,12 +36,12 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".GroupActivity">
+        <activity android:name=".teammanage.groupmanage.GroupActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".CreateGroupActivity">
+        <activity android:name=".teammanage.groupmanage.CreateGroupActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
