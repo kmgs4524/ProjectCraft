@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -65,18 +66,17 @@ public class GroupManageFragment extends Fragment {
         gridView.setAdapter(new GridItemAdapter(getActivity(), groupList));
         Log.d(TAG, "setAdapter");
 
-//        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Toast.makeText(getContext(), "item clicked", Toast.LENGTH_LONG).show();
-//                Intent intent = new Intent();
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent();
 //                Bundle bundle = new Bundle();
 //                bundle.putString("DATA_GROUP_NAME", "宅宅笑嘻嘻");
 //                intent.putExtras(bundle);
-//                intent.setClass(getContext(), GroupActivity.class);
-//                startActivity(intent);  // 進入CreateGroupActivity
-//            }
-//        });
+                intent.setClass(getActivity(), GroupActivity.class);
+                startActivity(intent);  // 進入CreateGroupActivity
+            }
+        });
     }
 
     //按下Floating Button後新增drawable

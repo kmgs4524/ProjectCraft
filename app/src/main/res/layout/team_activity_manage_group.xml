@@ -21,13 +21,5 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"/>
 
-    <fragment android:name="com.example.york.teamcraft.teammanage.groupmanage.MemberFragment"
-        android:id="@+id/team_groupmanage_fragment"
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="160dp"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/team_target_fragment" />
 
 </RelativeLayout>
