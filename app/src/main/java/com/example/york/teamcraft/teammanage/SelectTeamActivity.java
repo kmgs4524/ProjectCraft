@@ -15,7 +15,7 @@ public class SelectTeamActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.teammanage_activity_select_team);
+        setContentView(R.layout.team_activity_select_team);
 
         // find view
         btnCreateTeam = (Button) findViewById(R.id.btn_create_team);

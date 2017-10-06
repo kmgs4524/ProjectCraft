@@ -2,8 +2,6 @@ package com.example.york.teamcraft.teammanage.view;
 
 import android.app.DatePickerDialog;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.v4.app.DialogFragment;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -21,9 +19,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.personalsmanage.MainActivity;
-import com.example.york.teamcraft.personalsmanage.NoteContentActivity;
-import com.example.york.teamcraft.personalsmanage.NotesContract;
 import com.example.york.teamcraft.teammanage.presenter.AddItemPresenter;
 import com.example.york.teamcraft.teammanage.presenter.AddItemPresenterImpl;
 
@@ -43,7 +38,7 @@ public class AddItemActivity extends AppCompatActivity implements AddItemView, V
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.teammanage_activity_add_item);
+        setContentView(R.layout.team_activity_add_item);
 
         // findView
 
