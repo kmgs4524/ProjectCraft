@@ -100,37 +100,4 @@ public class ReadTeam {
 
     }
 
-//    public Task<Team> getTeamData() {
-//        final Task<String> task = readUser.getUserId();
-//        final TaskCompletionSource source = new TaskCompletionSource();
-//
-//        teamRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(final DataSnapshot dataSnapshot) {
-//                try {
-//                    task.addOnCompleteListener(new OnCompleteListener<String>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<String> task) {
-//                            team = dataSnapshot.child(task.getResult()).getValue(Team.class);
-//                            source.setResult(team);
-//                            Log.d("getTeam", "team name: " + team.getName());
-//                        }
-//                    });
-//
-//
-//                } catch (Exception e) {
-//                    Log.d("getTeam", "team name error: " + e.getMessage());
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                Log.d("getTeam", "Error in ReadTeam " + databaseError.getMessage());
-//            }
-//        });
-//
-//        return source.getTask();
-//    }
-
 }

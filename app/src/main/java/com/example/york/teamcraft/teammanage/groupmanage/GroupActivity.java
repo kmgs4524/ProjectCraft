@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-
 import com.example.york.teamcraft.R;
 
 public class GroupActivity extends AppCompatActivity {

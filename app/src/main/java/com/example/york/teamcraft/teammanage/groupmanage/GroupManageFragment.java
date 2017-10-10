@@ -70,9 +70,6 @@ public class GroupManageFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent();
-//                Bundle bundle = new Bundle();
-//                bundle.putString("DATA_GROUP_NAME", "宅宅笑嘻嘻");
-//                intent.putExtras(bundle);
                 intent.setClass(getActivity(), GroupActivity.class);
                 startActivity(intent);  // 進入CreateGroupActivity
             }

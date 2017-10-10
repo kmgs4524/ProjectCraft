@@ -6,23 +6,20 @@ package com.example.york.teamcraft.teammanage.model;
 
 public class Group {
     private String name;
-    private String objective;
-    private String memNum;
+    private String id;
 
-    public Group(String name, String objective) {
+    public Group(String id, String name) {
+        this.id = id;
         this.name = name;
-        this.memNum = objective;
     }
+
+    public Group() {}
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
-    public String getObjective() {
-        return objective;
-    }
-
-    public String getMemNum() {
-        return memNum;
+    public String getId() {
+        return this.id;
     }
 }
