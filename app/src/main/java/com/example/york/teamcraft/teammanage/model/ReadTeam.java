@@ -36,7 +36,6 @@ public class ReadTeam {
     private ReadUser readUser;
 
     // 存放資料的object, collection
-    private Team team;
     private Work work;
     private Group group;
     private ArrayList<Work> workList;
@@ -56,7 +55,6 @@ public class ReadTeam {
 
     public void getTeamAct(final CallBack< ArrayList<Work> > callback) {
         final Task<User> userTask = readUser.getUserData(); // 取得擁有User Data的Task
-        Log.d("getAct", "getTeamAct");
 
         userTask.addOnSuccessListener(new OnSuccessListener<User>() {
             @Override
@@ -67,12 +65,9 @@ public class ReadTeam {
                 ref.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        Log.d("getAct", dataSnapshot.getValue().toString());
                         work = dataSnapshot.getValue(Work.class);
-                        Log.d("getAct", work.getDate());
-                        Log.d("getAct", work.getContent());
                         workList.add(work);
-                        Log.d("getAct", "list size: " + Integer.toString(workList.size()));
+
                         callback.update(workList);
 
                     }
