@@ -1,4 +1,4 @@
-package com.example.york.teamcraft.teammanage.groupmanage;
+package com.example.york.teamcraft.teammanage.groupfragment.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,10 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.example.york.teamcraft.R;
+import com.example.york.teamcraft.teammanage.groupfragment.presenter.GroupManagePresenter;
+import com.example.york.teamcraft.teammanage.groupfragment.presenter.GroupManagePresenterImpl;
+import com.example.york.teamcraft.teammanage.groupmanage.CreateGroupActivity;
+import com.example.york.teamcraft.teammanage.groupmanage.GroupActivity;
 import com.example.york.teamcraft.teammanage.model.Group;
 
 import java.util.ArrayList;
@@ -22,13 +26,15 @@ import java.util.ArrayList;
  * Created by user on 2017/7/4.
  */
 //群組管理分頁
-public class GroupManageFragment extends Fragment {
+public class GroupManageFragment extends Fragment implements GroupManageView{
     private static final String TAG = "GroupManageFragment";
 
-    //存放Drawable的list
+    private GroupManagePresenter groupManagePresenter;
+
+    // 存放Drawable的list
     private  ArrayList<Group> groupList = new ArrayList<>();
 
-    //介面元件
+    // 介面元件
     private GridView gridView;
     private FloatingActionButton fab;
 
@@ -37,7 +43,12 @@ public class GroupManageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.team_fragment_manage_group, container, false);
 
-        initGrid(view);
+        // find view
+        gridView = (GridView) view.findViewById(R.id.gridView); // link GridView
+
+        groupManagePresenter = new GroupManagePresenterImpl(this);
+
+        groupManagePresenter.initGridViewData();
         initFab(view);
         return view;
     }
@@ -51,19 +62,23 @@ public class GroupManageFragment extends Fragment {
                 Intent intent = new Intent();
                 intent.setClass(getContext(), CreateGroupActivity.class);
                 startActivity(intent);
-                //addImg();
             }
         });
     }
 
     //初始化GridView
     private  void initGrid(View view) {
-        gridView = (GridView) view.findViewById(R.id.gridView); // link GridView
-        groupList.add(new Group("會資小組", "4"));
-        groupList.add(new Group("D1306寢聚小組", "4"));
-        groupList.add(new Group("器材組", "4"));
-        groupList.add(new Group("活動組", "4"));
-        gridView.setAdapter(new GridItemAdapter(getActivity(), groupList));
+
+//        groupList.add(new Group("會資小組", "4"));
+//        groupList.add(new Group("D1306寢聚小組", "4"));
+//        groupList.add(new Group("器材組", "4"));
+//        groupList.add(new Group("活動組", "4"));
+    }
+
+
+    @Override
+    public void initGridView(ArrayList<Group> list) {
+        gridView.setAdapter(new GridItemAdapter(getActivity(), list));
         Log.d(TAG, "setAdapter");
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -74,15 +89,5 @@ public class GroupManageFragment extends Fragment {
                 startActivity(intent);  // 進入CreateGroupActivity
             }
         });
-    }
-
-    //按下Floating Button後新增drawable
-    private  void addImg(){
-//      RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-//        Integer[] arr = {R.drawable.img, R.drawable.img2};
-
-//        drawableList.add(R.drawable.img2);  //新增Drawable img2到list
-//        gridView.setAdapter(new ImageAdapter(getContext(), drawableList));
-//        Log.d(TAG, String.valueOf(gridView));
     }
 }

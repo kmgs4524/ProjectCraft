@@ -31,23 +31,26 @@ public class ReadTeam {
     private DatabaseReference rootRef;
     private DatabaseReference teamRef;
     private DatabaseReference teamActRef;
+    private DatabaseReference teamGroRef;
 
     private ReadUser readUser;
+
+    // 存放資料的object, collection
     private Team team;
-    private ArrayList<Work> actList;
-    private Work act;
+    private Work work;
+    private Group group;
+    private ArrayList<Work> workList;
+    private ArrayList<Group> groupList;
 
-    private FragmentActivity fragActivity;
 
-    public ReadTeam(FragmentActivity fa) {
+    public ReadTeam() {
         rootRef = FirebaseDatabase.getInstance().getReference();
         teamRef = rootRef.child("teams").getRef();
         teamActRef = rootRef.child("teamActivities");
+        teamGroRef = rootRef.child("teamGroups");
         user = FirebaseAuth.getInstance().getCurrentUser();
         readUser = new ReadUser();
-        actList = new ArrayList<>();
-
-        fragActivity = fa;
+        workList = new ArrayList<>();
 
     }
 
@@ -65,12 +68,12 @@ public class ReadTeam {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                         Log.d("getAct", dataSnapshot.getValue().toString());
-                        act = dataSnapshot.getValue(Work.class);
-                        Log.d("getAct", act.getDate());
-                        Log.d("getAct", act.getContent());
-                        actList.add(act);
-                        Log.d("getAct", "list size: " + Integer.toString(actList.size()));
-                        callback.update(actList);
+                        work = dataSnapshot.getValue(Work.class);
+                        Log.d("getAct", work.getDate());
+                        Log.d("getAct", work.getContent());
+                        workList.add(work);
+                        Log.d("getAct", "list size: " + Integer.toString(workList.size()));
+                        callback.update(workList);
 
                     }
 
@@ -98,6 +101,48 @@ public class ReadTeam {
             }
         });
 
+    }
+
+    public void getTeamGroup(final CallBack< ArrayList<Group> > callback) {
+        final Task<User> userTask = readUser.getUserData(); // 取得擁有User Data的Task
+        groupList = new ArrayList<>();
+
+        userTask.addOnSuccessListener(new OnSuccessListener<User>() {
+            @Override
+            public void onSuccess(User user) {
+                DatabaseReference ref = teamGroRef.child(user.getTeamId()).getRef();
+
+                ref.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        Log.d("snap", dataSnapshot.toString());
+                        group = dataSnapshot.getValue(Group.class);
+                        groupList.add(group);
+                        callback.update(groupList);
+                    }
+
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
     }
 
 }

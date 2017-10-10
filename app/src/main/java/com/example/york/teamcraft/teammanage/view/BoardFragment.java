@@ -88,7 +88,7 @@ public class BoardFragment extends Fragment implements BoardView{
             showAlertDialog();
         } else {
             // init Database Model
-            readTeam = new ReadTeam(getActivity());
+            readTeam = new ReadTeam();
             user = FirebaseAuth.getInstance().getCurrentUser();
 
             readTeam.getTeamAct(new CallBack<ArrayList<Work>>() {

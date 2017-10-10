@@ -1,4 +1,4 @@
-package com.example.york.teamcraft.teammanage.groupmanage;
+package com.example.york.teamcraft.teammanage.groupfragment.view;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
@@ -48,14 +48,9 @@ public class GridItemAdapter extends BaseAdapter{
         View view = LayoutInflater.from(fragActivity)
                     .inflate(R.layout.cardview_team_group, null);
         TextView txtGroupName = (TextView) view.findViewById(R.id.txt_card_item_group_name);
-        TextView txtMebNum = (TextView) view.findViewById(R.id.txt_card_item_member_num);
-
         String name = dataList.get(position).getName();
-        String memNum = dataList.get(position).getMemNum();
 
         txtGroupName.setText(name);
-        txtMebNum.setText(memNum);
-//        CardViewHolder holder = new CardViewHolder(view);
 
         return view;
     }
