@@ -1,4 +1,4 @@
-package com.example.york.teamcraft.teammanage.groupmanage.view;
+package com.example.york.teamcraft.teammanage.groupinformation.view;
 
 import android.content.Context;
 import android.util.Log;
@@ -12,7 +12,6 @@ import com.example.york.teamcraft.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by York on 2017/10/10.

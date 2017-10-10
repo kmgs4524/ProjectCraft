@@ -16,8 +16,8 @@ import android.widget.Toast;
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.teammanage.groupfragment.presenter.GroupManagePresenter;
 import com.example.york.teamcraft.teammanage.groupfragment.presenter.GroupManagePresenterImpl;
-import com.example.york.teamcraft.teammanage.groupmanage.CreateGroupActivity;
-import com.example.york.teamcraft.teammanage.groupmanage.GroupActivity;
+import com.example.york.teamcraft.teammanage.groupinformation.CreateGroupActivity;
+import com.example.york.teamcraft.teammanage.groupinformation.view.GroupInfoActivity;
 import com.example.york.teamcraft.teammanage.model.Group;
 
 import java.util.ArrayList;
@@ -31,9 +31,6 @@ public class GroupManageFragment extends Fragment implements GroupManageView{
 
     private GroupManagePresenter groupManagePresenter;
 
-    // 存放Drawable的list
-    private  ArrayList<Group> groupList = new ArrayList<>();
-
     // 介面元件
     private GridView gridView;
     private FloatingActionButton fab;
@@ -45,9 +42,8 @@ public class GroupManageFragment extends Fragment implements GroupManageView{
 
         // find view
         gridView = (GridView) view.findViewById(R.id.gridView); // link GridView
-
+        // init Presenter
         groupManagePresenter = new GroupManagePresenterImpl(this);
-
         groupManagePresenter.initGridViewData();
         initFab(view);
         return view;
@@ -79,7 +75,7 @@ public class GroupManageFragment extends Fragment implements GroupManageView{
                 bundle.putString("name", list.get(position).getName());
                 Intent intent = new Intent();
                 intent.putExtras(bundle);
-                intent.setClass(getActivity(), GroupActivity.class);
+                intent.setClass(getActivity(), GroupInfoActivity.class);
                 startActivity(intent);  // 進入CreateGroupActivity
             }
         });

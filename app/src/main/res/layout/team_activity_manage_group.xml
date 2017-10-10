@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.york.teamcraft.teammanage.groupmanage.GroupActivity">
+    tools:context="com.example.york.teamcraft.teammanage.groupinformation.view.GroupInfoActivity">
 
     <include
         android:id="@+id/toolbar"
@@ -15,18 +15,18 @@
         tools:layout_editor_absoluteY="0dp"
         tools:layout_editor_absoluteX="0dp" />
 
-    <fragment android:name="com.example.york.teamcraft.teammanage.groupmanage.view.TargetFragment"
-        android:id="@+id/team_target_fragment"
+    <fragment android:name="com.example.york.teamcraft.targetfragment.TargetFragment"
+        android:id="@+id/fragment_group_target"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar" />
 
-    <fragment android:name="com.example.york.teamcraft.teammanage.groupmanage.view.TaskFragment"
-        android:id="@+id/team_fragment_member"
+    <fragment android:name="com.example.york.teamcraft.taskfragment.TaskFragment"
+        android:id="@+id/fragment_group_task"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/team_target_fragment" />
+        android:layout_below="@+id/fragment_group_target" />
 
 </RelativeLayout>

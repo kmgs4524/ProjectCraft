@@ -1,17 +1,15 @@
-package com.example.york.teamcraft.teammanage.groupmanage.view;
+package com.example.york.teamcraft.taskfragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.view.menu.ExpandedMenuView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.teammanage.groupmanage.model.Member;
+import com.example.york.teamcraft.teammanage.groupinformation.view.ExpandableListAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,11 +23,19 @@ public class TaskFragment extends Fragment {
     private ArrayList<String> childList1;
     private ArrayList<String> childList2;
 
+    public TaskFragment() {
+        setArguments(new Bundle());
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.team_fragment_member, container, false);
+
+        String id = getArguments().getString("id");
+        Log.d("args in task", id);
+//        Log.d("args in task", getArguments().getString("id"));
 
         groupList = new ArrayList<>();
         groupList.add("找器材");
