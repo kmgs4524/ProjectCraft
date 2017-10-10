@@ -66,25 +66,19 @@ public class GroupManageFragment extends Fragment implements GroupManageView{
         });
     }
 
-    //初始化GridView
-    private  void initGrid(View view) {
-
-//        groupList.add(new Group("會資小組", "4"));
-//        groupList.add(new Group("D1306寢聚小組", "4"));
-//        groupList.add(new Group("器材組", "4"));
-//        groupList.add(new Group("活動組", "4"));
-    }
-
-
     @Override
-    public void initGridView(ArrayList<Group> list) {
+    public void initGridView(final ArrayList<Group> list) {
         gridView.setAdapter(new GridItemAdapter(getActivity(), list));
         Log.d(TAG, "setAdapter");
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Bundle bundle = new Bundle();
+                bundle.putString("id", list.get(position).getId());
+                bundle.putString("name", list.get(position).getName());
                 Intent intent = new Intent();
+                intent.putExtras(bundle);
                 intent.setClass(getActivity(), GroupActivity.class);
                 startActivity(intent);  // 進入CreateGroupActivity
             }
