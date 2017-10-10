@@ -30,6 +30,7 @@ public class MemberItemAdapter extends RecyclerView.Adapter<MemberViewHolder>{
                 .inflate(R.layout.recycler_view_member, null);
 
         MemberViewHolder holder = new MemberViewHolder(view);
+
         return holder;
     }
 

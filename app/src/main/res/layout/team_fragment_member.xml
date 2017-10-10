@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.york.teamcraft.teammanage.groupmanage.view.MemberFragment">
+    tools:context="com.example.york.teamcraft.teammanage.groupmanage.view.TaskFragment">
 
     <include
         layout="@layout/divider_normal"
@@ -13,16 +13,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:text="成員" />
+        android:text="群組任務" />
     <include
         layout="@layout/divider_normal"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view_member"
+    <ExpandableListView
+        android:id="@+id/expand_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+    </ExpandableListView>
 
-    </android.support.v7.widget.RecyclerView>
 </LinearLayout>

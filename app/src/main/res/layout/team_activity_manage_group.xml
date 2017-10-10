@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar" />
 
-    <fragment android:name="com.example.york.teamcraft.teammanage.groupmanage.view.MemberFragment"
+    <fragment android:name="com.example.york.teamcraft.teammanage.groupmanage.view.TaskFragment"
         android:id="@+id/team_fragment_member"
         android:layout_weight="1"
         android:layout_width="match_parent"
