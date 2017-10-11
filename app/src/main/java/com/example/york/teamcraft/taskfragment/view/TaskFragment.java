@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 
 import com.example.york.teamcraft.CallBack;
@@ -18,13 +19,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TaskFragment extends Fragment implements TaskFragmentView {
+    private String id;
+
     private ExpandableListView expandList;
     private ExpandableListAdapter adapter;
-
-    private ArrayList<String> groupList;
-    private HashMap<String, ArrayList<String>> itemMap;
-    private ArrayList<String> childList1;
-    private ArrayList<String> childList2;
 
     private ReadGroupTasks readGroupTasks;
 
@@ -41,44 +39,35 @@ public class TaskFragment extends Fragment implements TaskFragmentView {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.team_fragment_member, container, false);
-
-        String id = getArguments().getString("id");
-        Log.d("args in task", id);
-
-        itemMap = new HashMap<>();
-        childList1 = new ArrayList<>();
-        childList2 = new ArrayList<>();
-
-        childList1.add("小王要找器材");
-        childList1.add("小玉要找器材");
-        itemMap.put("找器材", childList1);
-
-        childList2.add("小王要整理器材");
-        childList2.add("小玉要整理器材");
-        itemMap.put("整理器材", childList2);
-
-        expandList = (ExpandableListView) view.findViewById(R.id.expand_list);
-
-        readGroupTasks = new ReadGroupTasks();
-        readGroupTasks.getGroupTaskName(id, new CallBackTwoArgs<ArrayList<String>, HashMap<String, ArrayList<ContentTask>>>() {
-            @Override
-            public void update(ArrayList<String> list, HashMap<String, ArrayList<ContentTask>> map) {
-//                Log.d("hashmap", Integer.toString(map.get("活動實行").size()));
-                adapter = new ExpandableListAdapter(getActivity(), list, map);
-                expandList.setAdapter(adapter);
-            }
-        });
-
-//        setExpandListAdpater(view);
-
-//        adapter = new ExpandableListAdapter(getActivity(), groupList, itemMap);
-//        expandList.setAdapter(adapter);
+        // get passed id
+        id = getArguments().getString("id");
+        // set ExpandableList and Adapter
+        setExpandList(view);
 
         return view;
     }
 
-    public void setExpandListAdpater(View v) {
+    public void setExpandList(View v) {
+        expandList = (ExpandableListView) v.findViewById(R.id.expand_list);
 
+        readGroupTasks = new ReadGroupTasks();
+        readGroupTasks.getGroupTaskName(id, new CallBackTwoArgs<ArrayList<String>, HashMap<String, ArrayList<ContentTask>>>() {
+            @Override
+            public void update(final ArrayList<String> list, final HashMap<String, ArrayList<ContentTask>> map) {
+                // init adapter
+                adapter = new ExpandableListAdapter(getActivity(), list, map);
+                // set adapter
+                expandList.setAdapter(adapter);
+                // set listener
+                expandList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+                    @Override
+                    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                        Log.d("click", "content " + map.get(list.get(groupPosition)).get(childPosition).getTopic());
+                        return false;
+                    }
+                });
+            }
+        });
 
     }
 

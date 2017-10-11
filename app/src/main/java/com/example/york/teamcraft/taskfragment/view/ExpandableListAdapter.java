@@ -27,8 +27,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter{
         this.context = context;
         this.groupList = list;
         this.itemMap = map;
-//        Log.d("list", Integer.toString(groupList.size()));
-//        Log.d("map", Integer.toString(itemMap.get("活動包裝").size()));
     }
 
     @Override
