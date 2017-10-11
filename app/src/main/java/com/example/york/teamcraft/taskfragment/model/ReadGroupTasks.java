@@ -29,25 +29,29 @@ public class ReadGroupTasks {
 
     public void getGroupTaskName(String groupId, final CallBackTwoArgs<ArrayList<String>, HashMap<String, ArrayList<ContentTask>>> callBack) {
         DatabaseReference childRef = groupRef.child(groupId);
-        final ArrayList<String> groupList = new ArrayList<>();
-        final HashMap<String, ArrayList<ContentTask>> itemMap = new HashMap<>();
-        final ArrayList<ContentTask> contentTaskList = new ArrayList<>();
+        final ArrayList<String> groupList = new ArrayList<>();  // 群組任務的list
+        final HashMap<String, ArrayList<ContentTask>> itemMap = new HashMap<>();    // 細項任務的map，key: 群組任務名稱, value: 細項任務的list
+
 
         childRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 String groupTaskName = dataSnapshot.getKey();
+                // ArrayList為傳址，故無法重複使用
+                ArrayList<ContentTask> contentTaskList = new ArrayList<>();   // 細項任務的list
+
                 groupList.add(groupTaskName);
                 ContentTask task;
                 Iterator<DataSnapshot> childSnapShot= dataSnapshot.getChildren().iterator();
                 while (childSnapShot.hasNext()) {
-//                    Log.d("snap", childSnapShot.next().getValue().toString());
                     task = childSnapShot.next().getValue(ContentTask.class);
                     contentTaskList.add(task);
                 }
+
                 itemMap.put(groupTaskName, contentTaskList);
-                Log.d("key", Integer.toString(itemMap.size()));
                 callBack.update(groupList, itemMap);
+                Log.d("list before 活動包裝", Integer.toString(itemMap.get("活動包裝").size()));
+                Log.d("list after 活動包裝", Integer.toString(itemMap.get("活動包裝").size()));
             }
 
             @Override
