@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/team_activity_group_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.york.teamcraft.teammanage.groupinformation.view.GroupInfoActivity">
 
     <include
@@ -15,18 +17,5 @@
         tools:layout_editor_absoluteY="0dp"
         tools:layout_editor_absoluteX="0dp" />
 
-    <fragment android:name="com.example.york.teamcraft.targetfragment.TargetFragment"
-        android:id="@+id/fragment_group_target"
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar" />
 
-    <fragment android:name="com.example.york.teamcraft.taskfragment.TaskFragment"
-        android:id="@+id/fragment_group_task"
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/fragment_group_target" />
-
-</RelativeLayout>
+</LinearLayout>

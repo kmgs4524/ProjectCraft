@@ -23,9 +23,10 @@ public class TaskFragment extends Fragment {
     private ArrayList<String> childList1;
     private ArrayList<String> childList2;
 
-    public TaskFragment() {
-        setArguments(new Bundle());
-    }
+    // 在連接activity前就設定arguments
+//    public TaskFragment() {
+//        setArguments(new Bundle());
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,7 +36,6 @@ public class TaskFragment extends Fragment {
 
         String id = getArguments().getString("id");
         Log.d("args in task", id);
-//        Log.d("args in task", getArguments().getString("id"));
 
         groupList = new ArrayList<>();
         groupList.add("找器材");
