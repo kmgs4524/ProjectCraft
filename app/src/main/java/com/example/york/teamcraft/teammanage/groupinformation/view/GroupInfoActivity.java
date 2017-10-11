@@ -1,6 +1,5 @@
 package com.example.york.teamcraft.teammanage.groupinformation.view;
 
-import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -10,7 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.targetfragment.TargetFragment;
-import com.example.york.teamcraft.taskfragment.TaskFragment;
+import com.example.york.teamcraft.taskfragment.view.TaskFragment;
 import com.example.york.teamcraft.teammanage.groupinformation.presenter.GroupInfoPresenter;
 import com.example.york.teamcraft.teammanage.groupinformation.presenter.GroupInfoPresenterImpl;
 

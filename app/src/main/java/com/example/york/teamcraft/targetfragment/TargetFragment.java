@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.taskfragment.TaskFragment;
 
 
 public class TargetFragment extends Fragment {

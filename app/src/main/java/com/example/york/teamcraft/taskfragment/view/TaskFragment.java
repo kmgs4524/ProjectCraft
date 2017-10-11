@@ -1,4 +1,4 @@
-package com.example.york.teamcraft.taskfragment;
+package com.example.york.teamcraft.taskfragment.view;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
