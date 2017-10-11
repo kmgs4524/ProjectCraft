@@ -7,6 +7,6 @@ import java.util.ArrayList;
  */
 
 public interface CallBack<D> {
-//    public abstract void update(ArrayList<Work> list);
     public abstract void update(D data);
+
 }

@@ -1,4 +1,4 @@
-package com.example.york.teamcraft.teammanage.groupinformation.view;
+package com.example.york.teamcraft.taskfragment.view;
 
 import android.content.Context;
 import android.util.Log;
@@ -9,6 +9,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import com.example.york.teamcraft.R;
+import com.example.york.teamcraft.taskfragment.model.ContentTask;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,15 +21,12 @@ import java.util.HashMap;
 public class ExpandableListAdapter extends BaseExpandableListAdapter{
     private Context context;
     private ArrayList<String> groupList;
-    private HashMap< String, ArrayList<String> > itemMap;
+    private HashMap< String, ArrayList<ContentTask> > itemMap;
 
-    public ExpandableListAdapter(Context context, ArrayList<String> list, HashMap<String, ArrayList<String>> map) {
+    public ExpandableListAdapter(Context context, ArrayList<String> list, HashMap<String, ArrayList<ContentTask>> map) {
         this.context = context;
         this.groupList = list;
         this.itemMap = map;
-
-        Log.d("init", list.toString());
-        Log.d("init", map.toString());
     }
 
     @Override
@@ -79,7 +77,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter{
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         View view = LayoutInflater.from(context).inflate(R.layout.expandlist_item, null);
         TextView txtTitle = (TextView) view.findViewById(R.id.txt_expand_item);
-        txtTitle.setText(itemMap.get(groupList.get(groupPosition)).get(childPosition));
+        txtTitle.setText(itemMap.get(groupList.get(groupPosition)).get(childPosition).getTopic());
 
         return view;
     }
