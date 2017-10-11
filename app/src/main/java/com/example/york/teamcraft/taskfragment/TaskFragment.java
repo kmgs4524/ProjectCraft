@@ -23,10 +23,13 @@ public class TaskFragment extends Fragment {
     private ArrayList<String> childList1;
     private ArrayList<String> childList2;
 
-    // 在連接activity前就設定arguments
-//    public TaskFragment() {
-//        setArguments(new Bundle());
-//    }
+    public static TaskFragment newInstance(String groupId) {
+        TaskFragment taskFragment=new TaskFragment();
+        Bundle bundle=new Bundle();
+        bundle.putString("id", groupId);
+        taskFragment.setArguments(bundle);
+        return taskFragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

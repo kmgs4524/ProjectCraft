@@ -29,24 +29,12 @@ public class GroupInfoActivity extends AppCompatActivity implements GroupInfoVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.team_activity_manage_group);
 
-        // get bundle
-        Intent intent = getIntent();    //取得CreateGroupActivity傳來的intent
-        Bundle bundle = intent.getExtras(); //從intent取出CreateGroupActivity傳過來的bundle
-        groupName =bundle.getString("name");
-        groupId =bundle.getString("id");
-
+        // get bundle data
+        getPassedGroupData();
         // init toolbar
         initToolBar(groupName);
-
-        // init fragment manager, transaction
-        fragmentManager = this.getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragTarget = new TargetFragment();
-        fragTask = new TaskFragment();
-        setFragArg(bundle.getString("id"));
-        fragmentTransaction.add(R.id.team_activity_group_layout, fragTarget);
-        fragmentTransaction.add(R.id.team_activity_group_layout, fragTask);
-        fragmentTransaction.commit();
+        // set TargetFragment TaskFragment
+        setFragment();
 
         // init presenter
         groupInfoPresenter = new GroupInfoPresenterImpl(this);
@@ -61,11 +49,21 @@ public class GroupInfoActivity extends AppCompatActivity implements GroupInfoVie
         Log.d("MainActivity", "init ToolBar");
     }
 
-    public void setFragArg(String id) {
-        Bundle bundleId = new Bundle();
-        bundleId.putString("id", id);
-        fragTask.setArguments(bundleId);
-//        Log.d("args in setFrag", fragTask.getArguments().toString());
+    public void getPassedGroupData() {
+        Bundle bundle = getIntent().getExtras();
+        groupName =bundle.getString("name");
+        groupId =bundle.getString("id");
+    }
+
+    public void setFragment() {
+        // init fragment manager, transaction
+        fragmentManager = this.getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragTarget = TargetFragment.newInstance();
+        fragTask = TaskFragment.newInstance(groupId);
+        fragmentTransaction.add(R.id.team_activity_group_layout, fragTarget);
+        fragmentTransaction.add(R.id.team_activity_group_layout, fragTask);
+        fragmentTransaction.commit();
     }
 
 }

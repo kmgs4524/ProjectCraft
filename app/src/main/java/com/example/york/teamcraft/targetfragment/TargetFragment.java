@@ -8,9 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.york.teamcraft.R;
+import com.example.york.teamcraft.taskfragment.TaskFragment;
 
 
 public class TargetFragment extends Fragment {
+
+    public static TargetFragment newInstance() {
+        TargetFragment targetFragment = new TargetFragment();
+
+        return targetFragment;
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
