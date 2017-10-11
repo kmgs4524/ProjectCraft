@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.example.york.teamcraft.Work;
+import com.example.york.teamcraft.teammanage.model.Work;
 import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.login.view.SignInActivity;
@@ -88,7 +88,7 @@ public class BoardFragment extends Fragment implements BoardView{
             showAlertDialog();
         } else {
             // init Database Model
-            readTeam = new ReadTeam(getActivity());
+            readTeam = new ReadTeam();
             user = FirebaseAuth.getInstance().getCurrentUser();
 
             readTeam.getTeamAct(new CallBack<ArrayList<Work>>() {

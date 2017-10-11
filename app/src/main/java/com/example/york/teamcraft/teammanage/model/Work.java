@@ -1,4 +1,4 @@
-package com.example.york.teamcraft;
+package com.example.york.teamcraft.teammanage.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

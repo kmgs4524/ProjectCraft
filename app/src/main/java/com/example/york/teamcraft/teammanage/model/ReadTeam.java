@@ -3,7 +3,6 @@ package com.example.york.teamcraft.teammanage.model;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
-import com.example.york.teamcraft.Work;
 import com.example.york.teamcraft.CallBack;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -32,29 +31,30 @@ public class ReadTeam {
     private DatabaseReference rootRef;
     private DatabaseReference teamRef;
     private DatabaseReference teamActRef;
+    private DatabaseReference teamGroRef;
 
     private ReadUser readUser;
-    private Team team;
-    private ArrayList<Work> actList;
-    private Work act;
 
-    private FragmentActivity fragActivity;
+    // 存放資料的object, collection
+    private Work work;
+    private Group group;
+    private ArrayList<Work> workList;
+    private ArrayList<Group> groupList;
 
-    public ReadTeam(FragmentActivity fa) {
+
+    public ReadTeam() {
         rootRef = FirebaseDatabase.getInstance().getReference();
         teamRef = rootRef.child("teams").getRef();
         teamActRef = rootRef.child("teamActivities");
+        teamGroRef = rootRef.child("teamGroups");
         user = FirebaseAuth.getInstance().getCurrentUser();
         readUser = new ReadUser();
-        actList = new ArrayList<>();
-
-        fragActivity = fa;
+        workList = new ArrayList<>();
 
     }
 
     public void getTeamAct(final CallBack< ArrayList<Work> > callback) {
         final Task<User> userTask = readUser.getUserData(); // 取得擁有User Data的Task
-        Log.d("getAct", "getTeamAct");
 
         userTask.addOnSuccessListener(new OnSuccessListener<User>() {
             @Override
@@ -65,13 +65,10 @@ public class ReadTeam {
                 ref.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        Log.d("getAct", dataSnapshot.getValue().toString());
-                        act = dataSnapshot.getValue(Work.class);
-                        Log.d("getAct", act.getDate());
-                        Log.d("getAct", act.getContent());
-                        actList.add(act);
-                        Log.d("getAct", "list size: " + Integer.toString(actList.size()));
-                        callback.update(actList);
+                        work = dataSnapshot.getValue(Work.class);
+                        workList.add(work);
+
+                        callback.update(workList);
 
                     }
 
@@ -101,37 +98,46 @@ public class ReadTeam {
 
     }
 
-//    public Task<Team> getTeamData() {
-//        final Task<String> task = readUser.getUserId();
-//        final TaskCompletionSource source = new TaskCompletionSource();
-//
-//        teamRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(final DataSnapshot dataSnapshot) {
-//                try {
-//                    task.addOnCompleteListener(new OnCompleteListener<String>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<String> task) {
-//                            team = dataSnapshot.child(task.getResult()).getValue(Team.class);
-//                            source.setResult(team);
-//                            Log.d("getTeam", "team name: " + team.getName());
-//                        }
-//                    });
-//
-//
-//                } catch (Exception e) {
-//                    Log.d("getTeam", "team name error: " + e.getMessage());
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                Log.d("getTeam", "Error in ReadTeam " + databaseError.getMessage());
-//            }
-//        });
-//
-//        return source.getTask();
-//    }
+    public void getTeamGroup(final CallBack< ArrayList<Group> > callback) {
+        final Task<User> userTask = readUser.getUserData(); // 取得擁有User Data的Task
+        groupList = new ArrayList<>();
+
+        userTask.addOnSuccessListener(new OnSuccessListener<User>() {
+            @Override
+            public void onSuccess(User user) {
+                DatabaseReference ref = teamGroRef.child(user.getTeamId()).getRef();
+
+                ref.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        Log.d("snap", dataSnapshot.toString());
+                        group = dataSnapshot.getValue(Group.class);
+                        groupList.add(group);
+                        callback.update(groupList);
+                    }
+
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
+    }
 
 }

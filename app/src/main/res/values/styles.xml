@@ -31,6 +31,12 @@
         <item name="color">@android:color/white</item>
     </style>
 
+    <!-- 小組目標標題 -->
+    <style name="TextTarget">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/color_accent</item>
+    </style>
+
     <!-- 分隔線 -->
     <style name="Divider">
         <item name="android:layout_width">match_parent</item>

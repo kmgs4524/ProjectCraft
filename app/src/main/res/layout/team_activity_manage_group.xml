@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/team_activity_group_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.york.teamcraft.GroupActivity">
+    android:orientation="vertical"
+    tools:context="com.example.york.teamcraft.teammanage.groupinformation.view.GroupInfoActivity">
+
     <include
         android:id="@+id/toolbar"
         android:elevation="4dp"
@@ -14,20 +17,5 @@
         tools:layout_editor_absoluteY="0dp"
         tools:layout_editor_absoluteX="0dp" />
 
-    <fragment android:name="com.example.york.teamcraft.TargetFragment"
-        android:id="@+id/team_target_fragment"
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"/>
 
-    <fragment android:name="com.example.york.teamcraft.MemberFragment"
-        android:id="@+id/team_groupmanage_fragment"
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="160dp"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/team_target_fragment" />
-
-</RelativeLayout>
+</LinearLayout>

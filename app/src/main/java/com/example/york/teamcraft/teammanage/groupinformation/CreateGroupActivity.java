@@ -1,4 +1,4 @@
-package com.example.york.teamcraft;
+package com.example.york.teamcraft.teammanage.groupinformation;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +8,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.example.york.teamcraft.R;
+import com.example.york.teamcraft.teammanage.groupinformation.view.GroupInfoActivity;
 
 public class CreateGroupActivity extends AppCompatActivity {
     private EditText edtGroupName;
@@ -49,7 +52,7 @@ public class CreateGroupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.setClass(CreateGroupActivity.this, GroupActivity.class);
+                intent.setClass(CreateGroupActivity.this, GroupInfoActivity.class);
                 String groupName = new String(edtGroupName.getText().toString());
                 Bundle bundle = new Bundle();   //用來打包傳入GroupActivity資料的Bundle
                 bundle.putString("DATA_GROUP_NAME", groupName);

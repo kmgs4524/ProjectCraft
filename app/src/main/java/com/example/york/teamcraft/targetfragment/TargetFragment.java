@@ -1,4 +1,4 @@
-package com.example.york.teamcraft.teammanage;
+package com.example.york.teamcraft.targetfragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,22 +9,13 @@ import android.view.ViewGroup;
 
 import com.example.york.teamcraft.R;
 
-/**
- * Created by user on 2017/7/4.
- */
 
-//任務進度Fragment
-public class TaskProgressFragment extends Fragment {
+public class TargetFragment extends Fragment {
 
-    private static final String TAG = "TaskProgressFragment";
-
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.team_fragment_taskprogress, container, false);
+        View view = inflater.inflate(R.layout.team_fragment_target, container, false);
 
         return view;
     }
-
-
 }
