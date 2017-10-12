@@ -20,12 +20,14 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/txt_card_item_grouptask_name"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     style="@style/TextTarget"
                     android:text="準備音響" />
 
                 <TextView
+                    android:id="@+id/txt_card_item_grouptask_content"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="小組需在活動前兩天準備好兩個音響" />

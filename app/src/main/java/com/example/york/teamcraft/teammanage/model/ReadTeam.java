@@ -29,7 +29,6 @@ public class ReadTeam {
 
     // Firebase Database
     private DatabaseReference rootRef;
-    private DatabaseReference teamRef;
     private DatabaseReference teamActRef;
     private DatabaseReference teamGroRef;
 
@@ -44,7 +43,6 @@ public class ReadTeam {
 
     public ReadTeam() {
         rootRef = FirebaseDatabase.getInstance().getReference();
-        teamRef = rootRef.child("teams").getRef();
         teamActRef = rootRef.child("teamActivities");
         teamGroRef = rootRef.child("teamGroups");
         user = FirebaseAuth.getInstance().getCurrentUser();
