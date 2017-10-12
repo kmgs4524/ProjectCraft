@@ -1,5 +1,6 @@
 package com.example.york.teamcraft.taskfragment.view;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.ExpandableListView;
 import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.CallBackTwoArgs;
 import com.example.york.teamcraft.R;
+import com.example.york.teamcraft.targetfragment.TargetFragment;
 import com.example.york.teamcraft.taskfragment.model.ContentTask;
 import com.example.york.teamcraft.taskfragment.model.ReadGroupTasks;
 
@@ -21,10 +23,15 @@ import java.util.HashMap;
 public class TaskFragment extends Fragment implements TaskFragmentView {
     private String id;
 
+    // view
     private ExpandableListView expandList;
     private ExpandableListAdapter adapter;
 
+    // Database Model
     private ReadGroupTasks readGroupTasks;
+
+    // passdataListener
+    private PassDataListener callback;
 
     public static TaskFragment newInstance(String groupId) {
         TaskFragment taskFragment = new TaskFragment();
@@ -32,6 +39,16 @@ public class TaskFragment extends Fragment implements TaskFragmentView {
         bundle.putString("id", groupId);
         taskFragment.setArguments(bundle);
         return taskFragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            callback = (PassDataListener) context;
+        } catch (Exception e) {
+            Log.d("Error", e.getMessage());
+        }
     }
 
     @Override
@@ -62,13 +79,13 @@ public class TaskFragment extends Fragment implements TaskFragmentView {
                 expandList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
                     @Override
                     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                        Log.d("click", "content " + map.get(list.get(groupPosition)).get(childPosition).getTopic());
+                        ContentTask contentTask = map.get(list.get(groupPosition)).get(childPosition);
+                        callback.passData(contentTask);
                         return false;
                     }
                 });
             }
         });
-
     }
 
 }
