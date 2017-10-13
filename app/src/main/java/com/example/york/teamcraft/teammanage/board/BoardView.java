@@ -1,4 +1,4 @@
-package com.example.york.teamcraft.teammanage.view;
+package com.example.york.teamcraft.teammanage.board;
 
 /**
  * Created by York on 2017/9/29.

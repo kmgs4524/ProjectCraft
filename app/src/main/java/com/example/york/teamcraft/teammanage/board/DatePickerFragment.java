@@ -1,4 +1,4 @@
-package com.example.york.teamcraft.teammanage.view;
+package com.example.york.teamcraft.teammanage.board;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;

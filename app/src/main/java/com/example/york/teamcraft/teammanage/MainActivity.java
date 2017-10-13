@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.login.view.SignInActivity;
 import com.example.york.teamcraft.teammanage.taskprogress.TaskProgressFragment;
-import com.example.york.teamcraft.teammanage.view.BoardFragment;
+import com.example.york.teamcraft.teammanage.board.BoardFragment;
 import com.example.york.teamcraft.teammanage.groupfragment.view.GroupManageFragment;
 
 public class MainActivity extends AppCompatActivity {

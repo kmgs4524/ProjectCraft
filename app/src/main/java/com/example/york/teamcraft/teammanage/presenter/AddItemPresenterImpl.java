@@ -3,8 +3,7 @@ package com.example.york.teamcraft.teammanage.presenter;
 import android.util.Log;
 
 import com.example.york.teamcraft.teammanage.model.WriteActivity;
-import com.example.york.teamcraft.teammanage.view.AddItemView;
-import com.google.firebase.database.DataSnapshot;
+import com.example.york.teamcraft.teammanage.board.AddItemView;
 
 import java.util.HashMap;
 import java.util.Map;
