@@ -33,6 +33,7 @@ public class TaskFragment extends Fragment implements TaskFragmentView {
     // passdataListener
     private PassDataListener callback;
 
+    // Factory Method: 傳入需要的參數，讓fragment在建構時便擁有需要的參數
     public static TaskFragment newInstance(String groupId) {
         TaskFragment taskFragment = new TaskFragment();
         Bundle bundle = new Bundle();
@@ -41,6 +42,7 @@ public class TaskFragment extends Fragment implements TaskFragmentView {
         return taskFragment;
     }
 
+    // 在與container activity連接時便指定他為負責傳遞資料的callback，故container activity需實作傳遞資料的方法
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

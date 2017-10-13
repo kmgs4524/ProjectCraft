@@ -19,7 +19,9 @@ public class TargetFragment extends Fragment {
     // view
     private TextView txtTopic;
     private TextView txtContent;
+    private TextView txtResponsible;
 
+    // Factory Method: 傳入需要的參數，讓fragment在建構時便擁有contentTask的資料
     public static TargetFragment newInstance(ContentTask contentTask) {
         Bundle bundle = new Bundle();
         bundle.putParcelable("contentTask", contentTask);
@@ -32,9 +34,10 @@ public class TargetFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.team_fragment_target, container, false);
-
+        // find view
         txtTopic = (TextView) view.findViewById(R.id.txt_card_item_grouptask_name);
         txtContent = (TextView) view.findViewById(R.id.txt_card_item_grouptask_content);
+        txtResponsible = (TextView) view.findViewById(R.id.txt_card_item_grouptask_respn_name);
 
         return view;
     }
@@ -44,9 +47,10 @@ public class TargetFragment extends Fragment {
         super.onStart();
         contentTask = (ContentTask) getArguments().get("contentTask");
 
-        if(contentTask != null) {
+        if(contentTask != null) {   // 第一次進入活動工作頁面時，contentTask會是null
             txtTopic.setText(contentTask.getTopic());
             txtContent.setText(contentTask.getContent());
+            txtResponsible.setText(contentTask.getResponsible());
         }
 
     }
