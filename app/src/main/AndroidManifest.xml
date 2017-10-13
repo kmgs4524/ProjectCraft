@@ -36,7 +36,7 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".teammanage.groupinformation.CreateGroupActivity">
+        <activity android:name=".teammanage.creategroup.view.CreateGroupActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>

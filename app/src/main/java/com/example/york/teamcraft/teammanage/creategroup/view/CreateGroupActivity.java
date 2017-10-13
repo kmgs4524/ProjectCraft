@@ -1,4 +1,4 @@
-package com.example.york.teamcraft.teammanage.groupinformation;
+package com.example.york.teamcraft.teammanage.creategroup.view;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -14,10 +14,7 @@ import com.example.york.teamcraft.teammanage.groupinformation.view.GroupInfoActi
 
 public class CreateGroupActivity extends AppCompatActivity {
     private EditText edtGroupName;
-    private EditText edtGroupLeader;
-    private EditText edtTargeDate;
-    private EditText edtTargetTime;
-    private EditText edtTargetContent;
+    private EditText edtGroupMember;
     private Button btnCreate;
 
     @Override
@@ -40,10 +37,7 @@ public class CreateGroupActivity extends AppCompatActivity {
     //設置EditText
     private void initEdtText() {
         edtGroupName = (EditText) findViewById(R.id.edt_group_name);
-        edtGroupLeader = (EditText) findViewById(R.id.edt_group_leader);
-        edtTargeDate = (EditText) findViewById(R.id.edt_target_date);
-        edtTargetTime = (EditText) findViewById(R.id.edt_target_time);
-        edtTargetContent = (EditText) findViewById(R.id.edt_target_content);
+        edtGroupMember = (EditText) findViewById(R.id.edt_group_member);
     }
 
     private void initBtn() {
@@ -51,13 +45,7 @@ public class CreateGroupActivity extends AppCompatActivity {
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(CreateGroupActivity.this, GroupInfoActivity.class);
-                String groupName = new String(edtGroupName.getText().toString());
-                Bundle bundle = new Bundle();   //用來打包傳入GroupActivity資料的Bundle
-                bundle.putString("DATA_GROUP_NAME", groupName);
-                intent.putExtras(bundle);
-                startActivity(intent);
+
             }
         });
     }
