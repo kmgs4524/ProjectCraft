@@ -11,11 +11,15 @@ public class ContentTask implements Parcelable{
     private String topic;
     private String content;
     private String responsible;
+    private String date;
+    private String time;
     private int status;
 
-    public ContentTask(String topic, String content, String responsible, int status) {
+    public ContentTask(String topic, String content, String responsible, String date, String time, int status) {
         this.topic = topic;
         this.content = content;
+        this.date = date;
+        this.time = time;
         this.responsible = responsible;
         this.status = status;
     }
@@ -40,6 +44,7 @@ public class ContentTask implements Parcelable{
         }
     };
 
+    // topic
     public String getTopic() {
         return topic;
     }
@@ -48,6 +53,7 @@ public class ContentTask implements Parcelable{
         this.topic = topic;
     }
 
+    // content
     public String getContent() {
         return content;
     }
@@ -56,6 +62,7 @@ public class ContentTask implements Parcelable{
         this.content = content;
     }
 
+    // responsible
     public String getResponsible() {
         return responsible;
     }
@@ -64,8 +71,19 @@ public class ContentTask implements Parcelable{
         this.responsible = responsible;
     }
 
+    // status
     public int getStatus() {
         return status;
+    }
+
+    // date
+    public String getDate() {
+        return date;
+    }
+
+    // time
+    public String getTime() {
+        return time;
     }
 
     @Override

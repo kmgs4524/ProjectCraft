@@ -99,7 +99,7 @@ public class CreateTeamActivity extends AppCompatActivity implements BoardView{
         getSupportActionBar().setHomeButtonEnabled(true);   // 啟用home button，決定home button是否能點擊
 //        drawerToggle.syncState();   // 同步drawer指標狀態到連接的DrawerLayout
 
-        Log.d("MainActivity", "init ToolBar");
+        Log.d("PersonalTasksActivity", "init ToolBar");
     }
 
 }

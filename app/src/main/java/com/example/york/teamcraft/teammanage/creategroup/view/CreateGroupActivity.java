@@ -37,7 +37,7 @@ public class CreateGroupActivity extends AppCompatActivity implements CreateGrou
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("創建群組");
-        Log.d("MainActivity", "init ToolBar");
+        Log.d("PersonalTasksActivity", "init ToolBar");
     }
 
     //設置EditText
