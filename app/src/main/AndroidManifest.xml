@@ -41,16 +41,6 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".personalsmanage.AddNoteActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".personalsmanage.NoteContentActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
         <activity android:name=".teammanage.CreateTeamActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

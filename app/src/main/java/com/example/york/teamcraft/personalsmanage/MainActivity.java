@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
 
     private FloatingActionButton btnNote;
 
-    private ArrayList<Note> dataSet =  new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,22 +48,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.personals_activity_main);
         Log.d(TAG,"onCreate: ");
 
-        addNote(dataSet);   // 新增資料到ArrayList
 
         //設置UI
         initDrawer();   //Drawer
         initToolBar();
         initRecycleView();
 //        initDB(dataSet);
-        btnNote = (FloatingActionButton) findViewById(R.id.fab);
-        btnNote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(MainActivity.this, AddNoteActivity.class);
-                startActivity(intent);
-            }
-        });
+
     }
 
     // 設置ToolBar
@@ -129,62 +119,27 @@ public class MainActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);  // 建立RecyclerView的LayoutManager
         recyclerView.setLayoutManager(layoutManager);
 
-        Cursor cursor = initDB();   // 建立Cursor
-
-        adapter = new ItemViewAdapter(dataSet, cursor, this);   // 將Cursor放入ItemViewAdapter
-        adapter.setClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int pos = recyclerView.indexOfChild(v);
-                Log.d(TAG, Integer.toString(pos));
-            }
-        });
-
-        recyclerView.setAdapter(adapter);
+//        adapter = new ItemViewAdapter(dataSet, cursor, this);   // 將Cursor放入ItemViewAdapter
+//        adapter.setClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                int pos = recyclerView.indexOfChild(v);
+//                Log.d(TAG, Integer.toString(pos));
+//            }
+//        });
+//
+//        recyclerView.setAdapter(adapter);
 
         // 加入item之間的分隔線
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
     }
 
-    public void addNote(ArrayList<Note> list) {
-        Note note = new Note("Android設計手冊", "如何從零開始設計Android, 你想的到的都在這邊", "9/7", 1);
-        Note note2 = new Note("React設計手冊", "如何從零開始設計ReactNative, 你想的到的都在這邊", "9/8", 2);
-        Note note3 = new Note("iOS設計手冊", "如何從零開始設計iOS, 你想的到的都在這邊", "9/9", 3);
-
-        list.add(note);
-        list.add(note2);
-        list.add(note3);
-    }
-
-    public Cursor initDB(){
-        NotesDbHelper helper = NotesDbHelper.getInstance(this); // 取得掌控資料庫的DB Helper
-        Cursor cursor = helper.getReadableDatabase().query(
-                NotesContract.Notes.TABLE_NAME,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null);
-        return cursor;
-//        cursor.moveToFirst();
-//        String itemTitle = cursor.getString(
-//                cursor.getColumnIndexOrThrow(NotesContract.Notes.COLUMN_NAME_TITLE)
-//        );
-//        String itemContent = cursor.getString(
-//                cursor.getColumnIndexOrThrow(NotesContract.Notes.COLUMN_NAME_CONTENT)
-//        );
-//        Log.d("Title", itemTitle);
-//        Log.d("Content", itemContent);
-    }
 
     // 當Activity離開螢幕進入Stop狀態後，再次顯現在螢幕時會呼叫此方法
     @Override
     protected void onRestart() {
         super.onRestart();
-        Cursor cursor = initDB();
-        adapter.changeCursor(cursor);
         Log.d(TAG, "Call onRestart");
     }
 }
