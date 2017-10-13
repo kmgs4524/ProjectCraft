@@ -11,11 +11,13 @@ public class ContentTask implements Parcelable{
     private String topic;
     private String content;
     private String responsible;
+    private int status;
 
-    public ContentTask(String topic, String content, String responsible) {
+    public ContentTask(String topic, String content, String responsible, int status) {
         this.topic = topic;
         this.content = content;
         this.responsible = responsible;
+        this.status = status;
     }
 
     public ContentTask() { }
@@ -60,6 +62,10 @@ public class ContentTask implements Parcelable{
 
     public void setResponsible(String responsible) {
         this.responsible = responsible;
+    }
+
+    public int getStatus() {
+        return status;
     }
 
     @Override
