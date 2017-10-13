@@ -5,4 +5,5 @@ package com.example.york.teamcraft.teammanage.creategroup.view;
  */
 
 public interface CreateGroupView {
+    public void finishCreate();
 }

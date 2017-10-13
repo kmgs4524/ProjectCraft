@@ -82,8 +82,6 @@ public class ReadUser {
                     snap = iterator.next();
                     user = snap.getValue(User.class);
                     dbSource.setResult(user);
-                    Log.d("getUser", user.getEmail());
-                    Log.d("getUser", user.getTeamId());
                 }
             }
 
