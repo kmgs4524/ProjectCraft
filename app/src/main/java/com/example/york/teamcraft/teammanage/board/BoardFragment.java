@@ -50,10 +50,6 @@ public class BoardFragment extends Fragment implements BoardView{
     private ProgressBar progressBar;
     private FloatingActionButton fabAdd;
 
-    private Team team;
-    private Work work;
-    private ArrayList<Work> dataList = new ArrayList<>();  // 存放RecyclerView顯示的資料
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -115,9 +111,6 @@ public class BoardFragment extends Fragment implements BoardView{
                 }
             });
         }
-        // 建立CalendarItemAdapter
-//        calendarItemAdapter = new BoardItemAdapter(dataList);
-//        recyclerView.setAdapter(calendarItemAdapter);
         return view;
     }
 

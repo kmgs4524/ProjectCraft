@@ -1,5 +1,6 @@
 package com.example.york.teamcraft.personalsmanage.view;
 
+import com.example.york.teamcraft.personalsmanage.model.DataPath;
 import com.example.york.teamcraft.taskfragment.model.ContentTask;
 
 import java.util.ArrayList;
@@ -9,5 +10,5 @@ import java.util.ArrayList;
  */
 
 public interface PersonalTasksView {
-    public void initRecycleView(ArrayList<ContentTask> list);
+    public void initRecycleView(ArrayList<DataPath> pathList, ArrayList<ContentTask> taskList);
 }

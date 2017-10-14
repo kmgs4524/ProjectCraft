@@ -1,6 +1,8 @@
 package com.example.york.teamcraft.personalsmanage.viewmodel;
 
 import com.example.york.teamcraft.CallBack;
+import com.example.york.teamcraft.CallBackTwoArgs;
+import com.example.york.teamcraft.personalsmanage.model.DataPath;
 import com.example.york.teamcraft.personalsmanage.view.PersonalTasksView;
 import com.example.york.teamcraft.taskfragment.model.ContentTask;
 import com.example.york.teamcraft.taskfragment.model.ReadGroupTasks;
@@ -27,7 +29,7 @@ public class InitRecyclerViewData {
     }
 
     public void initData() {
-        Task<User> task = readUser.getUserData();
+        final Task<User> task = readUser.getUserData();
         task.addOnSuccessListener(new OnSuccessListener<User>() {
             @Override
             public void onSuccess(final User user) {
@@ -35,10 +37,10 @@ public class InitRecyclerViewData {
                     @Override
                     public void update(String data) {
                         ReadGroupTasks readGroupTasks = new ReadGroupTasks();
-                        readGroupTasks.getPersonalTask(user.getGroupId(), data, new CallBack<ArrayList<ContentTask>>() {
+                        readGroupTasks.getPersonalTask(user.getGroupId(), data, new CallBackTwoArgs<ArrayList<DataPath>, ArrayList<ContentTask>>() {
                             @Override
-                            public void update(ArrayList<ContentTask> data) {
-                                personalTasksView.initRecycleView(data);
+                            public void update(ArrayList<DataPath> pathList, ArrayList<ContentTask> taskList) {
+                                personalTasksView.initRecycleView(pathList, taskList);
                             }
                         });
                     }

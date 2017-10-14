@@ -14,9 +14,9 @@ public class ContentTask implements Parcelable{
     private String responsible;
     private String date;
     private String time;
-    private int status;
+    private boolean status;
 
-    public ContentTask(String topic, String content, String responId, String responsible, String date, String time, int status) {
+    public ContentTask(String topic, String content, String responId, String responsible, String date, String time, boolean status) {
         this.topic = topic;
         this.content = content;
         this.date = date;
@@ -77,7 +77,7 @@ public class ContentTask implements Parcelable{
     }
 
     // status
-    public int getStatus() {
+    public boolean getStatus() {
         return status;
     }
 

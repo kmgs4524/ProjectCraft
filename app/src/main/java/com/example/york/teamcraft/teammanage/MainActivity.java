@@ -22,8 +22,6 @@ import com.example.york.teamcraft.teammanage.groupfragment.view.GroupManageFragm
 import com.example.york.teamcraft.view.SetDrawer;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "PersonalTasksActivity";
-
     /*----- Pager相關元件 -------*/
     private SectionsPageAdapter mSectionsPageAdapter;   //繼承FragmentPageAdapter的adapter
     private ViewPager mViewPager;   //可讓使用者左右翻動頁面的class，此外必須提供PageAdapter來產生pages
@@ -40,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.team_activity_main);
-        Log.d(TAG,"onCreate: ");
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         initDrawer();   //初始化Drawer
@@ -67,8 +64,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);  // 啟用ActionBar的home button的回到上一層功能並加上回上層的圖標
         getSupportActionBar().setHomeButtonEnabled(true);   // 啟用home button，決定home button是否能點擊
         drawerToggle.syncState();   // 同步drawer指標狀態到連接的DrawerLayout
-
-        Log.d("PersonalTasksActivity", "init ToolBar");
     }
 
     //設置側邊欄
@@ -86,5 +81,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new TaskProgressFragment(),"任務進度"); //加入Fragment
         viewPager.setAdapter(adapter);  //設置ViewPager的adapter
     }
+
+
 
 }

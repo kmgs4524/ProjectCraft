@@ -39,12 +39,11 @@ public class SetDrawer {
                 }
 
                 drawerLayout.closeDrawers();    //關閉drawer
-                Intent intent;
+                Intent intent = new Intent();
 
                 switch (item.getItemId()) {
                     case R.id.drawer_personals:
                         if (!(activity instanceof PersonalTasksActivity)) {
-                            intent = new Intent();
                             intent.setClass(activity, PersonalTasksActivity.class);
                             activity.startActivity(intent);
                         } else {
@@ -52,7 +51,7 @@ public class SetDrawer {
                         }
                     case R.id.drawer_team:
                         if (!(activity instanceof MainActivity)) {
-                            intent = new Intent();
+                            Log.d("goto", activity.toString());
                             intent.setClass(activity, MainActivity.class);
                             activity.startActivity(intent);
                         } else {
@@ -60,7 +59,6 @@ public class SetDrawer {
                         }
                     case R.id.drawer_account:
                         if (!(activity instanceof SignInActivity)) {
-                            intent = new Intent();
                             intent.setClass(activity, SignInActivity.class);
                             activity.startActivity(intent);
                         } else {

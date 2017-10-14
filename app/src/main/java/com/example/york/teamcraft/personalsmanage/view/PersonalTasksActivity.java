@@ -1,10 +1,7 @@
 package com.example.york.teamcraft.personalsmanage.view;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,10 +10,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuItem;
+import android.widget.CompoundButton;
 
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.login.view.SignInActivity;
+import com.example.york.teamcraft.personalsmanage.model.DataPath;
 import com.example.york.teamcraft.personalsmanage.presenter.PersonalTasksPresenterImpl;
 import com.example.york.teamcraft.taskfragment.model.ContentTask;
 import com.example.york.teamcraft.view.SetDrawer;
@@ -75,21 +72,15 @@ public class PersonalTasksActivity extends AppCompatActivity implements Personal
     }
 
     // 初始化RecyclerView的資料
-    public void initRecycleView(ArrayList<ContentTask> list) {
+    // 為了更改被分派工作的狀態，需要groupId, taskId, status(boolean)
+    public void initRecycleView(ArrayList<DataPath> pathList, ArrayList<ContentTask> taskList) {
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
 
         layoutManager = new LinearLayoutManager(this);  // 建立RecyclerView的LayoutManager
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new ItemViewAdapter(list, this);   // 將Cursor放入ItemViewAdapter
-//        adapter.setClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                int pos = recyclerView.indexOfChild(v);
-//                Log.d(TAG, Integer.toString(pos));
-//            }
-//        });
+        adapter = new ItemViewAdapter(pathList, taskList, this);   // 將Cursor放入ItemViewAdapter
 
         recyclerView.setAdapter(adapter);
 

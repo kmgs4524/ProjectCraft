@@ -7,9 +7,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.example.york.teamcraft.R;
+import com.example.york.teamcraft.personalsmanage.model.DataPath;
+import com.example.york.teamcraft.personalsmanage.model.WriteGroupTask;
 import com.example.york.teamcraft.personalsmanage.view.ItemContentTaskHolder;
 import com.example.york.teamcraft.taskfragment.model.ContentTask;
 
@@ -21,13 +24,15 @@ import java.util.ArrayList;
 
 public  class ItemViewAdapter extends RecyclerView.Adapter<ItemContentTaskHolder> {
     private static String TAG = "ItemViewAdapter";
+    private ArrayList<DataPath> taskPathList;
     private ArrayList<ContentTask> taskList;
     private Context context;
 
-    private View.OnClickListener onClickListener;
+    private CompoundButton.OnCheckedChangeListener onCheckedListener;
 
-    public ItemViewAdapter(ArrayList<ContentTask> list, Context c) {
+    public ItemViewAdapter(ArrayList<DataPath> pathList, ArrayList<ContentTask> list, Context c) {
         context = c;
+        taskPathList = pathList;
         taskList = list;
     }
 
@@ -43,7 +48,7 @@ public  class ItemViewAdapter extends RecyclerView.Adapter<ItemContentTaskHolder
 
         // set the view's size, margins, paddings and layout parameters
         ItemContentTaskHolder holder = new ItemContentTaskHolder(v);
-        Log.d(TAG, "call onCreateViewHolder()");
+        holder.getCheckTask().setOnCheckedChangeListener(onCheckedListener);
 
         return holder;
     }
@@ -51,6 +56,14 @@ public  class ItemViewAdapter extends RecyclerView.Adapter<ItemContentTaskHolder
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ItemContentTaskHolder holder, final int position) {
+        holder.getCheckTask().setChecked(taskList.get(position).getStatus());
+        holder.getCheckTask().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                WriteGroupTask writeGroupTask = new WriteGroupTask();
+                writeGroupTask.updateTaskStatus(taskPathList.get(position), isChecked);
+            }
+        });
         holder.getTxtTitle().setText(taskList.get(position).getTopic());
         holder.getTxtDate().setText(taskList.get(position).getDate());
         holder.getTxtTime().setText(taskList.get(position).getTime());
@@ -62,8 +75,8 @@ public  class ItemViewAdapter extends RecyclerView.Adapter<ItemContentTaskHolder
         return taskList.size();
     }
 
-    public void setClickListener(View.OnClickListener callBack) {
-        onClickListener = callBack;
+    public void setViewListener(CompoundButton.OnCheckedChangeListener callBack) {
+        onCheckedListener = callBack;
     }
 
 }

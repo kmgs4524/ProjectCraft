@@ -85,7 +85,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter{
 
         txtTitle.setText(itemTask.getTopic());
         // 判斷目前該項工作是否完成
-        if(itemTask.getStatus() == 0) {
+        if(itemTask.getStatus() == false) {
             imgStatus.setVisibility(View.INVISIBLE);    // 若未完成則不顯示勾勾圖案
         } else {
             imgStatus.setVisibility(View.VISIBLE);  // 若完成則顯示勾勾圖案
