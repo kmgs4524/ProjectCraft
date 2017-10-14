@@ -5,5 +5,6 @@ package com.example.york.teamcraft.teammanage.creategroup.presenter;
  */
 
 public interface CreateGroupPresenter {
+    public void setSpinMenu();
     public void createGroup(String groupName);
 }

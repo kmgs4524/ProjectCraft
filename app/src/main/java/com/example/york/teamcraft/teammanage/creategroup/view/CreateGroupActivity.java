@@ -34,8 +34,8 @@ public class CreateGroupActivity extends AppCompatActivity implements CreateGrou
         initToolBar();
         initInputView();
         initCreateBtn();
-        setSpinMenuData();
         createGroupPresenter = new CreateGroupPresenterImpl(this);
+        createGroupPresenter.setSpinMenu();
     }
 
     // 設置ToolBar
@@ -52,14 +52,15 @@ public class CreateGroupActivity extends AppCompatActivity implements CreateGrou
         spnTeamMember = (Spinner) findViewById(R.id.spin_team_member);
     }
 
-    public void setSpinMenuData() {
-        ArrayList<Member> list = new ArrayList<>();
-        list.add(new Member("李侑乘", "組長"));
-        list.add(new Member("李白", "組員"));
-        list.add(new Member("小球球", "組員"));
+    // 設定Spinner
+    public void setSpinMenu(ArrayList<Member> memList) {
+//        ArrayList<Member> list = new ArrayList<>();
+//        list.add(new Member("李侑乘", "組長"));
+//        list.add(new Member("李白", "組員"));
+//        list.add(new Member("小球球", "組員"));
         Spinner spinner = (Spinner) findViewById(R.id.spin_team_member);
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<Member> spinMenuAdapter = new SpinMenuAdapter(this, R.layout.spinner_init, list);
+        ArrayAdapter<Member> spinMenuAdapter = new SpinMenuAdapter(this, R.layout.spinner_init, memList);
         // Specify the layout to use when the list of choices appears
         spinMenuAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner

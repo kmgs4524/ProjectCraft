@@ -14,6 +14,8 @@ public class Member {
         this.position = position;
     }
 
+    public Member() {}
+
     public String getName() {
         return name;
     }
