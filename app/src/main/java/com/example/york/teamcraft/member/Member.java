@@ -4,9 +4,10 @@ package com.example.york.teamcraft.member;
  * Created by York on 2017/10/7.
  */
 
+// 儲存創建群組畫面中spinner項目的資料
 public class Member {
-    private String name;
-    private String position;
+    private String name;    // 姓名
+    private String position;    // 職位
 
     public Member(String name, String position) {
         this.name = name;

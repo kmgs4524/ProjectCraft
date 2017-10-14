@@ -74,20 +74,28 @@
             android:id="@+id/txt_group_member"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="成員"
+            android:text="成員："
             android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/edt_group_member"
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/spin_team_member"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"></android.support.v7.widget.AppCompatSpinner>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_add_group_member"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout_group_member"
+        android:layout_centerHorizontal="true"
+        android:text="新增" />
 
     <android.support.v4.widget.Space
         android:id="@+id/spacer_on_create_btn"
         android:layout_width="match_parent"
-        android:layout_height="10dp"
+        android:layout_height="100dp"
         android:layout_below="@+id/linearLayout_group_member"/>
 
     <Button
