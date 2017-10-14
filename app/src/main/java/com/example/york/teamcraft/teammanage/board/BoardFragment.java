@@ -1,4 +1,4 @@
-package com.example.york.teamcraft.teammanage.view;
+package com.example.york.teamcraft.teammanage.board;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -49,10 +49,6 @@ public class BoardFragment extends Fragment implements BoardView{
     private RecyclerView.LayoutManager layoutManager;
     private ProgressBar progressBar;
     private FloatingActionButton fabAdd;
-
-    private Team team;
-    private Work work;
-    private ArrayList<Work> dataList = new ArrayList<>();  // 存放RecyclerView顯示的資料
 
     @Nullable
     @Override
@@ -115,9 +111,6 @@ public class BoardFragment extends Fragment implements BoardView{
                 }
             });
         }
-        // 建立CalendarItemAdapter
-//        calendarItemAdapter = new BoardItemAdapter(dataList);
-//        recyclerView.setAdapter(calendarItemAdapter);
         return view;
     }
 

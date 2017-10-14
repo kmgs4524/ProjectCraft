@@ -16,7 +16,7 @@ import android.widget.Toast;
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.teammanage.groupfragment.presenter.GroupManagePresenter;
 import com.example.york.teamcraft.teammanage.groupfragment.presenter.GroupManagePresenterImpl;
-import com.example.york.teamcraft.teammanage.groupinformation.CreateGroupActivity;
+import com.example.york.teamcraft.teammanage.creategroup.view.CreateGroupActivity;
 import com.example.york.teamcraft.teammanage.groupinformation.view.GroupInfoActivity;
 import com.example.york.teamcraft.teammanage.model.Group;
 

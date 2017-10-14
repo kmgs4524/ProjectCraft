@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.york.teamcraft.R;
@@ -75,9 +76,20 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter{
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+        // contentTask object
+        ContentTask itemTask = itemMap.get(groupList.get(groupPosition)).get(childPosition);
+        // view
         View view = LayoutInflater.from(context).inflate(R.layout.expandlist_item, null);
         TextView txtTitle = (TextView) view.findViewById(R.id.txt_expand_item);
-        txtTitle.setText(itemMap.get(groupList.get(groupPosition)).get(childPosition).getTopic());
+        ImageView imgStatus = (ImageView) view.findViewById(R.id.img_expand_item);
+
+        txtTitle.setText(itemTask.getTopic());
+        // 判斷目前該項工作是否完成
+        if(itemTask.getStatus() == false) {
+            imgStatus.setVisibility(View.INVISIBLE);    // 若未完成則不顯示勾勾圖案
+        } else {
+            imgStatus.setVisibility(View.VISIBLE);  // 若完成則顯示勾勾圖案
+        }
 
         return view;
     }

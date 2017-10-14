@@ -15,13 +15,11 @@ import java.util.Map;
  */
 
 public class WriteTeam {
-    private DatabaseReference rootRef;
     private DatabaseReference teamsRef;
     private Map<String, Object> teamMap;    // 存放team object
 
     public WriteTeam() {
-        rootRef = FirebaseDatabase.getInstance().getReference();
-        teamsRef = rootRef.child("teams");
+        teamsRef = FirebaseDatabase.getInstance().getReference().child("teams");
         teamMap = new HashMap<>();
     }
 
@@ -29,11 +27,12 @@ public class WriteTeam {
 //        DatabaseReference newUserRef = usersRef.push();
         TaskCompletionSource dbSource = new TaskCompletionSource();
 
-        String key = rootRef.push().getKey();
+        String key = teamsRef.push().getKey();
         dbSource.setResult(key);
         teamMap.put(key, new Team(teamName));
         teamsRef.updateChildren(teamMap);
 
         return dbSource.getTask();
     }
+
 }

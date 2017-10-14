@@ -49,7 +49,7 @@ public class WriteUser {
     // 在users插入新的user object
     public void pushData() {
         String key = usersRef.push().getKey();
-        userMap.put(key, new User(user.getDisplayName(), user.getEmail(), "0"));
+        userMap.put(key, new User(user.getDisplayName(), user.getEmail(), "0", null));
         usersRef.updateChildren(userMap);
     }
 

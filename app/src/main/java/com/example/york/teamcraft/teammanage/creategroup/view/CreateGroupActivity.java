@@ -1,4 +1,4 @@
-package com.example.york.teamcraft.teammanage.groupinformation;
+package com.example.york.teamcraft.teammanage.creategroup.view;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,15 +10,17 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.york.teamcraft.R;
+import com.example.york.teamcraft.teammanage.creategroup.presenter.CreateGroupPresenter;
+import com.example.york.teamcraft.teammanage.creategroup.presenter.CreateGroupPresenterImpl;
 import com.example.york.teamcraft.teammanage.groupinformation.view.GroupInfoActivity;
 
-public class CreateGroupActivity extends AppCompatActivity {
+public class CreateGroupActivity extends AppCompatActivity implements CreateGroupView{
+    //view
     private EditText edtGroupName;
-    private EditText edtGroupLeader;
-    private EditText edtTargeDate;
-    private EditText edtTargetTime;
-    private EditText edtTargetContent;
+    private EditText edtGroupMember;
     private Button btnCreate;
+    // presenter
+    private CreateGroupPresenter createGroupPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +28,8 @@ public class CreateGroupActivity extends AppCompatActivity {
         setContentView(R.layout.team_activity_create_group);
         initToolBar();
         initEdtText();
-        initBtn();
+        initCreateBtn();
+        createGroupPresenter = new CreateGroupPresenterImpl(this);
     }
 
     //設置ToolBar
@@ -34,33 +37,32 @@ public class CreateGroupActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("創建群組");
-        Log.d("MainActivity", "init ToolBar");
+        Log.d("PersonalTasksActivity", "init ToolBar");
     }
 
     //設置EditText
-    private void initEdtText() {
+    public void initEdtText() {
         edtGroupName = (EditText) findViewById(R.id.edt_group_name);
-        edtGroupLeader = (EditText) findViewById(R.id.edt_group_leader);
-        edtTargeDate = (EditText) findViewById(R.id.edt_target_date);
-        edtTargetTime = (EditText) findViewById(R.id.edt_target_time);
-        edtTargetContent = (EditText) findViewById(R.id.edt_target_content);
+        edtGroupMember = (EditText) findViewById(R.id.edt_group_member);
     }
 
-    private void initBtn() {
+    public void initCreateBtn() {
         btnCreate = (Button) findViewById(R.id.btn_create);
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(CreateGroupActivity.this, GroupInfoActivity.class);
-                String groupName = new String(edtGroupName.getText().toString());
-                Bundle bundle = new Bundle();   //用來打包傳入GroupActivity資料的Bundle
-                bundle.putString("DATA_GROUP_NAME", groupName);
-                intent.putExtras(bundle);
-                startActivity(intent);
+                createGroupPresenter.createGroup(edtGroupName.getText().toString());
             }
         });
     }
 
+    public void finishCreate() {
+        this.finish();
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        createGroupPresenter = null;
+    }
 }

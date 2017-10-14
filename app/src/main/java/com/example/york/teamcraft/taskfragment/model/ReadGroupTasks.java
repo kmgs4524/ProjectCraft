@@ -4,34 +4,37 @@ import android.util.Log;
 
 import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.CallBackTwoArgs;
+import com.example.york.teamcraft.personalsmanage.model.DataPath;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Objects;
 
 /**
  * Created by York on 2017/10/11.
  */
 
 public class ReadGroupTasks {
-    private DatabaseReference groupRef;
+    private DatabaseReference groupTasksRef;
 
 //    private String groupId;
 
     public ReadGroupTasks() {
-        groupRef = FirebaseDatabase.getInstance().getReference().child("groupTasks");
+        groupTasksRef = FirebaseDatabase.getInstance().getReference().child("groupTasks");
     }
 
     public void getGroupTaskName(String groupId, final CallBackTwoArgs<ArrayList<String>, HashMap<String, ArrayList<ContentTask>>> callBack) {
-        DatabaseReference childRef = groupRef.child(groupId);
+        DatabaseReference childRef = groupTasksRef.child(groupId);
         final ArrayList<String> groupList = new ArrayList<>();  // 群組任務的list
         final HashMap<String, ArrayList<ContentTask>> itemMap = new HashMap<>();    // 細項任務的map，key: 群組任務名稱, value: 細項任務的list
-
 
         childRef.addChildEventListener(new ChildEventListener() {
             @Override
@@ -50,8 +53,6 @@ public class ReadGroupTasks {
 
                 itemMap.put(groupTaskName, contentTaskList);
                 callBack.update(groupList, itemMap);
-                Log.d("list before 活動包裝", Integer.toString(itemMap.get("活動包裝").size()));
-                Log.d("list after 活動包裝", Integer.toString(itemMap.get("活動包裝").size()));
             }
 
             @Override
@@ -75,4 +76,53 @@ public class ReadGroupTasks {
             }
         });
     }
+
+    // 需要groupId, responId，取得被分派工作的taskIdList, taskList
+    public void getPersonalTask(final String groupId, final String responId, final CallBackTwoArgs<ArrayList<DataPath>, ArrayList<ContentTask>> callBack) {
+        final ArrayList<ContentTask> taskList = new ArrayList<>();  // GroupTask List
+        final ArrayList<DataPath> pathList = new ArrayList<>(); // DataPath List : 負責存放 groupId, groupTaskName, taskId
+
+        DatabaseReference groupRef = groupTasksRef.child(groupId);    // groupId node
+        groupRef.addChildEventListener(new ChildEventListener() {   // 迭代出某一群組底下的各個群組活動
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();    // 擁有群組活動中的每個細項活動iterator
+                while (iterator.hasNext()) {    // 迭代出每個細項活動
+                    DataSnapshot nextSnapShot = iterator.next();    // nextSnapShot為"key: taskId"的節點
+//                    DataPath dataPath = new DataPath(groupId, , nextSnapShot.getKey());
+                    ContentTask task = nextSnapShot.getValue(ContentTask.class);
+//                    ContentTask task = iterator.next().getValue(ContentTask.class);
+                    if(task.getResponId().equals(responId)) {
+                        Log.d("wanted data", groupId + " " + dataSnapshot.getKey() + " " + nextSnapShot.getKey());  // 確認取得的資料無誤
+                        DataPath dataPath = new DataPath(groupId, dataSnapshot.getKey(), nextSnapShot.getKey());
+                        taskList.add(task);
+                        pathList.add(dataPath);
+                    }
+                }
+                callBack.update(pathList, taskList);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
 }

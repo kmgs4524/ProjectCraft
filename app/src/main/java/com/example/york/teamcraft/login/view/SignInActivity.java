@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.login.presenter.SignInPresenterImpl;
-import com.example.york.teamcraft.personalsmanage.MainActivity;
+import com.example.york.teamcraft.personalsmanage.view.PersonalTasksActivity;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
@@ -178,7 +178,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
                 switch (item.getItemId()) {
                     case R.id.drawer_personals:
                         intent = new Intent();
-                        intent.setClass(SignInActivity.this, MainActivity.class);
+                        intent.setClass(SignInActivity.this, PersonalTasksActivity.class);
                         startActivity(intent);
                         return true;
                     case R.id.drawer_team:

@@ -1,4 +1,4 @@
-package com.example.york.teamcraft.teammanage.view;
+package com.example.york.teamcraft.teammanage.board;
 
 import android.app.DatePickerDialog;
 
@@ -61,7 +61,7 @@ public class AddItemActivity extends AppCompatActivity implements AddItemView, V
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);  // 啟用ActionBar的home button的回到上一層功能並加上回上層的圖標
         getSupportActionBar().setHomeButtonEnabled(true);   // 啟用home button，決定home button是否能點擊
 
-        Log.d("MainActivity", "init ToolBar");
+        Log.d("PersonalTasksActivity", "init ToolBar");
     }
 
     @Override

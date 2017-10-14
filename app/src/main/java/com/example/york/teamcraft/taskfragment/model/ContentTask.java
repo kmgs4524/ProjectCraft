@@ -10,12 +10,20 @@ import android.os.Parcelable;
 public class ContentTask implements Parcelable{
     private String topic;
     private String content;
+    private String responId;
     private String responsible;
+    private String date;
+    private String time;
+    private boolean status;
 
-    public ContentTask(String topic, String content, String responsible) {
+    public ContentTask(String topic, String content, String responId, String responsible, String date, String time, boolean status) {
         this.topic = topic;
         this.content = content;
+        this.date = date;
+        this.time = time;
+        this.responId = responId;
         this.responsible = responsible;
+        this.status = status;
     }
 
     public ContentTask() { }
@@ -38,6 +46,7 @@ public class ContentTask implements Parcelable{
         }
     };
 
+    // topic
     public String getTopic() {
         return topic;
     }
@@ -46,6 +55,7 @@ public class ContentTask implements Parcelable{
         this.topic = topic;
     }
 
+    // content
     public String getContent() {
         return content;
     }
@@ -54,12 +64,31 @@ public class ContentTask implements Parcelable{
         this.content = content;
     }
 
+    //responId
+    public String getResponId() { return responId;}
+
+    // responsible
     public String getResponsible() {
         return responsible;
     }
 
     public void setResponsible(String responsible) {
         this.responsible = responsible;
+    }
+
+    // status
+    public boolean getStatus() {
+        return status;
+    }
+
+    // date
+    public String getDate() {
+        return date;
+    }
+
+    // time
+    public String getTime() {
+        return time;
     }
 
     @Override
