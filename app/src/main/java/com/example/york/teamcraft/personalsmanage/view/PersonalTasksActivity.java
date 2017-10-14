@@ -17,6 +17,7 @@ import android.view.MenuItem;
 
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.login.view.SignInActivity;
+import com.example.york.teamcraft.personalsmanage.presenter.PersonalTasksPresenterImpl;
 import com.example.york.teamcraft.taskfragment.model.ContentTask;
 import com.example.york.teamcraft.view.SetDrawer;
 
@@ -24,11 +25,10 @@ import java.util.ArrayList;
 
 
 //個人管理主頁面
-public class PersonalTasksActivity extends AppCompatActivity {
+public class PersonalTasksActivity extends AppCompatActivity implements PersonalTasksView{
     private static final String TAG = "PersonalTasksActivity";
     /*----- Drawer and ToolBar -------*/
     private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
     private ActionBarDrawerToggle drawerToggle;
     /*----- RecyclerView -------*/
     private RecyclerView recyclerView;
@@ -37,8 +37,7 @@ public class PersonalTasksActivity extends AppCompatActivity {
 
     private FloatingActionButton btnNote;
 
-    private ArrayList<ContentTask> taskList = new ArrayList<>();
-
+    private PersonalTasksPresenterImpl personalTasksPresenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,9 +46,11 @@ public class PersonalTasksActivity extends AppCompatActivity {
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         //設置UI
-        initDrawer();   //Drawer
         initToolBar();
-        initRecycleView();
+        initDrawer();   //Drawer
+
+        personalTasksPresenter = new PersonalTasksPresenterImpl(this);
+        personalTasksPresenter.readData();
 
     }
 
@@ -73,17 +74,15 @@ public class PersonalTasksActivity extends AppCompatActivity {
         setDrawer.setLeftDrawer(this, drawerLayout);
     }
 
-    public void initRecycleView() {
-        taskList.add(new ContentTask("活動布置", "前一天晚上置場地", "小球球", "9/30", "12:30", 1));
-        taskList.add(new ContentTask("活動開幕", "準備迎接貴賓", "小王王", "10/12", "1:30",0));
-
+    // 初始化RecyclerView的資料
+    public void initRecycleView(ArrayList<ContentTask> list) {
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
 
         layoutManager = new LinearLayoutManager(this);  // 建立RecyclerView的LayoutManager
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new ItemViewAdapter(taskList, this);   // 將Cursor放入ItemViewAdapter
+        adapter = new ItemViewAdapter(list, this);   // 將Cursor放入ItemViewAdapter
 //        adapter.setClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

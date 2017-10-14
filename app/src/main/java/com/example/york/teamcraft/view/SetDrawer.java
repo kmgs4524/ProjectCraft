@@ -53,7 +53,7 @@ public class SetDrawer {
                     case R.id.drawer_team:
                         if (!(activity instanceof MainActivity)) {
                             intent = new Intent();
-                            intent.setClass(activity, PersonalTasksActivity.class);
+                            intent.setClass(activity, MainActivity.class);
                             activity.startActivity(intent);
                         } else {
                             return true;
@@ -61,7 +61,7 @@ public class SetDrawer {
                     case R.id.drawer_account:
                         if (!(activity instanceof SignInActivity)) {
                             intent = new Intent();
-                            intent.setClass(activity, PersonalTasksActivity.class);
+                            intent.setClass(activity, SignInActivity.class);
                             activity.startActivity(intent);
                         } else {
                             return true;

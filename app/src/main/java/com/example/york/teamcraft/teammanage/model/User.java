@@ -8,11 +8,13 @@ public class User {
     private String email;
     private String name;
     private String teamId;
+    private String groupId;
 
-    public User(String n, String e, String tId) {
+    public User(String n, String e, String tId, String gId) {
         name = n;
         email = e;
         teamId = tId;
+        groupId = gId;
     }
 
     public User() {
@@ -28,4 +30,6 @@ public class User {
     }
 
     public String getTeamId() { return teamId; }
+
+    public String getGroupId() { return groupId; }
 }

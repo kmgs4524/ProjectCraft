@@ -5,4 +5,5 @@ package com.example.york.teamcraft.personalsmanage.presenter;
  */
 
 public interface PersonalTasksPresenter {
+
 }
