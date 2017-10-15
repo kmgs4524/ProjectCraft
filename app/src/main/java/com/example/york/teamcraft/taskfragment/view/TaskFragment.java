@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 import com.example.york.teamcraft.CallBackTwoArgs;
 import com.example.york.teamcraft.R;
+import com.example.york.teamcraft.addgrouptaskfragment.AddGroupTaskDialogFragment;
 import com.example.york.teamcraft.taskfragment.model.ContentTask;
 import com.example.york.teamcraft.taskfragment.model.ReadGroupTasks;
 
@@ -72,9 +73,14 @@ public class TaskFragment extends Fragment implements TaskFragmentView {
         imgAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                showAddGroupTaskDialog();
             }
         });
+    }
+
+    public void showAddGroupTaskDialog() {
+        AddGroupTaskDialogFragment groupTaskDialogFragment = new AddGroupTaskDialogFragment();
+        groupTaskDialogFragment.show(getFragmentManager(), "add groupTask");
     }
 
     public void setExpandList(View v) {

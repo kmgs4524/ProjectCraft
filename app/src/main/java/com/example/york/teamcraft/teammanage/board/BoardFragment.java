@@ -117,7 +117,6 @@ public class BoardFragment extends Fragment implements BoardView{
     public void showAlertDialog() {
         AlertDialog.Builder alertDlgBuilder = new AlertDialog.Builder(this.getActivity());
         alertDlgBuilder.setMessage("要使用團隊功能請先入帳號喔");
-//                alertDlgBuilder.setCancelable()
         alertDlgBuilder.setPositiveButton("是", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
