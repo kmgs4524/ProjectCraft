@@ -13,22 +13,29 @@ import android.widget.ImageView;
 import com.example.york.teamcraft.CallBackTwoArgs;
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.addgrouptaskfragment.AddGroupTaskDialogFragment;
+import com.example.york.teamcraft.addgrouptaskfragment.ConfirmClickListener;
 import com.example.york.teamcraft.taskfragment.model.ContentTask;
 import com.example.york.teamcraft.taskfragment.model.ReadGroupTasks;
+import com.example.york.teamcraft.taskfragment.presenter.TaskFragmentPresenter;
+import com.example.york.teamcraft.taskfragment.presenter.TaskFragmentPresenterImpl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TaskFragment extends Fragment implements TaskFragmentView {
+    // 傳進TaskFragment的groupId
     private String id;
 
     // view
     private ImageView imgAdd;
-    private ExpandableListView expandList;
+    private ExpandableListView expandListView;
     private ExpandableListAdapter adapter;
 
     // Database Model
     private ReadGroupTasks readGroupTasks;
+
+    // presenter
+    private TaskFragmentPresenter taskFragmentPresenter;
 
     // passdataListener
     private PassDataListener callback;
@@ -65,37 +72,45 @@ public class TaskFragment extends Fragment implements TaskFragmentView {
         // set ExpandableList and Adapter
         setExpandList(view);
 
+        taskFragmentPresenter = new TaskFragmentPresenterImpl(this);
+
         return view;
     }
 
+    // 設定新增群組工作的加號按鈕
     public void setImgAddListener(View v) {
         imgAdd = (ImageView) v.findViewById(R.id.img_group_task);
         imgAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showAddGroupTaskDialog();
+                // show AddGroupTaskDialog
+                taskFragmentPresenter.showAddGroupTaskDialog(id);
             }
         });
     }
 
-    public void showAddGroupTaskDialog() {
-        AddGroupTaskDialogFragment groupTaskDialogFragment = new AddGroupTaskDialogFragment();
+    // 顯示新增群組工作的選單
+    @Override
+    public void showAddGroupTaskDialog(ConfirmClickListener callbackListener) {
+        AddGroupTaskDialogFragment groupTaskDialogFragment = AddGroupTaskDialogFragment.newInstance(callbackListener);
         groupTaskDialogFragment.show(getFragmentManager(), "add groupTask");
+
     }
 
+    // 設定下拉式選單
     public void setExpandList(View v) {
-        expandList = (ExpandableListView) v.findViewById(R.id.expand_list);
+        expandListView = (ExpandableListView) v.findViewById(R.id.expand_list);
 
         readGroupTasks = new ReadGroupTasks();
-        readGroupTasks.getGroupTaskName(id, new CallBackTwoArgs<ArrayList<String>, HashMap<String, ArrayList<ContentTask>>>() {
+        readGroupTasks.getGroupTaskName(id, new CallBackTwoArgs< ArrayList<String>, HashMap<String, ArrayList<ContentTask>> >() {
             @Override
             public void update(final ArrayList<String> list, final HashMap<String, ArrayList<ContentTask>> map) {
                 // init adapter
                 adapter = new ExpandableListAdapter(getActivity(), list, map);
                 // set adapter
-                expandList.setAdapter(adapter);
+                expandListView.setAdapter(adapter);
                 // set listener
-                expandList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+                expandListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
                     @Override
                     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                         ContentTask contentTask = map.get(list.get(groupPosition)).get(childPosition);
@@ -107,4 +122,9 @@ public class TaskFragment extends Fragment implements TaskFragmentView {
         });
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        taskFragmentPresenter = null;
+    }
 }

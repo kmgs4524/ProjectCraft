@@ -7,6 +7,9 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
 
 import com.example.york.teamcraft.R;
 
@@ -15,28 +18,35 @@ import com.example.york.teamcraft.R;
  */
 
 public class AddGroupTaskDialogFragment extends DialogFragment{
-//    public static AddGroupTaskDialogFragment newInstance(FragmentActivity act) {
-//        Bundle args = new Bundle();
-//        AddGroupTaskDialogFragment fragment = new  AddGroupTaskDialogFragment();
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
+    private ConfirmClickListener listener;
+
+    public static AddGroupTaskDialogFragment newInstance(ConfirmClickListener listener) {
+        Bundle args = new Bundle();
+        args.putParcelable("listener", listener);
+        AddGroupTaskDialogFragment fragment = new AddGroupTaskDialogFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
-        builder.setTitle("新增群組工作")
+        // 取得dialog內容的呈現view
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.dialog_add_group_task, null);
+        final EditText edtTopic = (EditText) dialogView.findViewById(R.id.edt_group_task_topic);
+        builder.setView(dialogView)
                 .setPositiveButton("確認", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // FIRE ZE MISSILES!
-
+                        String groupTopic = edtTopic.getText().toString();
+                        listener = getArguments().getParcelable("listener");
+                        listener.update(groupTopic);
                     }
                 })
                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // User cancelled the dialog
 
                     }
                 });

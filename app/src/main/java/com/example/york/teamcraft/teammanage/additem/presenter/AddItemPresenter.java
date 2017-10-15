@@ -1,6 +1,4 @@
-package com.example.york.teamcraft.teammanage.presenter;
-
-import android.view.View;
+package com.example.york.teamcraft.teammanage.additem.presenter;
 
 /**
  * Created by York on 2017/9/30.
