@@ -2,6 +2,7 @@ package com.example.york.teamcraft.teammanage.creategroup.model;
 
 import com.example.york.teamcraft.teammanage.model.Group;
 import com.example.york.teamcraft.teammanage.model.Team;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.firebase.database.DatabaseReference;
@@ -22,11 +23,12 @@ public class WriteTeamGroup {
         this.teamGroupsRef = FirebaseDatabase.getInstance().getReference().child("teamGroups");
     }
 
-    public void pushData(String teamId, String groupName) {
+    public String pushData(String teamId, String groupName) {
         groupMap = new HashMap<>();
-        String key = teamGroupsRef.push().getKey();
+        String groupId = teamGroupsRef.push().getKey();
 
-        groupMap.put(key, new Group(key, groupName));
-        teamGroupsRef.child(teamId).updateChildren(groupMap);
+        groupMap.put(groupId, new Group(groupId, groupName));
+        Task<Void> task = teamGroupsRef.child(teamId).updateChildren(groupMap);
+        return groupId;
     }
 }

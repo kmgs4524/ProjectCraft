@@ -35,7 +35,9 @@ public class ReadTeamMember {
                 Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();
                 while (iterator.hasNext()) {
 //                    Log.d("member data", iterator.next().toString());
-                    Member member = iterator.next().getValue(Member.class);
+                    DataSnapshot nextSnapShot = iterator.next();
+                    Member member = nextSnapShot.getValue(Member.class);
+                    member.setUserId(nextSnapShot.getKey());
                     memList.add(member);
                 }
                 callBack.update(memList);

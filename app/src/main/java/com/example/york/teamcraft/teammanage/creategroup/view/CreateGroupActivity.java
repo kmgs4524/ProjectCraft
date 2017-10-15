@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,9 +34,10 @@ public class CreateGroupActivity extends AppCompatActivity implements CreateGrou
         setContentView(R.layout.team_activity_create_group);
         initToolBar();
         initInputView();
-        initCreateBtn();
         createGroupPresenter = new CreateGroupPresenterImpl(this);
         createGroupPresenter.setSpinMenu();
+        initCreateBtn();
+
     }
 
     // 設置ToolBar
@@ -53,18 +55,25 @@ public class CreateGroupActivity extends AppCompatActivity implements CreateGrou
     }
 
     // 設定Spinner
-    public void setSpinMenu(ArrayList<Member> memList) {
-//        ArrayList<Member> list = new ArrayList<>();
-//        list.add(new Member("李侑乘", "組長"));
-//        list.add(new Member("李白", "組員"));
-//        list.add(new Member("小球球", "組員"));
-        Spinner spinner = (Spinner) findViewById(R.id.spin_team_member);
+    public void setSpinMenu(final ArrayList<Member> memList) {
+        spnTeamMember = (Spinner) findViewById(R.id.spin_team_member);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<Member> spinMenuAdapter = new SpinMenuAdapter(this, R.layout.spinner_init, memList);
         // Specify the layout to use when the list of choices appears
         spinMenuAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
-        spinner.setAdapter(spinMenuAdapter);
+        spnTeamMember.setAdapter(spinMenuAdapter);
+        spnTeamMember.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                createGroupPresenter.saveSpinnerData(memList.get(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     public void initCreateBtn() {
@@ -72,7 +81,7 @@ public class CreateGroupActivity extends AppCompatActivity implements CreateGrou
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createGroupPresenter.createGroup(edtGroupName.getText().toString());
+                createGroupPresenter.createGroup(edtGroupName.getText().toString(), createGroupPresenter.getSaveGroupMember().getMemList());
             }
         });
     }
