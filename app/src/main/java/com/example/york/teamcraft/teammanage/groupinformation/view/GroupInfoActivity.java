@@ -48,7 +48,6 @@ public class GroupInfoActivity extends AppCompatActivity implements GroupInfoVie
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(groupName);
-        Log.d("PersonalTasksActivity", "init ToolBar");
     }
 
     public void getPassedGroupData() {

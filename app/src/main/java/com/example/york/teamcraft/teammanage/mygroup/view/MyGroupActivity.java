@@ -1,5 +1,6 @@
 package com.example.york.teamcraft.teammanage.mygroup.view;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -10,9 +11,11 @@ import android.util.Log;
 
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.targetfragment.TargetFragment;
+import com.example.york.teamcraft.taskfragment.model.ContentTask;
+import com.example.york.teamcraft.taskfragment.view.PassDataListener;
 import com.example.york.teamcraft.taskfragment.view.TaskFragment;
 
-public class MyGroupActivity extends AppCompatActivity {
+public class MyGroupActivity extends AppCompatActivity implements MyGroupView, PassDataListener {
     private FragmentManager fragmentManager;
     private Fragment fragTarget;
     private Fragment fragTask;
@@ -24,6 +27,7 @@ public class MyGroupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.team_activity_my_group);
+
         // get bundle data
         getPassedGroupData();
         // init toolbar
@@ -36,12 +40,12 @@ public class MyGroupActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(groupName);
-        Log.d("PersonalTasksActivity", "init ToolBar");
     }
 
     public void getPassedGroupData() {
         Bundle bundle = getIntent().getExtras();
         groupId = bundle.getString("id");
+        Log.d("passed", groupId);
     }
 
     public void setFragment() {
@@ -54,5 +58,13 @@ public class MyGroupActivity extends AppCompatActivity {
         fragmentTransaction.add(R.id.linearLayout_my_group, fragTarget, "TARGET_FRAG");
         fragmentTransaction.add(R.id.linearLayout_my_group, fragTask, "TASK_FRAG") ;
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void passData(ContentTask contentTask) {
+        TargetFragment fragTarget = TargetFragment.newInstance(contentTask);
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.fragment_grouptask_detail, fragTarget, "TARGET_FRAG")
+                .commit();
     }
 }
