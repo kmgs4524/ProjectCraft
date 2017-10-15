@@ -9,5 +9,6 @@ import java.util.ArrayList;
  */
 
 public interface GroupManageView {
+    public abstract void initMyGroup(String groupId);
     public abstract void initGridView(ArrayList<Group> list);
 }

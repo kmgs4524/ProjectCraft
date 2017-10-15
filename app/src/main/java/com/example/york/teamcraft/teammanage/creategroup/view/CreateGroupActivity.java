@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.member.Member;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 public class CreateGroupActivity extends AppCompatActivity implements CreateGroupView{
     //view
     private EditText edtGroupName;
+    private TextView txtGroupMember;
     private Spinner spnTeamMember;
     private Button btnCreate;
     // presenter
@@ -52,6 +54,7 @@ public class CreateGroupActivity extends AppCompatActivity implements CreateGrou
     public void initInputView() {
         edtGroupName = (EditText) findViewById(R.id.edt_group_name);
         spnTeamMember = (Spinner) findViewById(R.id.spin_team_member);
+        txtGroupMember =(TextView) findViewById(R.id.txt_group_member);
     }
 
     // 設定Spinner
@@ -67,6 +70,7 @@ public class CreateGroupActivity extends AppCompatActivity implements CreateGrou
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 createGroupPresenter.saveSpinnerData(memList.get(position));
+                txtGroupMember.setText(txtGroupMember.getText() + " " + memList.get(position).getName());
             }
 
             @Override
