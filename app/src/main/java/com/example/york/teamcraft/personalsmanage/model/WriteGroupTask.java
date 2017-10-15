@@ -23,4 +23,11 @@ public class WriteGroupTask {
 //        Map<String, Object> taskMap = new HashMap<>();
         groupTaskRef.child(path.getGroupId()).child(path.getGroupTaskName()).child(path.getTaskId()).child("status").setValue(status);
     }
+
+    public void writeGroupTaskName(String groupId, String groupTaskTitle) {
+        String key = groupTaskRef.push().getKey();
+        Map<String, Object> map = new HashMap<>();
+        map.put(key, new ContentTask());
+        groupTaskRef.child(groupId).child(groupTaskTitle).updateChildren(map);
+    }
 }

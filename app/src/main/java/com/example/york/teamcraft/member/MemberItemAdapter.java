@@ -34,7 +34,7 @@ public class MemberItemAdapter extends RecyclerView.Adapter<MemberViewHolder>{
     @Override
     public void onBindViewHolder(MemberViewHolder holder, int position) {
         holder.getTxtName().setText(dataList.get(position).getName());
-        holder.getTxtPos().setText(dataList.get(position).getPosition());
+//        holder.getTxtPos().setText(dataList.get(position).getPosition());
     }
 
 

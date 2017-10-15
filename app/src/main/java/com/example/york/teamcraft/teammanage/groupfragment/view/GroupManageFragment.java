@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.example.york.teamcraft.teammanage.groupfragment.presenter.GroupManage
 import com.example.york.teamcraft.teammanage.creategroup.view.CreateGroupActivity;
 import com.example.york.teamcraft.teammanage.groupinformation.view.GroupInfoActivity;
 import com.example.york.teamcraft.teammanage.model.Group;
+import com.example.york.teamcraft.teammanage.mygroup.view.MyGroupActivity;
 
 import java.util.ArrayList;
 
@@ -32,7 +34,8 @@ public class GroupManageFragment extends Fragment implements GroupManageView{
     private GroupManagePresenter groupManagePresenter;
 
     // 介面元件
-    private GridView gridView;
+    private View cardMyGroup;
+    private GridView gridGroup;
     private FloatingActionButton fab;
 
     @Nullable
@@ -41,9 +44,11 @@ public class GroupManageFragment extends Fragment implements GroupManageView{
         View view=inflater.inflate(R.layout.team_fragment_manage_group, container, false);
 
         // find view
-        gridView = (GridView) view.findViewById(R.id.gridView); // link GridView
+        cardMyGroup = view.findViewById(R.id.card_my_group); // 使用者的群組
+        gridGroup = (GridView) view.findViewById(R.id.gridView); // 其他小組
         // init Presenter
         groupManagePresenter = new GroupManagePresenterImpl(this);
+        groupManagePresenter.initMyGroupData();
         groupManagePresenter.initGridViewData();
         initFab(view);
         return view;
@@ -63,11 +68,26 @@ public class GroupManageFragment extends Fragment implements GroupManageView{
     }
 
     @Override
+    public void initMyGroup(final String groupId) {
+        cardMyGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("id", groupId);
+                Intent intent = new Intent();
+                intent.putExtras(bundle);
+                intent.setClass(getActivity(), MyGroupActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
     public void initGridView(final ArrayList<Group> list) {
-        gridView.setAdapter(new GridItemAdapter(getActivity(), list));
+        gridGroup.setAdapter(new GridItemAdapter(getActivity(), list));
         Log.d(TAG, "setAdapter");
 
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        gridGroup.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Bundle bundle = new Bundle();
@@ -80,4 +100,5 @@ public class GroupManageFragment extends Fragment implements GroupManageView{
             }
         });
     }
+
 }

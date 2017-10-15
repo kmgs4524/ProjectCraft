@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.york.teamcraft.teammanage.board.AddItemActivity">
+    tools:context="com.example.york.teamcraft.teammanage.additem.view.AddItemActivity">
 
     <include
         android:id="@+id/toolbar"

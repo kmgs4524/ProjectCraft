@@ -4,10 +4,8 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/txt_expand_group"
+        android:id="@+id/txt_spin_init_name"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="30dp"
-        android:textSize="18sp"/>
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

@@ -46,7 +46,7 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".teammanage.board.AddItemActivity">
+        <activity android:name=".teammanage.additem.view.AddItemActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -65,6 +65,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".teammanage.mygroup.view.MyGroupActivity"></activity>
     </application>
 
 </manifest>

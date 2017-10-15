@@ -1,5 +1,6 @@
-package com.example.york.teamcraft.teammanage.groupinformation.view;
+package com.example.york.teamcraft.teammanage.mygroup.view;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -13,13 +14,9 @@ import com.example.york.teamcraft.targetfragment.TargetFragment;
 import com.example.york.teamcraft.taskfragment.model.ContentTask;
 import com.example.york.teamcraft.taskfragment.view.PassDataListener;
 import com.example.york.teamcraft.taskfragment.view.TaskFragment;
-import com.example.york.teamcraft.teammanage.groupinformation.presenter.GroupInfoPresenter;
-import com.example.york.teamcraft.teammanage.groupinformation.presenter.GroupInfoPresenterImpl;
 
-public class GroupInfoActivity extends AppCompatActivity implements GroupInfoView, PassDataListener {
-    private GroupInfoPresenter groupInfoPresenter;
+public class MyGroupActivity extends AppCompatActivity implements MyGroupView, PassDataListener {
     private FragmentManager fragmentManager;
-    private FragmentTransaction fragmentTransaction;
     private Fragment fragTarget;
     private Fragment fragTask;
 
@@ -29,7 +26,7 @@ public class GroupInfoActivity extends AppCompatActivity implements GroupInfoVie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.team_activity_manage_group);
+        setContentView(R.layout.team_activity_my_group);
 
         // get bundle data
         getPassedGroupData();
@@ -37,13 +34,8 @@ public class GroupInfoActivity extends AppCompatActivity implements GroupInfoVie
         initToolBar(groupName);
         // set TargetFragment TaskFragment
         setFragment();
-
-        // init presenter
-        groupInfoPresenter = new GroupInfoPresenterImpl(this);
-
     }
 
-    //設置ToolBar
     public void initToolBar(String groupName) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -52,18 +44,19 @@ public class GroupInfoActivity extends AppCompatActivity implements GroupInfoVie
 
     public void getPassedGroupData() {
         Bundle bundle = getIntent().getExtras();
-        groupName = bundle.getString("name");
         groupId = bundle.getString("id");
+        Log.d("passed", groupId);
     }
 
     public void setFragment() {
         // init fragment manager, transaction
         fragmentManager = this.getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragTarget = TargetFragment.newInstance(null);
         fragTask = TaskFragment.newInstance(groupId);
-        fragmentTransaction.add(R.id.team_activity_group_layout, fragTarget, "TARGET_FRAG");
-        fragmentTransaction.add(R.id.team_activity_group_layout, fragTask, "TASK_FRAG") ;
+
+        fragmentTransaction.add(R.id.linearLayout_my_group, fragTarget, "TARGET_FRAG");
+        fragmentTransaction.add(R.id.linearLayout_my_group, fragTask, "TASK_FRAG") ;
         fragmentTransaction.commit();
     }
 
@@ -72,6 +65,6 @@ public class GroupInfoActivity extends AppCompatActivity implements GroupInfoVie
         TargetFragment fragTarget = TargetFragment.newInstance(contentTask);
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.fragment_grouptask_detail, fragTarget, "TARGET_FRAG")
-                    .commit();
+                .commit();
     }
 }

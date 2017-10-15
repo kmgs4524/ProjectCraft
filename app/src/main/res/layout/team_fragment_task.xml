@@ -6,15 +6,35 @@
     android:orientation="vertical"
     tools:context="com.example.york.teamcraft.taskfragment.view.TaskFragment">
 
+    <!-- 間隔線-->
     <include
         layout="@layout/divider_normal"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"/>
-    <TextView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:text="群組任務" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textSize="18sp"
+            android:text="群組任務" />
+
+        <ImageView
+            android:id="@+id/img_group_task"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/ic_add_white_48dp" />
+
+    </LinearLayout>
+
+
+    <!-- 間隔線-->
     <include
         layout="@layout/divider_normal"
         android:layout_height="wrap_content"

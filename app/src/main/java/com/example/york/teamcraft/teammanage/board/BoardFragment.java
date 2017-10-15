@@ -15,12 +15,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.example.york.teamcraft.teammanage.additem.view.AddItemActivity;
 import com.example.york.teamcraft.teammanage.model.Work;
 import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.login.view.SignInActivity;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
-import com.example.york.teamcraft.teammanage.model.Team;
 import com.example.york.teamcraft.teammanage.model.ReadTeam;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -117,7 +117,6 @@ public class BoardFragment extends Fragment implements BoardView{
     public void showAlertDialog() {
         AlertDialog.Builder alertDlgBuilder = new AlertDialog.Builder(this.getActivity());
         alertDlgBuilder.setMessage("要使用團隊功能請先入帳號喔");
-//                alertDlgBuilder.setCancelable()
         alertDlgBuilder.setPositiveButton("是", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

@@ -1,9 +1,9 @@
-package com.example.york.teamcraft.teammanage.presenter;
+package com.example.york.teamcraft.teammanage.additem.presenter;
 
 import android.util.Log;
 
+import com.example.york.teamcraft.teammanage.additem.view.AddItemView;
 import com.example.york.teamcraft.teammanage.model.WriteActivity;
-import com.example.york.teamcraft.teammanage.board.AddItemView;
 
 import java.util.HashMap;
 import java.util.Map;
