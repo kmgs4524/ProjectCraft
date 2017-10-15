@@ -7,13 +7,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 
-import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.CallBackTwoArgs;
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.targetfragment.TargetFragment;
 import com.example.york.teamcraft.taskfragment.model.ContentTask;
 import com.example.york.teamcraft.taskfragment.model.ReadGroupTasks;
 
@@ -24,6 +22,7 @@ public class TaskFragment extends Fragment implements TaskFragmentView {
     private String id;
 
     // view
+    private ImageView imgAdd;
     private ExpandableListView expandList;
     private ExpandableListAdapter adapter;
 
@@ -57,13 +56,25 @@ public class TaskFragment extends Fragment implements TaskFragmentView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.team_fragment_member, container, false);
+        View view = inflater.inflate(R.layout.team_fragment_task, container, false);
         // get passed id
         id = getArguments().getString("id");
+        // set Add Group Task Image Button
+        setImgAddListener(view);
         // set ExpandableList and Adapter
         setExpandList(view);
 
         return view;
+    }
+
+    public void setImgAddListener(View v) {
+        imgAdd = (ImageView) v.findViewById(R.id.img_group_task);
+        imgAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     public void setExpandList(View v) {
