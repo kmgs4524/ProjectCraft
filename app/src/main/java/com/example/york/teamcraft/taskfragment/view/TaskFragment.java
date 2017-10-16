@@ -12,8 +12,8 @@ import android.widget.ImageView;
 
 import com.example.york.teamcraft.CallBackTwoArgs;
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.addgrouptaskfragment.AddGroupTaskDialogFragment;
-import com.example.york.teamcraft.addgrouptaskfragment.ConfirmClickListener;
+import com.example.york.teamcraft.grouptaskfragment.GroupTaskDialogFragment;
+import com.example.york.teamcraft.grouptaskfragment.ConfirmClickListener;
 import com.example.york.teamcraft.taskfragment.model.ContentTask;
 import com.example.york.teamcraft.taskfragment.model.ReadGroupTasks;
 import com.example.york.teamcraft.taskfragment.presenter.TaskFragmentPresenter;
@@ -68,7 +68,7 @@ public class TaskFragment extends Fragment implements TaskFragmentView {
         // get passed id
         id = getArguments().getString("id");
         // set Add Group Task Image Button
-        setImgAddListener(view);
+        setImgAddGroupTaskListener(view);
         // set ExpandableList and Adapter
         setExpandList(view);
 
@@ -78,7 +78,7 @@ public class TaskFragment extends Fragment implements TaskFragmentView {
     }
 
     // 設定新增群組工作的加號按鈕
-    public void setImgAddListener(View v) {
+    public void setImgAddGroupTaskListener(View v) {
         imgAdd = (ImageView) v.findViewById(R.id.img_group_task);
         imgAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,10 +89,11 @@ public class TaskFragment extends Fragment implements TaskFragmentView {
         });
     }
 
+
     // 顯示新增群組工作的選單
     @Override
     public void showAddGroupTaskDialog(ConfirmClickListener callbackListener) {
-        AddGroupTaskDialogFragment groupTaskDialogFragment = AddGroupTaskDialogFragment.newInstance(callbackListener);
+        GroupTaskDialogFragment groupTaskDialogFragment = GroupTaskDialogFragment.newInstance(callbackListener);
         groupTaskDialogFragment.show(getFragmentManager(), "add groupTask");
 
     }

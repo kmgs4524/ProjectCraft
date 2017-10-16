@@ -1,6 +1,8 @@
 package com.example.york.teamcraft.taskfragment.view;
 
 import android.content.Context;
+import android.media.Image;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.york.teamcraft.R;
+import com.example.york.teamcraft.contenttaskfragment.ContentTaskDialogFragment;
 import com.example.york.teamcraft.taskfragment.model.ContentTask;
 
 import java.util.ArrayList;
@@ -20,11 +23,11 @@ import java.util.HashMap;
  */
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter{
-    private Context context;
+    private FragmentActivity context;
     private ArrayList<String> groupList;
     private HashMap< String, ArrayList<ContentTask> > itemMap;
 
-    public ExpandableListAdapter(Context context, ArrayList<String> list, HashMap<String, ArrayList<ContentTask>> map) {
+    public ExpandableListAdapter(FragmentActivity context, ArrayList<String> list, HashMap<String, ArrayList<ContentTask>> map) {
         this.context = context;
         this.groupList = list;
         this.itemMap = map;
@@ -65,11 +68,20 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter{
         return false;
     }
 
+    //
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         View view = LayoutInflater.from(context).inflate(R.layout.expandlist_group, null);
         TextView txtTitle = (TextView) view.findViewById(R.id.txt_expand_group);
         txtTitle.setText(groupList.get(groupPosition));
+        ImageView imgAdd = (ImageView) view.findViewById(R.id.img_expand_add_contenttask);
+        imgAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ContentTaskDialogFragment dialogFragment = ContentTaskDialogFragment.newInstance(null);
+                dialogFragment.show(context.getSupportFragmentManager(), "add contentTask");
+            }
+        });
 
         return view;
     }

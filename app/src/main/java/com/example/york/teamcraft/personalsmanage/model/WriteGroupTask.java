@@ -27,7 +27,7 @@ public class WriteGroupTask {
     public void writeGroupTaskName(String groupId, String groupTaskTitle) {
         String key = groupTaskRef.push().getKey();
         Map<String, Object> map = new HashMap<>();
-        map.put(key, new ContentTask());
+        map.put(key, new ContentTask("", "", "", "", "", "", false));
         groupTaskRef.child(groupId).child(groupTaskTitle).updateChildren(map);
     }
 }
