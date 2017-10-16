@@ -9,8 +9,10 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.example.york.teamcraft.R;
+import com.example.york.teamcraft.datepickerfragment.DatePickerFragment;
 import com.example.york.teamcraft.grouptaskfragment.ConfirmClickListener;
 import com.example.york.teamcraft.grouptaskfragment.GroupTaskDialogFragment;
 
@@ -38,6 +40,15 @@ public class ContentTaskDialogFragment extends DialogFragment{
         LayoutInflater inflater = getActivity().getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.dialog_add_content_task, null);   // 細項工作選單xml檔來源
         final EditText edtTopic = (EditText) dialogView.findViewById(R.id.edt_group_task_topic);
+        ImageView imgDate = (ImageView) dialogView.findViewById(R.id.img_dialog_content_task_date);
+        imgDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerFragment datePickerFragment = new DatePickerFragment();
+                datePickerFragment.show(getFragmentManager(), "datePickerFragment");
+            }
+        });
+
         builder.setView(dialogView)
                 .setPositiveButton("確認", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {

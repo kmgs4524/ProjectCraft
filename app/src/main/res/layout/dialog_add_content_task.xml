@@ -33,11 +33,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="日期"/>
-
         <ImageView
             android:id="@+id/img_dialog_content_task_date"
             android:layout_width="20dp"
@@ -47,7 +42,9 @@
         <TextView
             android:id="@+id/txt_dialog_content_task_date"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="選擇日期"/>
 
     </LinearLayout>
 

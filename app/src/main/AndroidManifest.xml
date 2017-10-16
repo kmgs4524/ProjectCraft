@@ -65,7 +65,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".teammanage.mygroup.view.MyGroupActivity"></activity>
+        <activity android:name=".teammanage.mygroup.view.MyGroupActivity" />
+        <activity android:name=".addcontenttak.AddContentTaskActivity"></activity>
     </application>
 
 </manifest>
