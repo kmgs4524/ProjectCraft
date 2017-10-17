@@ -1,7 +1,9 @@
 package com.example.york.teamcraft.taskfragment.view;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,16 +70,20 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter{
 
     //
     @Override
-    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+    public View getGroupView(final int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         View view = LayoutInflater.from(context).inflate(R.layout.expandlist_group, null);
         TextView txtTitle = (TextView) view.findViewById(R.id.txt_expand_group);
-        txtTitle.setText(groupList.get(groupPosition));
+        txtTitle.setText(groupList.get(groupPosition)); // 群組任務名稱
         ImageView imgAdd = (ImageView) view.findViewById(R.id.img_expand_add_contenttask);
         imgAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // 按下群組任務名稱旁的加號後，進入新增細項工作的畫面
                 Intent intent = new Intent();
+                Bundle bundle = new Bundle();
+                // 傳送group name到AddContentTaskActivity
+                Log.d("groupTask",  groupList.get(groupPosition));
+                intent.putExtra("groupTaskName", groupList.get(groupPosition));
                 intent.setClass(context, AddContentTaskActivity.class);
                 context.startActivity(intent);
             }

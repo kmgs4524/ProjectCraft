@@ -33,7 +33,11 @@ public class WriteGroupTask {
         groupTaskRef.child(groupId).child(groupTaskTitle).updateChildren(map);
     }
 
-    public void writeContentTask() {
-
+    // 在AddContentActivity按下確認時會呼叫此方法
+    public void writeContentTask(String groupId, String groupName, ContentTask contentTask) {
+        Map<String, Object> map = new HashMap<>();
+        String key = groupTaskRef.push().getKey();
+        map.put(key, contentTask);
+        groupTaskRef.child(groupId).child(groupName).updateChildren(map);
     }
 }

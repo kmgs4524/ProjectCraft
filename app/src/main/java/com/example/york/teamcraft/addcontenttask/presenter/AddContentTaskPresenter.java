@@ -5,5 +5,5 @@ package com.example.york.teamcraft.addcontenttask.presenter;
  */
 
 public interface AddContentTaskPresenter {
-
+    public void writeContentTask();
 }

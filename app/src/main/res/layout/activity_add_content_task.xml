@@ -82,7 +82,7 @@
             android:text="負責人" />
 
         <Spinner
-            android:id="@+id/spin_"
+            android:id="@+id/spin_group_member"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         </Spinner>
@@ -94,7 +94,7 @@
         android:layout_height="50dp" />
 
     <Button
-        android:id="@+id/btn_add_content_task_Confirm"
+        android:id="@+id/btn_add_content_task_confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

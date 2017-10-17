@@ -103,7 +103,7 @@ public class TaskFragment extends Fragment implements TaskFragmentView {
         expandListView = (ExpandableListView) v.findViewById(R.id.expand_list);
 
         readGroupTasks = new ReadGroupTasks();
-        readGroupTasks.getGroupTaskName(id, new CallBackTwoArgs< ArrayList<String>, HashMap<String, ArrayList<ContentTask>> >() {
+        readGroupTasks.getAllTask(id, new CallBackTwoArgs< ArrayList<String>, HashMap<String, ArrayList<ContentTask>> >() {
             @Override
             public void update(final ArrayList<String> list, final HashMap<String, ArrayList<ContentTask>> map) {
                 // init adapter

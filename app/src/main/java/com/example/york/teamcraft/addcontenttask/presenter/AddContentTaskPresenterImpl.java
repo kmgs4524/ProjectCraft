@@ -2,6 +2,7 @@ package com.example.york.teamcraft.addcontenttask.presenter;
 
 import com.example.york.teamcraft.addcontenttask.view.AddContentTaskActivity;
 import com.example.york.teamcraft.personalsmanage.model.WriteGroupTask;
+import com.example.york.teamcraft.taskfragment.model.ContentTask;
 
 /**
  * Created by York on 2017/10/16.
@@ -15,7 +16,8 @@ public class AddContentTaskPresenterImpl implements AddContentTaskPresenter{
         this.addContentTaskActivity = act;
     }
 
-    public void writeContentTask(int year, int month, int dayOfMonth) {
+    @Override
+    public void writeContentTask() {
 
     }
 }
