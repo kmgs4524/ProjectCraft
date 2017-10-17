@@ -17,6 +17,6 @@
         android:layout_height="20dp"
         android:layout_gravity="center"
         android:src="@mipmap/ic_add_white_48dp"
-        android:visibility="visible"/>
+        android:visibility="gone"/>
 
 </LinearLayout>

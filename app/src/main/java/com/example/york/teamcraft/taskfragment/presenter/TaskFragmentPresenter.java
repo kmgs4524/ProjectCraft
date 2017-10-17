@@ -1,5 +1,7 @@
 package com.example.york.teamcraft.taskfragment.presenter;
 
+import android.view.View;
+
 import com.example.york.teamcraft.taskfragment.view.TaskFragmentView;
 
 /**
@@ -7,5 +9,6 @@ import com.example.york.teamcraft.taskfragment.view.TaskFragmentView;
  */
 
 public interface TaskFragmentPresenter {
+    public void checkUserGroup(String groupId);
     public void showAddGroupTaskDialog(String groupId);
 }

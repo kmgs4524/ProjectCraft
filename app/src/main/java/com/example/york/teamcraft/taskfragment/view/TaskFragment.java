@@ -24,7 +24,7 @@ import java.util.HashMap;
 
 public class TaskFragment extends Fragment implements TaskFragmentView {
     // 傳進TaskFragment的groupId
-    private String id;
+    private String groupId;
 
     // view
     private ImageView imgAdd;
@@ -33,10 +33,8 @@ public class TaskFragment extends Fragment implements TaskFragmentView {
 
     // Database Model
     private ReadGroupTasks readGroupTasks;
-
     // presenter
     private TaskFragmentPresenter taskFragmentPresenter;
-
     // passdataListener
     private PassDataListener callback;
 
@@ -44,7 +42,7 @@ public class TaskFragment extends Fragment implements TaskFragmentView {
     public static TaskFragment newInstance(String groupId) {
         TaskFragment taskFragment = new TaskFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("id", groupId);
+        bundle.putString("groupId", groupId);
         taskFragment.setArguments(bundle);
         return taskFragment;
     }
@@ -65,26 +63,33 @@ public class TaskFragment extends Fragment implements TaskFragmentView {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.team_fragment_task, container, false);
-        // get passed id
-        id = getArguments().getString("id");
+        // get passed groupId
+        groupId = getArguments().getString("groupId");
         // set Add Group Task Image Button
-        setImgAddGroupTaskListener(view);
+//        setImgAddGroupTaskListener(view);
         // set ExpandableList and Adapter
+        inintView(view);
         setExpandList(view);
 
         taskFragmentPresenter = new TaskFragmentPresenterImpl(this);
+        taskFragmentPresenter.checkUserGroup(groupId);
 
         return view;
     }
 
-    // 設定新增群組工作的加號按鈕
-    public void setImgAddGroupTaskListener(View v) {
+    public void inintView(View v) {
         imgAdd = (ImageView) v.findViewById(R.id.img_group_task);
+        expandListView = (ExpandableListView) v.findViewById(R.id.expand_list);
+    }
+
+    // 設定新增群組工作的加號按鈕
+    public void setImgAddGroupTaskListener() {
+        imgAdd.setVisibility(View.VISIBLE);
         imgAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // show AddGroupTaskDialog
-                taskFragmentPresenter.showAddGroupTaskDialog(id);
+                taskFragmentPresenter.showAddGroupTaskDialog(groupId);
             }
         });
     }
@@ -100,10 +105,8 @@ public class TaskFragment extends Fragment implements TaskFragmentView {
 
     // 設定下拉式選單
     public void setExpandList(View v) {
-        expandListView = (ExpandableListView) v.findViewById(R.id.expand_list);
-
         readGroupTasks = new ReadGroupTasks();
-        readGroupTasks.getAllTask(id, new CallBackTwoArgs< ArrayList<String>, HashMap<String, ArrayList<ContentTask>> >() {
+        readGroupTasks.getAllTask(groupId, new CallBackTwoArgs< ArrayList<String>, HashMap<String, ArrayList<ContentTask>> >() {
             @Override
             public void update(final ArrayList<String> list, final HashMap<String, ArrayList<ContentTask>> map) {
                 // init adapter
