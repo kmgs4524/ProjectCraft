@@ -1,10 +1,7 @@
 package com.example.york.teamcraft.taskfragment.view;
 
-import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.addcontenttak.AddContentTaskActivity;
-import com.example.york.teamcraft.contenttaskfragment.ContentTaskDialogFragment;
+import com.example.york.teamcraft.addcontenttask.view.AddContentTaskActivity;
 import com.example.york.teamcraft.taskfragment.model.ContentTask;
 
 import java.util.ArrayList;
@@ -80,6 +76,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter{
         imgAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // 按下群組任務名稱旁的加號後，進入新增細項工作的畫面
                 Intent intent = new Intent();
                 intent.setClass(context, AddContentTaskActivity.class);
                 context.startActivity(intent);

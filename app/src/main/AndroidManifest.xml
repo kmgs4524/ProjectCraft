@@ -66,7 +66,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".teammanage.mygroup.view.MyGroupActivity" />
-        <activity android:name=".addcontenttak.AddContentTaskActivity"></activity>
+        <activity android:name=".addcontenttask.view.AddContentTaskActivity"></activity>
     </application>
 
 </manifest>

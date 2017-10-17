@@ -33,7 +33,7 @@ public class ReadGroupTasks {
 
     public void getGroupTaskName(String groupId, final CallBackTwoArgs<ArrayList<String>, HashMap<String, ArrayList<ContentTask>>> callBack) {
         DatabaseReference childRef = groupTasksRef.child(groupId);
-        final ArrayList<String> groupList = new ArrayList<>();  // 群組任務的list
+        final ArrayList<String> groupList = new ArrayList<>();  // 群組任務名稱的list
         final HashMap<String, ArrayList<ContentTask>> itemMap = new HashMap<>();    // 細項任務的map，key: 群組任務名稱, value: 細項任務的list
 
         childRef.addChildEventListener(new ChildEventListener() {

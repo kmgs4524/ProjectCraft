@@ -19,15 +19,21 @@ public class WriteGroupTask {
         groupTaskRef = FirebaseDatabase.getInstance().getReference().child("groupTasks");
     }
 
+    // 被分派任務的使用者把任務打勾時會呼叫此方法
     public void updateTaskStatus(DataPath path, boolean status) {
 //        Map<String, Object> taskMap = new HashMap<>();
         groupTaskRef.child(path.getGroupId()).child(path.getGroupTaskName()).child(path.getTaskId()).child("status").setValue(status);
     }
 
+    // 新增群組任務時會呼叫此方法
     public void writeGroupTaskName(String groupId, String groupTaskTitle) {
         String key = groupTaskRef.push().getKey();
         Map<String, Object> map = new HashMap<>();
         map.put(key, new ContentTask("", "", "", "", "", "", false));
         groupTaskRef.child(groupId).child(groupTaskTitle).updateChildren(map);
+    }
+
+    public void writeContentTask() {
+
     }
 }
