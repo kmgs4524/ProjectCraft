@@ -1,6 +1,7 @@
 package com.example.york.teamcraft.personalsmanage.model;
 
 import com.example.york.teamcraft.taskfragment.model.ContentTask;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -34,10 +35,10 @@ public class WriteGroupTask {
     }
 
     // 在AddContentActivity按下確認時會呼叫此方法
-    public void writeContentTask(String groupId, String groupName, ContentTask contentTask) {
+    public Task<Void> writeContentTask(String groupId, String groupName, ContentTask contentTask) {
         Map<String, Object> map = new HashMap<>();
         String key = groupTaskRef.push().getKey();
         map.put(key, contentTask);
-        groupTaskRef.child(groupId).child(groupName).updateChildren(map);
+        return groupTaskRef.child(groupId).child(groupName).updateChildren(map);
     }
 }

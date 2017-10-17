@@ -7,11 +7,13 @@ package com.example.york.teamcraft.member;
 // 儲存創建群組畫面中spinner項目的資料
 public class Member {
     private String name;    // 姓名
-    private String userId;    // 職位
+    private String userId;    // user id
+    private String position; // 職位
 
-    public Member(String name, String id) {
+    public Member(String name, String id, String pos) {
         this.name = name;
         this.userId = id;
+        this.position = pos;
     }
 
     public Member() {}
@@ -30,5 +32,13 @@ public class Member {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
     }
 }

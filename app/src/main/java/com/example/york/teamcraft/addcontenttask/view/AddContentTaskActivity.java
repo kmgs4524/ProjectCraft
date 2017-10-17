@@ -61,7 +61,7 @@ public class AddContentTaskActivity extends AppCompatActivity implements DatePic
         // init view model
         setSpinData = new SetSpinData(this);
         saveInputData = new SaveInputData();
-        addNewTask = new AddNewTask();
+        addNewTask = new AddNewTask(this);
         // set date source of responsible
         setSpinData.setData();
     }
@@ -129,6 +129,10 @@ public class AddContentTaskActivity extends AppCompatActivity implements DatePic
                 ));
             }
         });
+    }
+
+    public void finishActivity() {
+        finish();
     }
 
     // 顯示選擇的日期

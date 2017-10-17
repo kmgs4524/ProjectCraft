@@ -10,4 +10,5 @@ import java.util.ArrayList;
 
 public interface AddContentTaskView {
     public void setSpinMenu(final ArrayList<Member> memList);
+    public void finishActivity();
 }

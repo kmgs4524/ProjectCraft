@@ -1,5 +1,6 @@
 package com.example.york.teamcraft.addcontenttask.viewmodel;
 
+import com.example.york.teamcraft.addcontenttask.view.AddContentTaskView;
 import com.example.york.teamcraft.personalsmanage.model.WriteGroupTask;
 import com.example.york.teamcraft.taskfragment.model.ContentTask;
 import com.example.york.teamcraft.taskfragment.model.ReadGroupTasks;
@@ -12,10 +13,14 @@ import com.google.android.gms.tasks.OnSuccessListener;
  */
 
 public class AddNewTask {
+    // view
+    AddContentTaskView addContentTaskView;
+    // model
     private ReadUser readUser;
     private WriteGroupTask writeGroupTask;
 
-    public AddNewTask() {
+    public AddNewTask(AddContentTaskView view) {
+        addContentTaskView = view;
         readUser = new ReadUser();
         writeGroupTask = new WriteGroupTask();
     }
@@ -24,7 +29,13 @@ public class AddNewTask {
         readUser.getUserData().addOnSuccessListener(new OnSuccessListener<User>() {
             @Override
             public void onSuccess(User user) {
-                writeGroupTask.writeContentTask(user.getGroupId(), groupName, contentTask);
+                writeGroupTask.writeContentTask(user.getGroupId(), groupName, contentTask)
+                              .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        addContentTaskView.finishActivity();
+                    }
+                });
             }
         });
 
