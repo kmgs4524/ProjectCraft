@@ -69,7 +69,7 @@ public class TaskFragment extends Fragment implements TaskFragmentView {
 //        setImgAddGroupTaskListener(view);
         // set ExpandableList and Adapter
         inintView(view);
-        setExpandList(view);
+        setExpandList();
 
         taskFragmentPresenter = new TaskFragmentPresenterImpl(this);
         taskFragmentPresenter.checkUserGroup(groupId);
@@ -100,17 +100,16 @@ public class TaskFragment extends Fragment implements TaskFragmentView {
     public void showAddGroupTaskDialog(ConfirmClickListener callbackListener) {
         GroupTaskDialogFragment groupTaskDialogFragment = GroupTaskDialogFragment.newInstance(callbackListener);
         groupTaskDialogFragment.show(getFragmentManager(), "add groupTask");
-
     }
 
     // 設定下拉式選單
-    public void setExpandList(View v) {
+    public void setExpandList() {
         readGroupTasks = new ReadGroupTasks();
         readGroupTasks.getAllTask(groupId, new CallBackTwoArgs< ArrayList<String>, HashMap<String, ArrayList<ContentTask>> >() {
             @Override
             public void update(final ArrayList<String> list, final HashMap<String, ArrayList<ContentTask>> map) {
                 // init adapter
-                adapter = new ExpandableListAdapter(getActivity(), list, map);
+                adapter = new ExpandableListAdapter(getActivity(), list, map, groupId);
                 // set adapter
                 expandListView.setAdapter(adapter);
                 // set listener

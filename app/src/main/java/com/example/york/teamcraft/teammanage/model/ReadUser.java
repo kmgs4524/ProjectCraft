@@ -51,7 +51,6 @@ public class ReadUser {
                     snap = iterator.next();
                     String key = snap.getKey();    // user Id
                     c.update(key);
-//                    source.setResult(key);
                 }
             }
 
