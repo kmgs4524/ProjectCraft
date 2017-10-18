@@ -34,7 +34,6 @@ public class DatePickerFragment extends android.support.v4.app.DialogFragment im
         Log.d("date", Integer.toString(year));
         Log.d("date", Integer.toString(month));
         Log.d("date", Integer.toString(dayOfMonth));
-
         onDateSetListener.onDateSet(view, year, month, dayOfMonth);
     }
 

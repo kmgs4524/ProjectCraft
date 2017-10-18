@@ -23,7 +23,6 @@ public class EmailSignIn implements UserSignIn {
     public Task<FirebaseUser> signIn(String email, String pwd) {
         Log.d("sign in", "enter EmailSignIn model");
         final TaskCompletionSource<FirebaseUser> source = new TaskCompletionSource<FirebaseUser>();
-
         // 當user登入App時，傳送帳號及密碼到 signInWithEmailAndPassword()
         auth.signInWithEmailAndPassword(email, pwd)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {

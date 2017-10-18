@@ -194,7 +194,6 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
 
             }
         });
-        Log.d(TAG, "init Drawer");
     }
 
 

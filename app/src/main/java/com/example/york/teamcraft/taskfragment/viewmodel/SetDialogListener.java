@@ -2,7 +2,7 @@ package com.example.york.teamcraft.taskfragment.viewmodel;
 
 import android.os.Parcel;
 
-import com.example.york.teamcraft.addgrouptaskfragment.ConfirmClickListener;
+import com.example.york.teamcraft.grouptaskfragment.ConfirmClickListener;
 import com.example.york.teamcraft.personalsmanage.model.WriteGroupTask;
 import com.example.york.teamcraft.taskfragment.view.TaskFragmentView;
 
@@ -11,6 +11,7 @@ import com.example.york.teamcraft.taskfragment.view.TaskFragmentView;
  */
 
 // view model
+// 負責處理按下群組選單後檢討
 public class SetDialogListener implements ConfirmClickListener{
     // model
     private WriteGroupTask writeGroupTask;

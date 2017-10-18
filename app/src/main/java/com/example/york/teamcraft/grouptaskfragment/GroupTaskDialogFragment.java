@@ -1,11 +1,10 @@
-package com.example.york.teamcraft.addgrouptaskfragment;
+package com.example.york.teamcraft.grouptaskfragment;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,13 +16,13 @@ import com.example.york.teamcraft.R;
  * Created by York on 2017/10/15.
  */
 
-public class AddGroupTaskDialogFragment extends DialogFragment{
+public class GroupTaskDialogFragment extends DialogFragment{
     private ConfirmClickListener listener;
 
-    public static AddGroupTaskDialogFragment newInstance(ConfirmClickListener listener) {
+    public static GroupTaskDialogFragment newInstance(ConfirmClickListener listener) {
         Bundle args = new Bundle();
         args.putParcelable("listener", listener);
-        AddGroupTaskDialogFragment fragment = new AddGroupTaskDialogFragment();
+        GroupTaskDialogFragment fragment = new GroupTaskDialogFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -53,4 +52,5 @@ public class AddGroupTaskDialogFragment extends DialogFragment{
         // Create the AlertDialog object and return it
         return builder.create();
     }
+
 }

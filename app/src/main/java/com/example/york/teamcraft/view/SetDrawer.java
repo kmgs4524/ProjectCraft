@@ -11,6 +11,7 @@ import android.view.MenuItem;
 
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.login.view.SignInActivity;
+import com.example.york.teamcraft.login.view.SignUpActivity;
 import com.example.york.teamcraft.personalsmanage.view.PersonalTasksActivity;
 import com.example.york.teamcraft.teammanage.MainActivity;
 
@@ -38,7 +39,7 @@ public class SetDrawer {
                     item.setChecked(true);
                 }
 
-                drawerLayout.closeDrawers();    //關閉drawer
+                drawerLayout.closeDrawers();    // 關閉drawer
                 Intent intent = new Intent();
 
                 switch (item.getItemId()) {
@@ -46,14 +47,17 @@ public class SetDrawer {
                         if (!(activity instanceof PersonalTasksActivity)) {
                             intent.setClass(activity, PersonalTasksActivity.class);
                             activity.startActivity(intent);
+                            return true;
                         } else {
                             return true;
                         }
+
                     case R.id.drawer_team:
                         if (!(activity instanceof MainActivity)) {
                             Log.d("goto", activity.toString());
                             intent.setClass(activity, MainActivity.class);
                             activity.startActivity(intent);
+                            return true;
                         } else {
                             return true;
                         }
@@ -61,9 +65,11 @@ public class SetDrawer {
                         if (!(activity instanceof SignInActivity)) {
                             intent.setClass(activity, SignInActivity.class);
                             activity.startActivity(intent);
+                            return true;
                         } else {
                             return true;
                         }
+
                     default:
                         return true;
                 }

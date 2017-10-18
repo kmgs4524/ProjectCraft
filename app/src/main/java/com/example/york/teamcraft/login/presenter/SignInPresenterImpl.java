@@ -76,7 +76,6 @@ public class SignInPresenterImpl implements SignInPresenter {
     // 一般信箱登入(由EmailSignIn Model
     @Override
     public void signIn(String e, String p) {
-        Log.d("sign in", "enter presenter");
         Task<FirebaseUser> task = emailSignIn.signIn(e, p);
         task.addOnSuccessListener(new OnSuccessListener<FirebaseUser>() {
             @Override
