@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.york.teamcraft.teammanage.model.Work;
+import com.example.york.teamcraft.teammanage.model.Post;
 import com.example.york.teamcraft.R;
 
 import java.util.ArrayList;
@@ -20,11 +20,11 @@ public class BoardItemAdapter extends RecyclerView.Adapter<BoardItemAdapter.View
     private static String TAG = "BoardItemAdapter";
 
     private View.OnClickListener listener;
-    private ArrayList<Work> dataList;  // 存放TeamTasks的List
+    private ArrayList<Post> dataList;  // 存放TeamPosts的List
 
-    public BoardItemAdapter(ArrayList<Work> list, View.OnClickListener listn) {
+    public BoardItemAdapter(ArrayList<Post> list, View.OnClickListener listener) {
         dataList = list;
-        listener = listn;
+        this.listener = listener;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

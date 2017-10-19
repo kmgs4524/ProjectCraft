@@ -7,23 +7,26 @@ import android.os.Parcelable;
  * Created by York on 2017/9/28.
  */
 
-public class Work implements Parcelable{
+public class Post implements Parcelable{
     private String topic;
     private String date;
     private String content;
+    private String postId;
 
-    public Work(String topic, String date, String content) {
+    public Post(String topic, String date, String content, String postId) {
         this.topic = topic;
         this.date = date;
         this.content = content;
+        this.postId = postId;
     }
 
-    public Work() {}
+    public Post() {}
 
-    protected Work(Parcel in) {
+    protected Post(Parcel in) {
         topic = in.readString();
         date = in.readString();
         content = in.readString();
+        postId = in.readString();
     }
 
     public String getTopic() {
@@ -38,15 +41,23 @@ public class Work implements Parcelable{
         return content;
     }
 
-    public static final Creator<Work> CREATOR = new Creator<Work>() {
+    public String getPostId() {
+        return postId;
+    }
+
+    public void setPostId(String postId) {
+        this.postId = postId;
+    }
+
+    public static final Creator<Post> CREATOR = new Creator<Post>() {
         @Override
-        public Work createFromParcel(Parcel in) {
-            return new Work(in);
+        public Post createFromParcel(Parcel in) {
+            return new Post(in);
         }
 
         @Override
-        public Work[] newArray(int size) {
-            return new Work[size];
+        public Post[] newArray(int size) {
+            return new Post[size];
         }
     };
 
@@ -60,5 +71,6 @@ public class Work implements Parcelable{
         dest.writeString(topic);
         dest.writeString(date);
         dest.writeString(content);
+        dest.writeString(postId);
     }
 }

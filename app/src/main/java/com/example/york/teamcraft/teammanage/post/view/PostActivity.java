@@ -1,48 +1,50 @@
-package com.example.york.teamcraft.teammanage.post;
+package com.example.york.teamcraft.teammanage.post.view;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.teammanage.model.Work;
+import com.example.york.teamcraft.teammanage.model.Post;
 import com.example.york.teamcraft.teammanage.post.model.Comment;
+import com.example.york.teamcraft.teammanage.post.presenter.PostPresenter;
+import com.example.york.teamcraft.teammanage.post.presenter.PostPresenterImpl;
 
 import java.util.ArrayList;
 
-public class PostActivity extends AppCompatActivity {
+public class PostActivity extends AppCompatActivity implements PostView{
+    // view
     private TextView txtTopic;
     private TextView txtDate;
     private TextView txtContent;
     private RecyclerView recyclerComment;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-
+    // presenter
+    private PostPresenter postPresenter;
+    // test data
     private ArrayList<Comment> commList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.team_activity_post_content);
-
         // find view
         initTxtView();
-
-        commList = new ArrayList<>();
-        commList.add(new Comment("李侑乘", "245", "是否要今天開會呢", "321"));
-        commList.add(new Comment("小球球", "452", "我ok", "625"));
-
-        initRecyclerView(commList);
-
         // get bundle
         Bundle bundle = getIntent().getExtras();
-        Work work = bundle.getParcelable("Work");
+        Post post = bundle.getParcelable("Post");
+        Log.d("postid", post.getPostId());
+        // init presenter
+        postPresenter = new PostPresenterImpl(this);
+        postPresenter.setRecyclerData(post.getPostId());    // 設定RecyclerView的資料來源
 
-        txtTopic.setText(work.getTopic());
-        txtDate.setText(work.getDate());
-        txtContent.setText(work.getContent());
+        txtTopic.setText(post.getTopic());
+        txtDate.setText(post.getDate());
+        txtContent.setText(post.getContent());
     }
 
     public void initTxtView() {

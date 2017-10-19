@@ -1,6 +1,5 @@
 package com.example.york.teamcraft.teammanage.model;
 
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
 import com.example.york.teamcraft.CallBack;
@@ -35,9 +34,9 @@ public class ReadTeam {
     private ReadUser readUser;
 
     // 存放資料的object, collection
-    private Work work;
+    private Post post;
     private Group group;
-    private ArrayList<Work> workList;
+    private ArrayList<Post> postList;
     private ArrayList<Group> groupList;
 
 
@@ -47,11 +46,11 @@ public class ReadTeam {
         teamGroRef = rootRef.child("teamGroups");
         user = FirebaseAuth.getInstance().getCurrentUser();
         readUser = new ReadUser();
-        workList = new ArrayList<>();
+        postList = new ArrayList<>();
 
     }
 
-    public void getTeamAct(final CallBack< ArrayList<Work> > callback) {
+    public void getTeamAct(final CallBack< ArrayList<Post> > callback) {
         final Task<User> userTask = readUser.getUserData(); // 取得擁有User Data的Task
 
         userTask.addOnSuccessListener(new OnSuccessListener<User>() {
@@ -63,10 +62,10 @@ public class ReadTeam {
                 ref.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        work = dataSnapshot.getValue(Work.class);
-                        workList.add(work);
+                        post = dataSnapshot.getValue(Post.class);
+                        postList.add(post);
 
-                        callback.update(workList);
+                        callback.update(postList);
 
                     }
 

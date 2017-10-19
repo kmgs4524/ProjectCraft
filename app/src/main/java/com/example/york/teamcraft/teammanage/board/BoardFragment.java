@@ -16,13 +16,13 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.example.york.teamcraft.teammanage.additem.view.AddItemActivity;
-import com.example.york.teamcraft.teammanage.model.Work;
+import com.example.york.teamcraft.teammanage.model.Post;
 import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.login.view.SignInActivity;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
 import com.example.york.teamcraft.teammanage.model.ReadTeam;
-import com.example.york.teamcraft.teammanage.post.PostActivity;
+import com.example.york.teamcraft.teammanage.post.view.PostActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -88,11 +88,10 @@ public class BoardFragment extends Fragment implements BoardView{
             readTeam = new ReadTeam();
             user = FirebaseAuth.getInstance().getCurrentUser();
 
-            readTeam.getTeamAct(new CallBack<ArrayList<Work>>() {
+            readTeam.getTeamAct(new CallBack<ArrayList<Post>>() {
                 @Override
-                public void update(final ArrayList<Work> list) {
+                public void update(final ArrayList<Post> list) {
                     progressBar.setVisibility(View.GONE);
-                    Log.d("getAct", Integer.toString(list.size()));
                     // 設定CalendarItemAdapter
                     calendarItemAdapter = new BoardItemAdapter(list, new View.OnClickListener() {   // 傳入listener callback
                         @Override
@@ -101,7 +100,7 @@ public class BoardFragment extends Fragment implements BoardView{
                             Log.d("pos", Integer.toString(pos));
                             Intent intent = new Intent();
                             Bundle bundle = new Bundle();
-                            bundle.putParcelable("Work", list.get(pos));    // Work Parcelable
+                            bundle.putParcelable("Post", list.get(pos));    // Post Parcelable
                             intent.putExtras(bundle);
                             intent.setClass(getActivity(), PostActivity.class);
                             startActivity(intent);
