@@ -4,10 +4,8 @@ import android.util.Log;
 
 import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.addcontenttask.model.ReadGroupMember;
-import com.example.york.teamcraft.member.Member;
+import com.example.york.teamcraft.data.GroupMember;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
-import com.example.york.teamcraft.teammanage.model.User;
-import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -35,12 +33,12 @@ public class CheckUserPosition {
             public void update(String data) {
                 final String userId = data; // 使用者的user id
                 Log.d("checktrue", data);
-                readGroupMember.getGroupMember(groupId, new CallBack<ArrayList<Member>>() {
+                readGroupMember.getGroupMember(groupId, new CallBack<ArrayList<GroupMember>>() {
                     @Override
-                    public void update(ArrayList<Member> data) {
-                        Iterator<Member> iterator = data.iterator();
+                    public void update(ArrayList<GroupMember> data) {
+                        Iterator<GroupMember> iterator = data.iterator();
                         while (iterator.hasNext()) {
-                            Member nextMem = iterator.next();
+                            GroupMember nextMem = iterator.next();
                             if (nextMem.getUserId().equals(userId)) {   // 若在群組中找到自己的user id
                                 if (nextMem.getPosition().equals("director")) {
                                     callBack.update(true);

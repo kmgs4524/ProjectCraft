@@ -22,6 +22,7 @@ import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.login.view.SignInActivity;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
 import com.example.york.teamcraft.teammanage.model.ReadTeam;
+import com.example.york.teamcraft.teammanage.post.PostActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -102,7 +103,7 @@ public class BoardFragment extends Fragment implements BoardView{
                             Bundle bundle = new Bundle();
                             bundle.putParcelable("Work", list.get(pos));    // Work Parcelable
                             intent.putExtras(bundle);
-                            intent.setClass(getActivity(), ActContentActivity.class);
+                            intent.setClass(getActivity(), PostActivity.class);
                             startActivity(intent);
 
                         }

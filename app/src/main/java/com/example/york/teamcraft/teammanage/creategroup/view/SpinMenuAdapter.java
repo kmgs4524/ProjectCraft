@@ -1,21 +1,17 @@
 package com.example.york.teamcraft.teammanage.creategroup.view;
 
 import android.content.Context;
-import android.database.DataSetObserver;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.widget.ThemedSpinnerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.member.Member;
+import com.example.york.teamcraft.data.GroupMember;
 
 import java.util.ArrayList;
 
@@ -25,11 +21,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by York on 2017/10/14.
  */
 
-public class SpinMenuAdapter extends ArrayAdapter<Member> {
+public class SpinMenuAdapter extends ArrayAdapter<GroupMember> {
     private FragmentActivity fragmentActivity;
-    private ArrayList<Member> itemList = new ArrayList<>();
+    private ArrayList<GroupMember> itemList = new ArrayList<>();
 
-    public SpinMenuAdapter(@NonNull Context context, @LayoutRes int resource, ArrayList<Member> list) {
+    public SpinMenuAdapter(@NonNull Context context, @LayoutRes int resource, ArrayList<GroupMember> list) {
         super(context, resource);
         this.fragmentActivity = (FragmentActivity) context;
         this.itemList = list;
@@ -46,7 +42,7 @@ public class SpinMenuAdapter extends ArrayAdapter<Member> {
     }
 
     @Override
-    public Member getItem(int position) {
+    public GroupMember getItem(int position) {
         return itemList.get(position);
     }
 

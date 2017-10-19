@@ -1,12 +1,11 @@
 package com.example.york.teamcraft.teammanage.creategroup.viewmodel;
 
-import com.example.york.teamcraft.member.Member;
+import com.example.york.teamcraft.data.GroupMember;
 import com.example.york.teamcraft.teammanage.creategroup.model.WriteGroupMember;
 import com.example.york.teamcraft.teammanage.creategroup.model.WriteTeamGroup;
 import com.example.york.teamcraft.teammanage.creategroup.view.CreateGroupView;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
 import com.example.york.teamcraft.teammanage.model.User;
-import com.example.york.teamcraft.teammanage.model.WriteUser;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
@@ -30,7 +29,7 @@ public class CreateNewGroup {
         this.writeTeamGroup = new WriteTeamGroup();
     }
 
-    public void create(final String groupName, final ArrayList<Member> memList) {
+    public void create(final String groupName, final ArrayList<GroupMember> memList) {
         Task<User> task = readUser.getUserData();
         task.addOnSuccessListener(new OnSuccessListener<User>() {
             @Override

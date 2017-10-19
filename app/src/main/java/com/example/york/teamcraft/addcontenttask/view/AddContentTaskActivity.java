@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,16 +15,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.addcontenttask.presenter.AddContentTaskPresenter;
-import com.example.york.teamcraft.addcontenttask.presenter.AddContentTaskPresenterImpl;
 import com.example.york.teamcraft.addcontenttask.viewmodel.AddNewTask;
 import com.example.york.teamcraft.addcontenttask.viewmodel.SaveInputData;
 import com.example.york.teamcraft.addcontenttask.viewmodel.SetSpinData;
 import com.example.york.teamcraft.datepickerfragment.DatePickerFragment;
-import com.example.york.teamcraft.member.Member;
+import com.example.york.teamcraft.data.GroupMember;
 import com.example.york.teamcraft.taskfragment.model.ContentTask;
 import com.example.york.teamcraft.teammanage.creategroup.view.SpinMenuAdapter;
-import com.example.york.teamcraft.teammanage.creategroup.viewmodel.SetSpinnerData;
 
 import java.util.ArrayList;
 
@@ -94,8 +90,8 @@ public class AddContentTaskActivity extends AppCompatActivity implements DatePic
 
     // 設定負責人Spinner
     // 參數為選單的資料來源
-    public void setSpinMenu(final ArrayList<Member> memList) {
-        ArrayAdapter<Member> spinMenuAdapter = new SpinMenuAdapter(this, R.layout.spinner_init, memList);
+    public void setSpinMenu(final ArrayList<GroupMember> memList) {
+        ArrayAdapter<GroupMember> spinMenuAdapter = new SpinMenuAdapter(this, R.layout.spinner_init, memList);
         // Specify the layout to use when the list of choices appears
         spinMenuAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner

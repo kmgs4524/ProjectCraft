@@ -1,7 +1,6 @@
 package com.example.york.teamcraft.addcontenttask.viewmodel;
 
-import com.example.york.teamcraft.addcontenttask.data.Date;
-import com.example.york.teamcraft.member.Member;
+import com.example.york.teamcraft.data.GroupMember;
 
 /**
  * Created by York on 2017/10/17.
@@ -9,7 +8,7 @@ import com.example.york.teamcraft.member.Member;
 
 public class SaveInputData {
     private String date;
-    private Member member;
+    private GroupMember groupMember;
 
     public void saveDate(int y, int m, int d) {
         date = y + "/" + m + "/" + d;
@@ -19,12 +18,12 @@ public class SaveInputData {
         return date;
     }
 
-    public void saveResponsible(Member member) {
-        this.member = member;
+    public void saveResponsible(GroupMember groupMember) {
+        this.groupMember = groupMember;
     }
 
-    public Member getResponsible() {
-        return member;
+    public GroupMember getResponsible() {
+        return groupMember;
     }
 
 }

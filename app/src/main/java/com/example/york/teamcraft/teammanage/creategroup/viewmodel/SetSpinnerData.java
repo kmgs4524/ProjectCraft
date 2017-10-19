@@ -3,10 +3,9 @@ package com.example.york.teamcraft.teammanage.creategroup.viewmodel;
 import android.util.Log;
 
 import com.example.york.teamcraft.CallBack;
-import com.example.york.teamcraft.member.Member;
+import com.example.york.teamcraft.data.GroupMember;
 import com.example.york.teamcraft.teammanage.creategroup.model.ReadTeamMember;
 import com.example.york.teamcraft.teammanage.creategroup.view.CreateGroupView;
-import com.example.york.teamcraft.teammanage.model.ReadTeam;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
 import com.example.york.teamcraft.teammanage.model.User;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -37,9 +36,9 @@ public class SetSpinnerData {
             public void onSuccess(User user) {
                 Log.d("member", user.getTeamId());
                 readTeamMember = new ReadTeamMember();
-                readTeamMember.getMember(user.getTeamId(), new CallBack<ArrayList<Member>>() {
+                readTeamMember.getMember(user.getTeamId(), new CallBack<ArrayList<GroupMember>>() {
                     @Override
-                    public void update(ArrayList<Member> data) {
+                    public void update(ArrayList<GroupMember> data) {
                         Log.d("member data", Integer.toString(data.size()));
                         createGroupView.setSpinMenu(data);
                     }

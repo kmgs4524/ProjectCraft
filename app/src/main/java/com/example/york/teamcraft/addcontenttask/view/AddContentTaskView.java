@@ -1,6 +1,6 @@
 package com.example.york.teamcraft.addcontenttask.view;
 
-import com.example.york.teamcraft.member.Member;
+import com.example.york.teamcraft.data.GroupMember;
 
 import java.util.ArrayList;
 
@@ -9,6 +9,6 @@ import java.util.ArrayList;
  */
 
 public interface AddContentTaskView {
-    public void setSpinMenu(final ArrayList<Member> memList);
+    public void setSpinMenu(final ArrayList<GroupMember> memList);
     public void finishActivity();
 }

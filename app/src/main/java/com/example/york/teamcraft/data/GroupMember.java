@@ -1,22 +1,22 @@
-package com.example.york.teamcraft.member;
+package com.example.york.teamcraft.data;
 
 /**
  * Created by York on 2017/10/7.
  */
 
 // 儲存創建群組畫面中spinner項目的資料
-public class Member {
+public class GroupMember {
     private String name;    // 姓名
     private String userId;    // user id
     private String position; // 職位
 
-    public Member(String name, String id, String pos) {
+    public GroupMember(String name, String id, String pos) {
         this.name = name;
         this.userId = id;
         this.position = pos;
     }
 
-    public Member() {}
+    public GroupMember() {}
 
     public String getName() {
         return name;

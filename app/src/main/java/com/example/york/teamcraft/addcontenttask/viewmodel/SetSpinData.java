@@ -1,12 +1,9 @@
 package com.example.york.teamcraft.addcontenttask.viewmodel;
 
-import android.support.v4.app.FragmentActivity;
-
 import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.addcontenttask.model.ReadGroupMember;
 import com.example.york.teamcraft.addcontenttask.view.AddContentTaskView;
-import com.example.york.teamcraft.member.Member;
-import com.example.york.teamcraft.teammanage.creategroup.viewmodel.SetSpinnerData;
+import com.example.york.teamcraft.data.GroupMember;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
 import com.example.york.teamcraft.teammanage.model.User;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -34,9 +31,9 @@ public class SetSpinData {
         readUser.getUserData().addOnSuccessListener(new OnSuccessListener<User>() {
             @Override
             public void onSuccess(User user) {
-                readGroupMember.getGroupMember(user.getGroupId(), new CallBack<ArrayList<Member>>() {
+                readGroupMember.getGroupMember(user.getGroupId(), new CallBack<ArrayList<GroupMember>>() {
                     @Override
-                    public void update(ArrayList<Member> data) {
+                    public void update(ArrayList<GroupMember> data) {
                         addContentTaskView.setSpinMenu(data);
                     }
                 });

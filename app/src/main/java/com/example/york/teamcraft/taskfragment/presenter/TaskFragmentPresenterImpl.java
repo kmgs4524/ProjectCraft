@@ -2,11 +2,9 @@ package com.example.york.teamcraft.taskfragment.presenter;
 
 import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.addcontenttask.model.ReadGroupMember;
-import com.example.york.teamcraft.member.Member;
-import com.example.york.teamcraft.taskfragment.model.ReadGroupTasks;
+import com.example.york.teamcraft.data.GroupMember;
 import com.example.york.teamcraft.taskfragment.view.TaskFragmentView;
 import com.example.york.teamcraft.taskfragment.viewmodel.SetDialogListener;
-import com.example.york.teamcraft.teammanage.model.ReadTeam;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
 import com.example.york.teamcraft.teammanage.model.User;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -42,12 +40,12 @@ public class TaskFragmentPresenterImpl implements TaskFragmentPresenter {
                         @Override
                         public void update(String data) {
                             final String userId = data;
-                            readGroupMember.getGroupMember(groupId, new CallBack<ArrayList<Member>>() {
+                            readGroupMember.getGroupMember(groupId, new CallBack<ArrayList<GroupMember>>() {
                                 @Override
-                                public void update(ArrayList<Member> data) {
-                                    Iterator<Member> iterator = data.iterator();
+                                public void update(ArrayList<GroupMember> data) {
+                                    Iterator<GroupMember> iterator = data.iterator();
                                     while (iterator.hasNext()) {
-                                        Member nextMem = iterator.next();
+                                        GroupMember nextMem = iterator.next();
                                         if (nextMem.getUserId().equals(userId)) {
                                             if(nextMem.getPosition().equals("director")) {
                                                 taskFragmentView.setImgAddGroupTaskListener();

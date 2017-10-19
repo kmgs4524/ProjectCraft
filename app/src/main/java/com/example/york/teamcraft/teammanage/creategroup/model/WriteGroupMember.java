@@ -1,7 +1,6 @@
 package com.example.york.teamcraft.teammanage.creategroup.model;
 
-import com.example.york.teamcraft.member.Member;
-import com.example.york.teamcraft.teammanage.model.Group;
+import com.example.york.teamcraft.data.GroupMember;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -22,12 +21,12 @@ public class WriteGroupMember {
         this.groupMemRef = FirebaseDatabase.getInstance().getReference().child("groupMembers");
     }
 
-    public void pushData(ArrayList<Member> memList, String groupId) {
+    public void pushData(ArrayList<GroupMember> memList, String groupId) {
         String key = groupMemRef.child(groupId).push().getKey();
         groupMebMap = new HashMap<>();
 
-        for(Member mem: memList) {
-            groupMebMap.put(mem.getUserId(), new Member(mem.getName(), mem.getUserId(), mem.getPosition()));
+        for(GroupMember mem: memList) {
+            groupMebMap.put(mem.getUserId(), new GroupMember(mem.getName(), mem.getUserId(), mem.getPosition()));
         }
         groupMemRef.child(groupId).updateChildren(groupMebMap);
     }

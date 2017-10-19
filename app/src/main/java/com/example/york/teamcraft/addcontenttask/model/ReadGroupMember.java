@@ -1,10 +1,9 @@
 package com.example.york.teamcraft.addcontenttask.model;
 
-import android.content.Intent;
 import android.util.Log;
 
 import com.example.york.teamcraft.CallBack;
-import com.example.york.teamcraft.member.Member;
+import com.example.york.teamcraft.data.GroupMember;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,8 +24,8 @@ public class ReadGroupMember {
         groupMemRef = FirebaseDatabase.getInstance().getReference().child("groupMembers");
     }
 
-    public void getGroupMember(String groupId, final CallBack<ArrayList<Member>> callBack) {
-        final ArrayList<Member> memList = new ArrayList<>();
+    public void getGroupMember(String groupId, final CallBack<ArrayList<GroupMember>> callBack) {
+        final ArrayList<GroupMember> memList = new ArrayList<>();
 
         DatabaseReference childRef = groupMemRef.child(groupId).getRef();
         childRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -35,8 +34,8 @@ public class ReadGroupMember {
                 Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();
                 while(iterator.hasNext()) {
                     DataSnapshot memSnapShot =iterator.next();
-                    Member member = memSnapShot.getValue(Member.class);
-                    memList.add(member);
+                    GroupMember groupMember = memSnapShot.getValue(GroupMember.class);
+                    memList.add(groupMember);
                 }
                 Log.d("groupMem", Integer.toString(memList.size()));
                 callBack.update(memList);

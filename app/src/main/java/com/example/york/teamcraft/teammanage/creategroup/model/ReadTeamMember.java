@@ -1,11 +1,7 @@
 package com.example.york.teamcraft.teammanage.creategroup.model;
 
-import android.provider.Telephony;
-import android.util.Log;
-
 import com.example.york.teamcraft.CallBack;
-import com.example.york.teamcraft.member.Member;
-import com.google.firebase.auth.FirebaseUser;
+import com.example.york.teamcraft.data.GroupMember;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,19 +22,19 @@ public class ReadTeamMember {
         teamMemRef = FirebaseDatabase.getInstance().getReference().child("teamMembers");
     }
 
-    public void getMember(String teamId, final CallBack<ArrayList<Member>> callBack) {
-        final ArrayList<Member> memList = new ArrayList<>();
+    public void getMember(String teamId, final CallBack<ArrayList<GroupMember>> callBack) {
+        final ArrayList<GroupMember> memList = new ArrayList<>();
 
         teamMemRef.child(teamId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();
                 while (iterator.hasNext()) {
-//                    Log.d("member data", iterator.next().toString());
+//                    Log.d("groupMember data", iterator.next().toString());
                     DataSnapshot nextSnapShot = iterator.next();
-                    Member member = nextSnapShot.getValue(Member.class);
-                    member.setUserId(nextSnapShot.getKey());
-                    memList.add(member);
+                    GroupMember groupMember = nextSnapShot.getValue(GroupMember.class);
+                    groupMember.setUserId(nextSnapShot.getKey());
+                    memList.add(groupMember);
                 }
                 callBack.update(memList);
             }

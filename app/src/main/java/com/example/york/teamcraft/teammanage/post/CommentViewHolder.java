@@ -1,4 +1,4 @@
-package com.example.york.teamcraft.member;
+package com.example.york.teamcraft.teammanage.post;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -12,17 +12,17 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by York on 2017/10/7.
  */
 
-public class MemberViewHolder extends RecyclerView.ViewHolder{
+public class CommentViewHolder extends RecyclerView.ViewHolder{
     private CircleImageView cirView;
     private TextView txtName;
-    private TextView txtPos;
+    private TextView txtComm;
 
 
-    public MemberViewHolder(View itemView) {
+    public CommentViewHolder(View itemView) {
         super(itemView);
         cirView = (CircleImageView) itemView.findViewById(R.id.cir_img_member);
         txtName = (TextView) itemView.findViewById(R.id.txt_item_member_name);
-        txtPos = (TextView) itemView.findViewById(R.id.txt_item_member_position);
+        txtComm = (TextView) itemView.findViewById(R.id.txt_item_member_comment);
     }
 
     public CircleImageView getCirView() {
@@ -33,7 +33,7 @@ public class MemberViewHolder extends RecyclerView.ViewHolder{
         return txtName;
     }
 
-    public TextView getTxtPos() {
-        return txtPos;
+    public TextView getTxtComm() {
+        return txtComm;
     }
 }
