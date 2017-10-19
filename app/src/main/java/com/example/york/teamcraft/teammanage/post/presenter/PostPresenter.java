@@ -6,5 +6,6 @@ package com.example.york.teamcraft.teammanage.post.presenter;
 
 public interface PostPresenter {
     public abstract void setRecyclerData(String postId);
-
+    public abstract void setSendMessg();
+    public abstract void postComment(String postId,String messg);
 }

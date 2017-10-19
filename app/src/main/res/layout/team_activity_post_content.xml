@@ -63,11 +63,12 @@
             android:textColor="@android:color/black" />
 
         <ImageView
-            android:id="@+id/btn_send_post"
+            android:id="@+id/img_send_comment"
             android:layout_width="48dp"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:src="@mipmap/ic_send_black_24dp"/>
+
     </LinearLayout>
 
 </RelativeLayout>

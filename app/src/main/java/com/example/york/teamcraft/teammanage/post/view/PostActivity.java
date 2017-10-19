@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.york.teamcraft.R;
@@ -20,13 +23,15 @@ public class PostActivity extends AppCompatActivity implements PostView{
     private TextView txtTopic;
     private TextView txtDate;
     private TextView txtContent;
+    private EditText edtMessg;
+    private ImageView imgSend;
     private RecyclerView recyclerComment;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     // presenter
     private PostPresenter postPresenter;
-    // test data
-    private ArrayList<Comment> commList;
+    // received postId
+    private String postId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +42,11 @@ public class PostActivity extends AppCompatActivity implements PostView{
         // get bundle
         Bundle bundle = getIntent().getExtras();
         Post post = bundle.getParcelable("Post");
-        Log.d("postid", post.getPostId());
+        postId = post.getPostId();  // 取得post id
         // init presenter
         postPresenter = new PostPresenterImpl(this);
         postPresenter.setRecyclerData(post.getPostId());    // 設定RecyclerView的資料來源
+        postPresenter.setSendMessg();
 
         txtTopic.setText(post.getTopic());
         txtDate.setText(post.getDate());
@@ -59,6 +65,17 @@ public class PostActivity extends AppCompatActivity implements PostView{
         adapter = new CommentItemAdapter(commList);
         recyclerComment.setLayoutManager(layoutManager);
         recyclerComment.setAdapter(adapter);
+    }
+
+    public void initMessg() {
+        edtMessg = (EditText) findViewById(R.id.edt_message_text);
+        imgSend = (ImageView) findViewById(R.id.img_send_comment);
+        imgSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                postPresenter.postComment(postId, edtMessg.getText().toString());
+            }
+        });
     }
 
 }
