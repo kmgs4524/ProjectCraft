@@ -126,7 +126,7 @@ public class AddContentTaskActivity extends AppCompatActivity implements DatePic
                         saveInputData.getResponsible().getName(),
                         saveInputData.getDate(),
                         null,
-                        false
+                        "undo"
                 ));
             }
         });

@@ -125,15 +125,26 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         View view = LayoutInflater.from(context).inflate(R.layout.expandlist_item, null);
         TextView txtTitle = (TextView) view.findViewById(R.id.txt_expand_item);
         ImageView imgStatus = (ImageView) view.findViewById(R.id.img_expand_item);
+        txtTitle.setText(itemTask.getTopic());
 
-//        txtTitle.setText(itemTask.getTopic());
-//        txtTitle.setPaintFlags(txtTitle.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         // 判斷目前該項工作是否完成
-        if (itemTask.getStatus() == false) {
-            imgStatus.setVisibility(View.INVISIBLE);    // 若未完成則不顯示勾勾圖案
-        } else {
-            imgStatus.setVisibility(View.VISIBLE);  // 若完成則顯示勾勾圖案
+        switch (itemTask.getStatus()){
+            case "undo":
+                imgStatus.setVisibility(View.INVISIBLE);    // 若未完成則不顯示勾勾圖案
+                break;
+            case "done":
+                imgStatus.setVisibility(View.VISIBLE);    // 若未完成則不顯示勾勾圖案
+                break;
+            case "checked":
+                txtTitle.setPaintFlags(txtTitle.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                break;
         }
+
+//        if (itemTask.getStatus().equals("undo")) {
+//
+//        } else if(){
+//            imgStatus.setVisibility(View.VISIBLE);  // 若完成則顯示勾勾圖案
+//        }
 
         return view;
     }

@@ -56,7 +56,11 @@ public  class ItemViewAdapter extends RecyclerView.Adapter<ItemContentTaskHolder
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ItemContentTaskHolder holder, final int position) {
-        holder.getCheckTask().setChecked(taskList.get(position).getStatus());
+        if(taskList.get(position).getStatus().equals("undo")) {
+            holder.getCheckTask().setChecked(false);
+        } else {
+            holder.getCheckTask().setChecked(true);
+        }
         holder.getCheckTask().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
