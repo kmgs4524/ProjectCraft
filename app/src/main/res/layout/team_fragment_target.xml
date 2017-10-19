@@ -13,7 +13,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="bottom">
 
             <TextView
@@ -23,6 +23,20 @@
                 android:padding="5dp"
                 android:textSize="18sp"
                 android:text="工作內容" />
+
+            <Button
+                android:id="@+id/btn_confirm_content_task"
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:background="@color/md_orange_200"
+                android:layout_toLeftOf="@+id/space_left_of_btn_delete"
+                android:text="確認"/>
+
+            <android.support.v4.widget.Space
+                android:id="@+id/space_left_of_btn_delete"
+                android:layout_toLeftOf="@+id/btn_delete_content_task"
+                android:layout_width="5dp"
+                android:layout_height="wrap_content" />
 
             <Button
                 android:id="@+id/btn_delete_content_task"

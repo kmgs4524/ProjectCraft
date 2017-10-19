@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.york.teamcraft.R;
+import com.example.york.teamcraft.targetfragment.viewmodel.ConfirmContentTask;
 import com.example.york.teamcraft.targetfragment.viewmodel.DeleteContentTask;
 import com.example.york.teamcraft.taskfragment.model.ContentTask;
 
@@ -25,8 +26,10 @@ public class TargetFragment extends Fragment {
     private TextView txtDate;
     private TextView txtTime;
     private Button btnDel;
+    private Button btnConfirm;
     // view model
     private DeleteContentTask deleteContentTask;
+    private ConfirmContentTask confrimContentTask;
 
     // Factory Method: 傳入需要的參數，讓fragment在建構時便擁有contentTask的資料
     // 接收TaskFragment傳來groupName是為了刪除時所需用到的路徑
@@ -50,6 +53,7 @@ public class TargetFragment extends Fragment {
         txtDate = (TextView) view.findViewById(R.id.txt_card_item_grouptask_date);
         txtTime = (TextView) view.findViewById(R.id.txt_card_item_grouptask_time);
         btnDel = (Button) view.findViewById(R.id.btn_delete_content_task);
+        btnConfirm = (Button) view.findViewById(R.id.btn_confirm_content_task);
 
         return view;
     }
@@ -78,6 +82,13 @@ public class TargetFragment extends Fragment {
             public void onClick(View v) {
                 deleteContentTask = new DeleteContentTask();
                 deleteContentTask.deleteTask(groupTaskName, contentTask.getTaskId());
+            }
+        });
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confrimContentTask = new ConfirmContentTask();
+                confrimContentTask.confirmTask(groupTaskName, contentTask.getTaskId());
             }
         });
     }

@@ -46,7 +46,12 @@ public class WriteGroupTask {
         return groupTaskRef.child(groupId).child(groupTaskName).updateChildren(map);
     }
 
+    // 在TargetFragment中按下刪除button時會呼叫此方法
     public void deleteContentTask(String groupId, String groupTaskName, String taskId) {
         groupTaskRef.child(groupId).child(groupTaskName).child(taskId).removeValue();
+    }
+
+    public void confirmContentTask(String groupId, String groupTaskName, String taskId) {
+        groupTaskRef.child(groupId).child(groupTaskName).child(taskId).child("status").setValue("checked");
     }
 }
