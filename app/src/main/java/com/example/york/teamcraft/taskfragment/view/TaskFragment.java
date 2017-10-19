@@ -35,7 +35,7 @@ public class TaskFragment extends Fragment implements TaskFragmentView {
     private ReadGroupTasks readGroupTasks;
     // presenter
     private TaskFragmentPresenter taskFragmentPresenter;
-    // passdataListener
+    // passdata Listener 用來傳送資料MyActivity的CallBack
     private PassDataListener callback;
 
     // Factory Method: 傳入需要的參數，讓fragment在建構時便擁有需要的參數
@@ -68,7 +68,7 @@ public class TaskFragment extends Fragment implements TaskFragmentView {
         // set Add Group Task Image Button
 //        setImgAddGroupTaskListener(view);
         // set ExpandableList and Adapter
-        inintView(view);
+        initView(view);
         setExpandList();
 
         taskFragmentPresenter = new TaskFragmentPresenterImpl(this);
@@ -77,7 +77,7 @@ public class TaskFragment extends Fragment implements TaskFragmentView {
         return view;
     }
 
-    public void inintView(View v) {
+    public void initView(View v) {
         imgAdd = (ImageView) v.findViewById(R.id.img_group_task);
         expandListView = (ExpandableListView) v.findViewById(R.id.expand_list);
     }
@@ -117,7 +117,7 @@ public class TaskFragment extends Fragment implements TaskFragmentView {
                     @Override
                     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                         ContentTask contentTask = map.get(list.get(groupPosition)).get(childPosition);
-                        callback.passData(contentTask);
+                        callback.passData(list.get(groupPosition), contentTask);
                         return false;
                     }
                 });

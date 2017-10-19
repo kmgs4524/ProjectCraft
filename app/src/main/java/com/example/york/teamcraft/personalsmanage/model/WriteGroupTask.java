@@ -30,15 +30,20 @@ public class WriteGroupTask {
     public void writeGroupTaskName(String groupId, String groupTaskTitle) {
         String key = groupTaskRef.push().getKey();
         Map<String, Object> map = new HashMap<>();
-        map.put(key, new ContentTask("", "", "", "", "", "", false));
+        map.put(key, new ContentTask("", "", "", "", "", "", "", false));
         groupTaskRef.child(groupId).child(groupTaskTitle).updateChildren(map);
     }
 
     // 在AddContentActivity按下確認時會呼叫此方法
-    public Task<Void> writeContentTask(String groupId, String groupName, ContentTask contentTask) {
+    public Task<Void> writeContentTask(String groupId, String groupTaskName, ContentTask contentTask) {
         Map<String, Object> map = new HashMap<>();
         String key = groupTaskRef.push().getKey();
+        contentTask.setTaskId(key);
         map.put(key, contentTask);
-        return groupTaskRef.child(groupId).child(groupName).updateChildren(map);
+        return groupTaskRef.child(groupId).child(groupTaskName).updateChildren(map);
+    }
+
+    public void deleteContentTask(String groupId, String groupTaskName, String taskId) {
+        groupTaskRef.child(groupId).child(groupTaskName).child(taskId).removeValue();
     }
 }

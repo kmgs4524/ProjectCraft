@@ -1,32 +1,39 @@
-package com.example.york.teamcraft.targetfragment;
+package com.example.york.teamcraft.targetfragment.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.york.teamcraft.R;
+import com.example.york.teamcraft.targetfragment.viewmodel.DeleteContentTask;
 import com.example.york.teamcraft.taskfragment.model.ContentTask;
 
 
 public class TargetFragment extends Fragment {
     // received data
     private ContentTask contentTask;
+    private String groupTaskName;
     // view
     private TextView txtTopic;
     private TextView txtContent;
     private TextView txtResponsible;
     private TextView txtDate;
     private TextView txtTime;
+    private Button btnDel;
+    // view model
+    private DeleteContentTask deleteContentTask;
 
     // Factory Method: 傳入需要的參數，讓fragment在建構時便擁有contentTask的資料
-    public static TargetFragment newInstance(ContentTask contentTask) {
+    // 接收TaskFragment傳來groupName是為了刪除時所需用到的路徑
+    public static TargetFragment newInstance(String groupTaskName, ContentTask contentTask) {
         Bundle bundle = new Bundle();
         bundle.putParcelable("contentTask", contentTask);
+        bundle.putString("groupTaskName", groupTaskName);
         TargetFragment targetFragment = new TargetFragment();
         targetFragment.setArguments(bundle);
 
@@ -42,6 +49,7 @@ public class TargetFragment extends Fragment {
         txtResponsible = (TextView) view.findViewById(R.id.txt_card_item_grouptask_respn_name);
         txtDate = (TextView) view.findViewById(R.id.txt_card_item_grouptask_date);
         txtTime = (TextView) view.findViewById(R.id.txt_card_item_grouptask_time);
+        btnDel = (Button) view.findViewById(R.id.btn_delete_content_task);
 
         return view;
     }
@@ -49,6 +57,7 @@ public class TargetFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        groupTaskName = getArguments().getString("groupTaskName");
         contentTask = (ContentTask) getArguments().get("contentTask");
 
         if(contentTask != null) {   // 第一次進入活動工作頁面時，contentTask會是null
@@ -57,7 +66,19 @@ public class TargetFragment extends Fragment {
             txtResponsible.setText(contentTask.getResponsible());
             txtDate.setText(contentTask.getDate());
             txtTime.setText(contentTask.getTime());
+
+            initBtnDel();
         }
 
+    }
+
+    public void initBtnDel() {
+        btnDel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteContentTask = new DeleteContentTask();
+                deleteContentTask.deleteTask(groupTaskName, contentTask.getTaskId());
+            }
+        });
     }
 }

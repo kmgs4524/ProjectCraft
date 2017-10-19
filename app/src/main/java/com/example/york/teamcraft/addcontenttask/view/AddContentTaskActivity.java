@@ -119,6 +119,7 @@ public class AddContentTaskActivity extends AppCompatActivity implements DatePic
             @Override
             public void onClick(View v) {
                 addNewTask.addContentTask(groupName, new ContentTask(
+                        null,
                         edtTitle.getText().toString(),
                         edtContent.getText().toString(),
                         saveInputData.getResponsible().getUserId(),

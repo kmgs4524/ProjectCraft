@@ -1,6 +1,7 @@
 package com.example.york.teamcraft.taskfragment.view;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -125,7 +126,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         TextView txtTitle = (TextView) view.findViewById(R.id.txt_expand_item);
         ImageView imgStatus = (ImageView) view.findViewById(R.id.img_expand_item);
 
-        txtTitle.setText(itemTask.getTopic());
+//        txtTitle.setText(itemTask.getTopic());
+//        txtTitle.setPaintFlags(txtTitle.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         // 判斷目前該項工作是否完成
         if (itemTask.getStatus() == false) {
             imgStatus.setVisibility(View.INVISIBLE);    // 若未完成則不顯示勾勾圖案
