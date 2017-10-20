@@ -1,8 +1,6 @@
 package com.example.york.teamcraft.teammanage;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -10,13 +8,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.MenuItem;
 
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.login.view.SignInActivity;
-import com.example.york.teamcraft.personalsmanage.view.PersonalTasksActivity;
-import com.example.york.teamcraft.teammanage.taskprogress.TaskProgressFragment;
+import com.example.york.teamcraft.teammanage.taskprogress.view.TaskProgressFragment;
 import com.example.york.teamcraft.teammanage.board.BoardFragment;
 import com.example.york.teamcraft.teammanage.groupfragment.view.GroupManageFragment;
 import com.example.york.teamcraft.view.SetDrawer;

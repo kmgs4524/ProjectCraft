@@ -1,4 +1,4 @@
-package com.example.york.teamcraft.teammanage.taskprogress;
+package com.example.york.teamcraft.teammanage.taskprogress.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
