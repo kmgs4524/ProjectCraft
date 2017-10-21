@@ -5,19 +5,18 @@ import android.util.Log;
 import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.CallBackTwoArgs;
 import com.example.york.teamcraft.personalsmanage.model.DataPath;
-import com.example.york.teamcraft.teammanage.model.ReadUser;
+import com.example.york.teamcraft.teammanage.taskprogress.model.GroupMissionProgress;
+import com.example.york.teamcraft.teammanage.taskprogress.model.GroupProgress;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Objects;
 
 /**
  * Created by York on 2017/10/11.
@@ -160,6 +159,42 @@ public class ReadGroupTasks {
             }
         });
 
+    }
+
+    public void getAllContentTaskNum(final String groupId, final CallBack<GroupProgress> callBack) {
+        DatabaseReference childRef = groupTasksRef.child(groupId);
+        final int[] totalNum = {0}; // 所有細項工作的數量
+        final int[] checkedNum = {0};   // status為checked的數量
+        final GroupProgress groupProgress  = new GroupProgress(groupId, totalNum[0], checkedNum[0]);
+//        Log.d("next", childRef.getKey());
+        childRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d("next", dataSnapshot.getKey());   // 群組名稱
+                Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();    // 擁有群組任務中每個細項活動的iterator
+                while (iterator.hasNext()) {    // 迭代出每個群組任務
+                    DataSnapshot groupTaskSnapShot = iterator.next();
+                    Iterator<DataSnapshot> contentTaskIterator = groupTaskSnapShot.getChildren().iterator();
+                    while(contentTaskIterator.hasNext()) {
+                        DataSnapshot contentTaskSnapShot = contentTaskIterator.next();
+                        totalNum[0] = totalNum[0] + 1;
+                        if(contentTaskSnapShot.child("status").getValue().equals("checked")) {
+                            checkedNum[0] = checkedNum[0] + 1;
+                        }
+                    }
+                }
+                groupProgress.setTotalTaskNum(totalNum[0]);
+                groupProgress.setCheckedTaskNum(checkedNum[0]);
+                callBack.update(groupProgress);
+                totalNum[0] = 0;
+                checkedNum[0] = 0;
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 }

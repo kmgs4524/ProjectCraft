@@ -1,15 +1,13 @@
 package com.example.york.teamcraft.teammanage.taskprogress.view.recyclerview;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.teammanage.taskprogress.model.TaskProgress;
+import com.example.york.teamcraft.teammanage.taskprogress.model.GroupProgress;
 
-import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,9 +16,9 @@ import java.util.List;
  */
 
 public class TaskProgressAdapter extends RecyclerView.Adapter<TaskProgressHolder>{
-    private List<TaskProgress> progList;
+    private List<GroupProgress> progList;
 
-    public TaskProgressAdapter(ArrayList<TaskProgress> list) {
+    public TaskProgressAdapter(ArrayList<GroupProgress> list) {
         this.progList = list;
     }
 
@@ -35,8 +33,8 @@ public class TaskProgressAdapter extends RecyclerView.Adapter<TaskProgressHolder
     @Override
     public void onBindViewHolder(TaskProgressHolder holder, int position) {
         holder.getTxtGroupName().setText(progList.get(position).getGroupName());
-        holder.getProgGroup().setMax(progList.get(position).getTotalTasksNum());
-        holder.getProgGroup().setProgress(progList.get(position).getCheckedNum());
+        holder.getProgGroup().setMax(progList.get(position).getTotalTaskNum());
+        holder.getProgGroup().setProgress(progList.get(position).getCheckedTaskNum());
     }
 
     @Override

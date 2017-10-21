@@ -12,8 +12,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Created by York on 2017/9/24.
@@ -107,7 +109,6 @@ public class ReadTeam {
                 ref.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        Log.d("snap", dataSnapshot.toString());
                         group = dataSnapshot.getValue(Group.class);
                         groupList.add(group);
                         callback.update(groupList);
@@ -126,6 +127,34 @@ public class ReadTeam {
                     @Override
                     public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
+    }
+
+    public void getTeamGroupByDataChange(final CallBack< ArrayList<Group> > callback) {
+        groupList = new ArrayList<>();
+
+        readUser.getUserData().addOnSuccessListener(new OnSuccessListener<User>() {
+            @Override
+            public void onSuccess(User user) {
+                DatabaseReference ref = teamGroRef.child(user.getTeamId()).getRef();
+
+                ref.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Iterator<DataSnapshot> childSnapShot = dataSnapshot.getChildren().iterator();
+                        while (childSnapShot.hasNext()) {
+                            Group group = childSnapShot.next().getValue(Group.class);
+                            groupList.add(group);
+                        }
+                        callback.update(groupList);
                     }
 
                     @Override

@@ -4,24 +4,24 @@ package com.example.york.teamcraft.teammanage.taskprogress.model;
  * Created by York on 2017/10/20.
  */
 
-public class TaskProgress {
-    private String groupName;
+public class GroupMissionProgress {
+//    private String groupMissionName;
     private int totalTasksNum;
     private int checkedNum;
 
-    public TaskProgress(String groupName, int totalTasksNum, int checkedNum) {
-        this.groupName = groupName;
+    public GroupMissionProgress(int totalTasksNum, int checkedNum) {
+//        this.groupMissionName = groupMissionName;
         this.totalTasksNum = totalTasksNum;
         this.checkedNum = checkedNum;
     }
 
-    public String getGroupName() {
-        return groupName;
-    }
-
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
-    }
+//    public String getGroupMissionName() {
+//        return groupMissionName;
+//    }
+//
+//    public void setGroupMissionName(String groupMissionName) {
+//        this.groupMissionName = groupMissionName;
+//    }
 
     public int getTotalTasksNum() {
         return totalTasksNum;
