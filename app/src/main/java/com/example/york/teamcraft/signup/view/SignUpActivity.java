@@ -44,9 +44,6 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView{
         setContentView(R.layout.activity_sign_up);
         ButterKnife.bind(this);
         initToolBar();  //ToolBar
-        // set listener
-//        confirmBtn.setOnClickListener(confirmBtnOnClick);
-
     }
 
     //設置ToolBar為此activity的app bar
@@ -63,17 +60,6 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView{
         createUser = new CreateUser(SignUpActivity.this);
         createUser.createUser(email, password, name);
     }
-//
-//    private View.OnClickListener confirmBtnOnClick = new View.OnClickListener(){
-//        @Override
-//        public void onClick(View v) {
-//            String email = edtEmail.getText().toString();
-//            String password = edtPwd.getText().toString();
-//            String name = edtName.getText().toString();
-//            createUser = new CreateUser(SignUpActivity.this);
-//            createUser.createUser(email, password, name);
-//        }
-//    };
 
     @Override
     protected void onStart(){

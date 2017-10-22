@@ -1,4 +1,4 @@
-package com.example.york.teamcraft.teammanage;
+package com.example.york.teamcraft.teammanage.createteam;
 
 import android.content.Intent;
 import android.support.design.widget.TextInputEditText;
@@ -11,10 +11,11 @@ import android.widget.Button;
 
 import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.R;
+import com.example.york.teamcraft.teammanage.MainActivity;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
 import com.example.york.teamcraft.teammanage.model.WriteTeam;
 import com.example.york.teamcraft.teammanage.model.WriteUser;
-import com.example.york.teamcraft.teammanage.board.BoardView;
+import com.example.york.teamcraft.teammanage.board.view.BoardView;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;

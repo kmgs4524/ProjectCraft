@@ -11,7 +11,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.teammanage.taskprogress.view.TaskProgressFragment;
-import com.example.york.teamcraft.teammanage.board.BoardFragment;
+import com.example.york.teamcraft.teammanage.board.view.BoardFragment;
 import com.example.york.teamcraft.teammanage.groupfragment.view.GroupManageFragment;
 import com.example.york.teamcraft.view.SetDrawer;
 
@@ -75,7 +75,5 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new TaskProgressFragment(),"任務進度"); //加入Fragment
         viewPager.setAdapter(adapter);  //設置ViewPager的adapter
     }
-
-
 
 }

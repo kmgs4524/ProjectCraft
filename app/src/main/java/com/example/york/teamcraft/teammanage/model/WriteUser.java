@@ -48,7 +48,7 @@ public class WriteUser {
     // 在users插入新的user object
     public void pushData(String name, String email) {
         String key = usersRef.push().getKey();
-        userMap.put(key, new User(name, email, "0", null));
+        userMap.put(key, new User(name, email, "0", null)); // User(name, email, teamId, groupId)
         usersRef.updateChildren(userMap);
     }
 

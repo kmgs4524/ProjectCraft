@@ -41,7 +41,7 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".teammanage.CreateTeamActivity">
+        <activity android:name=".teammanage.createteam.CreateTeamActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -67,6 +67,7 @@
         </activity>
         <activity android:name=".teammanage.mygroup.view.MyGroupActivity" />
         <activity android:name=".addcontenttask.view.AddContentTaskActivity" />
+        <activity android:name=".teammanage.jointeam.JoinTeamActivity"></activity>
     </application>
 
 </manifest>

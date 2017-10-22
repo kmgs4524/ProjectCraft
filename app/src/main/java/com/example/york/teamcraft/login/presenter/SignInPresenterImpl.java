@@ -138,7 +138,7 @@ public class SignInPresenterImpl implements SignInPresenter {
                     Log.d("goto", "create team");
                 } else {    // 若已有資料
                     Task<Boolean> taskCheckTeam = readUser.checkUserTeam();
-                    taskCheck.addOnSuccessListener(new OnSuccessListener<Boolean>() {
+                    taskCheckTeam.addOnSuccessListener(new OnSuccessListener<Boolean>() {
                         @Override
                         public void onSuccess(Boolean aBoolean) {
                             if (!aBoolean) {    // 若尚未擁有團隊

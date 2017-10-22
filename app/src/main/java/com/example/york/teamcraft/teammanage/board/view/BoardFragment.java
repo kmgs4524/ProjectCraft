@@ -1,4 +1,4 @@
-package com.example.york.teamcraft.teammanage.board;
+package com.example.york.teamcraft.teammanage.board.view;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -30,37 +30,33 @@ import java.util.ArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by user on 2017/7/4.
  */
 
-public class BoardFragment extends Fragment implements BoardView{
+public class BoardFragment extends Fragment implements BoardView {
     private static final String TAG = "BoardFragment";
     private static final Executor NETWORK_EXECUTOR = Executors.newCachedThreadPool();
 
     // Database Model
-
     private FirebaseUser user;
     private ReadTeam readTeam;
     private ReadUser readUser;
-
     // UI View
-    private RecyclerView recyclerView;
+    @BindView(R.id.recycler_view_calendar) RecyclerView recyclerView;
     private BoardItemAdapter calendarItemAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    private ProgressBar progressBar;
-    private FloatingActionButton fabAdd;
+    @BindView(R.id.progress_act) ProgressBar progressBar;
+    @BindView(R.id.fab_add) FloatingActionButton fabAdd;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.team_fragment_board, container, false);
-
-        // find view
-        progressBar = (ProgressBar) view.findViewById(R.id.progress_act);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_calendar);
-        fabAdd = (FloatingActionButton) view.findViewById(R.id.fab_add);
-
+        ButterKnife.bind(getActivity());
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         recyclerView.setHasFixedSize(true);
@@ -68,8 +64,6 @@ public class BoardFragment extends Fragment implements BoardView{
         // 使用LinearLayoutManager
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-
-
 
         // set listener
         fabAdd.setOnClickListener(new View.OnClickListener() {
@@ -104,7 +98,6 @@ public class BoardFragment extends Fragment implements BoardView{
                             intent.putExtras(bundle);
                             intent.setClass(getActivity(), PostActivity.class);
                             startActivity(intent);
-
                         }
                     });
                     recyclerView.setAdapter(calendarItemAdapter);
@@ -116,7 +109,7 @@ public class BoardFragment extends Fragment implements BoardView{
 
     public void showAlertDialog() {
         AlertDialog.Builder alertDlgBuilder = new AlertDialog.Builder(this.getActivity());
-        alertDlgBuilder.setMessage("要使用團隊功能請先入帳號喔");
+        alertDlgBuilder.setMessage("要使用團隊功能請先登入帳號喔");
         alertDlgBuilder.setPositiveButton("是", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

@@ -1,4 +1,4 @@
-package com.example.york.teamcraft.teammanage.board;
+package com.example.york.teamcraft.teammanage.board.view;
 
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -40,22 +40,16 @@ public class BoardItemAdapter extends RecyclerView.Adapter<BoardItemAdapter.View
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycler_cardview_item, parent, false);
-        // set the view's size, margins, paddings and layout parameters
-
         v.setOnClickListener(listener);
-        Log.d(TAG, "onCreateViewHolder");
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String TAG = "onBindViewHolder";
-
         String title = dataList.get(position).getTopic();
         String date = dataList.get(position).getDate();
         Log.d(TAG, title);
