@@ -23,13 +23,18 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class SignUpActivity extends AppCompatActivity implements SignUpView{
     private static String TAG = "SignUpActivity";
     // view
-    private Button confirmBtn;
-    private EditText edtName;
-    private EditText edtEmail;
-    private EditText edtPwd;
+    @BindView(R.id.confirm_btn)  Button confirmBtn;
+    @BindView(R.id.edt_user_name)  EditText edtName;
+    @BindView(R.id.edt_email)  EditText edtEmail;
+    @BindView(R.id.edt_pwd) EditText edtPwd;
+    @BindView(R.id.sign_up_toolbar) Toolbar toolbar;
     // view model
     private CreateUser createUser;
 
@@ -37,35 +42,38 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
+        ButterKnife.bind(this);
         initToolBar();  //ToolBar
-        // find view
-        edtName = (EditText) findViewById(R.id.edt_user_name);
-        edtEmail = (EditText) findViewById(R.id.edt_email);
-        edtPwd = (EditText) findViewById(R.id.edt_pwd);
-        confirmBtn = (Button) findViewById(R.id.confirm_btn);
         // set listener
-        confirmBtn.setOnClickListener(confirmBtnOnClick);
+//        confirmBtn.setOnClickListener(confirmBtnOnClick);
 
     }
 
     //設置ToolBar為此activity的app bar
     private void initToolBar(){
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("註冊帳號");
         setSupportActionBar(toolbar);
     }
 
-    private View.OnClickListener confirmBtnOnClick = new View.OnClickListener(){
-        @Override
-        public void onClick(View v) {
-            String email = edtEmail.getText().toString();
-            String password = edtPwd.getText().toString();
-            String name = edtName.getText().toString();
-            createUser = new CreateUser(SignUpActivity.this);
-            createUser.createUser(email, password, name);
-        }
-    };
+    @OnClick(R.id.confirm_btn)
+    public void submit(View v) {
+        String email = edtEmail.getText().toString();
+        String password = edtPwd.getText().toString();
+        String name = edtName.getText().toString();
+        createUser = new CreateUser(SignUpActivity.this);
+        createUser.createUser(email, password, name);
+    }
+//
+//    private View.OnClickListener confirmBtnOnClick = new View.OnClickListener(){
+//        @Override
+//        public void onClick(View v) {
+//            String email = edtEmail.getText().toString();
+//            String password = edtPwd.getText().toString();
+//            String name = edtName.getText().toString();
+//            createUser = new CreateUser(SignUpActivity.this);
+//            createUser.createUser(email, password, name);
+//        }
+//    };
 
     @Override
     protected void onStart(){

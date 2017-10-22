@@ -9,7 +9,7 @@
     tools:context="com.example.york.teamcraft.signup.view.SignUpActivity">
 
     <include
-        android:id="@+id/toolbar"
+        android:id="@+id/sign_up_toolbar"
         layout="@layout/toolbar"
         android:elevation="4dp" />
 
