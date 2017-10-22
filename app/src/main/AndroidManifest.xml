@@ -67,7 +67,7 @@
         </activity>
         <activity android:name=".teammanage.mygroup.view.MyGroupActivity" />
         <activity android:name=".addcontenttask.view.AddContentTaskActivity" />
-        <activity android:name=".teammanage.jointeam.JoinTeamActivity"></activity>
+        <activity android:name=".teammanage.jointeam.view.JoinTeamActivity"></activity>
     </application>
 
 </manifest>

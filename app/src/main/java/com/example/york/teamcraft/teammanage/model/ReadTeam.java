@@ -1,5 +1,6 @@
 package com.example.york.teamcraft.teammanage.model;
 
+import android.provider.ContactsContract;
 import android.util.Log;
 
 import com.example.york.teamcraft.CallBack;
@@ -29,9 +30,9 @@ public class ReadTeam {
     private FirebaseUser user;
 
     // Firebase Database
-    private DatabaseReference rootRef;
     private DatabaseReference teamActRef;
     private DatabaseReference teamGroRef;
+    private DatabaseReference teamRef;
 
     private ReadUser readUser;
 
@@ -43,9 +44,6 @@ public class ReadTeam {
 
 
     public ReadTeam() {
-        rootRef = FirebaseDatabase.getInstance().getReference();
-        teamActRef = rootRef.child("teamActivities");
-        teamGroRef = rootRef.child("teamGroups");
         user = FirebaseAuth.getInstance().getCurrentUser();
         readUser = new ReadUser();
         postList = new ArrayList<>();
@@ -55,6 +53,7 @@ public class ReadTeam {
     public void getTeamAct(final CallBack< ArrayList<Post> > callback) {
         final Task<User> userTask = readUser.getUserData(); // 取得擁有User Data的Task
 
+        teamActRef = FirebaseDatabase.getInstance().getReference().child("teamActivities");
         userTask.addOnSuccessListener(new OnSuccessListener<User>() {
             @Override
             public void onSuccess(User user) {
@@ -101,6 +100,7 @@ public class ReadTeam {
         final Task<User> userTask = readUser.getUserData(); // 取得擁有User Data的Task
         groupList = new ArrayList<>();
 
+        teamGroRef = FirebaseDatabase.getInstance().getReference().child("teamGroups");
         userTask.addOnSuccessListener(new OnSuccessListener<User>() {
             @Override
             public void onSuccess(User user) {
@@ -140,7 +140,7 @@ public class ReadTeam {
 
     public void getTeamGroupByDataChange(final CallBack< ArrayList<Group> > callback) {
         groupList = new ArrayList<>();
-
+        teamGroRef = FirebaseDatabase.getInstance().getReference().child("teamGroups");
         readUser.getUserData().addOnSuccessListener(new OnSuccessListener<User>() {
             @Override
             public void onSuccess(User user) {
@@ -162,6 +162,30 @@ public class ReadTeam {
 
                     }
                 });
+            }
+        });
+    }
+
+    public void checkTeamExist(final String teamId, final CallBack<Boolean> callBack) {
+        teamRef = FirebaseDatabase.getInstance().getReference().child("teams");
+
+        teamRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                boolean exist = false;
+                Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();    // 取得擁有每個team child node的Iterator
+                while (iterator.hasNext()) {
+                    DataSnapshot nextSnapShot = iterator.next();
+                    if(teamId.equals(nextSnapShot.getKey())) {
+                        exist = true;
+                    }
+                }
+                callBack.update(exist);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("DatabaseError", databaseError.getMessage());
             }
         });
     }

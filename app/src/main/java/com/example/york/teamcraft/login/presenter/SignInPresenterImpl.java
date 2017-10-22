@@ -134,30 +134,27 @@ public class SignInPresenterImpl implements SignInPresenter {
                 if (aBoolean == false) {    // 若尚未有資料
                     WriteUser writeUser = new WriteUser();
                     writeUser.pushData(user.getDisplayName(), user.getEmail());
-                    startCreateTeam();
-                    Log.d("goto", "create team");
+                    startSelectTeam();
                 } else {    // 若已有資料
                     Task<Boolean> taskCheckTeam = readUser.checkUserTeam();
                     taskCheckTeam.addOnSuccessListener(new OnSuccessListener<Boolean>() {
                         @Override
                         public void onSuccess(Boolean aBoolean) {
                             if (!aBoolean) {    // 若尚未擁有團隊
-                                startCreateTeam();
+                                startSelectTeam();
                             } else {
                                 startTeamMain();
                             }
                         }
                     });
-//                    Log.d("goto", "true");
-//                    startCreateTeam();
                 }
             }
         });
 
     }
 
-    // 進入創建團隊的畫面
-    public void startCreateTeam() {
+    // 進入選擇創建團隊或加入團隊的畫面
+    public void startSelectTeam() {
         Intent intent = new Intent();
         intent.setClass(signInActivity, SelectTeamActivity.class);
         signInActivity.startActivity(intent);

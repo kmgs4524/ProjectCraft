@@ -46,7 +46,7 @@ public class BoardFragment extends Fragment implements BoardView {
     private ReadTeam readTeam;
     private ReadUser readUser;
     // UI View
-    @BindView(R.id.recycler_view_calendar) RecyclerView recyclerView;
+    @BindView(R.id.recycler_view_board) RecyclerView recyclerView;
     private BoardItemAdapter calendarItemAdapter;
     private RecyclerView.LayoutManager layoutManager;
     @BindView(R.id.progress_act) ProgressBar progressBar;
@@ -56,7 +56,7 @@ public class BoardFragment extends Fragment implements BoardView {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.team_fragment_board, container, false);
-        ButterKnife.bind(getActivity());
+        ButterKnife.bind(this, view);
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         recyclerView.setHasFixedSize(true);
