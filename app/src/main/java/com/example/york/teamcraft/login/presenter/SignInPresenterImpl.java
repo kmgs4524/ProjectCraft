@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.example.york.teamcraft.login.view.SignUpActivity;
+import com.example.york.teamcraft.signup.view.SignUpActivity;
 import com.example.york.teamcraft.login.model.EmailSignIn;
 import com.example.york.teamcraft.login.view.SignInActivity;
 import com.example.york.teamcraft.teammanage.MainActivity;
@@ -133,7 +133,7 @@ public class SignInPresenterImpl implements SignInPresenter {
             public void onSuccess(Boolean aBoolean) {
                 if (aBoolean == false) {    // 若尚未有資料
                     WriteUser writeUser = new WriteUser();
-                    writeUser.pushData();
+                    writeUser.pushData(user.getDisplayName(), user.getEmail());
                     startCreateTeam();
                     Log.d("goto", "create team");
                 } else {    // 若已有資料

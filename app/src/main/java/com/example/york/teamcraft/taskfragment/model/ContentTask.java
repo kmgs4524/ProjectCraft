@@ -17,7 +17,7 @@ public class ContentTask implements Parcelable{
     private String time;
     private String status;
 
-    public ContentTask(String taskId,String topic, String content, String responId, String responsible, String date, String time, String status) {
+    public ContentTask(String taskId, String topic, String content, String responId, String responsible, String date, String time, String status) {
         this.taskId = taskId;
         this.topic = topic;
         this.content = content;

@@ -28,7 +28,6 @@ public class WriteUser {
         rootRef = FirebaseDatabase.getInstance().getReference();
         usersRef = rootRef.child("users");
         userMap = new HashMap<>();
-        user = FirebaseAuth.getInstance().getCurrentUser();
     }
 
     public void updateUser() {
@@ -47,9 +46,9 @@ public class WriteUser {
     }
 
     // 在users插入新的user object
-    public void pushData() {
+    public void pushData(String name, String email) {
         String key = usersRef.push().getKey();
-        userMap.put(key, new User(user.getDisplayName(), user.getEmail(), "0", null));
+        userMap.put(key, new User(name, email, "0", null));
         usersRef.updateChildren(userMap);
     }
 

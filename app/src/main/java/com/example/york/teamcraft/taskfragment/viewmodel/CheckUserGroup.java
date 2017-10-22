@@ -2,7 +2,6 @@ package com.example.york.teamcraft.taskfragment.viewmodel;
 
 import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.addcontenttask.model.ReadGroupMember;
-import com.example.york.teamcraft.login.view.SignUpActivity;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
 import com.example.york.teamcraft.teammanage.model.User;
 import com.google.android.gms.tasks.OnSuccessListener;

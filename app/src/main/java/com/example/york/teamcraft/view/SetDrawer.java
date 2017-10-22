@@ -11,7 +11,6 @@ import android.view.MenuItem;
 
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.login.view.SignInActivity;
-import com.example.york.teamcraft.login.view.SignUpActivity;
 import com.example.york.teamcraft.personalsmanage.view.PersonalTasksActivity;
 import com.example.york.teamcraft.teammanage.MainActivity;
 

@@ -3,6 +3,7 @@ package com.example.york.teamcraft.targetfragment.view;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,6 +64,9 @@ public class TargetFragment extends Fragment {
         super.onStart();
         groupTaskName = getArguments().getString("groupTaskName");
         contentTask = (ContentTask) getArguments().get("contentTask");
+        if(groupTaskName != null) {
+            Log.d("argu", groupTaskName);
+        }
 
         if(contentTask != null) {   // 第一次進入活動工作頁面時，contentTask會是null
             txtTopic.setText(contentTask.getTopic());
@@ -70,7 +74,8 @@ public class TargetFragment extends Fragment {
             txtResponsible.setText(contentTask.getResponsible());
             txtDate.setText(contentTask.getDate());
             txtTime.setText(contentTask.getTime());
-
+//            Log.d("argu", contentTask.getTopic());
+//            Log.d("argu", contentTask.getResponsible());
             initBtnDel();
         }
 
@@ -87,6 +92,8 @@ public class TargetFragment extends Fragment {
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                Log.d("argu", groupTaskName);
+//                Log.d("argu", contentTask.getTaskId());
                 confrimContentTask = new ConfirmContentTask();
                 confrimContentTask.confirmTask(groupTaskName, contentTask.getTaskId());
             }

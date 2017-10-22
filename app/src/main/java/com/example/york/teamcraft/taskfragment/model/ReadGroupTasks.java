@@ -37,7 +37,7 @@ public class ReadGroupTasks {
         childRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                if(groupTaskName.equals(dataSnapshot.getKey())) {   // 若是已存在相同名稱的groupTask
+                if (groupTaskName.equals(dataSnapshot.getKey())) {   // 若是已存在相同名稱的groupTask
                     exist = true;
                     callBack.update(exist);
                 }
@@ -81,10 +81,15 @@ public class ReadGroupTasks {
 
                 groupList.add(groupTaskName);
                 ContentTask task;
-                Iterator<DataSnapshot> childSnapShot= dataSnapshot.getChildren().iterator();
+                Iterator<DataSnapshot> childSnapShot = dataSnapshot.getChildren().iterator();
                 while (childSnapShot.hasNext()) {
-                    task = childSnapShot.next().getValue(ContentTask.class);
-                    contentTaskList.add(task);
+                    try {
+                        task = childSnapShot.next().getValue(ContentTask.class);
+                        contentTaskList.add(task);
+                    } catch (Exception e) {
+                        Log.d(e.toString(), e.getMessage());
+                    }
+
                 }
 
                 itemMap.put(groupTaskName, contentTaskList);
@@ -119,7 +124,7 @@ public class ReadGroupTasks {
         final ArrayList<DataPath> pathList = new ArrayList<>(); // DataPath List : 負責存放 groupId, groupTaskName, taskId
 
         DatabaseReference groupRef = groupTasksRef.child(groupId);    // groupId node
-        groupRef.addChildEventListener(new ChildEventListener() {   // 迭代出某一群組底下的各個群組活動
+        groupRef.addChildEventListener(new ChildEventListener() {   // 迭代出某一群組底下的各個群組任務
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();    // 擁有群組活動中的每個細項活動iterator
@@ -128,7 +133,7 @@ public class ReadGroupTasks {
 //                    DataPath dataPath = new DataPath(groupId, , nextSnapShot.getKey());
                     ContentTask task = nextSnapShot.getValue(ContentTask.class);
 //                    ContentTask task = iterator.next().getValue(ContentTask.class);
-                    if(task.getResponId().equals(responId)) {
+                    if (task.getResponId().equals(responId)) {
                         Log.d("wanted data", groupId + " " + dataSnapshot.getKey() + " " + nextSnapShot.getKey());  // 確認取得的資料無誤
                         DataPath dataPath = new DataPath(groupId, dataSnapshot.getKey(), nextSnapShot.getKey());
                         taskList.add(task);
@@ -165,7 +170,7 @@ public class ReadGroupTasks {
         DatabaseReference childRef = groupTasksRef.child(groupId);
         final int[] totalNum = {0}; // 所有細項工作的數量
         final int[] checkedNum = {0};   // status為checked的數量
-        final GroupProgress groupProgress  = new GroupProgress(groupId, totalNum[0], checkedNum[0]);
+        final GroupProgress groupProgress = new GroupProgress(groupId, totalNum[0], checkedNum[0]);
 //        Log.d("next", childRef.getKey());
         childRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -175,10 +180,10 @@ public class ReadGroupTasks {
                 while (iterator.hasNext()) {    // 迭代出每個群組任務
                     DataSnapshot groupTaskSnapShot = iterator.next();
                     Iterator<DataSnapshot> contentTaskIterator = groupTaskSnapShot.getChildren().iterator();
-                    while(contentTaskIterator.hasNext()) {
+                    while (contentTaskIterator.hasNext()) {
                         DataSnapshot contentTaskSnapShot = contentTaskIterator.next();
                         totalNum[0] = totalNum[0] + 1;
-                        if(contentTaskSnapShot.child("status").getValue().equals("checked")) {
+                        if (contentTaskSnapShot.child("status").getValue().equals("checked")) {
                             checkedNum[0] = checkedNum[0] + 1;
                         }
                     }

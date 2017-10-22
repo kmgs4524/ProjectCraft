@@ -54,9 +54,9 @@ public class PostActivity extends AppCompatActivity implements PostView{
     }
 
     public void initTxtView() {
-        txtTopic = (TextView) findViewById(R.id.txt_topic);
-        txtDate = (TextView) findViewById(R.id.txt_date);
-        txtContent = (TextView) findViewById(R.id.txt_content);
+        txtTopic = (TextView) findViewById(R.id.txt_post_topic);
+        txtDate = (TextView) findViewById(R.id.txt_post_date);
+        txtContent = (TextView) findViewById(R.id.txt_post_content);
     }
 
     public void initRecyclerView(ArrayList<Comment> commList) {
