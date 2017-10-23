@@ -42,7 +42,6 @@ public class GroupManageFragment extends Fragment implements GroupManageView{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.team_fragment_manage_group, container, false);
-
         // find view
         cardMyGroup = view.findViewById(R.id.card_my_group); // 使用者的群組
         gridGroup = (GridView) view.findViewById(R.id.gridView); // 其他小組
@@ -85,7 +84,6 @@ public class GroupManageFragment extends Fragment implements GroupManageView{
     @Override
     public void initGridView(final ArrayList<Group> list) {
         gridGroup.setAdapter(new GridItemAdapter(getActivity(), list));
-        Log.d(TAG, "setAdapter");
 
         gridGroup.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

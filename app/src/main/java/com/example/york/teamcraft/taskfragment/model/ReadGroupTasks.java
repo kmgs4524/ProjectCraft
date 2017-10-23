@@ -68,10 +68,10 @@ public class ReadGroupTasks {
 
     // 取得群組任務的名稱及底下的細項工作
     public void getAllTask(String groupId, final CallBackTwoArgs<ArrayList<String>, HashMap<String, ArrayList<ContentTask>>> callBack) {
-        DatabaseReference childRef = groupTasksRef.child(groupId);
         final ArrayList<String> groupList = new ArrayList<>();  // 群組任務名稱的list
         final HashMap<String, ArrayList<ContentTask>> itemMap = new HashMap<>();    // 細項任務的map，key: 群組任務名稱, value: 細項任務的list
 
+        DatabaseReference childRef = groupTasksRef.child(groupId);
         childRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -116,6 +116,7 @@ public class ReadGroupTasks {
 
             }
         });
+
     }
 
     // 需要groupId, responId，取得個人被分派工作的taskIdList, taskList

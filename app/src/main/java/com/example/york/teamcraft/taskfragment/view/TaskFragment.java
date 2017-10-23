@@ -65,12 +65,10 @@ public class TaskFragment extends Fragment implements TaskFragmentView {
         View view = inflater.inflate(R.layout.team_fragment_task, container, false);
         // get passed groupId
         groupId = getArguments().getString("groupId");
-        // set Add Group Task Image Button
-//        setImgAddGroupTaskListener(view);
         // set ExpandableList and Adapter
         initView(view);
         setExpandList();
-
+        // 先檢查使用者的group id及position，再決定是否呼叫setImgAddGroupTaskListener()以顯示新增群組工作的按鈕
         taskFragmentPresenter = new TaskFragmentPresenterImpl(this);
         taskFragmentPresenter.checkUserGroup(groupId);
 

@@ -29,7 +29,6 @@ public class GroupInfoActivity extends AppCompatActivity implements GroupInfoVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.team_activity_manage_group);
-
         // get bundle data
         getPassedGroupData();
         // init toolbar

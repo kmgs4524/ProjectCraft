@@ -25,4 +25,5 @@ public class WriteTeamMember {
         memMap.put(userId, teamMember);
         teamsMemRef.child(teamId).updateChildren(memMap);
     }
+
 }

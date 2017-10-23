@@ -1,11 +1,13 @@
 package com.example.york.teamcraft.teammanage.creategroup.viewmodel;
 
+import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.data.GroupMember;
 import com.example.york.teamcraft.teammanage.creategroup.model.WriteGroupMember;
 import com.example.york.teamcraft.teammanage.creategroup.model.WriteTeamGroup;
 import com.example.york.teamcraft.teammanage.creategroup.view.CreateGroupView;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
 import com.example.york.teamcraft.teammanage.model.User;
+import com.example.york.teamcraft.teammanage.model.WriteUser;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
@@ -22,6 +24,7 @@ public class CreateNewGroup {
     private ReadUser readUser;
     private WriteTeamGroup writeTeamGroup;
     private WriteGroupMember writeGroupMember;
+    private WriteUser writeUser;
 
     public CreateNewGroup(CreateGroupView view) {
         this.createGroupView = view;
@@ -34,9 +37,16 @@ public class CreateNewGroup {
         task.addOnSuccessListener(new OnSuccessListener<User>() {
             @Override
             public void onSuccess(User user) {
-                String groupId = writeTeamGroup.pushData(user.getTeamId(), groupName);  // 更新teamGroups節點並回傳groupId
-                WriteGroupMember writeGroupMember = new WriteGroupMember();
+                final String groupId = writeTeamGroup.pushData(user.getTeamId(), groupName);  // 更新teamGroups節點並回傳groupId
+                writeGroupMember = new WriteGroupMember();
                 writeGroupMember.pushData(memList, groupId);    // 更新groupMembers節點的資料
+                writeUser = new WriteUser();
+                readUser.getUserId(new CallBack<String>() {
+                    @Override
+                    public void update(String data) {
+                        writeUser.updateUserGroup(data, groupId);
+                    }
+                });
                 createGroupView.finishCreate();
             }
         });

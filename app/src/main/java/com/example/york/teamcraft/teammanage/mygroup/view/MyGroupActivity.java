@@ -42,9 +42,12 @@ public class MyGroupActivity extends AppCompatActivity implements MyGroupView, P
     }
 
     public void getPassedGroupData() {
-        Bundle bundle = getIntent().getExtras();
-        groupId = bundle.getString("id");
-        Log.d("passed", groupId);
+        try{
+            Bundle bundle = getIntent().getExtras();
+            groupId = bundle.getString("id");
+        } catch (Exception e) {
+            Log.d("passed", e.getMessage());
+        }
     }
 
     public void setFragment() {

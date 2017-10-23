@@ -56,4 +56,9 @@ public class WriteUser {
         DatabaseReference childRef = usersRef.child(userId);
         childRef.child("teamId").setValue(teamId);
     }
+
+    public void updateUserGroup(String userId, String groupId) {
+        DatabaseReference childRef = usersRef.child(userId);
+        childRef.child("groupId").setValue(groupId);
+    }
 }
