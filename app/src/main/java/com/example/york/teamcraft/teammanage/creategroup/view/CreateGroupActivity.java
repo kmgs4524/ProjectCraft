@@ -37,7 +37,6 @@ public class CreateGroupActivity extends AppCompatActivity implements CreateGrou
         createGroupPresenter = new CreateGroupPresenterImpl(this);
         createGroupPresenter.setSpinMenu();
         initCreateBtn();
-
     }
 
     // 設置ToolBar

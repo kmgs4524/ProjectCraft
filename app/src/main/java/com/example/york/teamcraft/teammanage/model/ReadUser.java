@@ -95,6 +95,31 @@ public class ReadUser {
         return dbSource.getTask();
     }
 
+    public void getUserDataByCallBack(final CallBack<User> callBack) {
+        Query query = usersRef.orderByChild("email").equalTo(email);    // 搜尋出想要的email
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(final DataSnapshot dataSnapshot) {
+                Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();
+                DataSnapshot snap;
+                while (iterator.hasNext()) {
+                    snap = iterator.next();
+                    user = snap.getValue(User.class);
+                    callBack.update(user);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                if (databaseError != null) {
+                    Log.d("onCancelled", databaseError.getMessage());
+                }
+            }
+
+        });
+
+    }
+
     public Task<Boolean> checkUserExist() {
         final TaskCompletionSource<Boolean> dbSource = new TaskCompletionSource<>();
 

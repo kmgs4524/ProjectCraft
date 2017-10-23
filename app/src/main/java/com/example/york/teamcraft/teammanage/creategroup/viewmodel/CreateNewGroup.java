@@ -32,19 +32,31 @@ public class CreateNewGroup {
         this.writeTeamGroup = new WriteTeamGroup();
     }
 
+    // 設定每個成員的職位
+    public void setMemberPosition(ArrayList<GroupMember> memList, String userId) {
+        for(int i = 0; i < memList.size(); i++) {
+            if(memList.get(i).getUserId().equals(userId)) { // 若是該使用者創建團隊，則將他職位設定為director
+                memList.get(i).setPosition("director");
+            } else {
+                memList.get(i).setPosition("normal");   // 若為其他人的話，職位設定為normal
+            }
+        }
+    }
+
     public void create(final String groupName, final ArrayList<GroupMember> memList) {
         Task<User> task = readUser.getUserData();
         task.addOnSuccessListener(new OnSuccessListener<User>() {
             @Override
             public void onSuccess(User user) {
                 final String groupId = writeTeamGroup.pushData(user.getTeamId(), groupName);  // 更新teamGroups節點並回傳groupId
-                writeGroupMember = new WriteGroupMember();
-                writeGroupMember.pushData(memList, groupId);    // 更新groupMembers節點的資料
-                writeUser = new WriteUser();
                 readUser.getUserId(new CallBack<String>() {
                     @Override
                     public void update(String data) {
-                        writeUser.updateUserGroup(data, groupId);
+                        setMemberPosition(memList, data);
+                        writeGroupMember = new WriteGroupMember();
+                        writeGroupMember.pushData(memList, groupId);    // 更新groupMembers節點的資料
+                        writeUser = new WriteUser();
+                        writeUser.updateUserGroup(data, groupId);   // 更新user child node的groupId
                     }
                 });
                 createGroupView.finishCreate();
