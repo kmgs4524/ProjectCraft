@@ -51,13 +51,11 @@ public class ReadTeam {
     }
 
     public void getTeamAct(final CallBack< ArrayList<Post> > callback) {
-        final Task<User> userTask = readUser.getUserData(); // 取得擁有User Data的Task
-
         teamActRef = FirebaseDatabase.getInstance().getReference().child("teamActivities");
-        userTask.addOnSuccessListener(new OnSuccessListener<User>() {
+        readUser.getUserData(new CallBack<User>() {
             @Override
-            public void onSuccess(User user) {
-                DatabaseReference ref = teamActRef.child(user.getTeamId()).getRef();    // 搜尋出想要的email
+            public void update(User data) {
+                DatabaseReference ref = teamActRef.child(data.getTeamId()).getRef();    // 搜尋出想要的email
                 Log.d("getAct", ref.getKey());
 
                 ref.addChildEventListener(new ChildEventListener() {
@@ -90,21 +88,18 @@ public class ReadTeam {
 
                     }
                 });
-
             }
-        });
+        }); // 取得擁有User Data的Task
 
     }
 
     public void getTeamGroup(final CallBack< ArrayList<Group> > callback) {
-        final Task<User> userTask = readUser.getUserData(); // 取得擁有User Data的Task
-        groupList = new ArrayList<>();
-
         teamGroRef = FirebaseDatabase.getInstance().getReference().child("teamGroups");
-        userTask.addOnSuccessListener(new OnSuccessListener<User>() {
+        groupList = new ArrayList<>();
+        readUser.getUserData(new CallBack<User>() {
             @Override
-            public void onSuccess(User user) {
-                DatabaseReference ref = teamGroRef.child(user.getTeamId()).getRef();
+            public void update(User data) {
+                DatabaseReference ref = teamGroRef.child(data.getTeamId()).getRef();
 
                 ref.addChildEventListener(new ChildEventListener() {
                     @Override
@@ -135,16 +130,17 @@ public class ReadTeam {
                     }
                 });
             }
-        });
+        }); // 取得擁有User Data的Task
+
     }
 
     public void getTeamGroupByDataChange(final CallBack< ArrayList<Group> > callback) {
         groupList = new ArrayList<>();
         teamGroRef = FirebaseDatabase.getInstance().getReference().child("teamGroups");
-        readUser.getUserData().addOnSuccessListener(new OnSuccessListener<User>() {
+        readUser.getUserData(new CallBack<User>() {
             @Override
-            public void onSuccess(User user) {
-                DatabaseReference ref = teamGroRef.child(user.getTeamId()).getRef();
+            public void update(User data) {
+                DatabaseReference ref = teamGroRef.child(data.getTeamId()).getRef();
 
                 ref.addValueEventListener(new ValueEventListener() {
                     @Override

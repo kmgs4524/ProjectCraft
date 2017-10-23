@@ -65,13 +65,9 @@ public class ReadUser {
 
     }
 
-    public Task<User> getUserData() {
+    public void getUserData(final CallBack<User> callBack) {
         Query query = usersRef.orderByChild("email").equalTo(email);    // 搜尋出想要的email
-
-        final TaskCompletionSource<User> dbSource = new TaskCompletionSource<>();
-//        final Task dbTask = dbSource.getTask();
-
-        query.addValueEventListener(new ValueEventListener() {
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
                 Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();
@@ -79,7 +75,7 @@ public class ReadUser {
                 while (iterator.hasNext()) {
                     snap = iterator.next();
                     user = snap.getValue(User.class);
-                    dbSource.setResult(user);
+                    callBack.update(user);
                 }
             }
 
@@ -91,8 +87,6 @@ public class ReadUser {
             }
 
         });
-
-        return dbSource.getTask();
     }
 
     public void getUserDataByCallBack(final CallBack<User> callBack) {

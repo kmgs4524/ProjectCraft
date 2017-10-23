@@ -30,13 +30,12 @@ public class SetSpinnerData {
 
     public void setData() {
         readUser = new ReadUser();
-        Task<User> taskUser = readUser.getUserData();
-        taskUser.addOnSuccessListener(new OnSuccessListener<User>() {
+        readUser.getUserData(new CallBack<User>() {
             @Override
-            public void onSuccess(User user) {
-                Log.d("member", user.getTeamId());
+            public void update(User data) {
+                Log.d("member", data.getTeamId());
                 readTeamMember = new ReadTeamMember();
-                readTeamMember.getMember(user.getTeamId(), new CallBack<ArrayList<GroupMember>>() {
+                readTeamMember.getMember(data.getTeamId(), new CallBack<ArrayList<GroupMember>>() {
                     @Override
                     public void update(ArrayList<GroupMember> data) {
                         Log.d("member data", Integer.toString(data.size()));

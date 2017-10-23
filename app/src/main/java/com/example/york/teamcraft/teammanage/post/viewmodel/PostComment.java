@@ -22,9 +22,10 @@ public class PostComment {
     }
 
     public void post(final String postId, final String messg) {
-        readUser.getUserData().addOnSuccessListener(new OnSuccessListener<User>() {
+        readUser.getUserData(new CallBack<User>() {
             @Override
-            public void onSuccess(final User user) {
+            public void update(User data) {
+                final User user = data;
                 readUser.getUserId(new CallBack<String>() {
                     @Override
                     public void update(String data) {

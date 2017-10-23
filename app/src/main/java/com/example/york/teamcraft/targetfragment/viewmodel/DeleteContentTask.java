@@ -1,5 +1,6 @@
 package com.example.york.teamcraft.targetfragment.viewmodel;
 
+import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.personalsmanage.model.WriteGroupTask;
 import com.example.york.teamcraft.taskfragment.model.ReadGroupTasks;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
@@ -22,10 +23,10 @@ public class DeleteContentTask {
     }
 
     public void deleteTask(final String groupTaskName, final String taskId) {
-        readUser.getUserData().addOnSuccessListener(new OnSuccessListener<User>() {
+        readUser.getUserData(new CallBack<User>() {
             @Override
-            public void onSuccess(User user) {
-                writeGroupTask.deleteContentTask(user.getGroupId(), groupTaskName, taskId);
+            public void update(User data) {
+                writeGroupTask.deleteContentTask(data.getGroupId(), groupTaskName, taskId);
             }
         });
     }

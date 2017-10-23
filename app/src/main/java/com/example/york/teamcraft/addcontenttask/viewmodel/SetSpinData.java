@@ -28,10 +28,10 @@ public class SetSpinData {
     }
 
     public void setData() {
-        readUser.getUserData().addOnSuccessListener(new OnSuccessListener<User>() {
+        readUser.getUserData(new CallBack<User>() {
             @Override
-            public void onSuccess(User user) {
-                readGroupMember.getGroupMember(user.getGroupId(), new CallBack<ArrayList<GroupMember>>() {
+            public void update(User data) {
+                readGroupMember.getGroupMember(data.getGroupId(), new CallBack<ArrayList<GroupMember>>() {
                     @Override
                     public void update(ArrayList<GroupMember> data) {
                         addContentTaskView.setSpinMenu(data);

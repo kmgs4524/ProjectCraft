@@ -44,19 +44,18 @@ public class CreateNewGroup {
     }
 
     public void create(final String groupName, final ArrayList<GroupMember> memList) {
-        Task<User> task = readUser.getUserData();
-        task.addOnSuccessListener(new OnSuccessListener<User>() {
+        readUser.getUserData(new CallBack<User>() {
             @Override
-            public void onSuccess(User user) {
-                final String groupId = writeTeamGroup.pushData(user.getTeamId(), groupName);  // 更新teamGroups節點並回傳groupId
+            public void update(User data) {
+                final String groupId = writeTeamGroup.pushData(data.getTeamId(), groupName);  // 更新teamGroups節點並回傳groupId
                 readUser.getUserId(new CallBack<String>() {
                     @Override
-                    public void update(String data) {
-                        setMemberPosition(memList, data);
+                    public void update(String userId) {
+                        setMemberPosition(memList, userId);
                         writeGroupMember = new WriteGroupMember();
                         writeGroupMember.pushData(memList, groupId);    // 更新groupMembers節點的資料
                         writeUser = new WriteUser();
-                        writeUser.updateUserGroup(data, groupId);   // 更新user child node的groupId
+                        writeUser.updateUserGroup(userId, groupId);   // 更新user child node的groupId
                     }
                 });
                 createGroupView.finishCreate();

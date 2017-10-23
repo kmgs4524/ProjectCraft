@@ -36,15 +36,15 @@ public class JoinExistTeam {
                     readUser = new ReadUser();
                     readUser.getUserId(new CallBack<String>() {
                         @Override
-                        public void update(final String data) {
+                        public void update(final String userId) {
                             writeUser = new WriteUser();
-                            writeUser.updateUserTeam(data, teamId); // 將teamId寫入user child
+                            writeUser.updateUserTeam(userId, teamId); // 將teamId寫入user child
 
-                            readUser.getUserData().addOnSuccessListener(new OnSuccessListener<User>() {
+                            readUser.getUserData(new CallBack<User>() {
                                 @Override
-                                public void onSuccess(User user) {
+                                public void update(User data) {
                                     writeTeamMember = new WriteTeamMember();
-                                    writeTeamMember.updateTeamMember(teamId, data, user.getName()); // 將user id, user name 寫入teamsMember child node
+                                    writeTeamMember.updateTeamMember(teamId, userId, data.getName()); // 將user id, user name 寫入teamsMember child node
                                     joinTeamView.startTeamMainActivity();   // 進入團隊管理的MainActivity
                                 }
                             });

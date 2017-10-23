@@ -21,10 +21,10 @@ public class CheckUserGroup {
     }
 
     public void checkGroup(final String groupId, final CallBack<Boolean> callBack) {
-        readUser.getUserData().addOnSuccessListener(new OnSuccessListener<User>() {
+        readUser.getUserData(new CallBack<User>() {
             @Override
-            public void onSuccess(User user) {
-                if(user.getGroupId().equals(groupId)) {
+            public void update(User data) {
+                if(data.getGroupId().equals(groupId)) {
                     callBack.update(true);
                 } else {
                     callBack.update(false);

@@ -35,10 +35,10 @@ public class TaskFragmentPresenterImpl implements TaskFragmentPresenter {
     // 若上述兩者皆為是的話就在群組任務旁邊顯示加號按鈕，並新增按鈕的事件
     @Override
     public void checkUserGroup(final String groupId) {
-        readUser.getUserData().addOnSuccessListener(new OnSuccessListener<User>() {
+        readUser.getUserData(new CallBack<User>() {
             @Override
-            public void onSuccess(User user) {
-                if (groupId.equals(user.getGroupId())) { // 若使用者的group id 等於目前點擊群組的id
+            public void update(User data) {
+                if (groupId.equals(data.getGroupId())) { // 若使用者的group id 等於目前點擊群組的id
                     readUser.getUserId(new CallBack<String>() {
                         @Override
                         public void update(String data) {
