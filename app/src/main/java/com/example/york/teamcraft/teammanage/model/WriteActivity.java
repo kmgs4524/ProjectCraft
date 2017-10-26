@@ -14,7 +14,7 @@ import java.util.Map;
  * Created by York on 2017/9/30.
  */
 
-public class WriteActivity implements WriteDatabase{
+public class WriteActivity {
     private static String TAG = "WriteActivity";
 
     private DatabaseReference teamActRef;
@@ -25,20 +25,15 @@ public class WriteActivity implements WriteDatabase{
         readUser = new ReadUser();
     }
 
-    @Override
-    public void updateData() {
-
-    }
-
-    @Override
-    public void pushData(final Map map) {
+    public void pushData(final Map map, final CallBack<String> callBack) {
         readUser.getUserData(new CallBack<User>() {
             @Override
             public void update(User data) {
-                DatabaseReference childRef = teamActRef.child(data.getTeamId()).getRef();
-                Log.d(TAG, childRef.getKey());
-
-                childRef.push().updateChildren(map);
+                DatabaseReference childRef = teamActRef.child(data.getTeamId()).getRef();   // 先取得user的teamId，再用此teamId到teamActivities建立新的teamId child
+                String key = childRef.push().getKey();
+                map.put("postId", key);
+                childRef.child(key).updateChildren(map);    // 將從AddItemPresenterImpl.addNewActivity傳來Map寫入teamId node的child
+                callBack.update(key);
             }
         });
     }

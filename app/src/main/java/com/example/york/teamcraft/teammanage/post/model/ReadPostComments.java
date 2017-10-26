@@ -1,5 +1,7 @@
 package com.example.york.teamcraft.teammanage.post.model;
 
+import android.util.Log;
+
 import com.example.york.teamcraft.CallBack;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -22,7 +24,7 @@ public class ReadPostComments {
 
     public void getComment(String postId, final CallBack<ArrayList<Comment>> callBack) {
         final ArrayList<Comment> commList = new ArrayList<>();
-
+        Log.d("postId", postId);
         postCommRef.child(postId).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {

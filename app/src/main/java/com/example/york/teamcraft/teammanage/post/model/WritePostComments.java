@@ -19,10 +19,14 @@ public class WritePostComments {
     }
 
     public void pushNewMessg(String postId, Comment comm) {
-        String key = postCommRef.child(postId).push().getKey();
-        comm.setCommentId(key);
-        Map<String, Object> map = new HashMap<>();
-        map.put(key, comm);
-        postCommRef.child(postId).updateChildren(map);
+        if(comm != null) {
+            String key = postCommRef.child(postId).push().getKey();
+            comm.setCommentId(key);
+            Map<String, Object> map = new HashMap<>();
+            map.put(key, comm);
+            postCommRef.child(postId).updateChildren(map);
+        } else {
+            postCommRef.child(postId).setValue("0");
+        }
     }
 }

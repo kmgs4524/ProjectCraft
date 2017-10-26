@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.example.york.teamcraft.teammanage.additem.view.AddItemActivity;
+import com.example.york.teamcraft.teammanage.addpost.view.AddPostActivity;
 import com.example.york.teamcraft.teammanage.model.Post;
 import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.R;
@@ -70,7 +70,7 @@ public class BoardFragment extends Fragment implements BoardView {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.setClass(getActivity(), AddItemActivity.class);
+                intent.setClass(getActivity(), AddPostActivity.class);
                 startActivity(intent);
             }
         });
