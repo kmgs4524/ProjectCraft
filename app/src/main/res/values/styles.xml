@@ -51,4 +51,10 @@
         <item name="android:background">?android:attr/listDivider</item>
     </style>
 
+    <!-- 帳號或密碼錯誤時的文字訊息 -->
+    <style name="TextActPwdMessage">
+        <item name="android:textColor">@color/md_red_700</item>
+        <item name="android:layout_height">2dp</item>
+    </style>
+
 </resources>

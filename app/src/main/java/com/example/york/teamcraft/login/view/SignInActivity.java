@@ -144,6 +144,16 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         }
     }
 
+    public void showPwdEmptyMesg() {
+        txtStatus.setVisibility(View.VISIBLE);
+        txtStatus.setText("帳號或密碼不能是空白");
+    }
+
+    public void showPwdWrongMesg() {
+        txtStatus.setVisibility(View.VISIBLE);
+        txtStatus.setText("帳號或密碼錯誤");
+    }
+
     //設置ToolBar為此activity的app bar
     private void initToolBar() {
         toolbar.setTitle("登入");

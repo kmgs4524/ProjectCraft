@@ -17,8 +17,13 @@ import com.google.firebase.auth.FirebaseUser;
  */
 
 public class EmailSignIn implements UserSignIn {
+    private SignInActivity signInActivity;
     private String TAG = "EmailSignIn";
     private FirebaseAuth auth = FirebaseAuth.getInstance();
+
+    public EmailSignIn(SignInActivity act) {
+        this.signInActivity = act;
+    }
 
     public Task<FirebaseUser> signIn(String email, String pwd) {
         Log.d("sign in", "enter EmailSignIn model");
@@ -30,11 +35,13 @@ public class EmailSignIn implements UserSignIn {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // 登入成功
+
                             Log.d("sign in", "signInWithEmail:success");
                             FirebaseUser user = auth.getCurrentUser();
                             source.setResult(user);
                         } else {
                             // 登入失敗
+                            signInActivity.showPwdWrongMesg();
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
 //                            updateUI(null);
                         }

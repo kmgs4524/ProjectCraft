@@ -100,8 +100,10 @@
 
     <TextView
         android:id="@+id/status_txtView"
+        style="@style/TextActPwdMessage"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:visibility="invisible"/>
 
     <TextView
         android:id="@+id/email_txtView"
