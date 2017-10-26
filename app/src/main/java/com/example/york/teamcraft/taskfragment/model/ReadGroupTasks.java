@@ -98,12 +98,48 @@ public class ReadGroupTasks {
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                String groupTaskName = dataSnapshot.getKey();
+                // ArrayList為傳址，故無法重複使用
+                ArrayList<ContentTask> contentTaskList = new ArrayList<>();   // 細項任務的list
 
+//                groupList.add(groupTaskName);
+                ContentTask task;
+                Iterator<DataSnapshot> childSnapShot = dataSnapshot.getChildren().iterator();
+                while (childSnapShot.hasNext()) {
+                    try {
+                        task = childSnapShot.next().getValue(ContentTask.class);
+                        contentTaskList.add(task);
+                    } catch (Exception e) {
+                        Log.d(e.toString(), e.getMessage());
+                    }
+
+                }
+
+                itemMap.put(groupTaskName, contentTaskList);
+                callBack.update(groupList, itemMap);
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
+                String groupTaskName = dataSnapshot.getKey();
+                // ArrayList為傳址，故無法重複使用
+                ArrayList<ContentTask> contentTaskList = new ArrayList<>();   // 細項任務的list
 
+//                groupList.add(groupTaskName);
+                ContentTask task;
+                Iterator<DataSnapshot> childSnapShot = dataSnapshot.getChildren().iterator();
+                while (childSnapShot.hasNext()) {
+                    try {
+                        task = childSnapShot.next().getValue(ContentTask.class);
+                        contentTaskList.add(task);
+                    } catch (Exception e) {
+                        Log.d(e.toString(), e.getMessage());
+                    }
+
+                }
+
+                itemMap.put(groupTaskName, contentTaskList);
+                callBack.update(groupList, itemMap);
             }
 
             @Override

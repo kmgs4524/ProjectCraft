@@ -35,8 +35,8 @@ public class WriteGroupTask {
     public void writeGroupTaskName(String groupId, String groupTaskTitle) {
         String key = groupTaskRef.push().getKey();
         Map<String, Object> map = new HashMap<>();
-        map.put(key, new ContentTask(key, "", "", "", "", "", "", "undo"));
-        groupTaskRef.child(groupId).child(groupTaskTitle).updateChildren(map);
+//        map.put(key, new ContentTask(key, "新工作", "", "", "", "", "", "undo"));
+        groupTaskRef.child(groupId).child(groupTaskTitle).setValue("0");
     }
 
     // 在AddContentActivity按下確認時會呼叫此方法
@@ -45,7 +45,7 @@ public class WriteGroupTask {
         String key = groupTaskRef.push().getKey();
         contentTask.setTaskId(key);
         map.put(key, contentTask);
-        return groupTaskRef.child(groupId).child(groupTaskName).updateChildren(map);
+        return groupTaskRef.child(groupId).child(groupTaskName).updateChildren(map);    // 更新群組任務的child node
     }
 
     // 在TargetFragment中按下刪除button時會呼叫此方法

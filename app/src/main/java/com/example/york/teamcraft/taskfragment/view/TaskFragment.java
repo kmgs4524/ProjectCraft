@@ -22,15 +22,16 @@ import com.example.york.teamcraft.taskfragment.presenter.TaskFragmentPresenterIm
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class TaskFragment extends Fragment implements TaskFragmentView {
     // 傳進TaskFragment的groupId
     private String groupId;
-
     // view
-    private ImageView imgAdd;
-    private ExpandableListView expandListView;
+    @BindView(R.id.img_group_task) ImageView imgAdd;
+    @BindView(R.id.expand_list) ExpandableListView expandListView;
     private ExpandableListAdapter adapter;
-
     // Database Model
     private ReadGroupTasks readGroupTasks;
     // presenter
@@ -63,21 +64,16 @@ public class TaskFragment extends Fragment implements TaskFragmentView {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.team_fragment_task, container, false);
+        ButterKnife.bind(this, view);
         // get passed groupId
         groupId = getArguments().getString("groupId");
         // set ExpandableList and Adapter
-        initView(view);
         setExpandList();
         // 先檢查使用者的group id及position，再決定是否呼叫setImgAddGroupTaskListener()以顯示新增群組工作的按鈕
         taskFragmentPresenter = new TaskFragmentPresenterImpl(this);
         taskFragmentPresenter.checkUserGroup(groupId);
 
         return view;
-    }
-
-    public void initView(View v) {
-        imgAdd = (ImageView) v.findViewById(R.id.img_group_task);
-        expandListView = (ExpandableListView) v.findViewById(R.id.expand_list);
     }
 
     // 設定新增群組工作的加號按鈕
@@ -93,7 +89,7 @@ public class TaskFragment extends Fragment implements TaskFragmentView {
     }
 
 
-    // 顯示新增群組工作的選單
+    // 顯示新增群組任務的選單
     @Override
     public void showAddGroupTaskDialog(ConfirmClickListener callbackListener) {
         GroupTaskDialogFragment groupTaskDialogFragment = GroupTaskDialogFragment.newInstance(callbackListener);
@@ -111,7 +107,7 @@ public class TaskFragment extends Fragment implements TaskFragmentView {
                 // set adapter
                 expandListView.setAdapter(adapter);
                 // set listener
-                expandListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+                expandListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {  // 設定點擊細項工作後，將content task傳送到TargetFragment
                     @Override
                     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                         ContentTask contentTask = map.get(list.get(groupPosition)).get(childPosition);

@@ -28,8 +28,6 @@ public class TaskFragmentPresenterImpl implements TaskFragmentPresenter {
         this.readGroupMember = new ReadGroupMember();
     }
 
-//    public void setExpanListView
-
     // 檢查使用者的group id 是否等於目前點擊群組的id
     // 再檢查使用者的職位是否為director
     // 若上述兩者皆為是的話就在群組任務旁邊顯示加號按鈕，並新增按鈕的事件
