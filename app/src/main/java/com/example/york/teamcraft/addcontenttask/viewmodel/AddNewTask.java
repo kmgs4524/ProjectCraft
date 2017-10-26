@@ -1,5 +1,6 @@
 package com.example.york.teamcraft.addcontenttask.viewmodel;
 
+import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.addcontenttask.view.AddContentTaskView;
 import com.example.york.teamcraft.personalsmanage.model.WriteGroupTask;
 import com.example.york.teamcraft.taskfragment.model.ContentTask;
@@ -26,18 +27,17 @@ public class AddNewTask {
     }
 
     public void addContentTask(final String groupName, final ContentTask contentTask) {
-        readUser.getUserData().addOnSuccessListener(new OnSuccessListener<User>() {
+        readUser.getUserData(new CallBack<User>() {
             @Override
-            public void onSuccess(User user) {
-                writeGroupTask.writeContentTask(user.getGroupId(), groupName, contentTask)
-                              .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        addContentTaskView.finishActivity();
-                    }
-                });
+            public void update(User data) {
+                writeGroupTask.writeContentTask(data.getGroupId(), groupName, contentTask)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                addContentTaskView.finishActivity();
+                            }
+                        });
             }
         });
-
     }
 }

@@ -6,10 +6,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.targetfragment.TargetFragment;
+import com.example.york.teamcraft.targetfragment.view.TargetFragment;
 import com.example.york.teamcraft.taskfragment.model.ContentTask;
 import com.example.york.teamcraft.taskfragment.view.PassDataListener;
 import com.example.york.teamcraft.taskfragment.view.TaskFragment;
@@ -30,7 +29,6 @@ public class GroupInfoActivity extends AppCompatActivity implements GroupInfoVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.team_activity_manage_group);
-
         // get bundle data
         getPassedGroupData();
         // init toolbar
@@ -60,7 +58,7 @@ public class GroupInfoActivity extends AppCompatActivity implements GroupInfoVie
         // init fragment manager, transaction
         fragmentManager = this.getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragTarget = TargetFragment.newInstance(null);
+        fragTarget = TargetFragment.newInstance(null, null);
         fragTask = TaskFragment.newInstance(groupId);
         fragmentTransaction.add(R.id.team_activity_group_layout, fragTarget, "TARGET_FRAG");
         fragmentTransaction.add(R.id.team_activity_group_layout, fragTask, "TASK_FRAG") ;
@@ -68,10 +66,11 @@ public class GroupInfoActivity extends AppCompatActivity implements GroupInfoVie
     }
 
     @Override
-    public void passData(ContentTask contentTask) {
-        TargetFragment fragTarget = TargetFragment.newInstance(contentTask);
+    public void passData(String groupTaskName, ContentTask contentTask) {
+        TargetFragment fragTarget = TargetFragment.newInstance(groupTaskName, contentTask);
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.fragment_grouptask_detail, fragTarget, "TARGET_FRAG")
                     .commit();
     }
+
 }

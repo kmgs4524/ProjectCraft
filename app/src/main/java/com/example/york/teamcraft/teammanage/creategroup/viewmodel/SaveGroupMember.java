@@ -1,9 +1,6 @@
 package com.example.york.teamcraft.teammanage.creategroup.viewmodel;
 
-import android.provider.Telephony;
-
-import com.example.york.teamcraft.member.Member;
-import com.example.york.teamcraft.teammanage.creategroup.view.CreateGroupView;
+import com.example.york.teamcraft.data.GroupMember;
 
 import java.util.ArrayList;
 
@@ -13,22 +10,22 @@ import java.util.ArrayList;
 
 public class SaveGroupMember {
     // 存放被選擇成員的list
-    private ArrayList<Member> memList;
+    private ArrayList<GroupMember> memList;
 
     public SaveGroupMember() {
         this.memList = new ArrayList<>();
     }
 
     //
-    public void addMember(Member member) {
-        memList.add(member);
+    public void addMember(GroupMember groupMember) {
+        memList.add(groupMember);
     };
 
-    public ArrayList<Member> getMemList() {
+    public ArrayList<GroupMember> getMemList() {
         return memList;
     }
 
-    public void setMemList(ArrayList<Member> memList) {
+    public void setMemList(ArrayList<GroupMember> memList) {
         this.memList = memList;
     }
 }

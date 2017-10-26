@@ -7,5 +7,5 @@ import com.example.york.teamcraft.taskfragment.model.ContentTask;
  */
 
 public interface MyGroupView {
-    public abstract void passData(ContentTask contentTask);
+
 }

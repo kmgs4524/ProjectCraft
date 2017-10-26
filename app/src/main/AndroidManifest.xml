@@ -26,7 +26,7 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".login.view.SignUpActivity">
+        <activity android:name=".signup.view.SignUpActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -41,7 +41,7 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".teammanage.CreateTeamActivity">
+        <activity android:name=".teammanage.createteam.CreateTeamActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -53,7 +53,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".teammanage.board.ActContentActivity">
+        <activity android:name=".teammanage.post.view.PostActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -66,7 +66,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".teammanage.mygroup.view.MyGroupActivity" />
-        <activity android:name=".addcontenttask.view.AddContentTaskActivity"></activity>
+        <activity android:name=".addcontenttask.view.AddContentTaskActivity" />
+        <activity android:name=".teammanage.jointeam.view.JoinTeamActivity"></activity>
     </application>
 
 </manifest>

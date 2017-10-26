@@ -1,6 +1,6 @@
 package com.example.york.teamcraft.teammanage.creategroup.view;
 
-import com.example.york.teamcraft.member.Member;
+import com.example.york.teamcraft.data.GroupMember;
 
 import java.util.ArrayList;
 
@@ -10,5 +10,5 @@ import java.util.ArrayList;
 
 public interface CreateGroupView {
     public void finishCreate();
-    public void setSpinMenu(ArrayList<Member> memList);
+    public void setSpinMenu(ArrayList<GroupMember> memList);
 }

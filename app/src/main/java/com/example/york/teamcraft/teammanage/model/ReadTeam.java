@@ -1,6 +1,6 @@
 package com.example.york.teamcraft.teammanage.model;
 
-import android.support.v4.app.FragmentActivity;
+import android.provider.ContactsContract;
 import android.util.Log;
 
 import com.example.york.teamcraft.CallBack;
@@ -13,8 +13,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Created by York on 2017/9/24.
@@ -28,45 +30,41 @@ public class ReadTeam {
     private FirebaseUser user;
 
     // Firebase Database
-    private DatabaseReference rootRef;
     private DatabaseReference teamActRef;
     private DatabaseReference teamGroRef;
+    private DatabaseReference teamRef;
 
     private ReadUser readUser;
 
     // 存放資料的object, collection
-    private Work work;
+    private Post post;
     private Group group;
-    private ArrayList<Work> workList;
+    private ArrayList<Post> postList;
     private ArrayList<Group> groupList;
 
 
     public ReadTeam() {
-        rootRef = FirebaseDatabase.getInstance().getReference();
-        teamActRef = rootRef.child("teamActivities");
-        teamGroRef = rootRef.child("teamGroups");
         user = FirebaseAuth.getInstance().getCurrentUser();
         readUser = new ReadUser();
-        workList = new ArrayList<>();
+        postList = new ArrayList<>();
 
     }
 
-    public void getTeamAct(final CallBack< ArrayList<Work> > callback) {
-        final Task<User> userTask = readUser.getUserData(); // 取得擁有User Data的Task
-
-        userTask.addOnSuccessListener(new OnSuccessListener<User>() {
+    public void getTeamAct(final CallBack< ArrayList<Post> > callback) {
+        teamActRef = FirebaseDatabase.getInstance().getReference().child("teamActivities");
+        readUser.getUserData(new CallBack<User>() {
             @Override
-            public void onSuccess(User user) {
-                DatabaseReference ref = teamActRef.child(user.getTeamId()).getRef();    // 搜尋出想要的email
+            public void update(User data) {
+                DatabaseReference ref = teamActRef.child(data.getTeamId()).getRef();    // 搜尋出想要的email
                 Log.d("getAct", ref.getKey());
 
                 ref.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        work = dataSnapshot.getValue(Work.class);
-                        workList.add(work);
+                        post = dataSnapshot.getValue(Post.class);
+                        postList.add(post);
 
-                        callback.update(workList);
+                        callback.update(postList);
 
                     }
 
@@ -90,25 +88,22 @@ public class ReadTeam {
 
                     }
                 });
-
             }
-        });
+        }); // 取得擁有User Data的Task
 
     }
 
     public void getTeamGroup(final CallBack< ArrayList<Group> > callback) {
-        final Task<User> userTask = readUser.getUserData(); // 取得擁有User Data的Task
+        teamGroRef = FirebaseDatabase.getInstance().getReference().child("teamGroups");
         groupList = new ArrayList<>();
-
-        userTask.addOnSuccessListener(new OnSuccessListener<User>() {
+        readUser.getUserData(new CallBack<User>() {
             @Override
-            public void onSuccess(User user) {
-                DatabaseReference ref = teamGroRef.child(user.getTeamId()).getRef();
+            public void update(User data) {
+                DatabaseReference ref = teamGroRef.child(data.getTeamId()).getRef();
 
                 ref.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        Log.d("snap", dataSnapshot.toString());
                         group = dataSnapshot.getValue(Group.class);
                         groupList.add(group);
                         callback.update(groupList);
@@ -134,6 +129,59 @@ public class ReadTeam {
 
                     }
                 });
+            }
+        }); // 取得擁有User Data的Task
+
+    }
+
+    public void getTeamGroupByDataChange(final CallBack< ArrayList<Group> > callback) {
+        groupList = new ArrayList<>();
+        teamGroRef = FirebaseDatabase.getInstance().getReference().child("teamGroups");
+        readUser.getUserData(new CallBack<User>() {
+            @Override
+            public void update(User data) {
+                DatabaseReference ref = teamGroRef.child(data.getTeamId()).getRef();
+
+                ref.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Iterator<DataSnapshot> childSnapShot = dataSnapshot.getChildren().iterator();
+                        while (childSnapShot.hasNext()) {
+                            Group group = childSnapShot.next().getValue(Group.class);
+                            groupList.add(group);
+                        }
+                        callback.update(groupList);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
+    }
+
+    public void checkTeamExist(final String teamId, final CallBack<Boolean> callBack) {
+        teamRef = FirebaseDatabase.getInstance().getReference().child("teams");
+
+        teamRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                boolean exist = false;
+                Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();    // 取得擁有每個team child node的Iterator
+                while (iterator.hasNext()) {
+                    DataSnapshot nextSnapShot = iterator.next();
+                    if(teamId.equals(nextSnapShot.getKey())) {
+                        exist = true;
+                    }
+                }
+                callBack.update(exist);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("DatabaseError", databaseError.getMessage());
             }
         });
     }

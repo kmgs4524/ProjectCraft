@@ -2,7 +2,6 @@ package com.example.york.teamcraft.taskfragment.viewmodel;
 
 import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.addcontenttask.model.ReadGroupMember;
-import com.example.york.teamcraft.login.view.SignUpActivity;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
 import com.example.york.teamcraft.teammanage.model.User;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -22,10 +21,10 @@ public class CheckUserGroup {
     }
 
     public void checkGroup(final String groupId, final CallBack<Boolean> callBack) {
-        readUser.getUserData().addOnSuccessListener(new OnSuccessListener<User>() {
+        readUser.getUserData(new CallBack<User>() {
             @Override
-            public void onSuccess(User user) {
-                if(user.getGroupId().equals(groupId)) {
+            public void update(User data) {
+                if(data.getGroupId().equals(groupId)) {
                     callBack.update(true);
                 } else {
                     callBack.update(false);

@@ -1,5 +1,7 @@
 package com.example.york.teamcraft.personalsmanage.model;
 
+import android.util.Log;
+
 import com.example.york.teamcraft.taskfragment.model.ContentTask;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
@@ -22,23 +24,38 @@ public class WriteGroupTask {
 
     // 被分派任務的使用者把任務打勾時會呼叫此方法
     public void updateTaskStatus(DataPath path, boolean status) {
-//        Map<String, Object> taskMap = new HashMap<>();
-        groupTaskRef.child(path.getGroupId()).child(path.getGroupTaskName()).child(path.getTaskId()).child("status").setValue(status);
+        if(status) {
+            groupTaskRef.child(path.getGroupId()).child(path.getGroupTaskName()).child(path.getTaskId()).child("status").setValue("done");
+        } else {
+            groupTaskRef.child(path.getGroupId()).child(path.getGroupTaskName()).child(path.getTaskId()).child("status").setValue("undo");
+        }
     }
 
     // 新增群組任務時會呼叫此方法
     public void writeGroupTaskName(String groupId, String groupTaskTitle) {
         String key = groupTaskRef.push().getKey();
         Map<String, Object> map = new HashMap<>();
-        map.put(key, new ContentTask("", "", "", "", "", "", false));
-        groupTaskRef.child(groupId).child(groupTaskTitle).updateChildren(map);
+//        map.put(key, new ContentTask(key, "新工作", "", "", "", "", "", "undo"));
+        groupTaskRef.child(groupId).child(groupTaskTitle).setValue("0");
     }
 
     // 在AddContentActivity按下確認時會呼叫此方法
-    public Task<Void> writeContentTask(String groupId, String groupName, ContentTask contentTask) {
+    public Task<Void> writeContentTask(String groupId, String groupTaskName, ContentTask contentTask) {
         Map<String, Object> map = new HashMap<>();
         String key = groupTaskRef.push().getKey();
+        contentTask.setTaskId(key);
         map.put(key, contentTask);
-        return groupTaskRef.child(groupId).child(groupName).updateChildren(map);
+        return groupTaskRef.child(groupId).child(groupTaskName).updateChildren(map);    // 更新群組任務的child node
+    }
+
+    // 在TargetFragment中按下刪除button時會呼叫此方法
+    public void deleteContentTask(String groupId, String groupTaskName, String taskId) {
+        Log.d("delete", "groupId: " + groupId +" groupTaskName: " + groupTaskName + " taskId: " + taskId);
+        groupTaskRef.child(groupId).child(groupTaskName).child(taskId).removeValue();
+    }
+
+    public void confirmContentTask(String groupId, String groupTaskName, String taskId) {
+        Log.d("confirm", "groupId: " + groupId +" groupTaskName: " + groupTaskName + " taskId: " + taskId);
+        groupTaskRef.child(groupId).child(groupTaskName).child(taskId).child("status").setValue("checked");
     }
 }

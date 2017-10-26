@@ -16,8 +16,12 @@
     <string name="action_settings">settings button</string>
     <string name="action_done">settings button</string>
 
-    <!-- TextView underline -->
+    <!-- TextView Sign Up New Account Including underline -->
     <string name="txt_sign_up"><u>註冊新帳號</u></string>
+
+    <!-- TextView Sign Up New Account Including underline -->
+    <string name="txt_messg_not_exist"><u>此Team ID不存在</u></string>
+
     <!-- Divider or-->
     <string name="divider_or">or</string>
 

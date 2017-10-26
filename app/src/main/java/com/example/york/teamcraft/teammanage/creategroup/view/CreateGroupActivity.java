@@ -1,6 +1,5 @@
 package com.example.york.teamcraft.teammanage.creategroup.view;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -14,10 +13,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.member.Member;
+import com.example.york.teamcraft.data.GroupMember;
 import com.example.york.teamcraft.teammanage.creategroup.presenter.CreateGroupPresenter;
 import com.example.york.teamcraft.teammanage.creategroup.presenter.CreateGroupPresenterImpl;
-import com.example.york.teamcraft.teammanage.groupinformation.view.GroupInfoActivity;
 
 import java.util.ArrayList;
 
@@ -39,7 +37,6 @@ public class CreateGroupActivity extends AppCompatActivity implements CreateGrou
         createGroupPresenter = new CreateGroupPresenterImpl(this);
         createGroupPresenter.setSpinMenu();
         initCreateBtn();
-
     }
 
     // 設置ToolBar
@@ -58,10 +55,10 @@ public class CreateGroupActivity extends AppCompatActivity implements CreateGrou
     }
 
     // 設定Spinner
-    public void setSpinMenu(final ArrayList<Member> memList) {
+    public void setSpinMenu(final ArrayList<GroupMember> memList) {
         spnTeamMember = (Spinner) findViewById(R.id.spin_team_member);
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<Member> spinMenuAdapter = new SpinMenuAdapter(this, R.layout.spinner_init, memList);
+        ArrayAdapter<GroupMember> spinMenuAdapter = new SpinMenuAdapter(this, R.layout.spinner_init, memList);
         // Specify the layout to use when the list of choices appears
         spinMenuAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner

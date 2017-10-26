@@ -31,11 +31,10 @@ public class GroupManagePresenterImpl implements GroupManagePresenter{
     }
 
     public void initMyGroupData() {
-        Task<User> task = readUser.getUserData();
-        task.addOnSuccessListener(new OnSuccessListener<User>() {
+        readUser.getUserDataByCallBack(new CallBack<User>() {
             @Override
-            public void onSuccess(User user) {
-                groupManageFragment.initMyGroup(user.getGroupId());
+            public void update(User data) {
+                groupManageFragment.initMyGroup(data.getGroupId());
             }
         });
     }

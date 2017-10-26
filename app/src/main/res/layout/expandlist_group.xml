@@ -11,12 +11,16 @@
         android:paddingLeft="30dp"
         android:textSize="18sp"/>
 
+    <android.support.v4.widget.Space
+        android:layout_width="5dp"
+        android:layout_height="wrap_content" />
+
     <ImageView
         android:id="@+id/img_expand_add_contenttask"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_gravity="center"
-        android:src="@mipmap/ic_add_white_48dp"
+        android:src="@mipmap/ic_add_circle_outline_white_24dp"
         android:visibility="gone"/>
 
 </LinearLayout>

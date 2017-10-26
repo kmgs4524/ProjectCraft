@@ -1,6 +1,6 @@
 package com.example.york.teamcraft.teammanage.creategroup.presenter;
 
-import com.example.york.teamcraft.member.Member;
+import com.example.york.teamcraft.data.GroupMember;
 import com.example.york.teamcraft.teammanage.creategroup.viewmodel.SaveGroupMember;
 
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public interface CreateGroupPresenter {
     public void setSpinMenu();
-    public void saveSpinnerData(Member member);
+    public void saveSpinnerData(GroupMember groupMember);
     public SaveGroupMember getSaveGroupMember();
-    public void createGroup(String groupName, ArrayList<Member> memList);
+    public void createGroup(String groupName, ArrayList<GroupMember> memList);
 }

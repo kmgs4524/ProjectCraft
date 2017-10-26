@@ -16,12 +16,17 @@ import android.widget.TextView;
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.login.presenter.SignInPresenterImpl;
 import com.example.york.teamcraft.personalsmanage.view.PersonalTasksActivity;
+import com.example.york.teamcraft.view.SetDrawer;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseUser;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class SignInActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener, SignInView {
@@ -34,16 +39,26 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     /*-------------------------------*/
 
     //UI元件
-    private EditText edtAcct;   //帳號欄位
-    private EditText edtPwd;    //密碼欄位
-    private TextView txtStatus; //登入狀態
-    private TextView txtName;   //姓名
-    private TextView txtSignUp;
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.edt_acct)  EditText edtAcct;   //帳號欄位
+    @BindView(R.id.edt_pwd)  EditText edtPwd;    //密碼欄位
+    @BindView(R.id.status_txtView)  TextView txtStatus; //登入狀態
+    @BindView(R.id.name_txtView)  TextView txtName;   //姓名
+    @BindView(R.id.txt_sign_up)  TextView txtSignUp;
 
-    /*----- Drawer相關元件 -------*/
-    private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
-    /*----------------------------*/
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_sign_in);
+        ButterKnife.bind(this);
+        //設置UI
+        initToolBar();  //ToolBar
+
+        findViewById(R.id.signIn_btn).setOnClickListener(this); //登入Button
+        findViewById(R.id.google_signIn_btn).setOnClickListener(this);  //Google帳號登入Button
+        findViewById(R.id.signOut_btn).setOnClickListener(this);    //登出Button
+        findViewById(R.id.txt_sign_up).setOnClickListener(this);    //登出Button
+    }
 
     @Override
     public void onStart() {
@@ -53,27 +68,6 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
 
         // 顯示登入的使用者狀態
         showStatus(signInPresenter.getCurrentUser());
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_in);
-
-        //設置UI
-        initToolBar();  //ToolBar
-        initDrawer();   //Drawer
-
-        txtStatus = (TextView) findViewById(R.id.status_txtView);   // 登入狀態
-        txtName = (TextView) findViewById(R.id.name_txtView);   // 信箱
-        txtSignUp = (TextView) findViewById(R.id.txt_sign_up);   // 註冊新帳號
-
-        edtAcct = (EditText) findViewById(R.id.edt_acct);
-        edtPwd = (EditText) findViewById(R.id.edt_pwd);
-        findViewById(R.id.signIn_btn).setOnClickListener(this); //登入Button
-        findViewById(R.id.google_signIn_btn).setOnClickListener(this);  //Google帳號登入Button
-        findViewById(R.id.signOut_btn).setOnClickListener(this);    //登出Button
-        findViewById(R.id.txt_sign_up).setOnClickListener(this);    //登出Button
     }
 
     @Override
@@ -152,49 +146,8 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
 
     //設置ToolBar為此activity的app bar
     private void initToolBar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("登入");
         setSupportActionBar(toolbar);
     }
-
-    //設置側邊欄
-    private void initDrawer() {
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        navigationView = (NavigationView) findViewById(R.id.navigation_view);
-        Log.d(TAG, navigationView.toString());
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                // 先檢查點擊的item是否為checked
-                if (item.isChecked()) {
-                    item.setChecked(false);
-                } else {
-                    item.setChecked(true);
-                }
-
-                drawerLayout.closeDrawers();    // 點擊Drawer的選項後，關閉drawer
-                Intent intent;
-
-                switch (item.getItemId()) {
-                    case R.id.drawer_personals:
-                        intent = new Intent();
-                        intent.setClass(SignInActivity.this, PersonalTasksActivity.class);
-                        startActivity(intent);
-                        return true;
-                    case R.id.drawer_team:
-                        intent = new Intent();
-                        intent.setClass(SignInActivity.this, com.example.york.teamcraft.teammanage.MainActivity.class);
-                        startActivity(intent);
-                        return true;
-                    case R.id.drawer_account:
-                        return true;
-                    default:
-                        return true;
-                }
-
-            }
-        });
-    }
-
 
 }

@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.example.york.teamcraft.login.view.SignUpActivity;
+import com.example.york.teamcraft.signup.view.SignUpActivity;
 import com.example.york.teamcraft.login.model.EmailSignIn;
 import com.example.york.teamcraft.login.view.SignInActivity;
 import com.example.york.teamcraft.teammanage.MainActivity;
@@ -133,31 +133,28 @@ public class SignInPresenterImpl implements SignInPresenter {
             public void onSuccess(Boolean aBoolean) {
                 if (aBoolean == false) {    // 若尚未有資料
                     WriteUser writeUser = new WriteUser();
-                    writeUser.pushData();
-                    startCreateTeam();
-                    Log.d("goto", "create team");
+                    writeUser.pushData(user.getDisplayName(), user.getEmail());
+                    startSelectTeam();
                 } else {    // 若已有資料
                     Task<Boolean> taskCheckTeam = readUser.checkUserTeam();
-                    taskCheck.addOnSuccessListener(new OnSuccessListener<Boolean>() {
+                    taskCheckTeam.addOnSuccessListener(new OnSuccessListener<Boolean>() {
                         @Override
                         public void onSuccess(Boolean aBoolean) {
                             if (!aBoolean) {    // 若尚未擁有團隊
-                                startCreateTeam();
+                                startSelectTeam();
                             } else {
                                 startTeamMain();
                             }
                         }
                     });
-//                    Log.d("goto", "true");
-//                    startCreateTeam();
                 }
             }
         });
 
     }
 
-    // 進入創建團隊的畫面
-    public void startCreateTeam() {
+    // 進入選擇創建團隊或加入團隊的畫面
+    public void startSelectTeam() {
         Intent intent = new Intent();
         intent.setClass(signInActivity, SelectTeamActivity.class);
         signInActivity.startActivity(intent);

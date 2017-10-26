@@ -28,7 +28,6 @@ public class WriteUser {
         rootRef = FirebaseDatabase.getInstance().getReference();
         usersRef = rootRef.child("users");
         userMap = new HashMap<>();
-        user = FirebaseAuth.getInstance().getCurrentUser();
     }
 
     public void updateUser() {
@@ -47,14 +46,19 @@ public class WriteUser {
     }
 
     // 在users插入新的user object
-    public void pushData() {
+    public void pushData(String name, String email) {
         String key = usersRef.push().getKey();
-        userMap.put(key, new User(user.getDisplayName(), user.getEmail(), "0", null));
+        userMap.put(key, new User(name, email, "0", null)); // User(name, email, teamId, groupId)
         usersRef.updateChildren(userMap);
     }
 
     public void updateUserTeam(String userId, String teamId) {
         DatabaseReference childRef = usersRef.child(userId);
         childRef.child("teamId").setValue(teamId);
+    }
+
+    public void updateUserGroup(String userId, String groupId) {
+        DatabaseReference childRef = usersRef.child(userId);
+        childRef.child("groupId").setValue(groupId);
     }
 }

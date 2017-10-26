@@ -1,6 +1,7 @@
 package com.example.york.teamcraft.teammanage.creategroup.viewmodel;
 
-import com.example.york.teamcraft.member.Member;
+import com.example.york.teamcraft.CallBack;
+import com.example.york.teamcraft.data.GroupMember;
 import com.example.york.teamcraft.teammanage.creategroup.model.WriteGroupMember;
 import com.example.york.teamcraft.teammanage.creategroup.model.WriteTeamGroup;
 import com.example.york.teamcraft.teammanage.creategroup.view.CreateGroupView;
@@ -23,6 +24,7 @@ public class CreateNewGroup {
     private ReadUser readUser;
     private WriteTeamGroup writeTeamGroup;
     private WriteGroupMember writeGroupMember;
+    private WriteUser writeUser;
 
     public CreateNewGroup(CreateGroupView view) {
         this.createGroupView = view;
@@ -30,14 +32,32 @@ public class CreateNewGroup {
         this.writeTeamGroup = new WriteTeamGroup();
     }
 
-    public void create(final String groupName, final ArrayList<Member> memList) {
-        Task<User> task = readUser.getUserData();
-        task.addOnSuccessListener(new OnSuccessListener<User>() {
+    // 設定每個成員的職位
+    public void setMemberPosition(ArrayList<GroupMember> memList, String userId) {
+        for(int i = 0; i < memList.size(); i++) {
+            if(memList.get(i).getUserId().equals(userId)) { // 若是該使用者創建團隊，則將他職位設定為director
+                memList.get(i).setPosition("director");
+            } else {
+                memList.get(i).setPosition("normal");   // 若為其他人的話，職位設定為normal
+            }
+        }
+    }
+
+    public void create(final String groupName, final ArrayList<GroupMember> memList) {
+        readUser.getUserData(new CallBack<User>() {
             @Override
-            public void onSuccess(User user) {
-                String groupId = writeTeamGroup.pushData(user.getTeamId(), groupName);  // 更新teamGroups節點並回傳groupId
-                WriteGroupMember writeGroupMember = new WriteGroupMember();
-                writeGroupMember.pushData(memList, groupId);    // 更新groupMembers節點的資料
+            public void update(User data) {
+                final String groupId = writeTeamGroup.pushData(data.getTeamId(), groupName);  // 更新teamGroups節點並回傳groupId
+                readUser.getUserId(new CallBack<String>() {
+                    @Override
+                    public void update(String userId) {
+                        setMemberPosition(memList, userId);
+                        writeGroupMember = new WriteGroupMember();
+                        writeGroupMember.pushData(memList, groupId);    // 更新groupMembers節點的資料
+                        writeUser = new WriteUser();
+                        writeUser.updateUserGroup(userId, groupId);   // 更新user child node的groupId
+                    }
+                });
                 createGroupView.finishCreate();
             }
         });

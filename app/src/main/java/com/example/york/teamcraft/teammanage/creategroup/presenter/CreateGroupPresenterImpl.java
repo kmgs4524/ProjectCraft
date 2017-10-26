@@ -1,15 +1,10 @@
 package com.example.york.teamcraft.teammanage.creategroup.presenter;
 
-import com.example.york.teamcraft.member.Member;
-import com.example.york.teamcraft.teammanage.creategroup.model.WriteTeamGroup;
+import com.example.york.teamcraft.data.GroupMember;
 import com.example.york.teamcraft.teammanage.creategroup.view.CreateGroupView;
 import com.example.york.teamcraft.teammanage.creategroup.viewmodel.CreateNewGroup;
 import com.example.york.teamcraft.teammanage.creategroup.viewmodel.SaveGroupMember;
 import com.example.york.teamcraft.teammanage.creategroup.viewmodel.SetSpinnerData;
-import com.example.york.teamcraft.teammanage.model.ReadUser;
-import com.example.york.teamcraft.teammanage.model.User;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
 
@@ -36,12 +31,12 @@ public class CreateGroupPresenterImpl implements CreateGroupPresenter{
     }
 
     // 儲存選擇的成員
-    public void saveSpinnerData(Member member) {
+    public void saveSpinnerData(GroupMember groupMember) {
         if(saveGroupMember  == null) {
             saveGroupMember = new SaveGroupMember();
-            saveGroupMember.addMember(member);
+            saveGroupMember.addMember(groupMember);
         } else {
-            saveGroupMember.addMember(member);
+            saveGroupMember.addMember(groupMember);
         }
     }
 
@@ -50,7 +45,7 @@ public class CreateGroupPresenterImpl implements CreateGroupPresenter{
     }
 
     @Override
-    public void createGroup(String groupName, ArrayList<Member> memList) {
+    public void createGroup(String groupName, ArrayList<GroupMember> memList) {
         createNewGroup = new CreateNewGroup(createGroupView);
         createNewGroup.create(groupName, memList);   // 寫入teamGroup後再寫入groupMember
     }

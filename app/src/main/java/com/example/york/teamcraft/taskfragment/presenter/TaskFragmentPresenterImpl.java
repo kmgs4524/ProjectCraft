@@ -2,11 +2,9 @@ package com.example.york.teamcraft.taskfragment.presenter;
 
 import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.addcontenttask.model.ReadGroupMember;
-import com.example.york.teamcraft.member.Member;
-import com.example.york.teamcraft.taskfragment.model.ReadGroupTasks;
+import com.example.york.teamcraft.data.GroupMember;
 import com.example.york.teamcraft.taskfragment.view.TaskFragmentView;
 import com.example.york.teamcraft.taskfragment.viewmodel.SetDialogListener;
-import com.example.york.teamcraft.teammanage.model.ReadTeam;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
 import com.example.york.teamcraft.teammanage.model.User;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -31,25 +29,26 @@ public class TaskFragmentPresenterImpl implements TaskFragmentPresenter {
     }
 
     // 檢查使用者的group id 是否等於目前點擊群組的id
-    // 若相同的話就在群組任務旁邊顯示加號按鈕，並新增按鈕的事件
+    // 再檢查使用者的職位是否為director
+    // 若上述兩者皆為是的話就在群組任務旁邊顯示加號按鈕，並新增按鈕的事件
     @Override
     public void checkUserGroup(final String groupId) {
-        readUser.getUserData().addOnSuccessListener(new OnSuccessListener<User>() {
+        readUser.getUserData(new CallBack<User>() {
             @Override
-            public void onSuccess(User user) {
-                if (groupId.equals(user.getGroupId())) { // 若使用者的group id 等於目前點擊群組的id
+            public void update(User data) {
+                if (groupId.equals(data.getGroupId())) { // 若使用者的group id 等於目前點擊群組的id
                     readUser.getUserId(new CallBack<String>() {
                         @Override
                         public void update(String data) {
                             final String userId = data;
-                            readGroupMember.getGroupMember(groupId, new CallBack<ArrayList<Member>>() {
+                            readGroupMember.getGroupMember(groupId, new CallBack<ArrayList<GroupMember>>() {
                                 @Override
-                                public void update(ArrayList<Member> data) {
-                                    Iterator<Member> iterator = data.iterator();
+                                public void update(ArrayList<GroupMember> data) {
+                                    Iterator<GroupMember> iterator = data.iterator();
                                     while (iterator.hasNext()) {
-                                        Member nextMem = iterator.next();
+                                        GroupMember nextMem = iterator.next();
                                         if (nextMem.getUserId().equals(userId)) {
-                                            if(nextMem.getPosition().equals("director")) {
+                                            if(nextMem.getPosition().equals("director")) {  // 若使用者的position等於"director"
                                                 taskFragmentView.setImgAddGroupTaskListener();
                                             }
                                         }

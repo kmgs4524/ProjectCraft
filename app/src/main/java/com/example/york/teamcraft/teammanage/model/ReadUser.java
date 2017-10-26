@@ -65,12 +65,32 @@ public class ReadUser {
 
     }
 
-    public Task<User> getUserData() {
+    public void getUserData(final CallBack<User> callBack) {
         Query query = usersRef.orderByChild("email").equalTo(email);    // 搜尋出想要的email
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(final DataSnapshot dataSnapshot) {
+                Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();
+                DataSnapshot snap;
+                while (iterator.hasNext()) {
+                    snap = iterator.next();
+                    user = snap.getValue(User.class);
+                    callBack.update(user);
+                }
+            }
 
-        final TaskCompletionSource<User> dbSource = new TaskCompletionSource<>();
-//        final Task dbTask = dbSource.getTask();
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                if (databaseError != null) {
+                    Log.d("onCancelled", databaseError.getMessage());
+                }
+            }
 
+        });
+    }
+
+    public void getUserDataByCallBack(final CallBack<User> callBack) {
+        Query query = usersRef.orderByChild("email").equalTo(email);    // 搜尋出想要的email
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
@@ -79,7 +99,7 @@ public class ReadUser {
                 while (iterator.hasNext()) {
                     snap = iterator.next();
                     user = snap.getValue(User.class);
-                    dbSource.setResult(user);
+                    callBack.update(user);
                 }
             }
 
@@ -92,7 +112,6 @@ public class ReadUser {
 
         });
 
-        return dbSource.getTask();
     }
 
     public Task<Boolean> checkUserExist() {

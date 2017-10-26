@@ -7,5 +7,5 @@ import com.example.york.teamcraft.taskfragment.model.ContentTask;
  */
 
 public interface PassDataListener {
-    public abstract void passData(ContentTask contentTask);
+    public abstract void passData(String groupTaskName, ContentTask contentTask);
 }

@@ -2,6 +2,7 @@ package com.example.york.teamcraft.teammanage.model;
 
 import android.util.Log;
 
+import com.example.york.teamcraft.CallBack;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
@@ -31,18 +32,15 @@ public class WriteActivity implements WriteDatabase{
 
     @Override
     public void pushData(final Map map) {
-        Task<User> userTask = readUser.getUserData();
-
-        userTask.addOnSuccessListener(new OnSuccessListener<User>() {
+        readUser.getUserData(new CallBack<User>() {
             @Override
-            public void onSuccess(User user) {
-                DatabaseReference childRef = teamActRef.child(user.getTeamId()).getRef();
+            public void update(User data) {
+                DatabaseReference childRef = teamActRef.child(data.getTeamId()).getRef();
                 Log.d(TAG, childRef.getKey());
 
                 childRef.push().updateChildren(map);
             }
         });
-
     }
 
 }

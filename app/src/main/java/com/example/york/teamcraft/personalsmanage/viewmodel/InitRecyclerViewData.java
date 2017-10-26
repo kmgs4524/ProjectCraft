@@ -29,10 +29,10 @@ public class InitRecyclerViewData {
     }
 
     public void initData() {
-        final Task<User> task = readUser.getUserData();
-        task.addOnSuccessListener(new OnSuccessListener<User>() {
+        readUser.getUserData(new CallBack<User>() {
             @Override
-            public void onSuccess(final User user) {
+            public void update(User data) {
+                final User user = data;
                 readUser.getUserId(new CallBack<String>() {
                     @Override
                     public void update(String data) {
@@ -45,7 +45,6 @@ public class InitRecyclerViewData {
                         });
                     }
                 });
-
             }
         });
     }
