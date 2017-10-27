@@ -10,13 +10,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.widget.CompoundButton;
 
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.personalsmanage.model.DataPath;
 import com.example.york.teamcraft.personalsmanage.presenter.PersonalTasksPresenterImpl;
 import com.example.york.teamcraft.taskfragment.model.ContentTask;
-import com.example.york.teamcraft.view.SetDrawer;
+import com.example.york.teamcraft.drawer.SetLeftDrawer;
 
 import java.util.ArrayList;
 
@@ -67,7 +66,7 @@ public class PersonalTasksActivity extends AppCompatActivity implements Personal
 
     //設置側邊欄
     private void initDrawer(){
-        SetDrawer setDrawer = new SetDrawer();
+        SetLeftDrawer setDrawer = new SetLeftDrawer();
         setDrawer.setLeftDrawer(this, drawerLayout);
     }
 

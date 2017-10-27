@@ -20,7 +20,7 @@ public class CommentViewHolder extends RecyclerView.ViewHolder{
 
     public CommentViewHolder(View itemView) {
         super(itemView);
-        cirView = (CircleImageView) itemView.findViewById(R.id.cir_img_member);
+        cirView = (CircleImageView) itemView.findViewById(R.id.cir_img_commenter);
         txtName = (TextView) itemView.findViewById(R.id.txt_item_member_name);
         txtComm = (TextView) itemView.findViewById(R.id.txt_item_member_comment);
     }

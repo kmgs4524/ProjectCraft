@@ -1,4 +1,4 @@
-package com.example.york.teamcraft.view;
+package com.example.york.teamcraft.drawer;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -18,16 +18,13 @@ import com.example.york.teamcraft.teammanage.MainActivity;
  * Created by York on 2017/10/13.
  */
 
-public class SetDrawer {
-    private String[] planetTitles;  //用來初始化navigation list的string array
+public class SetLeftDrawer {
 //    private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private ActionBarDrawerToggle drawerToggle;
 
     public void setLeftDrawer(final FragmentActivity activity, final DrawerLayout drawerLayout) {
-        planetTitles = activity.getResources().getStringArray(R.array.planets_array);
-
-        navigationView = (NavigationView) activity.findViewById(R.id.navigation_view);
+        navigationView = (NavigationView) activity.findViewById(R.id.navigation_view_left);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
