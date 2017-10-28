@@ -1,17 +1,14 @@
 package com.example.york.teamcraft.schedulefragment;
 
 import android.content.Context;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.schedulefragment.model.RowData;
+import com.example.york.teamcraft.schedulefragment.data.RowData;
 
 /**
  * Created by York on 2017/10/28.

@@ -1,4 +1,4 @@
-package com.example.york.teamcraft.schedulefragment.model;
+package com.example.york.teamcraft.schedulefragment.data;
 
 /**
  * Created by York on 2017/10/28.

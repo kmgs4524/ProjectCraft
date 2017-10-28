@@ -144,6 +144,14 @@ public class ReadGroupTasks {
 
     }
 
+    public void getAllTaskByValueEvent(String groupId, final CallBackTwoArgs<ArrayList<String>, HashMap<String, ArrayList<ContentTask>>> callBack) {
+        final ArrayList<String> groupList = new ArrayList<>();  // 群組任務名稱的list
+        final HashMap<String, ArrayList<ContentTask>> itemMap = new HashMap<>();    // 細項任務的map，key: 群組任務名稱, value: 細項任務的list
+
+        DatabaseReference childRef = groupTasksRef.child(groupId);
+        ch
+    }
+
     // 需要groupId, responId，取得個人被分派工作的taskIdList, taskList
     public void getPersonalTask(final String groupId, final String responId, final CallBackTwoArgs<ArrayList<DataPath>, ArrayList<ContentTask>> callBack) {
         final ArrayList<ContentTask> taskList = new ArrayList<>();  // GroupTask List
