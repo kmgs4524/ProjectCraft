@@ -1,55 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:stretchColumns="0, 2, 4, 6">
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <view style="@style/Divider" />
+    <LinearLayout
+        android:layout_width="1dp"
+        android:layout_height="match_parent">
 
-    <TableRow>
+        <View style="@style/ColumnDivider" />
+    </LinearLayout>
 
-        <TextView
-            android:id="@+id/txt_col_group_name"
-            android:layout_width="wrap_content"
-            android:gravity="center"
-            android:text="組別" />
+    <TextView
+        android:id="@+id/txt_col_group_name"
+        android:gravity="center"
+        android:text="器材組" />
 
-        <LinearLayout
-            android:layout_width="1dp"
-            android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="1dp"
+        android:layout_height="match_parent">
 
-            <View style="@style/ColumnDivider" />
-        </LinearLayout>
+        <View style="@style/ColumnDivider" />
+    </LinearLayout>
 
-        <TextView
-            android:id="@+id/txt_col_group_task"
-            android:gravity="center"
-            android:text="工作" />
+    <TextView
+        android:id="@+id/txt_col_content_task"
+        android:gravity="center"
+        android:text="下午五點準備生營火" />
 
-        <LinearLayout
-            android:layout_width="1dp"
-            android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="1dp"
+        android:layout_height="match_parent">
 
-            <View style="@style/ColumnDivider" />
-        </LinearLayout>
+        <View style="@style/ColumnDivider" />
+    </LinearLayout>
 
-        <TextView
-            android:id="@+id/txt_col_responsible"
-            android:gravity="center"
-            android:text="負責人" />
+    <TextView
+        android:id="@+id/txt_col_responsible"
+        android:gravity="center"
+        android:text="小球球" />
 
-        <LinearLayout
-            android:layout_width="1dp"
-            android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="1dp"
+        android:layout_height="match_parent">
 
-            <View style="@style/ColumnDivider" />
-        </LinearLayout>
+        <View style="@style/ColumnDivider" />
+    </LinearLayout>
 
-        <TextView
-            android:id="@+id/txt_col_time"
-            android:gravity="center"
-            android:text="時間" />
+    <TextView
+        android:id="@+id/txt_col_date"
+        android:gravity="center"
+        android:text="10/15" />
 
-    </TableRow>
+    <LinearLayout
+        android:layout_width="1dp"
+        android:layout_height="match_parent">
 
-</TableLayout>
+        <View style="@style/ColumnDivider" />
+    </LinearLayout>
+
+</TableRow>
+
+
+
+

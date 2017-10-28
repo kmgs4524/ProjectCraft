@@ -19,7 +19,8 @@
             android:layout_width="0px"
             android:layout_height="wrap_content"/>
 
-        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <TableLayout
+            android:id="@+id/tableLayout_schedule"
             android:layout_weight="2"
             android:layout_width="0px"
             android:layout_height="match_parent"
@@ -37,7 +38,6 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/txt_col_group_name"
                     android:layout_width="0px"
                     android:gravity="center"
                     android:text="組別" />
@@ -50,7 +50,6 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/txt_col_group_task"
                     android:layout_width="0px"
                     android:gravity="center"
                     android:text="工作" />
@@ -63,7 +62,6 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/txt_col_responsible"
                     android:layout_width="0px"
                     android:gravity="center"
                     android:text="負責人" />
@@ -76,10 +74,9 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/txt_col_time"
                     android:layout_width="0px"
                     android:gravity="center"
-                    android:text="時間" />
+                    android:text="日期" />
 
                 <LinearLayout
                     android:layout_width="1dp"
@@ -91,6 +88,7 @@
             </TableRow>
 
             <View style="@style/RowDivider" />
+
         </TableLayout>
 
         <android.support.v4.widget.Space
