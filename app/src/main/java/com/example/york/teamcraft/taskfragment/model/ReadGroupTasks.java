@@ -145,11 +145,35 @@ public class ReadGroupTasks {
     }
 
     public void getAllTaskByValueEvent(String groupId, final CallBackTwoArgs<ArrayList<String>, HashMap<String, ArrayList<ContentTask>>> callBack) {
-        final ArrayList<String> groupList = new ArrayList<>();  // 群組任務名稱的list
+        final ArrayList<String> groupTaskNameList = new ArrayList<>();  // 群組任務名稱的list
         final HashMap<String, ArrayList<ContentTask>> itemMap = new HashMap<>();    // 細項任務的map，key: 群組任務名稱, value: 細項任務的list
 
         DatabaseReference childRef = groupTasksRef.child(groupId);
-        ch
+        childRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterator<DataSnapshot> groupTaskIterator = dataSnapshot.getChildren().iterator();
+                while (groupTaskIterator.hasNext()) {
+                    DataSnapshot groupTaskNameShot = groupTaskIterator.next();   // 群組名稱的節點
+                    groupTaskNameList.add(groupTaskNameShot.getKey());
+
+                    ArrayList<ContentTask> contentTaskList = new ArrayList<>();   // 細項工作的list
+                    Iterator<DataSnapshot> contentTaskIterator = groupTaskNameShot.getChildren().iterator();
+                    while (contentTaskIterator.hasNext()) {
+                        DataSnapshot contentTaskShot = contentTaskIterator.next();  // 細項工作的節點
+                        ContentTask contentTask = contentTaskShot.getValue(ContentTask.class);
+                        contentTaskList.add(contentTask);
+                    }
+                    itemMap.put(groupTaskNameShot.getKey(), contentTaskList);
+                }
+                callBack.update(groupTaskNameList, itemMap);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     // 需要groupId, responId，取得個人被分派工作的taskIdList, taskList

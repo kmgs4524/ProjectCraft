@@ -33,7 +33,7 @@ public class GetTableData {
             public void update(ArrayList<Group> groupList) {
                 readGroupTasks = new ReadGroupTasks();
                 final Group group = groupList.get(0);
-                    readGroupTasks.getAllTask(group.getId(), new CallBackTwoArgs<ArrayList<String>, HashMap<String, ArrayList<ContentTask>>>() {
+                    readGroupTasks.getAllTaskByValueEvent(group.getId(), new CallBackTwoArgs<ArrayList<String>, HashMap<String, ArrayList<ContentTask>>>() {
                         @Override
                         public void update(ArrayList<String> list, HashMap<String, ArrayList<ContentTask>> stringArrayListHashMap) {
                             setRowData(group.getName(), list, stringArrayListHashMap, callBack);
