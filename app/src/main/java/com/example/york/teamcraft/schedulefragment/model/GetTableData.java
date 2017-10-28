@@ -1,5 +1,7 @@
 package com.example.york.teamcraft.schedulefragment.model;
 
+import android.util.Log;
+
 import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.CallBackTwoArgs;
 import com.example.york.teamcraft.schedulefragment.data.RowData;
@@ -32,14 +34,15 @@ public class GetTableData {
             @Override
             public void update(ArrayList<Group> groupList) {
                 readGroupTasks = new ReadGroupTasks();
-                final Group group = groupList.get(0);
+
+                for(final Group group: groupList) {
                     readGroupTasks.getAllTaskByValueEvent(group.getId(), new CallBackTwoArgs<ArrayList<String>, HashMap<String, ArrayList<ContentTask>>>() {
                         @Override
                         public void update(ArrayList<String> list, HashMap<String, ArrayList<ContentTask>> stringArrayListHashMap) {
                             setRowData(group.getName(), list, stringArrayListHashMap, callBack);
                         }
                     });
-
+                }
             }
         });
     }
