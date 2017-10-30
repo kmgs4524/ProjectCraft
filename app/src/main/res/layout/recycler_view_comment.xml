@@ -5,7 +5,7 @@
     android:orientation="horizontal">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/cir_img_member"
+        android:id="@+id/cir_img_commenter"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_margin="5dp"

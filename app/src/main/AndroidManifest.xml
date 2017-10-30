@@ -46,7 +46,7 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".teammanage.additem.view.AddItemActivity">
+        <activity android:name=".teammanage.addpost.view.AddPostActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

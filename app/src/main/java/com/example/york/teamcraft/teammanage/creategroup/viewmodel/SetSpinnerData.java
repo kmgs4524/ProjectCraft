@@ -8,8 +8,6 @@ import com.example.york.teamcraft.teammanage.creategroup.model.ReadTeamMember;
 import com.example.york.teamcraft.teammanage.creategroup.view.CreateGroupView;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
 import com.example.york.teamcraft.teammanage.model.User;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
 
@@ -35,7 +33,7 @@ public class SetSpinnerData {
             public void update(User data) {
                 Log.d("member", data.getTeamId());
                 readTeamMember = new ReadTeamMember();
-                readTeamMember.getMember(data.getTeamId(), new CallBack<ArrayList<GroupMember>>() {
+                readTeamMember.getGroupMember(data.getTeamId(), new CallBack<ArrayList<GroupMember>>() {
                     @Override
                     public void update(ArrayList<GroupMember> data) {
                         Log.d("member data", Integer.toString(data.size()));

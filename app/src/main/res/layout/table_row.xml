@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="1dp"
+        android:layout_height="match_parent">
+
+        <View style="@style/ColumnDivider" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txt_col_group_name"
+        android:gravity="center"
+        android:text="器材組" />
+
+    <LinearLayout
+        android:layout_width="1dp"
+        android:layout_height="match_parent">
+
+        <View style="@style/ColumnDivider" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txt_col_content_task"
+        android:gravity="center"
+        android:text="下午五點準備生營火" />
+
+    <LinearLayout
+        android:layout_width="1dp"
+        android:layout_height="match_parent">
+
+        <View style="@style/ColumnDivider" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txt_col_responsible"
+        android:gravity="center"
+        android:text="小球球" />
+
+    <LinearLayout
+        android:layout_width="1dp"
+        android:layout_height="match_parent">
+
+        <View style="@style/ColumnDivider" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txt_col_date"
+        android:gravity="center"
+        android:text="10/15" />
+
+    <LinearLayout
+        android:layout_width="1dp"
+        android:layout_height="match_parent">
+
+        <View style="@style/ColumnDivider" />
+    </LinearLayout>
+
+</TableRow>
+
+
+
+

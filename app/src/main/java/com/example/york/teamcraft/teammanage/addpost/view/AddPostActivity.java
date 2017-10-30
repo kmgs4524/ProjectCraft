@@ -1,4 +1,4 @@
-package com.example.york.teamcraft.teammanage.additem.view;
+package com.example.york.teamcraft.teammanage.addpost.view;
 
 import android.app.DatePickerDialog;
 
@@ -19,11 +19,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.teammanage.additem.presenter.AddItemPresenter;
-import com.example.york.teamcraft.teammanage.additem.presenter.AddItemPresenterImpl;
+import com.example.york.teamcraft.teammanage.addpost.presenter.AddItemPresenter;
+import com.example.york.teamcraft.teammanage.addpost.presenter.AddItemPresenterImpl;
 import com.example.york.teamcraft.datepickerfragment.DatePickerFragment;
 
-public class AddItemActivity extends AppCompatActivity implements AddItemView, View.OnClickListener, DatePickerDialog.OnDateSetListener{
+public class AddPostActivity extends AppCompatActivity implements AddPostView, View.OnClickListener, DatePickerDialog.OnDateSetListener{
     // UI View
     private EditText edtTitle;
     private EditText edtContent;

@@ -3,20 +3,15 @@ package com.example.york.teamcraft.login.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.login.presenter.SignInPresenterImpl;
-import com.example.york.teamcraft.personalsmanage.view.PersonalTasksActivity;
-import com.example.york.teamcraft.view.SetDrawer;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
@@ -26,7 +21,6 @@ import com.google.firebase.auth.FirebaseUser;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class SignInActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener, SignInView {
@@ -142,6 +136,16 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
             txtStatus.setText("尚未登入");
             txtName.setText("姓名：");
         }
+    }
+
+    public void showPwdEmptyMesg() {
+        txtStatus.setVisibility(View.VISIBLE);
+        txtStatus.setText("帳號或密碼不能是空白");
+    }
+
+    public void showPwdWrongMesg() {
+        txtStatus.setVisibility(View.VISIBLE);
+        txtStatus.setText("帳號或密碼錯誤");
     }
 
     //設置ToolBar為此activity的app bar

@@ -50,7 +50,7 @@ public class SignInPresenterImpl implements SignInPresenter {
     public SignInPresenterImpl(SignInActivity a) {
         // view and model
         signInActivity = a;
-        emailSignIn = new EmailSignIn();
+        emailSignIn = new EmailSignIn(signInActivity);
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
@@ -76,16 +76,19 @@ public class SignInPresenterImpl implements SignInPresenter {
     // 一般信箱登入(由EmailSignIn Model
     @Override
     public void signIn(String e, String p) {
-        Task<FirebaseUser> task = emailSignIn.signIn(e, p);
-        task.addOnSuccessListener(new OnSuccessListener<FirebaseUser>() {
-            @Override
-            public void onSuccess(FirebaseUser firebaseUser) {
-                user = firebaseUser;
-                Log.d("sign in", user.getEmail());
-                showStatus();
-                confirmUserExist();
-            }
-        });
+        if(e.equals("") || p.equals("")) {
+            signInActivity.showPwdEmptyMesg();
+        } else {
+            Task<FirebaseUser> task = emailSignIn.signIn(e, p);
+            task.addOnSuccessListener(new OnSuccessListener<FirebaseUser>() {
+                @Override
+                public void onSuccess(FirebaseUser firebaseUser) {
+                    user = firebaseUser;
+                    showStatus();
+                    confirmUserExist();
+                }
+            });
+        }
     }
 
     // 以Google帳號登入(尚未使用額外的Business Model來處理Google登入事項)

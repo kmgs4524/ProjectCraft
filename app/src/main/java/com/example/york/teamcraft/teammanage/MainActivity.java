@@ -10,10 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.example.york.teamcraft.R;
+import com.example.york.teamcraft.drawer.SetRightDrawer;
+import com.example.york.teamcraft.schedulefragment.ScheduleFragment;
 import com.example.york.teamcraft.teammanage.taskprogress.view.TaskProgressFragment;
 import com.example.york.teamcraft.teammanage.board.view.BoardFragment;
 import com.example.york.teamcraft.teammanage.groupfragment.view.GroupManageFragment;
-import com.example.york.teamcraft.view.SetDrawer;
+import com.example.york.teamcraft.drawer.SetLeftDrawer;
 
 public class MainActivity extends AppCompatActivity {
     /*----- Pager相關元件 -------*/
@@ -62,8 +64,10 @@ public class MainActivity extends AppCompatActivity {
 
     //設置側邊欄
     private void initDrawer(){
-        SetDrawer setDrawer = new SetDrawer();
+        SetLeftDrawer setDrawer = new SetLeftDrawer();
         setDrawer.setLeftDrawer(this, drawerLayout);
+        SetRightDrawer setRightDrawer = new SetRightDrawer();
+        setRightDrawer.setRightDrawer(this);
     }
 
     //設置ViewPager
@@ -73,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new BoardFragment(),"佈告欄"); //加入Fragment
         adapter.addFragment(new GroupManageFragment(),"群組管理");  //加入Fragment
         adapter.addFragment(new TaskProgressFragment(),"任務進度"); //加入Fragment
+        adapter.addFragment(ScheduleFragment.newInstance(), "工作總覽");
         viewPager.setAdapter(adapter);  //設置ViewPager的adapter
     }
 

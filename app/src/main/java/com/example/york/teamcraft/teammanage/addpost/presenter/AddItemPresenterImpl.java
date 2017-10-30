@@ -1,9 +1,11 @@
-package com.example.york.teamcraft.teammanage.additem.presenter;
+package com.example.york.teamcraft.teammanage.addpost.presenter;
 
 import android.util.Log;
 
-import com.example.york.teamcraft.teammanage.additem.view.AddItemView;
+import com.example.york.teamcraft.CallBack;
+import com.example.york.teamcraft.teammanage.addpost.view.AddPostView;
 import com.example.york.teamcraft.teammanage.model.WriteActivity;
+import com.example.york.teamcraft.teammanage.post.model.WritePostComments;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,19 +17,21 @@ import java.util.Map;
 public class AddItemPresenterImpl implements AddItemPresenter{
     private static String TAG = "AddItemPresenterImpl";
 
-    private AddItemView addItemView;    // 新增項目的Activity
+    private AddPostView addPostView;    // 新增項目的Activity
     private WriteActivity writeActivity;    // Database Model
+    private WritePostComments writePostComments;
 
     private String[] date = new String[3];
 
-    public AddItemPresenterImpl(AddItemView v) {
-        addItemView = v;
+    public AddItemPresenterImpl(AddPostView v) {
+        addPostView = v;
         writeActivity = new WriteActivity();
+        writePostComments = new WritePostComments();
     }
 
     @Override
     public void showDatePickerDialog() {
-        addItemView.showDatePickerDialog();
+        addPostView.showDatePickerDialog();
     }
 
     @Override
@@ -36,17 +40,21 @@ public class AddItemPresenterImpl implements AddItemPresenter{
         date[1] = Integer.toString(month);
         date[2] = Integer.toString(day);
 
-        addItemView.setTextDate(date);
+        addPostView.setTextDate(date);
     }
 
     @Override
     public void addNewActivity(String topic, String date, String content) {
-        Log.d(TAG, "data: " + topic + " " + date + " " + content);
         Map<String, String> dataMap = new HashMap<>();  // 存放Activity的HashMap
         dataMap.put("topic", topic);
         dataMap.put("date", date);
         dataMap.put("content", content);
-        writeActivity.pushData(dataMap);    // 將Activity的內容寫入資料庫
+        writeActivity.pushData(dataMap, new CallBack<String>() {
+            @Override
+            public void update(String data) {
+                writePostComments.pushNewMessg(data, null);
+            }
+        });    // 將Activity的內容寫入資料庫
 
     }
 

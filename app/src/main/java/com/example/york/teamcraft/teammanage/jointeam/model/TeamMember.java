@@ -6,6 +6,7 @@ package com.example.york.teamcraft.teammanage.jointeam.model;
 
 public class TeamMember {
     private String name;
+    private String userId;
 
     public TeamMember(String name) {
         this.name = name;
@@ -19,5 +20,13 @@ public class TeamMember {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }
