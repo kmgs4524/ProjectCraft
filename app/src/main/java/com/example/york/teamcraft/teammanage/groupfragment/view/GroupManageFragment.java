@@ -99,4 +99,12 @@ public class GroupManageFragment extends Fragment implements GroupManageView{
         });
     }
 
+    public static GroupManageFragment newInstance() {
+        Bundle args = new Bundle();
+
+        GroupManageFragment fragment = new GroupManageFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
 }

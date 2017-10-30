@@ -28,24 +28,24 @@ public class SetRightDrawer {
 //    private ArrayList<TeamMember> memList;
 
     public void setRightDrawer(final FragmentActivity act) {
-        recyclerView = (RecyclerView) act.findViewById(R.id.recycler_view_right_drawer);
-
-        readUser = new ReadUser();
-        readUser.getUserData(new CallBack<User>() {
-            @Override
-            public void update(User user) {
-                readTeamMember = new ReadTeamMember();
-                readTeamMember.getTeamMember(user.getTeamId(), new CallBack<ArrayList<TeamMember>>() {
-                    @Override
-                    public void update(ArrayList<TeamMember> memList) {
-                        adapter = new MemberItemAdapter(memList);
-                        layoutManager = new LinearLayoutManager(act);
-                        recyclerView.setAdapter(adapter);
-                        recyclerView.setLayoutManager(layoutManager);
-                    }
-                });
-            }
-        });
+//        recyclerView = (RecyclerView) act.findViewById(R.id.recycler_view_right_drawer);
+//
+//        readUser = new ReadUser();
+//        readUser.getUserData(new CallBack<User>() {
+//            @Override
+//            public void update(User user) {
+//                readTeamMember = new ReadTeamMember();
+//                readTeamMember.getTeamMember(user.getTeamId(), new CallBack<ArrayList<TeamMember>>() {
+//                    @Override
+//                    public void update(ArrayList<TeamMember> memList) {
+//                        adapter = new MemberItemAdapter(memList);
+//                        layoutManager = new LinearLayoutManager(act);
+//                        recyclerView.setAdapter(adapter);
+//                        recyclerView.setLayoutManager(layoutManager);
+//                    }
+//                });
+//            }
+//        });
     }
 
 }

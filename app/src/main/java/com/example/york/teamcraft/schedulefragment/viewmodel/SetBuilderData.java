@@ -1,6 +1,8 @@
 package com.example.york.teamcraft.schedulefragment.viewmodel;
 
 import android.content.Context;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.TableLayout;
@@ -29,14 +31,16 @@ public class SetBuilderData {
     public void setTable(final TableLayout layout, final Context context) {
         getTableData = new GetTableData();
         getTableData.getData(new CallBack<ArrayList<RowData>>() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
-            public void update(ArrayList<RowData> data) {
-                Log.d(TAG, Integer.toString(data.size()));
+            public void update(ArrayList<RowData> rowList) {
+                Log.d(TAG, Integer.toString(rowList.size()));
                 builder = new ScheduleTableBuilder(layout, context);
-                for(RowData row: data) {
+                for(RowData row: rowList) {
                     TableRow tableRow = (TableRow) LayoutInflater.from(context).inflate(R.layout.table_row, null);
                     builder.setTableRow(tableRow)
                             .setRowData(row)
+                            .setRowColor()
                             .setBottomBorder()
                             .build();
                 }
