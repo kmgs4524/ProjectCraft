@@ -51,16 +51,20 @@
     <style name="ColumnDivider">
         <item name="android:layout_width">1dp</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:background">@color/icons</item>
+        <item name="android:background">@color/color_background</item>
     </style>
 
     <!-- 表格列之間的分隔線 -->
     <style name="RowDivider">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
-        <item name="android:background">@color/icons</item>
+        <item name="android:background">@color/color_background</item>
     </style>
 
+    <!-- 表格列之間的分隔線 -->
+    <style name="TableContentText">
+        <item name="android:textColor">@color/primary_text</item>
+    </style>
 
     <!-- 系統文字訊息 -->
     <style name="TextMessage">

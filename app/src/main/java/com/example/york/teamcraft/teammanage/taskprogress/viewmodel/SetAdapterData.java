@@ -63,7 +63,6 @@ public class SetAdapterData {
                                 }
                             }
 
-
                             Log.d("nextgroup", Integer.toString(progList.size()));
                             callBack.update(progList);
                         }

@@ -1,6 +1,7 @@
 package com.example.york.teamcraft.teammanage.taskprogress.view.recyclerview;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,9 +33,21 @@ public class TaskProgressAdapter extends RecyclerView.Adapter<TaskProgressHolder
 
     @Override
     public void onBindViewHolder(TaskProgressHolder holder, int position) {
+        // 用來顯示百分比的數值
+        double totalNum = progList.get(position).getTotalTaskNum();
+        double checkedNum = progList.get(position).getCheckedTaskNum();
+        double percent;
+        if(totalNum != 0) {
+            percent = Math.round(checkedNum / totalNum * 100);
+        } else {
+            percent = 0;
+        }
+        String progPercent = Double.toString(percent);
+
         holder.getTxtGroupName().setText(progList.get(position).getGroupName());
         holder.getProgGroup().setMax(progList.get(position).getTotalTaskNum());
         holder.getProgGroup().setProgress(progList.get(position).getCheckedTaskNum());
+        holder.getTxtProgPercent().setText(progPercent + "%");
     }
 
     @Override

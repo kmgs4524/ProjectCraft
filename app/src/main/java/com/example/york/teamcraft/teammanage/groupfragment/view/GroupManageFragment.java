@@ -6,9 +6,11 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +34,7 @@ import butterknife.ButterKnife;
 /**
  * Created by user on 2017/7/4.
  */
-//群組管理分頁
+// 團隊分頁
 public class GroupManageFragment extends Fragment implements GroupManageView{
     private static final String TAG = "GroupManageFragment";
 
@@ -57,19 +59,6 @@ public class GroupManageFragment extends Fragment implements GroupManageView{
         return view;
     }
 
-    //初始化Floating Button
-    private void initFab(View view){
-        fab = (FloatingActionButton) view.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
-                Toast.makeText(getActivity(), "FAB Clicked", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent();
-                intent.setClass(getContext(), CreateGroupActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
-
     @Override
     public void initRecyclerView(final ArrayList<Group> list) {
         recyclerView.setAdapter(new GroupItemAdapter(getActivity(), list));
@@ -88,6 +77,19 @@ public class GroupManageFragment extends Fragment implements GroupManageView{
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         params.addRule(RelativeLayout.BELOW, R.id.linearLayout_task_progress);
         recyclerView.setLayoutParams(params);
+    }
+
+    //初始化Floating Button
+    private void initFab(View view){
+        fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                Toast.makeText(getActivity(), "FAB Clicked", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent();
+                intent.setClass(getContext(), CreateGroupActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public static GroupManageFragment newInstance() {
