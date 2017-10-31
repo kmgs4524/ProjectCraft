@@ -30,20 +30,12 @@ public class GroupManagePresenterImpl implements GroupManagePresenter{
         this.readTeam = new ReadTeam();
     }
 
-    public void initMyGroupData() {
-        readUser.getUserDataByCallBack(new CallBack<User>() {
-            @Override
-            public void update(User data) {
-                groupManageFragment.initMyGroup(data.getGroupId());
-            }
-        });
-    }
-
-    public void initGridViewData() {
+    @Override
+    public void initRecyclerViewData() {
         readTeam.getTeamGroup(new CallBack<ArrayList<Group>>() {
             @Override
             public void update(ArrayList<Group> data) {
-                groupManageFragment.initGridView(data);
+                groupManageFragment.initRecyclerView(data);
             }
         });
     }

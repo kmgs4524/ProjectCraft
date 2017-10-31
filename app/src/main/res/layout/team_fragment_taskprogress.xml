@@ -4,14 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.example.york.teamcraft.teammanage.taskprogress.view.ProgressWheel
-        android:id="@+id/circular_progress"
-        android:layout_width="match_parent"
-        android:layout_height="300dp">
-
-    </com.example.york.teamcraft.teammanage.taskprogress.view.ProgressWheel>
-
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_group_progress"
         android:layout_width="match_parent"

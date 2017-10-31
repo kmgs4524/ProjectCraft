@@ -18,7 +18,7 @@
             android:src="@drawable/dog_1"/>
 
         <TextView
-            android:id="@+id/txt_team_member_name"
+            android:id="@+id/txt_group_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"

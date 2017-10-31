@@ -6,7 +6,7 @@
     </style>
 
     <!-- 自製Theme繼承原生Theme -->
-    <style name="MyMaterialTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="MyMaterialTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
         <!--<item name="toolbarStyle">@style/Widget.AppCompat.Toolbar</item>-->
     </style>

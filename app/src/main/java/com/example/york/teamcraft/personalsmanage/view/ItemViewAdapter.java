@@ -79,8 +79,4 @@ public  class ItemViewAdapter extends RecyclerView.Adapter<ItemContentTaskHolder
         return taskList.size();
     }
 
-    public void setViewListener(CompoundButton.OnCheckedChangeListener callBack) {
-        onCheckedListener = callBack;
-    }
-
 }

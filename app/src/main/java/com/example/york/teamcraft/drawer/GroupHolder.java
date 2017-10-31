@@ -10,15 +10,21 @@ import com.example.york.teamcraft.R;
  * Created by York on 2017/10/27.
  */
 
-public class MemberHolder extends RecyclerView.ViewHolder{
+public class GroupHolder extends RecyclerView.ViewHolder{
     private TextView txtName;
+    private View itemView;
 
-    public MemberHolder(View itemView) {
+    public GroupHolder(View itemView) {
         super(itemView);
-        txtName = (TextView) itemView.findViewById(R.id.txt_team_member_name);
+        this.itemView = itemView;
+        txtName = (TextView) itemView.findViewById(R.id.txt_group_name);
     }
 
     public TextView getTxtName() {
         return txtName;
+    }
+
+    public void setItemViewListener(View.OnClickListener listener) {
+        itemView.setOnClickListener(listener);
     }
 }

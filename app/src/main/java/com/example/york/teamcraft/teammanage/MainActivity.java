@@ -71,11 +71,6 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.main_content, ScheduleFragment.newInstance());
         transaction.commit();
 
-//        Fragment firstFrag =
-//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//        transaction.replace(R.id.main_content, selectedFrag);
-//        transaction.commit();
-
         //Set up  the ViewPager with the section adapter.
 //        mViewPager = (ViewPager)findViewById(R.id.container);
 //        setupViewPager(mViewPager);
@@ -96,16 +91,5 @@ public class MainActivity extends AppCompatActivity {
 //        getSupportActionBar().setHomeButtonEnabled(true);   // 啟用home button，決定home button是否能點擊
 //        drawerToggle.syncState();   // 同步drawer指標狀態到連接的DrawerLayout
 //    }
-
-    //設置ViewPager
-    private void setupViewPager(ViewPager viewPager){
-        SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
-        // 將 Fragement 加入 mFragmentList, 標題
-        adapter.addFragment(new BoardFragment(),"佈告欄"); //加入Fragment
-        adapter.addFragment(new GroupManageFragment(),"群組管理");  //加入Fragment
-        adapter.addFragment(new TaskProgressFragment(),"任務進度"); //加入Fragment
-        adapter.addFragment(ScheduleFragment.newInstance(), "工作總覽");
-        viewPager.setAdapter(adapter);  //設置ViewPager的adapter
-    }
 
 }
