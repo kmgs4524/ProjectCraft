@@ -31,6 +31,11 @@ public class GroupManagePresenterImpl implements GroupManagePresenter{
     }
 
     @Override
+    public void addTaskProgress() {
+        groupManageFragment.addTaskProgressFrag();
+    }
+
+    @Override
     public void initRecyclerViewData() {
         readTeam.getTeamGroup(new CallBack<ArrayList<Group>>() {
             @Override

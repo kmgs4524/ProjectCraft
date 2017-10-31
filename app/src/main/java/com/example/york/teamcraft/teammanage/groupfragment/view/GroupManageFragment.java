@@ -5,12 +5,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.york.teamcraft.R;
@@ -19,6 +22,7 @@ import com.example.york.teamcraft.teammanage.groupfragment.presenter.GroupManage
 import com.example.york.teamcraft.teammanage.creategroup.view.CreateGroupActivity;
 import com.example.york.teamcraft.teammanage.groupinformation.view.GroupInfoActivity;
 import com.example.york.teamcraft.teammanage.model.Group;
+import com.example.york.teamcraft.teammanage.taskprogress.view.TaskProgressFragment;
 
 import java.util.ArrayList;
 
@@ -34,9 +38,9 @@ public class GroupManageFragment extends Fragment implements GroupManageView{
 
     private GroupManagePresenter groupManagePresenter;
 
-    // 介面元件
+    // view
     @BindView(R.id.recycler_view_group) RecyclerView recyclerView;
-//    private GridView gridGroup;
+    private LinearLayoutManager layoutManager;
     private FloatingActionButton fab;
 
     @Nullable
@@ -47,7 +51,7 @@ public class GroupManageFragment extends Fragment implements GroupManageView{
 
         // init Presenter
         groupManagePresenter = new GroupManagePresenterImpl(this);
-//        groupManagePresenter.initMyGroupData();
+        groupManagePresenter.addTaskProgress(); // add task progress fragment
         groupManagePresenter.initRecyclerViewData();
         initFab(view);
         return view;
@@ -66,25 +70,24 @@ public class GroupManageFragment extends Fragment implements GroupManageView{
         });
     }
 
-//    @Override
-//    public void initMyGroup(final String groupId) {
-//        cardMyGroup.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Bundle bundle = new Bundle();
-//                bundle.putString("id", groupId);
-//                Intent intent = new Intent();
-//                intent.putExtras(bundle);
-//                intent.setClass(getActivity(), MyGroupActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//    }
-
     @Override
     public void initRecyclerView(final ArrayList<Group> list) {
         recyclerView.setAdapter(new GroupItemAdapter(getActivity(), list));
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        DividerItemDecoration divider = new DividerItemDecoration(recyclerView.getContext(), layoutManager.getOrientation());
+        recyclerView.addItemDecoration(divider);
+    }
+
+    @Override
+    public void addTaskProgressFrag() {
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.add(R.id.team_groupmanage_fragment, TaskProgressFragment.newInstance());
+        transaction.commit();
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        params.addRule(RelativeLayout.BELOW, R.id.linearLayout_task_progress);
+        recyclerView.setLayoutParams(params);
     }
 
     public static GroupManageFragment newInstance() {

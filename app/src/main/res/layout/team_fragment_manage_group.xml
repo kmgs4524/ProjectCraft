@@ -6,13 +6,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
-    <!-- 大頭貼圖示 -->
+    <!-- 顯示各個group的recycler view -->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_group"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:numColumns="2">
+        android:layout_height="wrap_content">
+
     </android.support.v7.widget.RecyclerView>
 
     <!-- Floating Button -->
@@ -25,7 +24,7 @@
         android:layout_marginBottom="20dp"
         android:layout_marginRight="20dp"
         android:src="@mipmap/ic_add_white_48dp"
-        app:backgroundTint="@color/color_primaryDark"
+        app:backgroundTint="@color/color_primary"
         app:elevation="6dp"
         app:pressedTranslationZ="16dp" />
 

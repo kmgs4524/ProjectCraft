@@ -88,7 +88,6 @@ public class TaskFragment extends Fragment implements TaskFragmentView {
         });
     }
 
-
     // 顯示新增群組任務的選單
     @Override
     public void showAddGroupTaskDialog(ConfirmClickListener callbackListener) {

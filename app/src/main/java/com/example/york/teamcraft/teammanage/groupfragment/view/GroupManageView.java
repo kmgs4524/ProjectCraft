@@ -10,4 +10,5 @@ import java.util.ArrayList;
 
 public interface GroupManageView {
     public abstract void initRecyclerView(ArrayList<Group> list);
+    public abstract void addTaskProgressFrag();
 }

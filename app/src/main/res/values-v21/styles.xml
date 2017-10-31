@@ -2,7 +2,7 @@
 <resources>
 
     <style name="LinearProgress" parent="AppTheme">
-        <item name="android:progressTint">@color/md_red_A200</item>
+        <item name="android:progressTint">@color/color_primary</item>
         <item name="android:progressBackgroundTint">@color/md_pink_300</item>
     </style>
 </resources>
