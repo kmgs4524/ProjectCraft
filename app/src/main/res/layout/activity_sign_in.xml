@@ -5,19 +5,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/login_gradient_background_"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.example.york.teamcraft.login.view.SignInActivity">
 
     <!-- Toolbar -->
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar"
-        android:elevation="4dp" />
+    <!--<include-->
+    <!--android:id="@+id/toolbar"-->
+    <!--layout="@layout/toolbar"-->
+    <!--android:elevation="4dp" />-->
 
     <!-- Space Area between Toolbar and Login Form-->
     <Space
+        android:layout_width="match_parent"
+        android:layout_height="100dp" />
+
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:src="@drawable/app_name" />
+
+    <android.support.v4.widget.Space
         android:layout_width="match_parent"
         android:layout_height="50dp" />
 
@@ -40,49 +50,47 @@
         android:paddingRight="@dimen/activity_horizontal_margin">
 
 
-        <android.support.design.widget.TextInputLayout
+        <EditText
+            android:id="@+id/edt_acct"
+            style="@style/EditTextLogin"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:background="@drawable/edt_email"
+            android:drawableLeft="@mipmap/ic_person_white_48dp"
+            android:drawableTint="@color/color_primary"
+            android:hint="E-mail"
+            android:inputType=""
+            android:maxLines="1"
+            android:textColorHint="@color/secondary_text" />
 
-            <EditText
-                android:id="@+id/edt_acct"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="E-mail"
-                android:inputType=""
-                android:maxLines="1"
-                android:singleLine="true" />
+        <View
+            style="@style/EmailPwdDivider" />
 
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
+        <EditText
+            android:id="@+id/edt_pwd"
+            style="@style/EditTextLogin"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/edt_pwd"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Password"
-                android:imeActionId="@+id/login"
-                android:imeActionLabel="@string/action_sign_in_short"
-                android:imeOptions="actionUnspecified"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:singleLine="true" />
-
-        </android.support.design.widget.TextInputLayout>
+            android:layout_height="match_parent"
+            android:background="@drawable/edt_password"
+            android:drawableLeft="@mipmap/ic_lock_white_48dp"
+            android:drawableTint="@color/color_primary"
+            android:hint="Password"
+            android:imeActionId="@+id/login"
+            android:imeOptions="actionUnspecified"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:textColorHint="@color/secondary_text" />
 
         <Button
             android:id="@+id/signIn_btn"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
-            android:background="@color/colorAccent"
+            android:background="#000000"
             android:text="登入"
             android:textColor="@android:color/background_light"
-            android:textSize="12sp" />
+            android:textSize="18sp" />
 
         <!-- Divider -->
         <include
@@ -103,7 +111,7 @@
         style="@style/TextActPwdMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="invisible"/>
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/email_txtView"
