@@ -7,4 +7,5 @@ package com.example.york.teamcraft.signup.view;
 public interface SignUpView {
     public abstract void startSelectActivity();
     public abstract void showPortrait();
+    public abstract void setBtnChoose();
 }
