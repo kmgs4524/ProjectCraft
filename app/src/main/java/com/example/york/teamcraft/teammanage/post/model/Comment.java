@@ -9,6 +9,7 @@ public class Comment {
     private String authorId;
     private String message;
     private String commentId;
+    private String imageUrl;
 
     public Comment(String authorName, String authorId, String message, String commentId) {
         this.authorName = authorName;
@@ -49,5 +50,13 @@ public class Comment {
 
     public void setCommentId(String commentId) {
         this.commentId = commentId;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

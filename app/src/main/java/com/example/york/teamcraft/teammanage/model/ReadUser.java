@@ -168,5 +168,20 @@ public class ReadUser {
         return idSource.getTask();
     }
 
+    public void getUserImageUrl(String authorId, final CallBack<String> callBack) {
+        usersRef.child(authorId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String imageUrl = dataSnapshot.child("imageUrl").getValue(String.class);
+                callBack.update(imageUrl);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 
 }

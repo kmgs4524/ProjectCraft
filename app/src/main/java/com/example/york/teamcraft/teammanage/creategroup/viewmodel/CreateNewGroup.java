@@ -55,7 +55,7 @@ public class CreateNewGroup {
                         writeGroupMember = new WriteGroupMember();
                         writeGroupMember.pushData(memList, groupId);    // 更新groupMembers節點的資料
                         writeUser = new WriteUser();
-                        writeUser.updateUserGroup(userId, groupId);   // 更新user child node的groupId
+                        writeUser.updateUserGroup(memList, groupId);   // 更新user child node的groupId
                     }
                 });
                 createGroupView.finishCreate();
