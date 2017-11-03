@@ -52,7 +52,6 @@ public class CreateUser {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     UploadImage uploadImage = new UploadImage();    // 將圖片上傳到firebase storage
-                                    Log.d(TAG, "onSuccess: " + bitmap.toString());
                                     uploadImage.uploadBitmap(bitmap).addOnSuccessListener((SignUpActivity) signUpView, new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                         @Override
                                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {

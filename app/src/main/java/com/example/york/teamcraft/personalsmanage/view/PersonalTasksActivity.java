@@ -31,8 +31,6 @@ public class PersonalTasksActivity extends AppCompatActivity implements Personal
     private ItemViewAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
 
-    private FloatingActionButton btnNote;
-
     private PersonalTasksPresenterImpl personalTasksPresenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +41,6 @@ public class PersonalTasksActivity extends AppCompatActivity implements Personal
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         //設置UI
         initToolBar();
-        initDrawer();   //Drawer
 
         personalTasksPresenter = new PersonalTasksPresenterImpl(this);
         personalTasksPresenter.readData();
@@ -62,12 +59,6 @@ public class PersonalTasksActivity extends AppCompatActivity implements Personal
         drawerToggle.syncState();   // 同步drawer指標狀態到連接的DrawerLayout
 
         Log.d("PersonalTasksActivity", "init ToolBar");
-    }
-
-    //設置側邊欄
-    private void initDrawer(){
-        SetLeftDrawer setDrawer = new SetLeftDrawer();
-        setDrawer.setLeftDrawer(this, drawerLayout);
     }
 
     // 初始化RecyclerView的資料

@@ -1,19 +1,25 @@
 package com.example.york.teamcraft.personalsfragment.view;
 
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.personalsfragment.viewmodel.SetPersonalData;
+import com.example.york.teamcraft.personalsmanage.view.PersonalTasksActivity;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -22,6 +28,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class PersonalsFragment extends Fragment implements PersonalsView{
     @BindView(R.id.cir_img_personals) CircleImageView cirImgPersonals;
     @BindView(R.id.txt_personal_email) TextView txtEmail;
+    @BindView(R.id.img_personal_mission) ImageView imgPersonal;
+    @BindView(R.id.img_account_management) ImageView imgAccount;
     private SetPersonalData setPersonalData;
 
     public static PersonalsFragment newInstance() {
@@ -58,6 +66,20 @@ public class PersonalsFragment extends Fragment implements PersonalsView{
     @Override
     public void setTxtEmail(String email) {
         txtEmail.setText(email);
+    }
+
+    @OnClick(R.id.img_personal_mission)
+    public void startPersonTaskAct() {
+        Intent intent = new Intent();
+        intent.setClass(getContext(), PersonalTasksActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.img_account_management)
+    public void startAccountManagAct() {
+        Intent intent = new Intent();
+        intent.setClass(getContext(), PersonalTasksActivity.class);
+        startActivity(intent);
     }
 
 }

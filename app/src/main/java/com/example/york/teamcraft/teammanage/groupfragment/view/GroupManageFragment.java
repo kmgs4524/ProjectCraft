@@ -19,12 +19,14 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.york.teamcraft.R;
+import com.example.york.teamcraft.schedulefragment.ScheduleFragment;
 import com.example.york.teamcraft.teammanage.groupfragment.presenter.GroupManagePresenter;
 import com.example.york.teamcraft.teammanage.groupfragment.presenter.GroupManagePresenterImpl;
 import com.example.york.teamcraft.teammanage.creategroup.view.CreateGroupActivity;
 import com.example.york.teamcraft.teammanage.groupinformation.view.GroupInfoActivity;
 import com.example.york.teamcraft.teammanage.model.Group;
 import com.example.york.teamcraft.teammanage.taskprogress.view.TaskProgressFragment;
+import com.getbase.floatingactionbutton.AddFloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -42,8 +44,11 @@ public class GroupManageFragment extends Fragment implements GroupManageView{
 
     // view
     @BindView(R.id.recycler_view_group) RecyclerView recyclerView;
+    @BindView(R.id.fab_schedule)
+    com.getbase.floatingactionbutton.FloatingActionButton fabSched;
+    @BindView(R.id.fab_finance)
+    com.getbase.floatingactionbutton.FloatingActionButton fabFinan;
     private LinearLayoutManager layoutManager;
-    private FloatingActionButton fab;
 
     @Nullable
     @Override
@@ -55,7 +60,7 @@ public class GroupManageFragment extends Fragment implements GroupManageView{
         groupManagePresenter = new GroupManagePresenterImpl(this);
         groupManagePresenter.addTaskProgress(); // add task progress fragment
         groupManagePresenter.initRecyclerViewData();
-        initFab(view);
+        initFab();
         return view;
     }
 
@@ -79,15 +84,13 @@ public class GroupManageFragment extends Fragment implements GroupManageView{
         recyclerView.setLayoutParams(params);
     }
 
-    //初始化Floating Button
-    private void initFab(View view){
-        fab = (FloatingActionButton) view.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+    //設定FloatingActionButton的listener
+    private void initFab(){
+        fabSched.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                Toast.makeText(getActivity(), "FAB Clicked", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent();
-                intent.setClass(getContext(), CreateGroupActivity.class);
-                startActivity(intent);
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.main_content, ScheduleFragment.newInstance());
+                transaction.commit();
             }
         });
     }

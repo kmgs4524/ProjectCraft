@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:id="@+id/team_groupmanage_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,18 +14,43 @@
 
     </android.support.v7.widget.RecyclerView>
 
-    <!-- Floating Button -->
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="20dp"
-        android:layout_marginRight="20dp"
-        android:src="@mipmap/ic_add_white_48dp"
-        app:backgroundTint="@color/color_primary"
-        app:elevation="6dp"
-        app:pressedTranslationZ="16dp" />
+        fab:fab_addButtonColorNormal="@color/color_primary"
+        fab:fab_labelsPosition="left"
+        fab:fab_labelStyle="@drawable/fab_label_background">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_schedule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_person_white_24dp"
+            fab:fab_title="事前行程表" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_finance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_delete_white_24dp"
+            fab:fab_title="財務管理" />
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+    <!-- Floating Button -->
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/fab"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_marginBottom="20dp"-->
+        <!--android:layout_marginRight="20dp"-->
+        <!--android:src="@mipmap/ic_add_white_48dp"-->
+        <!--app:backgroundTint="@color/color_primary"-->
+        <!--app:elevation="6dp"-->
+        <!--app:pressedTranslationZ="16dp" />-->
 
 </RelativeLayout>
