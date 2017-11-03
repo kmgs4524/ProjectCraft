@@ -3,25 +3,16 @@ package com.example.york.teamcraft.teammanage;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.drawer.SetRightDrawer;
-import com.example.york.teamcraft.personalsfragment.PersonalsFragment;
-import com.example.york.teamcraft.schedulefragment.ScheduleFragment;
-import com.example.york.teamcraft.teammanage.taskprogress.view.TaskProgressFragment;
+import com.example.york.teamcraft.personalsfragment.view.PersonalsFragment;
 import com.example.york.teamcraft.teammanage.board.view.BoardFragment;
 import com.example.york.teamcraft.teammanage.groupfragment.view.GroupManageFragment;
-import com.example.york.teamcraft.drawer.SetLeftDrawer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
                 Fragment selectedFrag = null;
                 switch (item.getItemId()) {
                     case R.id.action_item_personals:
-                        selectedFrag = ScheduleFragment.newInstance();
+                        selectedFrag = PersonalsFragment.newInstance();
+//                        selectedFrag = ScheduleFragment.newInstance();
                         break;
                     case R.id.action_item_team:
                         selectedFrag = GroupManageFragment.newInstance();
@@ -68,7 +60,8 @@ public class MainActivity extends AppCompatActivity {
 
         // 進入MainActivity後，預設顯示PersonalsFragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.main_content, ScheduleFragment.newInstance());
+        transaction.replace(R.id.main_content, PersonalsFragment.newInstance());
+//        transaction.replace(R.id.main_content, ScheduleFragment.newInstance());
         transaction.commit();
 
         //Set up  the ViewPager with the section adapter.
