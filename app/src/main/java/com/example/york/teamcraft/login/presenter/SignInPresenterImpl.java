@@ -136,7 +136,7 @@ public class SignInPresenterImpl implements SignInPresenter {
             public void onSuccess(Boolean aBoolean) {
                 if (aBoolean == false) {    // 若尚未有資料
                     WriteUser writeUser = new WriteUser();
-                    writeUser.pushData(user.getDisplayName(), user.getEmail());
+                    writeUser.pushData(user.getDisplayName(), user.getEmail(), "0");    // 首次使用google登入時，會將google帳號的資料寫入user node
                     startSelectTeam();
                 } else {    // 若已有資料
                     Task<Boolean> taskCheckTeam = readUser.checkUserTeam();
