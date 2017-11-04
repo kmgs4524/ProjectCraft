@@ -20,6 +20,7 @@
     <string name="action_delete">delete button</string>
     <string name="action_settings">settings button</string>
     <string name="action_done">settings button</string>
+    <string name="action_as_pdf">pdf button</string>
 
     <!-- TextView Sign Up New Account Including underline -->
     <string name="txt_sign_up"><u>註冊新帳號</u></string>

@@ -10,11 +10,6 @@
     android:fitsSystemWindows="true"
     tools:context="com.example.york.teamcraft.teammanage.MainActivity">
 
-    <include
-        android:id="@id/toolbar"
-        layout="@layout/toolbar"
-        style="@style/ToolBar" />
-
     <FrameLayout
         android:id="@+id/main_content"
         android:layout_width="match_parent"

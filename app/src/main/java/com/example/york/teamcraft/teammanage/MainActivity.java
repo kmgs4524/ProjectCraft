@@ -21,11 +21,8 @@ public class MainActivity extends AppCompatActivity {
     /*----- Pager相關元件 -------*/
     private SectionsPageAdapter mSectionsPageAdapter;   //繼承FragmentPageAdapter的adapter
     private ViewPager mViewPager;   //可讓使用者左右翻動頁面的class，此外必須提供PageAdapter來產生pages
-    /*----------------------------*/
 
-    /*----- Drawer and ToolBar -------*/
     @BindView(R.id.bottom_navigation) BottomNavigationView bottomNavView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
