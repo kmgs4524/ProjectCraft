@@ -16,9 +16,9 @@ public class OutputPdf {
     // create a new document
     private PdfDocument document = new PdfDocument();
 
-    public void outputDoc(View content, Fragment frag) {
+    public void outputDoc(View content, OutputStream stream) {
         // crate a page description
-        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(100, 100, 1).setContentRect(new Rect(0, 0, 90, 90)).create();
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(1920, 1080, 1).setContentRect(new Rect(50, 50, 1870, 1030)).create();
 
         // start a page
         PdfDocument.Page page = document.startPage(pageInfo);
@@ -32,7 +32,11 @@ public class OutputPdf {
         // add more pages
 
         // write the document content
-//        document.writeTo(new OutputStream());
+        try {
+            document.writeTo(stream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // close the document
         document.close();

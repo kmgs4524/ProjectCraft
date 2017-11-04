@@ -70,14 +70,14 @@ public class ScheduleFragment extends Fragment {
         ButterKnife.bind(this, view);
         toolbar.inflateMenu(R.menu.output_document_action_button);
         verifyStoragePermissions();
-        inflateActionBtn();
+        inflateActionBtn(tableLayout);
         // 將Table Row放入Table Layout
         setScheduleTable();
 
         return view;
     }
 
-    public void inflateActionBtn() {
+    public void inflateActionBtn(final View v) {
         // add listener
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -88,24 +88,20 @@ public class ScheduleFragment extends Fragment {
                         if (isExternalStorageWritable()) {
                             Toast.makeText(getContext(), "writable", Toast.LENGTH_SHORT).show();
                             File file = new File(Environment.getExternalStoragePublicDirectory(
-                                    Environment.DIRECTORY_MUSIC), "sheet.pdf");
+                                    Environment.DIRECTORY_DOWNLOADS), "schedule.pdf");
                             try {
                                 OutputStream os = new FileOutputStream(file);
-                                try {
-                                    String hello = "hello world";
-                                    OutputStreamWriter writer = new OutputStreamWriter(os);
-                                    writer.write(hello);
-                                    writer.close();
-                                } catch (UnsupportedEncodingException e) {
-                                    e.printStackTrace();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
+
+//                                String hello = "hello world";
+                                OutputPdf outputPdf = new OutputPdf();
+                                outputPdf.outputDoc(v, os);
+//                                    OutputStreamWriter writer = new OutputStreamWriter(os);
+//                                    writer.write(hello);
+//                                    writer.close();
 
                             } catch (FileNotFoundException e) {
                                 Log.d(TAG, "onMenuItemClick: " + e.getMessage());
                             }
-//                            Log.d(TAG, "onMenuItemClick: " + file.getAbsolutePath());
                             if (file.mkdirs()) {
                                 Log.e(TAG, "Directory created");
                             }
@@ -144,9 +140,9 @@ public class ScheduleFragment extends Fragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             Log.d(TAG, "onRequestPermissionsResult: granted");
-            inflateActionBtn();
+//            inflateActionBtn();
         }
     }
 
