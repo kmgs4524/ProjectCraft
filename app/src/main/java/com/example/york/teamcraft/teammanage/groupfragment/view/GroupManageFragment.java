@@ -1,37 +1,30 @@
 package com.example.york.teamcraft.teammanage.groupfragment.view;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.example.york.teamcraft.R;
+import com.example.york.teamcraft.finance.view.FinanceFragment;
 import com.example.york.teamcraft.schedulefragment.ScheduleFragment;
 import com.example.york.teamcraft.teammanage.groupfragment.presenter.GroupManagePresenter;
 import com.example.york.teamcraft.teammanage.groupfragment.presenter.GroupManagePresenterImpl;
-import com.example.york.teamcraft.teammanage.creategroup.view.CreateGroupActivity;
-import com.example.york.teamcraft.teammanage.groupinformation.view.GroupInfoActivity;
 import com.example.york.teamcraft.teammanage.model.Group;
 import com.example.york.teamcraft.teammanage.taskprogress.view.TaskProgressFragment;
-import com.getbase.floatingactionbutton.AddFloatingActionButton;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by user on 2017/7/4.
@@ -41,7 +34,6 @@ public class GroupManageFragment extends Fragment implements GroupManageView{
     private static final String TAG = "GroupManageFragment";
 
     private GroupManagePresenter groupManagePresenter;
-
     // view
     @BindView(R.id.recycler_view_group) RecyclerView recyclerView;
     @BindView(R.id.fab_schedule)
@@ -55,7 +47,6 @@ public class GroupManageFragment extends Fragment implements GroupManageView{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.team_fragment_manage_group, container, false);
         ButterKnife.bind(this, view);
-
         // init Presenter
         groupManagePresenter = new GroupManagePresenterImpl(this);
         groupManagePresenter.addTaskProgress(); // add task progress fragment
@@ -93,6 +84,13 @@ public class GroupManageFragment extends Fragment implements GroupManageView{
                 transaction.commit();
             }
         });
+    }
+
+    @OnClick(R.id.fab_finance)
+    public void startFinance() {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.main_content, FinanceFragment.newInstance());
+        transaction.commit();
     }
 
     public static GroupManageFragment newInstance() {

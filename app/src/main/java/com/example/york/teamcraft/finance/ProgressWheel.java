@@ -1,4 +1,4 @@
-package com.example.york.teamcraft.teammanage.taskprogress.view;
+package com.example.york.teamcraft.finance;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -20,7 +20,7 @@ import java.util.TimerTask;
  * Created by York on 2017/9/18.
  */
 
-public class ProgressWheel extends View implements Runnable {
+public class ProgressWheel extends View {
     private int sweepAngle; // 進度條移動的角度
     private int startAngle; // 進度條開始的角度
     private int totalTimerTime;
@@ -59,7 +59,7 @@ public class ProgressWheel extends View implements Runnable {
         setPaintProgress();
         setProgressText();
         setPaintBackground();
-        new Thread(this).start();   // 在Background Threads啟動動畫
+//        new Thread(this).start();   // 在Background Threads啟動動畫
     }
 
     @Override
@@ -131,30 +131,30 @@ public class ProgressWheel extends View implements Runnable {
 
     }
 
-    @Override
-    public void run() {
-
-            final Timer timer= new Timer();
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    Log.d("Animation", "run()" );
-                    // Background Thread 不能更改UI，因此須呼叫Handler.post()將更改UI的程序放到UI Thread來做
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            update();
-                            if(sweepAngle == 270) {
-                                Log.d("sweepAngle", Integer.toString(sweepAngle));
-                                timer.cancel();
-                                timer.purge();
-                            }
-                        }
-                    });
-
-                }
-            }, 0, 5);   // 暫時設定每5毫秒執行handler.post()
-
-    }
+//    @Override
+//    public void run() {
+//
+//            final Timer timer= new Timer();
+//            timer.schedule(new TimerTask() {
+//                @Override
+//                public void run() {
+//                    Log.d("Animation", "run()" );
+//                    // Background Thread 不能更改UI，因此須呼叫Handler.post()將更改UI的程序放到UI Thread來做
+//                    handler.post(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            update();
+//                            if(sweepAngle == 270) {
+//                                Log.d("sweepAngle", Integer.toString(sweepAngle));
+//                                timer.cancel();
+//                                timer.purge();
+//                            }
+//                        }
+//                    });
+//
+//                }
+//            }, 0, 5);   // 暫時設定每5毫秒執行handler.post()
+//
+//    }
 
 }

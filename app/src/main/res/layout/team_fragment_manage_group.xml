@@ -29,13 +29,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/ic_person_white_24dp"
-            fab:fab_title="事前行程表" />
+            fab:fab_title="工作表" />
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_finance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_delete_white_24dp"
+            android:src="@mipmap/ic_attach_money_white_24dp"
             fab:fab_title="財務管理" />
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
