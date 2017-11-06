@@ -7,14 +7,16 @@ package com.example.york.teamcraft.teammanage.model;
 public class User {
     private String email;
     private String name;
+    private String imageUrl;
     private String teamId;
     private String groupId;
 
-    public User(String n, String e, String tId, String gId) {
-        name = n;
-        email = e;
-        teamId = tId;
-        groupId = gId;
+    public User(String n, String e, String url, String tId, String gId) {
+        this.name = n;
+        this.email = e;
+        this.imageUrl = url;
+        this.teamId = tId;
+        this.groupId = gId;
     }
 
     public User() {
@@ -28,6 +30,8 @@ public class User {
     public String getName() {
         return name;
     }
+
+    public String getImageUrl() { return imageUrl; }
 
     public String getTeamId() { return teamId; }
 

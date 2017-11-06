@@ -20,14 +20,15 @@ public class PostPresenterImpl implements PostPresenter{
         this.postComment = new PostComment();
     }
 
+    // 將留言寫入firebase的postComment node
     public void postComment(String postId, String messg) {
         postComment.post(postId, messg);
     }
-
+    // 設定recycler view的資料來源
     public void setRecyclerData(String postId) {
         setCommentData.setData(postView, postId);
     }
-
+    // 設定imgSend的listener
     public void setSendMessg() {
         postView.initMessg();
     }

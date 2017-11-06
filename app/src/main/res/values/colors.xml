@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Style color -->
-    <color name="color_primary">#e91e63</color>
+    <color name="color_background">#414141</color>
+    <color name="color_primary">#fe5d62</color>
     <color name="color_primaryDark">#C2185B</color>
     <color name="primary_light">#F8BBD0</color>
     <color name="color_accent">#FF4081</color>
@@ -12,5 +13,14 @@
 
     <!--Button color-->
     <color name="blue_grey_500">#607D8B</color>
+
+    <!--Title Row color-->
+    <color name="color_row_title">#7D455C</color>
+
+    <!--Odd Row color-->
+    <color name="color_row_odd">#FFFEFE</color>
+
+    <!--Even Row color-->
+    <color name="color_row_even">#F0DBDA</color>
 
 </resources>

@@ -33,7 +33,6 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     /*-------------------------------*/
 
     //UI元件
-    @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.edt_acct)  EditText edtAcct;   //帳號欄位
     @BindView(R.id.edt_pwd)  EditText edtPwd;    //密碼欄位
     @BindView(R.id.status_txtView)  TextView txtStatus; //登入狀態
@@ -46,8 +45,6 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         setContentView(R.layout.activity_sign_in);
         ButterKnife.bind(this);
         //設置UI
-        initToolBar();  //ToolBar
-
         findViewById(R.id.signIn_btn).setOnClickListener(this); //登入Button
         findViewById(R.id.google_signIn_btn).setOnClickListener(this);  //Google帳號登入Button
         findViewById(R.id.signOut_btn).setOnClickListener(this);    //登出Button
@@ -146,12 +143,6 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     public void showPwdWrongMesg() {
         txtStatus.setVisibility(View.VISIBLE);
         txtStatus.setText("帳號或密碼錯誤");
-    }
-
-    //設置ToolBar為此activity的app bar
-    private void initToolBar() {
-        toolbar.setTitle("登入");
-        setSupportActionBar(toolbar);
     }
 
 }

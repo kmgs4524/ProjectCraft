@@ -62,7 +62,7 @@ public class PostActivity extends AppCompatActivity implements PostView{
     public void initRecyclerView(ArrayList<Comment> commList) {
         layoutManager = new LinearLayoutManager(this);
         recyclerComment = (RecyclerView) findViewById(R.id.recycler_view_post_comment);
-        adapter = new CommentItemAdapter(commList);
+        adapter = new CommentItemAdapter(commList, this);
         recyclerComment.setLayoutManager(layoutManager);
         recyclerComment.setAdapter(adapter);
     }

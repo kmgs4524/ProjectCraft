@@ -33,6 +33,14 @@ public class TaskProgressFragment extends Fragment implements TaskProgressView{
     // presenter
     private TaskProgressPresenter taskFragmentPresenter;
 
+    public static TaskProgressFragment newInstance() {
+        Bundle args = new Bundle();
+
+        TaskProgressFragment fragment = new TaskProgressFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

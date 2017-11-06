@@ -1,102 +1,104 @@
 package com.example.york.teamcraft.teammanage.groupfragment.view;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
-import android.util.Log;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
-import android.widget.Toast;
+import android.widget.RelativeLayout;
 
 import com.example.york.teamcraft.R;
+import com.example.york.teamcraft.finance.view.FinanceFragment;
+import com.example.york.teamcraft.schedulefragment.ScheduleFragment;
 import com.example.york.teamcraft.teammanage.groupfragment.presenter.GroupManagePresenter;
 import com.example.york.teamcraft.teammanage.groupfragment.presenter.GroupManagePresenterImpl;
-import com.example.york.teamcraft.teammanage.creategroup.view.CreateGroupActivity;
-import com.example.york.teamcraft.teammanage.groupinformation.view.GroupInfoActivity;
 import com.example.york.teamcraft.teammanage.model.Group;
-import com.example.york.teamcraft.teammanage.mygroup.view.MyGroupActivity;
+import com.example.york.teamcraft.teammanage.taskprogress.view.TaskProgressFragment;
 
 import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by user on 2017/7/4.
  */
-//群組管理分頁
+// 團隊分頁
 public class GroupManageFragment extends Fragment implements GroupManageView{
     private static final String TAG = "GroupManageFragment";
 
     private GroupManagePresenter groupManagePresenter;
-
-    // 介面元件
-    private View cardMyGroup;
-    private GridView gridGroup;
-    private FloatingActionButton fab;
+    // view
+    @BindView(R.id.recycler_view_group) RecyclerView recyclerView;
+    @BindView(R.id.fab_schedule)
+    com.getbase.floatingactionbutton.FloatingActionButton fabSched;
+    @BindView(R.id.fab_finance)
+    com.getbase.floatingactionbutton.FloatingActionButton fabFinan;
+    private LinearLayoutManager layoutManager;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.team_fragment_manage_group, container, false);
-        // find view
-        cardMyGroup = view.findViewById(R.id.card_my_group); // 使用者的群組
-        gridGroup = (GridView) view.findViewById(R.id.gridView); // 其他小組
+        ButterKnife.bind(this, view);
         // init Presenter
         groupManagePresenter = new GroupManagePresenterImpl(this);
-        groupManagePresenter.initMyGroupData();
-        groupManagePresenter.initGridViewData();
-        initFab(view);
+        groupManagePresenter.addTaskProgress(); // add task progress fragment
+        groupManagePresenter.initRecyclerViewData();
+        initFab();
         return view;
     }
 
-    //初始化Floating Button
-    private void initFab(View view){
-        fab = (FloatingActionButton) view.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void initRecyclerView(final ArrayList<Group> list) {
+        recyclerView.setAdapter(new GroupItemAdapter(getActivity(), list));
+        layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        DividerItemDecoration divider = new DividerItemDecoration(recyclerView.getContext(), layoutManager.getOrientation());
+        recyclerView.addItemDecoration(divider);
+    }
+
+    @Override
+    public void addTaskProgressFrag() {
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.add(R.id.team_groupmanage_fragment, TaskProgressFragment.newInstance());
+        transaction.commit();
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        params.addRule(RelativeLayout.BELOW, R.id.linearLayout_task_progress);
+        recyclerView.setLayoutParams(params);
+    }
+
+    //設定FloatingActionButton的listener
+    private void initFab(){
+        fabSched.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                Toast.makeText(getActivity(), "FAB Clicked", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent();
-                intent.setClass(getContext(), CreateGroupActivity.class);
-                startActivity(intent);
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.main_content, ScheduleFragment.newInstance());
+                transaction.commit();
             }
         });
     }
 
-    @Override
-    public void initMyGroup(final String groupId) {
-        cardMyGroup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString("id", groupId);
-                Intent intent = new Intent();
-                intent.putExtras(bundle);
-                intent.setClass(getActivity(), MyGroupActivity.class);
-                startActivity(intent);
-            }
-        });
+    @OnClick(R.id.fab_finance)
+    public void startFinance() {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.main_content, FinanceFragment.newInstance());
+        transaction.commit();
     }
 
-    @Override
-    public void initGridView(final ArrayList<Group> list) {
-        gridGroup.setAdapter(new GridItemAdapter(getActivity(), list));
+    public static GroupManageFragment newInstance() {
+        Bundle args = new Bundle();
 
-        gridGroup.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Bundle bundle = new Bundle();
-                bundle.putString("id", list.get(position).getId());
-                bundle.putString("name", list.get(position).getName());
-                Intent intent = new Intent();
-                intent.putExtras(bundle);
-                intent.setClass(getActivity(), GroupInfoActivity.class);
-                startActivity(intent);  // 進入CreateGroupActivity
-            }
-        });
+        GroupManageFragment fragment = new GroupManageFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
 }

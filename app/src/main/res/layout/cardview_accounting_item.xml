@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        style="@style/CardAccountingItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <TextView
+            android:id="@+id/txt_account_item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="影印費" />
+
+        <TextView
+            android:id="@+id/txt_account_item_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="-20" />
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>

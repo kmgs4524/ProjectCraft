@@ -2,10 +2,15 @@
     <string name="app_name">TeamCraft</string>
     <string name="action_sign_in_short">Sign in</string>
 
+    <!-- Bottom Navigation menu title -->
+    <string name="bottom_nav_title_personals">個人</string>
+    <string name="bottom_nav_title_team">團隊</string>
+    <string name="bottom_nav_title_board">布告欄</string>
+
     <!-- Drawer menu title -->
-    <string name="title_personals">個人記事</string>
-    <string name="title_team">團隊管理</string>
-    <string name="title_account">帳戶資料</string>
+    <string name="drawer_title_personals">個人記事</string>
+    <string name="drawer_title_team">團隊管理</string>
+    <string name="drawer_title_account">帳戶資料</string>
 
     <!--  "close and open drawer" description-->
     <string name="drawer_open">open drawer</string>
@@ -15,6 +20,7 @@
     <string name="action_delete">delete button</string>
     <string name="action_settings">settings button</string>
     <string name="action_done">settings button</string>
+    <string name="action_as_pdf">pdf button</string>
 
     <!-- TextView Sign Up New Account Including underline -->
     <string name="txt_sign_up"><u>註冊新帳號</u></string>

@@ -2,7 +2,10 @@ package com.example.york.teamcraft.teammanage.model;
 
 import android.util.Log;
 
+import com.example.york.teamcraft.data.GroupMember;
 import com.example.york.teamcraft.teammanage.model.User;
+import com.google.android.gms.tasks.*;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -11,6 +14,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Member;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,9 +51,9 @@ public class WriteUser {
     }
 
     // 在users插入新的user object
-    public void pushData(String name, String email) {
+    public void pushData(String name, String email, String downloadUrl) {
         String key = usersRef.push().getKey();
-        userMap.put(key, new User(name, email, "0", null)); // User(name, email, teamId, groupId)
+        userMap.put(key, new User(name, email, downloadUrl, "0", "0")); // User(name, email, teamId, groupId)
         usersRef.updateChildren(userMap);
     }
 
@@ -57,8 +62,10 @@ public class WriteUser {
         childRef.child("teamId").setValue(teamId);
     }
 
-    public void updateUserGroup(String userId, String groupId) {
-        DatabaseReference childRef = usersRef.child(userId);
-        childRef.child("groupId").setValue(groupId);
+    public void updateUserGroup(ArrayList<GroupMember> memList, String groupId) {
+        for(GroupMember member: memList) {
+            DatabaseReference childRef = usersRef.child(member.getUserId());
+            childRef.child("groupId").setValue(groupId);
+        }
     }
 }

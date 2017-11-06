@@ -3,6 +3,8 @@ package com.example.york.teamcraft.teammanage.post.model;
 import android.util.Log;
 
 import com.example.york.teamcraft.CallBack;
+import com.example.york.teamcraft.teammanage.model.ReadUser;
+import com.example.york.teamcraft.teammanage.model.User;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,14 +26,21 @@ public class ReadPostComments {
 
     public void getComment(String postId, final CallBack<ArrayList<Comment>> callBack) {
         final ArrayList<Comment> commList = new ArrayList<>();
-        Log.d("postId", postId);
+
         postCommRef.child(postId).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Comment comment;
+                final Comment comment;
                 comment = dataSnapshot.getValue(Comment.class);
-                commList.add(comment);
-                callBack.update(commList);
+                ReadUser readUser = new ReadUser();
+                readUser.getUserImageUrl(comment.getAuthorId(), new CallBack<String>() {
+                    @Override
+                    public void update(String data) {
+                        comment.setImageUrl(data);
+                        commList.add(comment);
+                        callBack.update(commList);
+                    }
+                });
             }
 
             @Override

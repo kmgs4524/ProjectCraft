@@ -5,6 +5,6 @@ package com.example.york.teamcraft.teammanage.groupfragment.presenter;
  */
 
 public interface GroupManagePresenter {
-    public abstract void initMyGroupData();
-    public abstract void initGridViewData();
+    public abstract void addTaskProgress();
+    public abstract void initRecyclerViewData();
 }

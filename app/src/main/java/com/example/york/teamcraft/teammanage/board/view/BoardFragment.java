@@ -41,10 +41,16 @@ public class BoardFragment extends Fragment implements BoardView {
     private static final String TAG = "BoardFragment";
     private static final Executor NETWORK_EXECUTOR = Executors.newCachedThreadPool();
 
+    public static BoardFragment newInstance() {
+        Bundle args = new Bundle();
+
+        BoardFragment fragment = new BoardFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     // Database Model
-    private FirebaseUser user;
     private ReadTeam readTeam;
-    private ReadUser readUser;
     // UI View
     @BindView(R.id.recycler_view_board) RecyclerView recyclerView;
     private BoardItemAdapter calendarItemAdapter;
@@ -80,7 +86,6 @@ public class BoardFragment extends Fragment implements BoardView {
         } else {
             // init Database Model
             readTeam = new ReadTeam();
-            user = FirebaseAuth.getInstance().getCurrentUser();
 
             readTeam.getTeamAct(new CallBack<ArrayList<Post>>() {
                 @Override

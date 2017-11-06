@@ -1,7 +1,4 @@
 <resources>
-
-
-
     <!-- Dark Buttons -->
     <style name="ThemeOverlay.MyDarkButton" parent="ThemeOverlay.AppCompat.Dark">
         <item name="colorButtonNormal">@color/blue_grey_500</item>
@@ -11,11 +8,12 @@
     <!-- 自製Theme繼承原生Theme -->
     <style name="MyMaterialTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+        <!--<item name="toolbarStyle">@style/Widget.AppCompat.Toolbar</item>-->
     </style>
 
     <!-- 實際套用的Theme，繼承MyMaterialTheme -->
     <style name="MyMaterialTheme.Base" parent="MyMaterialTheme">
-        <item name="android:windowNoTitle">true</item>
+        <item name="windowNoTitle">true</item>
         <!-- 不需要 ActionBar 了,因為改用Toolbar -->
         <item name="windowActionBar">false</item>
         <!-- 主要顏色 -->
@@ -26,9 +24,25 @@
         <!-- 其他可用項目 colorControlNormal, colorControlActivated, colorControlHighlight, colorSwitchThumbNormal -->
     </style>
 
+    <style name="ToolBar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">45dp</item>
+    </style>
+
     <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="spinBars">true</item>   <!-- Whether bars should rotate or not during transition -->
         <item name="color">@android:color/white</item>
+    </style>
+
+    <!-- FloatingButton 適用於RelativeLayout的佈局-->
+    <style name="FloatingButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_marginBottom">12dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:colorBackground">@color/color_primary</item>
     </style>
 
     <!-- 小組目標標題 -->
@@ -44,20 +58,30 @@
         <item name="android:background">?android:attr/listDivider</item>
     </style>
 
+    <!-- 信箱與密碼欄位間分隔線 -->
+    <style name="EmailPwdDivider">
+        <item name="android:layout_width">10dp</item>
+        <item name="android:layout_height">1dp</item>
+    </style>
+
     <!-- 表格欄之間的分隔線 -->
     <style name="ColumnDivider">
         <item name="android:layout_width">1dp</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:background">#FFFFFF</item>
+        <item name="android:background">@color/color_background</item>
     </style>
 
     <!-- 表格列之間的分隔線 -->
     <style name="RowDivider">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
-        <item name="android:background">#FFFFFF</item>
+        <item name="android:background">@color/color_background</item>
     </style>
 
+    <!-- 表格列之間的分隔線 -->
+    <style name="TableContentText">
+        <item name="android:textColor">@color/primary_text</item>
+    </style>
 
     <!-- 系統文字訊息 -->
     <style name="TextMessage">
@@ -66,10 +90,27 @@
         <item name="android:background">?android:attr/listDivider</item>
     </style>
 
+    <!-- 帳號密碼欄位的樣式 -->
+    <style name="EditTextLogin">
+        <item name="android:textColor">@color/primary_text</item>
+        <!--<item name="android:layout_height">2dp</item>-->
+    </style>
+
     <!-- 帳號或密碼錯誤時的文字訊息 -->
     <style name="TextActPwdMessage">
         <item name="android:textColor">@color/md_red_700</item>
         <item name="android:layout_height">2dp</item>
+    </style>
+
+    <style name="CardAccountingItem" >
+        <item name="cardCornerRadius">2dp</item>
+        <item name="cardElevation">2dp</item>
+        <item name="cardBackgroundColor">@color/color_background</item>
+        <item name="contentPaddingTop">16dp</item>
+        <item name="contentPaddingLeft">16dp</item>
+        <item name="contentPaddingRight">16dp</item>
+        <item name="contentPaddingBottom">16dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
     </style>
 
 </resources>

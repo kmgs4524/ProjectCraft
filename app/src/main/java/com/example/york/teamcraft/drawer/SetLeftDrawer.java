@@ -24,52 +24,52 @@ public class SetLeftDrawer {
     private ActionBarDrawerToggle drawerToggle;
 
     public void setLeftDrawer(final FragmentActivity activity, final DrawerLayout drawerLayout) {
-        navigationView = (NavigationView) activity.findViewById(R.id.navigation_view_left);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                // 先檢查點擊的item是否為checked
-                if (item.isChecked()) {
-                    item.setChecked(false);
-                } else {
-                    item.setChecked(true);
-                }
-
-                drawerLayout.closeDrawers();    // 關閉drawer
-                Intent intent = new Intent();
-
-                switch (item.getItemId()) {
-                    case R.id.drawer_personals:
-                        if (!(activity instanceof PersonalTasksActivity)) {
-                            intent.setClass(activity, PersonalTasksActivity.class);
-                            activity.startActivity(intent);
-                            return true;
-                        } else {
-                            return true;
-                        }
-
-                    case R.id.drawer_team:
-                        if (!(activity instanceof MainActivity)) {
-                            Log.d("goto", activity.toString());
-                            intent.setClass(activity, MainActivity.class);
-                            activity.startActivity(intent);
-                            return true;
-                        } else {
-                            return true;
-                        }
-                    case R.id.drawer_account:
-                        if (!(activity instanceof SignInActivity)) {
-                            intent.setClass(activity, SignInActivity.class);
-                            activity.startActivity(intent);
-                            return true;
-                        } else {
-                            return true;
-                        }
-
-                    default:
-                        return true;
-                }
-            }
-        });
+//        navigationView = (NavigationView) activity.findViewById(R.id.navigation_view_left);
+//        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                // 先檢查點擊的item是否為checked
+//                if (item.isChecked()) {
+//                    item.setChecked(false);
+//                } else {
+//                    item.setChecked(true);
+//                }
+//
+//                drawerLayout.closeDrawers();    // 關閉drawer
+//                Intent intent = new Intent();
+//
+//                switch (item.getItemId()) {
+//                    case R.id.drawer_personals:
+//                        if (!(activity instanceof PersonalTasksActivity)) {
+//                            intent.setClass(activity, PersonalTasksActivity.class);
+//                            activity.startActivity(intent);
+//                            return true;
+//                        } else {
+//                            return true;
+//                        }
+//
+//                    case R.id.drawer_team:
+//                        if (!(activity instanceof MainActivity)) {
+//                            Log.d("goto", activity.toString());
+//                            intent.setClass(activity, MainActivity.class);
+//                            activity.startActivity(intent);
+//                            return true;
+//                        } else {
+//                            return true;
+//                        }
+//                    case R.id.drawer_account:
+//                        if (!(activity instanceof SignInActivity)) {
+//                            intent.setClass(activity, SignInActivity.class);
+//                            activity.startActivity(intent);
+//                            return true;
+//                        } else {
+//                            return true;
+//                        }
+//
+//                    default:
+//                        return true;
+//                }
+//            }
+//        });
     }
 }

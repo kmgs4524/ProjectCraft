@@ -1,0 +1,31 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.york.teamcraft.finance.view.FinanceFragment"
+    android:weightSum="1">
+
+    <include
+        layout="@layout/toolbar"
+        style="@style/ToolBar" />
+
+    <com.example.york.teamcraft.finance.ProgressWheel
+        android:id="@+id/progress_bar_total_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="157dp"
+        android:layout_below="@+id/toolbar" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_accounting"
+        android:layout_width="385dp"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/progress_bar_total_amount"
+        android:padding="8dp">
+    </android.support.v7.widget.RecyclerView>
+
+    <android.support.design.widget.FloatingActionButton
+        style="@style/FloatingButton"
+        android:src="@mipmap/ic_add_white_48dp" />
+
+</RelativeLayout>

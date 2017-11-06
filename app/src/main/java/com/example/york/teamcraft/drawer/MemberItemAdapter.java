@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.teammanage.jointeam.model.TeamMember;
-import com.example.york.teamcraft.teammanage.post.view.CommentViewHolder;
 
 import java.util.ArrayList;
 
@@ -15,7 +14,7 @@ import java.util.ArrayList;
  * Created by York on 2017/10/27.
  */
 
-public class MemberItemAdapter extends RecyclerView.Adapter<MemberHolder> {
+public class MemberItemAdapter extends RecyclerView.Adapter<GroupHolder> {
     private ArrayList<TeamMember> memList;
 
     public MemberItemAdapter(ArrayList<TeamMember> list) {
@@ -23,17 +22,17 @@ public class MemberItemAdapter extends RecyclerView.Adapter<MemberHolder> {
     }
 
     @Override
-    public MemberHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public GroupHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recycler_view_member, null);
+                .inflate(R.layout.recycler_view_group, null);
 
-        MemberHolder holder = new MemberHolder(view);
+        GroupHolder holder = new GroupHolder(view);
 
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(MemberHolder holder, int position) {
+    public void onBindViewHolder(GroupHolder holder, int position) {
         holder.getTxtName().setText(memList.get(position).getName());
     }
 

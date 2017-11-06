@@ -13,6 +13,13 @@
         layout="@layout/toolbar"
         android:elevation="4dp" />
 
+    <ProgressBar
+        android:id="@+id/progress_bar_sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone"/>
+
     <LinearLayout
         android:layout_width="368dp"
         android:layout_height="495dp"
@@ -150,19 +157,18 @@
                 <TableRow>
 
                     <ImageView
-                        android:id="@+id/Portrait_img"
-                        android:layout_width="200px"
-                        android:layout_height="200px"
-                        android:src="@mipmap/ic_launcher" />
+                        android:id="@+id/img_portrait"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp" />
                 </TableRow>
 
                 <TableRow>
 
                     <Button
-                        android:id="@+id/portrait_btn"
+                        android:id="@+id/btn_portrait"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/Portrait_img"
+                        android:layout_below="@id/img_portrait"
                         android:text="選擇頭像" />
                 </TableRow>
             </TableLayout>
@@ -172,7 +178,6 @@
             android:id="@+id/linearLayout6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:gravity="center_horizontal"
             android:orientation="horizontal">
 

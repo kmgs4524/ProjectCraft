@@ -1,6 +1,10 @@
 package com.example.york.teamcraft.schedulefragment;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.support.v4.content.res.ResourcesCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TableLayout;
@@ -24,6 +28,8 @@ public class ScheduleTableBuilder{
     private RowData rowData;
     // row divider
     private View rowDivider;
+    // row number
+    private int rowNum = 1;
 
 
     public ScheduleTableBuilder(TableLayout layout, Context context) {
@@ -43,6 +49,18 @@ public class ScheduleTableBuilder{
 
     public ScheduleTableBuilder setBottomBorder() {
         this.rowDivider = LayoutInflater.from(context).inflate(R.layout.table_row_divider, tableLayout, false);
+        return this;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public ScheduleTableBuilder setRowColor() {
+        if(rowNum % 2 == 1) {
+            tableRow.setBackgroundColor(tableRow.getResources().getColor(R.color.color_row_odd, null));
+        } else {
+            tableRow.setBackgroundColor(ResourcesCompat.getColor(context.getResources(), R.color.color_row_even, null));
+        }
+        rowNum++;
+
         return this;
     }
 
