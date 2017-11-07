@@ -34,6 +34,27 @@
         <item name="color">@android:color/white</item>
     </style>
 
+    <!-- dialog_add_accounting_item.xml -->
+    <!-- 新增品項DialogFragment所用的EditText的Color Style-->
+    <style name="EditTextAccountingItem">
+        <item name="android:textColorHint">@color/text_accounting_item</item>   <!-- Hint Color-->
+        <item name="android:backgroundTint">@color/secondary_text</item>    <!-- Bottom Line Color-->
+        <item name="android:textColor">@color/text_accounting_item</item>
+    </style>
+    <!-- 新增品項DialogFragment所用的Button的Color Style -->
+    <style name="ButtonCostType">
+        <item name="android:layout_marginRight">-10dp</item>
+        <item name="android:backgroundTint">@color/color_background_accounting_item</item>
+        <item name="android:textColor">@color/text_accounting_item</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    <style name="ButtonIncomeType">
+        <item name="android:layout_marginLeft">-2dp</item>
+        <item name="android:backgroundTint">@color/color_background_accounting_item</item>
+        <item name="android:textColor">@color/text_accounting_item</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
     <!-- FloatingButton 適用於RelativeLayout的佈局-->
     <style name="FloatingButton">
         <item name="android:layout_width">wrap_content</item>
@@ -75,7 +96,7 @@
     <style name="RowDivider">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
-        <item name="android:background">@color/color_background</item>
+        <item name="android:background">@color/divider</item>
     </style>
 
     <!-- 表格列之間的分隔線 -->

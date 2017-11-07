@@ -1,4 +1,4 @@
-package com.example.york.teamcraft.finance.model;
+package com.example.york.teamcraft.financefragment.model;
 
 import android.util.Log;
 
@@ -35,7 +35,6 @@ public class ReadTeamFinance {
                 }
                 Log.d(TAG, "onDataChange: " + itemlist.size());
                 callBack.update(itemlist);
-//                itemlist.clear();
             }
 
             @Override

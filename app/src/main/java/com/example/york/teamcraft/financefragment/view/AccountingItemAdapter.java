@@ -1,4 +1,4 @@
-package com.example.york.teamcraft.finance.view;
+package com.example.york.teamcraft.financefragment.view;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.finance.model.AccountingItem;
+import com.example.york.teamcraft.financefragment.model.AccountingItem;
 
 import java.util.ArrayList;
 
