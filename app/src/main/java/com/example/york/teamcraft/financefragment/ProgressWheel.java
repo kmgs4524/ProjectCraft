@@ -1,4 +1,4 @@
-package com.example.york.teamcraft.finance;
+package com.example.york.teamcraft.financefragment;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -12,9 +12,6 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Created by York on 2017/9/18.

@@ -1,6 +1,6 @@
-package com.example.york.teamcraft.finance.view;
+package com.example.york.teamcraft.financefragment.view;
 
-import com.example.york.teamcraft.finance.model.AccountingItem;
+import com.example.york.teamcraft.financefragment.model.AccountingItem;
 
 import java.util.ArrayList;
 
@@ -10,4 +10,5 @@ import java.util.ArrayList;
 
 public interface FinanceView {
     public abstract void initRecyclerView(ArrayList<AccountingItem> list);
+    public abstract void initFab();
 }

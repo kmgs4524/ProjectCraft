@@ -3,14 +3,18 @@
     <!-- Style color -->
     <color name="color_background">#414141</color>
     <color name="color_primary">#fe5d62</color>
-    <color name="color_primaryDark">#C2185B</color>
+    <color name="color_primaryDark">#ff875c</color>
     <color name="primary_light">#F8BBD0</color>
-    <color name="color_accent">#FF4081</color>
+    <color name="color_accent">#ff875c</color>
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#757575</color>
     <color name="icons">#FFFFFF</color>
     <color name="divider">#BDBDBD</color>
 
+
+    <!-- Add Accounting Item Color-->
+    <color name="color_background_accounting_item">#FFFFFF</color>
+    <color name="text_accounting_item">#98a2b9</color>
     <!--Button color-->
     <color name="blue_grey_500">#607D8B</color>
 

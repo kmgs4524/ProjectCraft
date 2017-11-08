@@ -3,14 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.york.teamcraft.finance.view.FinanceFragment"
+    tools:context="com.example.york.teamcraft.financefragment.view.FinanceFragment"
     android:weightSum="1">
 
     <include
         layout="@layout/toolbar"
         style="@style/ToolBar" />
 
-    <com.example.york.teamcraft.finance.ProgressWheel
+    <com.example.york.teamcraft.financefragment.ProgressWheel
         android:id="@+id/progress_bar_total_amount"
         android:layout_width="wrap_content"
         android:layout_height="157dp"
@@ -25,6 +25,7 @@
     </android.support.v7.widget.RecyclerView>
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_add_accounting_item"
         style="@style/FloatingButton"
         android:src="@mipmap/ic_add_white_48dp" />
 

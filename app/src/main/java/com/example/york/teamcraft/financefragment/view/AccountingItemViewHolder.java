@@ -1,4 +1,4 @@
-package com.example.york.teamcraft.finance.view;
+package com.example.york.teamcraft.financefragment.view;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

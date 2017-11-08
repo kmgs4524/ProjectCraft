@@ -36,7 +36,6 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     @BindView(R.id.edt_acct)  EditText edtAcct;   //帳號欄位
     @BindView(R.id.edt_pwd)  EditText edtPwd;    //密碼欄位
     @BindView(R.id.status_txtView)  TextView txtStatus; //登入狀態
-    @BindView(R.id.name_txtView)  TextView txtName;   //姓名
     @BindView(R.id.txt_sign_up)  TextView txtSignUp;
 
     @Override
@@ -47,7 +46,6 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         //設置UI
         findViewById(R.id.signIn_btn).setOnClickListener(this); //登入Button
         findViewById(R.id.google_signIn_btn).setOnClickListener(this);  //Google帳號登入Button
-        findViewById(R.id.signOut_btn).setOnClickListener(this);    //登出Button
         findViewById(R.id.txt_sign_up).setOnClickListener(this);    //登出Button
     }
 
@@ -89,10 +87,6 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
                     signInPresenter.confirmUserExist(); // 判斷是否註冊使用者資料
                     break;
                 }
-            case R.id.signOut_btn:
-                // Sign Out程序由SignInPresenter負責
-                signInPresenter.signOut();
-                break;
             case R.id.txt_sign_up:
                 signInPresenter.startSignUp();
         }
@@ -128,10 +122,8 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     public void showStatus(FirebaseUser user) {
         if (user != null) {   //已登入
             txtStatus.setText("帳號登入中");
-            txtName.setText(txtName.getText() + user.getEmail());
         } else { //未登入
             txtStatus.setText("尚未登入");
-            txtName.setText("姓名：");
         }
     }
 

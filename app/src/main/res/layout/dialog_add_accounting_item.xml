@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btn_accounting_type_cost"
+            style="@style/ButtonCostType"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="支出" />
+
+        <Button
+            android:id="@+id/btn_accounting_type_income"
+            style="@style/ButtonIncomeType"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="收入" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/layout_accounting_item_background"
+        android:paddingBottom="16dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="16dp">
+
+        <ImageView
+            android:id="@+id/img_accounting_item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@+id/edt_accounting_item_name"
+            android:src="@mipmap/ic_business_white_24dp"
+            android:tint="@color/text_accounting_item" />
+
+        <EditText
+            android:id="@+id/edt_accounting_item_name"
+            style="@style/EditTextAccountingItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/img_accounting_item_name"
+            android:hint="品項" />
+
+        <ImageView
+            android:id="@+id/img_accounting_item_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@+id/edt_accounting_item_amount"
+            android:layout_below="@+id/img_accounting_item_name"
+            android:src="@mipmap/ic_attach_money_white_24dp"
+            android:tint="@color/text_accounting_item" />
+
+        <EditText
+            android:id="@+id/edt_accounting_item_amount"
+            style="@style/EditTextAccountingItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edt_accounting_item_name"
+            android:layout_toRightOf="@+id/img_accounting_item_amount"
+            android:hint="金額" />
+
+        <ImageView
+            android:id="@+id/img_accounting_item_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/edt_accounting_item_date"
+            android:layout_below="@+id/edt_accounting_item_amount"
+            android:src="@mipmap/ic_date_range_white_24dp"
+            android:tint="@color/text_accounting_item" />
+
+        <EditText
+            android:id="@+id/edt_accounting_item_date"
+            style="@style/EditTextAccountingItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edt_accounting_item_amount"
+            android:layout_toRightOf="@+id/img_accounting_item_date"
+            android:hint="日期" />
+
+        <ImageView
+            android:id="@+id/img_accounting_item_payer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/edt_accounting_item_payer"
+            android:layout_below="@+id/edt_accounting_item_date"
+            android:src="@mipmap/ic_person_white_24dp"
+            android:tint="@color/text_accounting_item" />
+
+        <EditText
+            android:id="@+id/edt_accounting_item_payer"
+            style="@style/EditTextAccountingItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edt_accounting_item_date"
+            android:layout_toRightOf="@+id/img_accounting_item_payer"
+            android:hint="付款人" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_accounting_item_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/color_primary"
+        android:text="確認" />
+
+</LinearLayout>

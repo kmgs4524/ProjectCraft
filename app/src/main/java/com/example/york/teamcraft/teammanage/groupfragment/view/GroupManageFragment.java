@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.finance.view.FinanceFragment;
+import com.example.york.teamcraft.financefragment.view.FinanceFragment;
 import com.example.york.teamcraft.schedulefragment.ScheduleFragment;
 import com.example.york.teamcraft.teammanage.groupfragment.presenter.GroupManagePresenter;
 import com.example.york.teamcraft.teammanage.groupfragment.presenter.GroupManagePresenterImpl;

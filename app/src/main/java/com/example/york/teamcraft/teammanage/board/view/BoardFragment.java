@@ -92,11 +92,10 @@ public class BoardFragment extends Fragment implements BoardView {
                 public void update(final ArrayList<Post> list) {
                     progressBar.setVisibility(View.GONE);
                     // 設定CalendarItemAdapter
-                    calendarItemAdapter = new BoardItemAdapter(list, new View.OnClickListener() {   // 傳入listener callback
+                    calendarItemAdapter = new BoardItemAdapter(getContext(), list, new View.OnClickListener() {   // 傳入listener callback
                         @Override
                         public void onClick(View v) {
                             int pos = recyclerView.indexOfChild(v);
-                            Log.d("pos", Integer.toString(pos));
                             Intent intent = new Intent();
                             Bundle bundle = new Bundle();
                             bundle.putParcelable("Post", list.get(pos));    // Post Parcelable

@@ -1,4 +1,4 @@
-package com.example.york.teamcraft.finance.model;
+package com.example.york.teamcraft.financefragment.model;
 
 /**
  * Created by York on 2017/11/5.

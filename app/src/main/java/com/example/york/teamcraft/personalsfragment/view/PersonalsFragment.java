@@ -11,9 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.york.teamcraft.R;
+import com.example.york.teamcraft.login.view.SignInActivity;
 import com.example.york.teamcraft.personalsfragment.viewmodel.SetPersonalData;
+import com.example.york.teamcraft.personalsfragment.viewmodel.SignIn;
 import com.example.york.teamcraft.personalsmanage.view.PersonalTasksActivity;
 import com.squareup.picasso.Picasso;
 
@@ -28,8 +31,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class PersonalsFragment extends Fragment implements PersonalsView{
     @BindView(R.id.cir_img_personals) CircleImageView cirImgPersonals;
     @BindView(R.id.txt_personal_email) TextView txtEmail;
-    @BindView(R.id.img_personal_mission) ImageView imgPersonal;
-    @BindView(R.id.img_account_management) ImageView imgAccount;
     private SetPersonalData setPersonalData;
 
     public static PersonalsFragment newInstance() {
@@ -64,22 +65,40 @@ public class PersonalsFragment extends Fragment implements PersonalsView{
     }
 
     @Override
+    public void startSignInActivity() {
+        Intent intent = new Intent();
+        intent.setClass(getContext(), SignInActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void showSignOutMesg() {
+        Toast.makeText(getContext(), "帳號已登出", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void setTxtEmail(String email) {
         txtEmail.setText(email);
     }
 
-    @OnClick(R.id.img_personal_mission)
+    @OnClick(R.id.btn_personal_tasks)
     public void startPersonTaskAct() {
         Intent intent = new Intent();
         intent.setClass(getContext(), PersonalTasksActivity.class);
         startActivity(intent);
     }
 
-    @OnClick(R.id.img_account_management)
+    @OnClick(R.id.btn_account_management)
     public void startAccountManagAct() {
         Intent intent = new Intent();
         intent.setClass(getContext(), PersonalTasksActivity.class);
         startActivity(intent);
+    }
+
+    @OnClick(R.id.img_sign_out)
+    public void signOut() {
+        SignIn signIn = new SignIn(this);
+        signIn.checkStatus();
     }
 
 }

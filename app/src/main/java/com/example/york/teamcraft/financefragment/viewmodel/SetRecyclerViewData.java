@@ -1,10 +1,9 @@
-package com.example.york.teamcraft.finance.viewmodel;
+package com.example.york.teamcraft.financefragment.viewmodel;
 
 import com.example.york.teamcraft.CallBack;
-import com.example.york.teamcraft.finance.model.AccountingItem;
-import com.example.york.teamcraft.finance.model.ReadTeamFinance;
-import com.example.york.teamcraft.finance.view.FinanceView;
-import com.example.york.teamcraft.teammanage.model.ReadTeam;
+import com.example.york.teamcraft.financefragment.model.AccountingItem;
+import com.example.york.teamcraft.financefragment.model.ReadTeamFinance;
+import com.example.york.teamcraft.financefragment.view.FinanceView;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
 import com.example.york.teamcraft.teammanage.model.User;
 
