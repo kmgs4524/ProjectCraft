@@ -55,9 +55,7 @@ public class ReadTeam {
         readUser.getUserData(new CallBack<User>() {
             @Override
             public void update(User data) {
-                DatabaseReference ref = teamActRef.child(data.getTeamId()).getRef();    // 搜尋出想要的email
-                Log.d("getAct", ref.getKey());
-
+                DatabaseReference ref = teamActRef.child(data.getTeamId()).getRef();
                 ref.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -65,7 +63,6 @@ public class ReadTeam {
                         postList.add(post);
 
                         callback.update(postList);
-
                     }
 
                     @Override

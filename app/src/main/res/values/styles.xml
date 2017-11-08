@@ -55,6 +55,13 @@
         <item name="android:textSize">20sp</item>
     </style>
 
+    <!-- 個人管理主畫面-->
+    <!-- 選項Button-->
+    <style name="ButtonPersonals">
+        <item name="android:textColor">@color/color_primary</item>
+        <item name="android:background">@drawable/btn_personals</item>
+    </style>
+
     <!-- FloatingButton 適用於RelativeLayout的佈局-->
     <style name="FloatingButton">
         <item name="android:layout_width">wrap_content</item>

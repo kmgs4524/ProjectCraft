@@ -7,4 +7,6 @@ package com.example.york.teamcraft.personalsfragment.view;
 public interface PersonalsView {
     public abstract void setCirImgPersonals(String imageUrl);
     public abstract void setTxtEmail(String email);
+    public abstract void startSignInActivity();
+    public abstract void showSignOutMesg();
 }
