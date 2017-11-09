@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.accountingitemdialogfragment.AddAccountingItemDialog;
+import com.example.york.teamcraft.accountingitemdialogfragment.AddAccountingItemFragment;
 import com.example.york.teamcraft.financefragment.model.AccountingItem;
 import com.example.york.teamcraft.financefragment.viewmodel.SetFloatingButton;
 import com.example.york.teamcraft.financefragment.viewmodel.SetRecyclerViewData;
@@ -76,8 +76,8 @@ public class FinanceFragment extends Fragment implements FinanceView{
         fabAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddAccountingItemDialog dialog = new AddAccountingItemDialog();
-                dialog.show(getFragmentManager(), "AddAccountingItemDialog");
+                AddAccountingItemFragment dialog = new AddAccountingItemFragment();
+                dialog.show(getFragmentManager(), "AddAccountingItemFragment");
             }
         });
     }

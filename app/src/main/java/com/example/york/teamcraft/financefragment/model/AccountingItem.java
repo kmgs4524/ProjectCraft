@@ -11,11 +11,12 @@ public class AccountingItem {
     private String payer;
     private String type;
 
-    public AccountingItem(String name, int amount, String date, String payer) {
+    public AccountingItem(String name, int amount, String date, String payer, String type) {
         this.name = name;
         this.amount = amount;
         this.date = date;
         this.payer = payer;
+        this.type = type;
     }
 
     public AccountingItem() {}
