@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.accountingitemdialogfragment.AccountingItemFragment;
+import com.example.york.teamcraft.financefragment.ProgressWheel;
 import com.example.york.teamcraft.financefragment.model.AccountingItem;
 import com.example.york.teamcraft.financefragment.viewmodel.SetFloatingButton;
 import com.example.york.teamcraft.financefragment.viewmodel.SetRecyclerViewData;
@@ -21,12 +22,11 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class FinanceFragment extends Fragment implements FinanceView {
     private static String TAG = "FinanceFragment";
     // view
+    @BindView(R.id.progress_bar_remaining_amount)
+    ProgressWheel progressWheel;
     @BindView(R.id.fab_add_accounting_item)
     FloatingActionButton fabAddItem;
     @BindView(R.id.recycler_view_accounting)
@@ -60,6 +60,7 @@ public class FinanceFragment extends Fragment implements FinanceView {
         setRecyclerViewData.setRecyclerViewData();
         setFloatingButton = new SetFloatingButton(this);
         setFloatingButton.setFinanceView();
+        progressWheel.setProgressText();
 
         return view;
     }

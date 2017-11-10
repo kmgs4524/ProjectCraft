@@ -78,10 +78,10 @@ public class ProgressWheel extends View {
     public void setPaintProgress() {
         paintProgress = new Paint();    // 進度條的畫筆
         paintProgress.setColor(Color.RED);
-        paintProgress.setAntiAlias(true);
-        paintProgress.setStyle(Paint.Style.STROKE);
-        paintProgress.setStrokeWidth(progressWidth);
-        paintProgress.setStrokeCap(Paint.Cap.ROUND);
+        paintProgress.setAntiAlias(true);   // 設定是否反鋸齒
+        paintProgress.setStyle(Paint.Style.STROKE); // 畫筆的樣式, STROKE為空心
+        paintProgress.setStrokeWidth(progressWidth);    // 當畫筆樣式為STROKE時, 設置畫筆的寬度
+        paintProgress.setStrokeCap(Paint.Cap.ROUND);    // 畫筆使末端的樣式, ROUND為圓弧狀
     }
 
     // 設定圓環背景
@@ -107,10 +107,8 @@ public class ProgressWheel extends View {
         // 每次重繪都增加1度
         sweepAngle = sweepAngle + 1;
 //        percentNum = percentNum + 1;
-        Log.d("percentNum", Integer.toString(percentNum));
 //        text = Integer.toString(percentNum);
         invalidate();   // 此方法會通知Android系統去呼叫onDraw()
-
     }
 
     @Override
@@ -125,7 +123,6 @@ public class ProgressWheel extends View {
         canvas.drawArc(rectF, startAngle, sweepAngle, false, paintProgress);
         // 進度百分比
         canvas.drawText(text, x, y, textPaint);
-
     }
 
 //    @Override
