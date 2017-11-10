@@ -1,20 +1,16 @@
 package com.example.york.teamcraft.accountingitemdialogfragment;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.york.teamcraft.R;
@@ -29,18 +25,19 @@ import butterknife.OnClick;
  * Created by York on 2017/11/6.
  */
 
-public class AddAccountingItemFragment extends DialogFragment{
+public class AccountingItemFragment extends DialogFragment{
     private static String TAG = "AddAccountingItem";
 
-    public static AddAccountingItemFragment newInstance(AccountingItem item) {
+    public static AccountingItemFragment newInstance(AccountingItem item) {
         Bundle args = new Bundle();
         Log.d(TAG, "newInstance: " + item.getName());
         args.putParcelable("AccountingItem", item);
-        AddAccountingItemFragment fragment = new AddAccountingItemFragment();
+        AccountingItemFragment fragment = new AccountingItemFragment();
         fragment.setArguments(args);
         return fragment;
     }
-
+    @BindView(R.id.btn_accounting_item_confirm)
+    Button btnConfirm;
     @BindView(R.id.btn_accounting_type_cost)    // 支出 button
     Button btnCost;
     @BindView(R.id.btn_accounting_type_income)  // 收入 button
@@ -66,8 +63,13 @@ public class AddAccountingItemFragment extends DialogFragment{
         setAccountingTypeBtnColor();
         // 將Dialog的背景色改為透明
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        AddAccountingItem item = getArguments().getParcelable("AccountingItem");
 
+        // 判斷是否為按RecyclerView的item
+        if(getArguments() != null) {
+            AccountingItem item = getArguments().getParcelable("AccountingItem");
+            Log.d(TAG, "onCreateDialog: " + item.getName());
+            setChoseItemData();
+        }
         return  dialog;
     }
 
@@ -106,5 +108,25 @@ public class AddAccountingItemFragment extends DialogFragment{
         addAccountingItem.addItem(edtName.getText().toString(), edtAmount.getText().toString(), edtPayer.getText().toString(), edtDate.getText().toString(), type);
         Toast.makeText(getContext(), "新增" + edtName.getText().toString(), Toast.LENGTH_SHORT).show();
         getDialog().dismiss();
+    }
+
+    public void setChoseItemData() {
+        AccountingItem item = getArguments().getParcelable("AccountingItem");
+        edtName.setText(item.getName());
+        edtAmount.setText(Integer.toString(item.getAmount()));
+        edtDate.setText(item.getDate());
+        edtPayer.setText(item.getPayer());
+
+        edtName.setEnabled(false);
+        edtAmount.setEnabled(false);
+        edtDate.setEnabled(false);
+        edtPayer.setEnabled(false);
+        // 判斷品項的類別
+        if(item.getType().equals("cost")) {
+            btnCost.setEnabled(false);
+        } else {
+            btnIncome.setEnabled(false);
+        }
+        btnConfirm.setVisibility(View.INVISIBLE);
     }
 }

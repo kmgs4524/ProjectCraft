@@ -6,13 +6,12 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.accountingitemdialogfragment.AddAccountingItemFragment;
+import com.example.york.teamcraft.accountingitemdialogfragment.AccountingItemFragment;
 import com.example.york.teamcraft.financefragment.model.AccountingItem;
 import com.example.york.teamcraft.financefragment.viewmodel.SetFloatingButton;
 import com.example.york.teamcraft.financefragment.viewmodel.SetRecyclerViewData;
@@ -78,8 +77,8 @@ public class FinanceFragment extends Fragment implements FinanceView {
         fabAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddAccountingItemFragment dialog = new AddAccountingItemFragment();
-                dialog.show(getFragmentManager(), "AddAccountingItemFragment");
+                AccountingItemFragment dialog = new AccountingItemFragment();
+                dialog.show(getFragmentManager(), "AccountingItemFragment");
             }
         });
     }

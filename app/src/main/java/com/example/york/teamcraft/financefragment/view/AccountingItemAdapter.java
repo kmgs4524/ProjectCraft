@@ -7,9 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.accountingitemdialogfragment.AddAccountingItemFragment;
+import com.example.york.teamcraft.accountingitemdialogfragment.AccountingItemFragment;
 import com.example.york.teamcraft.financefragment.model.AccountingItem;
 
 import java.util.ArrayList;
@@ -46,8 +45,8 @@ public class AccountingItemAdapter extends RecyclerView.Adapter<AccountingItemVi
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddAccountingItemFragment addItemFragment = AddAccountingItemFragment.newInstance(dataList.get(position));
-                addItemFragment.show(fragment.getFragmentManager(), "AddAccountingItemFragment");
+                AccountingItemFragment addItemFragment = AccountingItemFragment.newInstance(dataList.get(position));
+                addItemFragment.show(fragment.getFragmentManager(), "AccountingItemFragment");
             }
         });
     }
