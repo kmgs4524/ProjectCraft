@@ -15,9 +15,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.accountingitemdialogfragment.viewmodel.AddAccountingItem;
+import com.example.york.teamcraft.financefragment.model.AccountingItem;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,6 +31,15 @@ import butterknife.OnClick;
 
 public class AddAccountingItemFragment extends DialogFragment{
     private static String TAG = "AddAccountingItem";
+
+    public static AddAccountingItemFragment newInstance(AccountingItem item) {
+        Bundle args = new Bundle();
+        Log.d(TAG, "newInstance: " + item.getName());
+        args.putParcelable("AccountingItem", item);
+        AddAccountingItemFragment fragment = new AddAccountingItemFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @BindView(R.id.btn_accounting_type_cost)    // 支出 button
     Button btnCost;
@@ -55,6 +66,7 @@ public class AddAccountingItemFragment extends DialogFragment{
         setAccountingTypeBtnColor();
         // 將Dialog的背景色改為透明
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        AddAccountingItem item = getArguments().getParcelable("AccountingItem");
 
         return  dialog;
     }
@@ -92,5 +104,7 @@ public class AddAccountingItemFragment extends DialogFragment{
 
         AddAccountingItem addAccountingItem = new AddAccountingItem();
         addAccountingItem.addItem(edtName.getText().toString(), edtAmount.getText().toString(), edtPayer.getText().toString(), edtDate.getText().toString(), type);
+        Toast.makeText(getContext(), "新增" + edtName.getText().toString(), Toast.LENGTH_SHORT).show();
+        getDialog().dismiss();
     }
 }

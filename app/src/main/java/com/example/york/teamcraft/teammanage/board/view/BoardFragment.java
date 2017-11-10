@@ -96,6 +96,7 @@ public class BoardFragment extends Fragment implements BoardView {
                         @Override
                         public void onClick(View v) {
                             int pos = recyclerView.indexOfChild(v);
+                            Log.d(TAG, "onClick: " + pos);
                             Intent intent = new Intent();
                             Bundle bundle = new Bundle();
                             bundle.putParcelable("Post", list.get(pos));    // Post Parcelable

@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,8 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FinanceFragment extends Fragment implements FinanceView{
+public class FinanceFragment extends Fragment implements FinanceView {
+    private static String TAG = "FinanceFragment";
     // view
     @BindView(R.id.fab_add_accounting_item)
     FloatingActionButton fabAddItem;
@@ -64,8 +66,8 @@ public class FinanceFragment extends Fragment implements FinanceView{
     }
 
     @Override
-    public void initRecyclerView(ArrayList<AccountingItem> list) {
-        adapter = new AccountingItemAdapter(list);
+    public void initRecyclerView(final ArrayList<AccountingItem> list) {
+        adapter = new AccountingItemAdapter(list, this);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerAcct.setAdapter(adapter);
         recyclerAcct.setLayoutManager(layoutManager);

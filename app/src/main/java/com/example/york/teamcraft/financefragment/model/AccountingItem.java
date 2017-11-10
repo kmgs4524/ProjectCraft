@@ -1,10 +1,13 @@
 package com.example.york.teamcraft.financefragment.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by York on 2017/11/5.
  */
 
-public class AccountingItem {
+public class AccountingItem implements Parcelable{
     private String name;
     private int amount;
     private String date;
@@ -20,6 +23,26 @@ public class AccountingItem {
     }
 
     public AccountingItem() {}
+
+    protected AccountingItem(Parcel in) {
+        name = in.readString();
+        amount = in.readInt();
+        date = in.readString();
+        payer = in.readString();
+        type = in.readString();
+    }
+
+    public static final Creator<AccountingItem> CREATOR = new Creator<AccountingItem>() {
+        @Override
+        public AccountingItem createFromParcel(Parcel in) {
+            return new AccountingItem(in);
+        }
+
+        @Override
+        public AccountingItem[] newArray(int size) {
+            return new AccountingItem[size];
+        }
+    };
 
     public String getName() {
         return name;
@@ -59,5 +82,19 @@ public class AccountingItem {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeInt(amount);
+        dest.writeString(date);
+        dest.writeString(payer);
+        dest.writeString(type);
     }
 }
