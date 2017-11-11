@@ -60,7 +60,7 @@ public class FinanceFragment extends Fragment implements FinanceView {
         setRecyclerViewData.setRecyclerViewData();
         setFloatingButton = new SetFloatingButton(this);
         setFloatingButton.setFinanceView();
-        progressWheel.setProgressText();
+        progressWheel.setText("2420");
 
         return view;
     }

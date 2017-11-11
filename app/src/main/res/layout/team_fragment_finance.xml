@@ -20,7 +20,7 @@
         android:id="@+id/recycler_view_accounting"
         android:layout_width="385dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/progress_bar_total_amount"
+        android:layout_below="@+id/progress_bar_remaining_amount"
         android:layout_above="@+id/linear_layout_total_amount"
         android:padding="8dp">
     </android.support.v7.widget.RecyclerView>
