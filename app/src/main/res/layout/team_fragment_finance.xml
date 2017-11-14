@@ -13,14 +13,35 @@
     <com.example.york.teamcraft.financefragment.ProgressWheel
         android:id="@+id/progress_bar_remaining_amount"
         android:layout_width="wrap_content"
-        android:layout_height="220dp"
+        android:layout_height="200dp"
         android:layout_below="@+id/toolbar" />
+
+    <LinearLayout
+        android:id="@+id/linear_layout_total_budget"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/progress_bar_remaining_amount"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/progress_bar_remaining_amount"
+            android:layout_centerHorizontal="true"
+            android:text="總預算 $"/>
+
+        <TextView
+            android:id="@+id/txt_budget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"/>
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_accounting"
         android:layout_width="385dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/progress_bar_remaining_amount"
+        android:layout_below="@+id/linear_layout_total_budget"
         android:layout_above="@+id/linear_layout_total_amount"
         android:padding="8dp">
     </android.support.v7.widget.RecyclerView>
@@ -38,7 +59,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="20sp"
-            android:text="總花費"/>
+            android:text="總損益"/>
 
         <View
             android:layout_weight="0.01"
@@ -47,6 +68,7 @@
             android:background="@color/secondary_text"/>
 
         <TextView
+            android:id="@+id/txt_total_cost"
             android:layout_weight="2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

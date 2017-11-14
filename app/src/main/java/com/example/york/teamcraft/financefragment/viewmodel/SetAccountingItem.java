@@ -13,10 +13,10 @@ import java.util.ArrayList;
  * Created by York on 2017/11/5.
  */
 
-public class SetRecyclerViewData {
+public class SetAccountingItem {
     private FinanceView financeView;
 
-    public SetRecyclerViewData(FinanceView view) {
+    public SetAccountingItem(FinanceView view) {
         this.financeView = view;
     }
 
@@ -28,12 +28,18 @@ public class SetRecyclerViewData {
                 ReadTeamFinance readTeamFinance = new ReadTeamFinance();
                 readTeamFinance.getAccountingItem(data.getTeamId(), new CallBack<ArrayList<AccountingItem>>() {
                     @Override
-                    public void update(ArrayList<AccountingItem> data) {
-                        financeView.initRecyclerView(data);
+                    public void update(ArrayList<AccountingItem> itemList) {
+                        // 設定品項資料
+                        financeView.initRecyclerView(itemList);
+                        // 設定總花費
+                        int totalCost = 0;
+                        for(AccountingItem item: itemList) {
+                            totalCost = totalCost + item.getAmount();
+                        }
+                        financeView.initTxtTotalCost(totalCost);
                     }
                 });
             }
         });
-
     }
 }

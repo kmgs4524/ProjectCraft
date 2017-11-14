@@ -9,6 +9,9 @@ import java.util.ArrayList;
  */
 
 public interface FinanceView {
+    public abstract void initProgressBar(int budget, int totalCost);
+    public abstract void initTxtBuget(int budget);
     public abstract void initRecyclerView(ArrayList<AccountingItem> list);
+    public abstract void initTxtTotalCost(int cost);
     public abstract void initFab();
 }
