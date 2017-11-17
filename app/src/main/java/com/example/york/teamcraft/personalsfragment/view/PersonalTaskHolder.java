@@ -15,13 +15,14 @@ public class PersonalTaskHolder extends RecyclerView.ViewHolder{
     private TextView txtTitle;
     private TextView txtDate;
     private TextView txtContent;
-    private CheckBox checkBox;
+    private CheckBox checkStatus;
 
     public PersonalTaskHolder(View itemView) {
         super(itemView);
         txtTitle = (TextView)itemView.findViewById(R.id.txt_personal_task_title);
         txtDate = (TextView) itemView.findViewById(R.id.txt_personal_task_date);
         txtContent = (TextView) itemView.findViewById(R.id.txt_personal_task_content);
+        checkStatus = (CheckBox) itemView.findViewById(R.id.checkbox_personal_task);
     }
 
     public void setTxtTitle(String title) {
@@ -49,6 +50,6 @@ public class PersonalTaskHolder extends RecyclerView.ViewHolder{
     }
 
     public CheckBox getCheckBox() {
-        return checkBox;
+        return checkStatus;
     }
 }

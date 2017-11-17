@@ -10,13 +10,13 @@ import com.google.firebase.auth.FirebaseAuth;
  * Created by York on 2017/11/3.
  */
 
-public class SetPersonalData {
+public class SetProfileData {
     // model
     private ReadUser readUser;
     // view
     private PersonalsView personalsView;
 
-    public SetPersonalData(PersonalsView view) {
+    public SetProfileData(PersonalsView view) {
         this.personalsView = view;
     }
 
