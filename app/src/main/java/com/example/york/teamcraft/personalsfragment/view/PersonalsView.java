@@ -9,4 +9,5 @@ public interface PersonalsView {
     public abstract void setTxtEmail(String email);
     public abstract void startSignInActivity();
     public abstract void showSignOutMesg();
+    public abstract void initRecyclerView();
 }

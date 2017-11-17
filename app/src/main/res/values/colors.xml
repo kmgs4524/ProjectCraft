@@ -3,7 +3,7 @@
     <!-- Style color -->
     <color name="color_background">#414141</color>
     <color name="color_primary">#fe5d62</color>
-    <color name="color_primaryDark">#ff875c</color>
+    <color name="color_primaryDark">#F54B4F</color>
     <color name="primary_light">#F8BBD0</color>
     <color name="color_accent">#ff875c</color>
     <color name="primary_text">#212121</color>

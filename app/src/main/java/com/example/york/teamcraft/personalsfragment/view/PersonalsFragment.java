@@ -6,6 +6,8 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +20,10 @@ import com.example.york.teamcraft.login.view.SignInActivity;
 import com.example.york.teamcraft.personalsfragment.viewmodel.SetPersonalData;
 import com.example.york.teamcraft.personalsfragment.viewmodel.SignIn;
 import com.example.york.teamcraft.personalsmanage.view.PersonalTasksActivity;
+import com.example.york.teamcraft.taskfragment.model.ContentTask;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,8 +34,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * A simple {@link Fragment} subclass.
  */
 public class PersonalsFragment extends Fragment implements PersonalsView{
+    // view
     @BindView(R.id.cir_img_personals) CircleImageView cirImgPersonals;
     @BindView(R.id.txt_personal_email) TextView txtEmail;
+    @BindView(R.id.recycler_view_personal_task)
+    RecyclerView recyclerViewPersonalTask;
+    private RecyclerView.LayoutManager layoutManager;
+    private PersonalTaskAdapter adapter;
+    // view model
     private SetPersonalData setPersonalData;
 
     public static PersonalsFragment newInstance() {
@@ -55,13 +66,18 @@ public class PersonalsFragment extends Fragment implements PersonalsView{
         setPersonalData = new SetPersonalData(this);
         setPersonalData.setData();
 
+        initRecyclerView();
         return view;
     }
 
     public void setCirImgPersonals(String imageUrl) {
-        Picasso.with(getContext())
-                .load(imageUrl)
-                .into(cirImgPersonals);
+        try {
+            Picasso.with(getContext())
+                    .load(imageUrl)
+                    .into(cirImgPersonals);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -77,28 +93,21 @@ public class PersonalsFragment extends Fragment implements PersonalsView{
     }
 
     @Override
+    public void initRecyclerView() {
+        ArrayList<ContentTask> list = new ArrayList<>();
+        list.add(new ContentTask("1", "帶音響", "記得帶音響", "123", "李侑乘", "10/3", "2:30", "undo"));
+        list.add(new ContentTask("1", "帶音響", "記得帶音響", "123", "李侑乘", "10/3", "2:30", "undo"));
+        list.add(new ContentTask("1", "帶音響", "記得帶音響", "123", "李侑乘", "10/3", "2:30", "undo"));
+
+        layoutManager = new LinearLayoutManager(getContext());
+        adapter = new PersonalTaskAdapter(getContext(), recyclerViewPersonalTask, list);
+        recyclerViewPersonalTask.setLayoutManager(layoutManager);
+        recyclerViewPersonalTask.setAdapter(adapter);
+    }
+
+    @Override
     public void setTxtEmail(String email) {
         txtEmail.setText(email);
-    }
-
-    @OnClick(R.id.btn_personal_tasks)
-    public void startPersonTaskAct() {
-        Intent intent = new Intent();
-        intent.setClass(getContext(), PersonalTasksActivity.class);
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.btn_account_management)
-    public void startAccountManagAct() {
-        Intent intent = new Intent();
-        intent.setClass(getContext(), PersonalTasksActivity.class);
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.img_sign_out)
-    public void signOut() {
-        SignIn signIn = new SignIn(this);
-        signIn.checkStatus();
     }
 
 }
