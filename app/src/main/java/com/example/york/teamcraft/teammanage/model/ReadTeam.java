@@ -183,4 +183,21 @@ public class ReadTeam {
         });
     }
 
+    // 取得團隊名稱
+    public void getTeamName(final String teamId, final CallBack<String> callBack) {
+        final DatabaseReference teamsRef = FirebaseDatabase.getInstance().getReference().child("teams");
+        teamsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String teamName = dataSnapshot.child(teamId).child("name").getValue(String.class);
+                callBack.update(teamName);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d(TAG, "onCancelled: " + databaseError.getDetails());
+            }
+        });
+    }
+
 }

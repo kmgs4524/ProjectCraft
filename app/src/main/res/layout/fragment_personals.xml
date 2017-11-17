@@ -60,6 +60,7 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/txt_personal_team"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -68,6 +69,7 @@
                 android:text="春日部防衛隊"/>
 
             <TextView
+                android:id="@+id/txt_personal_group"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -76,6 +78,7 @@
                 android:text="活動組"/>
 
             <TextView
+                android:id="@+id/txt_personal_position"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

@@ -34,7 +34,11 @@ public class PersonalsFragment extends Fragment implements PersonalsView{
     private static String TAG = "PersonalsFragment";
     // view
     @BindView(R.id.cir_img_personals) CircleImageView cirImgPersonals;
+    @BindView(R.id.txt_personal_name) TextView txtName;
     @BindView(R.id.txt_personal_email) TextView txtEmail;
+    @BindView(R.id.txt_personal_team) TextView txtTeam;
+    @BindView(R.id.txt_personal_group) TextView txtGroup;
+    @BindView(R.id.txt_personal_position) TextView txtPosition;
     @BindView(R.id.txt_undo_num) TextView txtUndoNum;
     @BindView(R.id.txt_done_num) TextView txtDoneNum;
     @BindView(R.id.recycler_view_personal_task)
@@ -112,8 +116,11 @@ public class PersonalsFragment extends Fragment implements PersonalsView{
     }
 
     @Override
-    public void setTxtEmail(String email) {
+    public void setProfile(String name, String email, String team, String group, String position) {
+        txtName.setText(name);
         txtEmail.setText(email);
+        txtTeam.setText(team);
+        txtGroup.setText(group);
+        txtPosition.setText(position);
     }
-
 }
