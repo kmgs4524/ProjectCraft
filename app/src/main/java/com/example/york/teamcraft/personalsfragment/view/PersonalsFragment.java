@@ -35,6 +35,8 @@ public class PersonalsFragment extends Fragment implements PersonalsView{
     // view
     @BindView(R.id.cir_img_personals) CircleImageView cirImgPersonals;
     @BindView(R.id.txt_personal_email) TextView txtEmail;
+    @BindView(R.id.txt_undo_num) TextView txtUndoNum;
+    @BindView(R.id.txt_done_num) TextView txtDoneNum;
     @BindView(R.id.recycler_view_personal_task)
     RecyclerView recyclerViewPersonalTask;
     private RecyclerView.LayoutManager layoutManager;
@@ -92,6 +94,12 @@ public class PersonalsFragment extends Fragment implements PersonalsView{
     @Override
     public void showSignOutMesg() {
         Toast.makeText(getContext(), "帳號已登出", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void setTaskNum(int undoNum, int doneNum) {
+        txtUndoNum.setText(Integer.toString(undoNum));
+        txtDoneNum.setText(Integer.toString(doneNum));
     }
 
     @Override

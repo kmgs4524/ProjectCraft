@@ -118,13 +118,14 @@
         android:layout_marginTop="8dp">
 
         <TextView
+            android:id="@+id/txt_undo_num"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="18sp"
             android:textColor="@color/icons"
-            android:text="1"/>
+            android:text="num"/>
 
         <View
             android:layout_width="1.5dp"
@@ -133,13 +134,14 @@
             android:background="@color/md_black_1000" />
 
         <TextView
+            android:id="@+id/txt_done_num"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="18sp"
             android:textColor="@color/icons"
-            android:text="3"/>
+            android:text="num"/>
 
     </LinearLayout>
 

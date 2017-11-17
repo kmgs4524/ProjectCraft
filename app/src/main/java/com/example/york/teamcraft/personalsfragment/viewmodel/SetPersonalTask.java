@@ -40,7 +40,19 @@ public class SetPersonalTask {
                         readGroupTasks.getPersonalTask(user.getGroupId(), data, new CallBackTwoArgs<ArrayList<DataPath>, ArrayList<ContentTask>>() {
                             @Override
                             public void update(ArrayList<DataPath> pathList, ArrayList<ContentTask> taskList) {
+                                // 設定RecyclerView
                                 personalsView.initRecyclerView(pathList, taskList);
+                                // 設定UNDO, DONE
+                                int undoNum = 0;
+                                int doneNum = 0;
+                                for(ContentTask task: taskList) {
+                                    if(task.getStatus().equals("undo")) {
+                                        undoNum++;
+                                    } else if(task.getStatus().equals("done")) {
+                                        doneNum++;
+                                    }
+                                }
+                                personalsView.setTaskNum(undoNum, doneNum);
                             }
                         });
                     }

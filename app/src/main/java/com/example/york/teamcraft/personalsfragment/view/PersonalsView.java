@@ -14,5 +14,6 @@ public interface PersonalsView {
     public abstract void setTxtEmail(String email);
     public abstract void startSignInActivity();
     public abstract void showSignOutMesg();
+    public abstract void setTaskNum(int undoNum, int doneNum);
     public abstract void initRecyclerView(ArrayList<DataPath> pathList, ArrayList<ContentTask> taskList);
 }
