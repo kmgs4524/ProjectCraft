@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.financefragment.view.FinanceFragment;
 import com.example.york.teamcraft.schedulefragment.ScheduleFragment;
+import com.example.york.teamcraft.teammanage.actionfragment.ActionFragment;
 import com.example.york.teamcraft.teammanage.groupfragment.presenter.GroupManagePresenter;
 import com.example.york.teamcraft.teammanage.groupfragment.presenter.GroupManagePresenterImpl;
 import com.example.york.teamcraft.teammanage.model.Group;
@@ -36,10 +37,10 @@ public class GroupManageFragment extends Fragment implements GroupManageView{
     private GroupManagePresenter groupManagePresenter;
     // view
     @BindView(R.id.recycler_view_group) RecyclerView recyclerView;
-    @BindView(R.id.fab_schedule)
-    com.getbase.floatingactionbutton.FloatingActionButton fabSched;
-    @BindView(R.id.fab_finance)
-    com.getbase.floatingactionbutton.FloatingActionButton fabFinan;
+//    @BindView(R.id.fab_schedule)
+//    com.getbase.floatingactionbutton.FloatingActionButton fabSched;
+//    @BindView(R.id.fab_finance)
+//    com.getbase.floatingactionbutton.FloatingActionButton fabFinan;
     private LinearLayoutManager layoutManager;
 
     @Nullable
@@ -51,7 +52,7 @@ public class GroupManageFragment extends Fragment implements GroupManageView{
         groupManagePresenter = new GroupManagePresenterImpl(this);
         groupManagePresenter.addTaskProgress(); // add task progress fragment
         groupManagePresenter.initRecyclerViewData();
-        initFab();
+//        initFab();
         return view;
     }
 
@@ -67,7 +68,8 @@ public class GroupManageFragment extends Fragment implements GroupManageView{
     @Override
     public void addTaskProgressFrag() {
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.add(R.id.team_groupmanage_fragment, TaskProgressFragment.newInstance());
+        transaction.add(R.id.team_groupmanage_fragment, ActionFragment.newInstance());  // 包含新增成員, 建立群組, 工作表選項的fragment
+        transaction.add(R.id.team_groupmanage_fragment, TaskProgressFragment.newInstance());    // 群組進度的fragment
         transaction.commit();
 
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -76,22 +78,22 @@ public class GroupManageFragment extends Fragment implements GroupManageView{
     }
 
     //設定FloatingActionButton的listener
-    private void initFab(){
-        fabSched.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.main_content, ScheduleFragment.newInstance());
-                transaction.commit();
-            }
-        });
-    }
+//    private void initFab(){
+//        fabSched.setOnClickListener(new View.OnClickListener() {
+//            @Override public void onClick(View v) {
+//                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//                transaction.replace(R.id.main_content, ScheduleFragment.newInstance());
+//                transaction.commit();
+//            }
+//        });
+//    }
 
-    @OnClick(R.id.fab_finance)
-    public void startFinance() {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.main_content, FinanceFragment.newInstance());
-        transaction.commit();
-    }
+//    @OnClick(R.id.fab_finance)
+//    public void startFinance() {
+//        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//        transaction.replace(R.id.main_content, FinanceFragment.newInstance());
+//        transaction.commit();
+//    }
 
     public static GroupManageFragment newInstance() {
         Bundle args = new Bundle();

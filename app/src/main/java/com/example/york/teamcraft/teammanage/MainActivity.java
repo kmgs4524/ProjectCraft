@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.example.york.teamcraft.R;
+import com.example.york.teamcraft.financefragment.view.FinanceFragment;
 import com.example.york.teamcraft.personalsfragment.view.PersonalsFragment;
 import com.example.york.teamcraft.teammanage.board.view.BoardFragment;
 import com.example.york.teamcraft.teammanage.groupfragment.view.GroupManageFragment;
@@ -46,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.action_item_board:
                         selectedFrag = BoardFragment.newInstance();
+                        break;
+                    case R.id.action_item_finance:
+                        selectedFrag = FinanceFragment.newInstance();
                         break;
                 }
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

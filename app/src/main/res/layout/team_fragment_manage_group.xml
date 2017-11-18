@@ -11,36 +11,34 @@
         android:id="@+id/recycler_view_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
     </android.support.v7.widget.RecyclerView>
 
+    <!--<com.getbase.floatingactionbutton.FloatingActionsMenu-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--fab:fab_addButtonColorNormal="@color/color_primary"-->
+        <!--fab:fab_labelsPosition="left"-->
+        <!--fab:fab_labelStyle="@drawable/fab_label_background">-->
 
-    <com.getbase.floatingactionbutton.FloatingActionsMenu
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        fab:fab_addButtonColorNormal="@color/color_primary"
-        fab:fab_labelsPosition="left"
-        fab:fab_labelStyle="@drawable/fab_label_background">
+        <!--<com.getbase.floatingactionbutton.FloatingActionButton-->
+            <!--android:id="@+id/fab_schedule"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@mipmap/ic_person_white_24dp"-->
+            <!--android:backgroundTint="@color/md_purple_100"-->
+            <!--fab:fab_title="工作表" />-->
 
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_schedule"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_person_white_24dp"
-            android:backgroundTint="@color/md_purple_100"
-            fab:fab_title="工作表" />
+        <!--<com.getbase.floatingactionbutton.FloatingActionButton-->
+            <!--android:id="@+id/fab_finance"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@mipmap/ic_attach_money_white_24dp"-->
+            <!--android:backgroundTint="@color/md_orange_300"-->
+            <!--fab:fab_title="財務管理" />-->
 
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_finance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_attach_money_white_24dp"
-            android:backgroundTint="@color/md_orange_300"
-            fab:fab_title="財務管理" />
-
-    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+    <!--</com.getbase.floatingactionbutton.FloatingActionsMenu>-->
     <!-- Floating Button -->
     <!--<android.support.design.widget.FloatingActionButton-->
         <!--android:id="@+id/fab"-->
