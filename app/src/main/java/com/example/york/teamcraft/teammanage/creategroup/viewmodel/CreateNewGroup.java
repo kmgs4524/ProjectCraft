@@ -36,9 +36,9 @@ public class CreateNewGroup {
     public void setMemberPosition(ArrayList<GroupMember> memList, String userId) {
         for(int i = 0; i < memList.size(); i++) {
             if(memList.get(i).getUserId().equals(userId)) { // 若是該使用者創建團隊，則將他職位設定為director
-                memList.get(i).setPosition("director");
+                memList.get(i).setPosition("組長");
             } else {
-                memList.get(i).setPosition("normal");   // 若為其他人的話，職位設定為normal
+                memList.get(i).setPosition("組員");   // 若為其他人的話，職位設定為normal
             }
         }
     }

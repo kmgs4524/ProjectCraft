@@ -66,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textColor="@color/icons"
-                android:text="春日部防衛隊"/>
+                android:text="我的隊伍"/>
 
             <TextView
                 android:id="@+id/txt_personal_group"
@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textColor="@color/icons"
-                android:text="活動組"/>
+                android:text="小組"/>
 
             <TextView
                 android:id="@+id/txt_personal_position"
@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textColor="@color/icons"
-                android:text="組長"/>
+                android:text="職位"/>
         </LinearLayout>
 
         <LinearLayout

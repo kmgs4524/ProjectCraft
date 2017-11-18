@@ -1,5 +1,7 @@
 package com.example.york.teamcraft.personalsfragment.viewmodel;
 
+import android.util.Log;
+
 import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.addcontenttask.model.ReadGroupMember;
 import com.example.york.teamcraft.data.GroupMember;
@@ -12,12 +14,14 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Created by York on 2017/11/3.
  */
 
 public class SetProfileData {
+    private static final String TAG = "SetProfileData";
     // model
     private ReadUser readUser;
     private ReadTeam readTeam;
@@ -46,21 +50,28 @@ public class SetProfileData {
                             readTeam.getTeamGroup(new CallBack<ArrayList<Group>>() {
                                 @Override
                                 public void update(final ArrayList<Group> groupList) {
-                                    final String groupName = "None";
+                                    String groupName = "None";
                                     for(Group group: groupList) {
                                         if(group.getId().equals(user.getGroupId())) {
                                             groupName = group.getName();
                                         }
                                     }
+                                    final String finalGroupName = groupName;
                                     readGroupMember.getGroupMember(user.getGroupId(), new CallBack<ArrayList<GroupMember>>() {
                                         @Override
                                         public void update(ArrayList<GroupMember> memList) {
                                             Iterator<GroupMember> iterator = memList.iterator();
                                             while(iterator.hasNext()) {
                                                 // 若user存在於GroupMember List中
-                                                if(iterator.next().getName().equals(user.getName())) {
-                                                    String position = iterator.next().getPosition();
-                                                    personalsView.setProfile(user.getName(), user.getEmail(), teamName, groupName, position);
+                                                try{
+                                                    GroupMember nextMember = iterator.next();
+                                                    if(nextMember.getName().equals(user.getName())) {
+                                                        String position = nextMember.getPosition();
+                                                        personalsView.setProfile(user.getName(), user.getEmail(), teamName, finalGroupName, position);
+                                                    }
+                                                } catch (NoSuchElementException e) {
+//                                                    Log.d(TAG, "update: " + ;);
+                                                    e.printStackTrace();
                                                 }
                                             }
                                         }
