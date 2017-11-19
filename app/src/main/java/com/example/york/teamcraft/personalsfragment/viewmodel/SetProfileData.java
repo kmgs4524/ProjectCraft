@@ -34,16 +34,15 @@ public class SetProfileData {
     }
 
     public void setData() {
-        readUser = new ReadUser();
-        readTeam = new ReadTeam();
-        readGroupMember = new ReadGroupMember();
         if(FirebaseAuth.getInstance().getCurrentUser() == null) {
-
+            //
         } else {
+            readUser = new ReadUser();
             readUser.getUserData(new CallBack<User>() {
                 @Override
                 public void update(final User user) {
                     personalsView.setCirImgPersonals(user.getImageUrl());
+                    readTeam = new ReadTeam();
                     readTeam.getTeamName(user.getTeamId(), new CallBack<String>() {
                         @Override
                         public void update(final String teamName) {
@@ -57,6 +56,7 @@ public class SetProfileData {
                                         }
                                     }
                                     final String finalGroupName = groupName;
+                                    readGroupMember = new ReadGroupMember();
                                     readGroupMember.getGroupMember(user.getGroupId(), new CallBack<ArrayList<GroupMember>>() {
                                         @Override
                                         public void update(ArrayList<GroupMember> memList) {

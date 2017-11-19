@@ -17,6 +17,7 @@ import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.login.view.SignInActivity;
 import com.example.york.teamcraft.personalsfragment.viewmodel.SetPersonalTask;
 import com.example.york.teamcraft.personalsfragment.viewmodel.SetProfileData;
+import com.example.york.teamcraft.personalsfragment.viewmodel.SignIn;
 import com.example.york.teamcraft.personalsmanage.model.DataPath;
 import com.example.york.teamcraft.taskfragment.model.ContentTask;
 import com.squareup.picasso.Picasso;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -48,6 +50,7 @@ public class PersonalsFragment extends Fragment implements PersonalsView{
     // view model
     private SetProfileData setProfileData;
     private SetPersonalTask setPersonalTask;
+    private SignIn signIn;
 
     public static PersonalsFragment newInstance() {
         Bundle args = new Bundle();
@@ -86,6 +89,12 @@ public class PersonalsFragment extends Fragment implements PersonalsView{
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
+    }
+
+    @OnClick(R.id.img_sign_in)
+    public void signIn() {
+        signIn = new SignIn(this);
+        signIn.checkStatus();
     }
 
     @Override
