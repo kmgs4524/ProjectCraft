@@ -188,9 +188,8 @@ public class ReadGroupTasks {
                 Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();    // 擁有群組活動中的每個細項活動iterator
                 while (iterator.hasNext()) {    // 迭代出每個細項活動
                     DataSnapshot nextSnapShot = iterator.next();    // nextSnapShot為"key: taskId"的節點
-//                    DataPath dataPath = new DataPath(groupId, , nextSnapShot.getKey());
                     ContentTask task = nextSnapShot.getValue(ContentTask.class);
-//                    ContentTask task = iterator.next().getValue(ContentTask.class);
+
                     if (task.getResponId().equals(responId)) {
                         Log.d("wanted data", groupId + " " + dataSnapshot.getKey() + " " + nextSnapShot.getKey());  // 確認取得的資料無誤
                         DataPath dataPath = new DataPath(groupId, dataSnapshot.getKey(), nextSnapShot.getKey());

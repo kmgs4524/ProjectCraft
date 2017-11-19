@@ -49,10 +49,9 @@ public class TargetFragment extends Fragment {
         View view = inflater.inflate(R.layout.team_fragment_target, container, false);
         // find view
         txtTopic = (TextView) view.findViewById(R.id.txt_card_item_grouptask_name);
-        txtContent = (TextView) view.findViewById(R.id.txt_card_item_grouptask_content);
+        txtContent = (TextView) view.findViewById(R.id.txt_card_item_group_task_content);
         txtResponsible = (TextView) view.findViewById(R.id.txt_card_item_grouptask_respn_name);
-        txtDate = (TextView) view.findViewById(R.id.txt_card_item_grouptask_date);
-        txtTime = (TextView) view.findViewById(R.id.txt_card_item_grouptask_time);
+        txtDate = (TextView) view.findViewById(R.id.txt_card_item_group_task_date);
         btnDel = (Button) view.findViewById(R.id.btn_delete_content_task);
         btnConfirm = (Button) view.findViewById(R.id.btn_confirm_content_task);
 
@@ -73,7 +72,6 @@ public class TargetFragment extends Fragment {
             txtContent.setText(contentTask.getContent());
             txtResponsible.setText(contentTask.getResponsible());
             txtDate.setText(contentTask.getDate());
-            txtTime.setText(contentTask.getTime());
 //            Log.d("argu", contentTask.getTopic());
 //            Log.d("argu", contentTask.getResponsible());
             initBtnDel();

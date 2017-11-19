@@ -76,7 +76,11 @@
     <!-- 小組目標標題 -->
     <style name="TextTarget">
         <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/color_accent</item>
+        <item name="android:textColor">@color/md_black_1000</item>
+    </style>
+
+    <style name="TargetCardTextColor">
+        <item name="android:textColor">@color/md_black_1000</item>
     </style>
 
     <!-- 分隔線 -->
