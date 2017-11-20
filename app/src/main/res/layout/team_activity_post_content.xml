@@ -10,9 +10,15 @@
         android:id="@+id/toolbar"
         android:elevation="4dp"
         layout="@layout/toolbar" />
+    
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp" />
+
+
 
     <TextView
-        android:id="@+id/txt_post_topic"
+        android:id="@+id/txt_post_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"/>
@@ -21,19 +27,13 @@
         android:id="@+id/txt_post_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txt_post_topic"/>
-
-    <TextView
-        android:id="@+id/txt_post_content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txt_post_date"/>
+        android:layout_below="@id/txt_post_content"/>
 
     <android.support.v4.widget.Space
         android:id="@+id/spacer_below_txt_post_content"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:layout_below="@+id/txt_post_content"/>
+        android:layout_below="@+id/txt_post_date"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_post_comment"

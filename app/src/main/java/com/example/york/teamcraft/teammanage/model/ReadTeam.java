@@ -50,8 +50,8 @@ public class ReadTeam {
 
     }
 
-    public void getTeamAct(final CallBack< ArrayList<Post> > callback) {
-        teamActRef = FirebaseDatabase.getInstance().getReference().child("teamActivities");
+    public void getTeamPost(final CallBack< ArrayList<Post> > callback) {
+        teamActRef = FirebaseDatabase.getInstance().getReference().child("teamPosts");
         readUser.getUserData(new CallBack<User>() {
             @Override
             public void update(User data) {

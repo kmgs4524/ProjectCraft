@@ -20,11 +20,9 @@ import com.example.york.teamcraft.teammanage.model.Post;
 import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.login.view.SignInActivity;
-import com.example.york.teamcraft.teammanage.model.ReadUser;
 import com.example.york.teamcraft.teammanage.model.ReadTeam;
 import com.example.york.teamcraft.teammanage.post.view.PostActivity;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
@@ -87,7 +85,7 @@ public class BoardFragment extends Fragment implements BoardView {
             // init Database Model
             readTeam = new ReadTeam();
 
-            readTeam.getTeamAct(new CallBack<ArrayList<Post>>() {
+            readTeam.getTeamPost(new CallBack<ArrayList<Post>>() {
                 @Override
                 public void update(final ArrayList<Post> list) {
                     progressBar.setVisibility(View.GONE);

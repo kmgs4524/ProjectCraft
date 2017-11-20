@@ -20,7 +20,6 @@ import java.util.ArrayList;
 
 public class PostActivity extends AppCompatActivity implements PostView{
     // view
-    private TextView txtTopic;
     private TextView txtDate;
     private TextView txtContent;
     private EditText edtMessg;
@@ -48,15 +47,13 @@ public class PostActivity extends AppCompatActivity implements PostView{
         postPresenter.setRecyclerData(post.getPostId());    // 設定RecyclerView的資料來源
         postPresenter.setSendMessg();
 
-        txtTopic.setText(post.getTopic());
-        txtDate.setText(post.getDate());
         txtContent.setText(post.getContent());
+        txtDate.setText(post.getDate());
     }
 
     public void initTxtView() {
-        txtTopic = (TextView) findViewById(R.id.txt_post_topic);
-        txtDate = (TextView) findViewById(R.id.txt_post_date);
         txtContent = (TextView) findViewById(R.id.txt_post_content);
+        txtDate = (TextView) findViewById(R.id.txt_post_date);
     }
 
     public void initRecyclerView(ArrayList<Comment> commList) {

@@ -66,14 +66,11 @@ public class TargetFragment extends Fragment {
         if(groupTaskName != null) {
             Log.d("argu", groupTaskName);
         }
-
         if(contentTask != null) {   // 第一次進入活動工作頁面時，contentTask會是null
             txtTopic.setText(contentTask.getTopic());
             txtContent.setText(contentTask.getContent());
             txtResponsible.setText(contentTask.getResponsible());
             txtDate.setText(contentTask.getDate());
-//            Log.d("argu", contentTask.getTopic());
-//            Log.d("argu", contentTask.getResponsible());
             initBtnDel();
         }
 
@@ -90,8 +87,6 @@ public class TargetFragment extends Fragment {
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Log.d("argu", groupTaskName);
-//                Log.d("argu", contentTask.getTaskId());
                 confrimContentTask = new ConfirmContentTask();
                 confrimContentTask.confirmTask(groupTaskName, contentTask.getTaskId());
             }
