@@ -14,14 +14,14 @@ import java.util.Map;
  * Created by York on 2017/9/30.
  */
 
-public class WriteActivity {
-    private static String TAG = "WriteActivity";
+public class WritePost {
+    private static String TAG = "WritePost";
 
     private DatabaseReference teamActRef;
     private ReadUser readUser;
 
-    public WriteActivity() {
-        teamActRef= FirebaseDatabase.getInstance().getReference().child("teamActivities");
+    public WritePost() {
+        teamActRef= FirebaseDatabase.getInstance().getReference().child("teamPosts");
         readUser = new ReadUser();
     }
 

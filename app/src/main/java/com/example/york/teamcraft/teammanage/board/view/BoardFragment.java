@@ -51,7 +51,7 @@ public class BoardFragment extends Fragment implements BoardView {
     private ReadTeam readTeam;
     // UI View
     @BindView(R.id.recycler_view_board) RecyclerView recyclerView;
-    private BoardItemAdapter calendarItemAdapter;
+    private BoardItemAdapter boardItemAdapter;
     private RecyclerView.LayoutManager layoutManager;
     @BindView(R.id.progress_act) ProgressBar progressBar;
     @BindView(R.id.fab_add) FloatingActionButton fabAdd;
@@ -90,11 +90,10 @@ public class BoardFragment extends Fragment implements BoardView {
                 public void update(final ArrayList<Post> list) {
                     progressBar.setVisibility(View.GONE);
                     // 設定CalendarItemAdapter
-                    calendarItemAdapter = new BoardItemAdapter(getContext(), list, new View.OnClickListener() {   // 傳入listener callback
+                    boardItemAdapter = new BoardItemAdapter(getContext(), list, new View.OnClickListener() {   // 傳入listener callback
                         @Override
                         public void onClick(View v) {
                             int pos = recyclerView.indexOfChild(v);
-                            Log.d(TAG, "onClick: " + pos);
                             Intent intent = new Intent();
                             Bundle bundle = new Bundle();
                             bundle.putParcelable("Post", list.get(pos));    // Post Parcelable
@@ -103,7 +102,7 @@ public class BoardFragment extends Fragment implements BoardView {
                             startActivity(intent);
                         }
                     });
-                    recyclerView.setAdapter(calendarItemAdapter);
+                    recyclerView.setAdapter(boardItemAdapter);
                 }
             });
         }
