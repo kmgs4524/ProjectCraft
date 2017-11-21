@@ -43,32 +43,64 @@ public class Post implements Parcelable{
         return posterName;
     }
 
+    public void setPosterName(String posterName) {
+        this.posterName = posterName;
+    }
+
     public String getDate() {
         return date;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public String getPostId() {
-        return postId;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getTime() {
         return time;
     }
 
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getPostId() {
+        return postId;
+    }
+
+    public void setPostId(String postId) {
+        this.postId = postId;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public int getFavoriteNum() {
         return favoriteNum;
+    }
+
+    public void setFavoriteNum(int favoriteNum) {
+        this.favoriteNum = favoriteNum;
     }
 
     public int getCommentNum() {
         return commentNum;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public void setCommentNum(int commentNum) {
+        this.commentNum = commentNum;
     }
 
     public static final Creator<Post> CREATOR = new Creator<Post>() {

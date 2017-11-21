@@ -168,8 +168,8 @@ public class ReadUser {
         return idSource.getTask();
     }
 
-    public void getUserImageUrl(String authorId, final CallBack<String> callBack) {
-        usersRef.child(authorId).addListenerForSingleValueEvent(new ValueEventListener() {
+    public void getUserImageUrl(String userId, final CallBack<String> callBack) {
+        usersRef.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String imageUrl = dataSnapshot.child("imageUrl").getValue(String.class);
