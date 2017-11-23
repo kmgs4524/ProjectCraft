@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:stateListAnimator="@animator/personal_task_item_content">
+
+    <CheckBox
+        android:id="@+id/checkbox_personal_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"/>
+
+    <TextView
+        android:id="@+id/txt_personal_task_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/checkbox_personal_task"
+        android:textSize="18sp"
+        android:textColor="@color/icons"
+        android:text="標題"/>
+
+    <TextView
+        android:id="@+id/txt_personal_task_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/checkbox_personal_task"
+        android:layout_below="@+id/txt_personal_task_title"
+        android:textColor="@color/color_accent"
+        android:text="00:00"/>
+
+    <TextView
+        android:id="@+id/txt_personal_task_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_personal_task_date"
+        android:layout_toRightOf="@+id/checkbox_personal_task" />
+
+</RelativeLayout>

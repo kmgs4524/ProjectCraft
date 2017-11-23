@@ -1,5 +1,6 @@
 package com.example.york.teamcraft.teammanage.post.presenter;
 
+import com.example.york.teamcraft.teammanage.model.Post;
 import com.example.york.teamcraft.teammanage.post.model.WritePostComments;
 import com.example.york.teamcraft.teammanage.post.view.PostView;
 import com.example.york.teamcraft.teammanage.post.viewmodel.PostComment;
@@ -19,7 +20,10 @@ public class PostPresenterImpl implements PostPresenter{
         this.setCommentData = new SetCommentData();
         this.postComment = new PostComment();
     }
-
+    @Override
+    public void setPostData(Post post) {
+        postView.setPostData(post);
+    }
     // 將留言寫入firebase的postComment node
     public void postComment(String postId, String messg) {
         postComment.post(postId, messg);

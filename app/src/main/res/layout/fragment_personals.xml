@@ -10,17 +10,56 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:paddingBottom="10dp">
+        android:paddingBottom="10dp"
+        android:elevation="4dp"
+        android:background="@color/color_background">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="end">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="right"
+                android:layout_marginEnd="15dp"
+                android:src="@mipmap/ic_edit_white_24dp"/>
+
+            <ImageView
+                android:id="@+id/img_sign_in"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="right"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="15dp"
+                android:src="@mipmap/ic_exit_to_app_white_24dp"/>
+        </LinearLayout>
 
         <android.support.v4.widget.Space
             android:layout_width="match_parent"
-            android:layout_height="50dp" />
+            android:layout_height="20dp" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/cir_img_personals"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@mipmap/ic_person_white_48dp"/>
+            android:src="@mipmap/ic_person_white_48dp" />
+
+        <TextView
+            android:id="@+id/txt_personal_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="@color/color_primary"
+            android:text="使用者"/>
 
         <TextView
             android:id="@+id/txt_personal_email"
@@ -28,51 +67,180 @@
             android:layout_height="wrap_content"
             android:text="尚未登入"/>
 
+        <android.support.v4.widget.Space
+            android:layout_width="wrap_content"
+            android:layout_height="20dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/txt_personal_team"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/icons"
+                android:text="我的隊伍"/>
+
+            <TextView
+                android:id="@+id/txt_personal_group"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/icons"
+                android:text="小組"/>
+
+            <TextView
+                android:id="@+id/txt_personal_position"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/icons"
+                android:text="職位"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="TEAM"/>
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="GROUP"/>
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="POSITION"/>
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="bottom"
-        android:paddingTop="20dp"
-        android:orientation="horizontal"
-        android:background="#3D3939">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">
 
-        <android.support.v4.widget.Space
-            android:layout_weight="0.15"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" />
-
-        <Button
-            android:id="@+id/btn_personal_tasks"
+        <TextView
+            android:id="@+id/txt_undo_num"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:text="個人任務"
-            style="@style/ButtonPersonals" />
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="@color/icons"
+            android:text="num"/>
 
-        <ImageView
-            android:id="@+id/img_sign_out"
-            android:layout_weight="0.4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_exit_to_app_white_48dp"/>
+        <View
+            android:layout_width="1.5dp"
+            android:layout_height="20dp"
+            android:layout_gravity="bottom"
+            android:background="@color/md_black_1000" />
 
-        <Button
-            android:id="@+id/btn_account_management"
+        <TextView
+            android:id="@+id/txt_done_num"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:text="帳戶資料"
-            style="@style/ButtonPersonals" />
-
-        <android.support.v4.widget.Space
-            android:layout_weight="0.15"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="@color/icons"
+            android:text="num"/>
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="UNDO"/>
+
+        <View
+            android:layout_width="1.5dp"
+            android:layout_height="18dp"
+            android:background="@color/md_black_1000" />
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="DONE"/>
+    </LinearLayout>
+
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="8dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_personal_task"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.RecyclerView>
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:gravity="bottom"-->
+        <!--android:paddingTop="20dp"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:background="#3D3939">-->
+
+        <!--<android.support.v4.widget.Space-->
+            <!--android:layout_weight="0.15"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content" />-->
+
+        <!--<Button-->
+            <!--android:id="@+id/btn_personal_tasks"-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="top"-->
+            <!--android:text="個人任務"-->
+            <!--style="@style/ButtonPersonals" />-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/img_sign_out"-->
+            <!--android:layout_weight="0.4"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@mipmap/ic_exit_to_app_white_48dp"/>-->
+
+        <!--<Button-->
+            <!--android:id="@+id/btn_account_management"-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="top"-->
+            <!--android:text="帳戶資料"-->
+            <!--style="@style/ButtonPersonals" />-->
+
+        <!--<android.support.v4.widget.Space-->
+            <!--android:layout_weight="0.15"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content" />-->
+
+    <!--</LinearLayout>-->
 
 </LinearLayout>

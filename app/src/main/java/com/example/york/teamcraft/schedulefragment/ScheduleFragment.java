@@ -1,8 +1,8 @@
 package com.example.york.teamcraft.schedulefragment;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
@@ -11,27 +11,20 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.Toast;
 
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.schedulefragment.data.RowData;
 import com.example.york.teamcraft.schedulefragment.viewmodel.OutputPdf;
 import com.example.york.teamcraft.schedulefragment.viewmodel.SetBuilderData;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,6 +36,8 @@ public class ScheduleFragment extends Fragment {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
+    // view model
+    private SetBuilderData setBuilderData;
 
     @BindView(R.id.tableLayout_schedule)
     TableLayout tableLayout;
@@ -72,7 +67,8 @@ public class ScheduleFragment extends Fragment {
         verifyStoragePermissions();
         inflateActionBtn(tableLayout);
         // 將Table Row放入Table Layout
-        setScheduleTable();
+        setBuilderData = new SetBuilderData();
+        setBuilderData.setTable(tableLayout, getContext());
 
         return view;
     }
@@ -84,28 +80,7 @@ public class ScheduleFragment extends Fragment {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_as_pdf:
-                        Log.d(TAG, "onMenuItemClick: " + isExternalStorageWritable());
-                        if (isExternalStorageWritable()) {
-                            Toast.makeText(getContext(), "writable", Toast.LENGTH_SHORT).show();
-                            File file = new File(Environment.getExternalStoragePublicDirectory(
-                                    Environment.DIRECTORY_DOWNLOADS), "schedule.pdf");
-                            try {
-                                OutputStream os = new FileOutputStream(file);
-
-//                                String hello = "hello world";
-                                OutputPdf outputPdf = new OutputPdf();
-                                outputPdf.outputDoc(v, os);
-//                                    OutputStreamWriter writer = new OutputStreamWriter(os);
-//                                    writer.write(hello);
-//                                    writer.close();
-
-                            } catch (FileNotFoundException e) {
-                                Log.d(TAG, "onMenuItemClick: " + e.getMessage());
-                            }
-                            if (file.mkdirs()) {
-                                Log.e(TAG, "Directory created");
-                            }
-                        }
+                        new OutputPdfTask().execute(v);
                         return true;
                     default:
                         return false;
@@ -146,9 +121,46 @@ public class ScheduleFragment extends Fragment {
         }
     }
 
-    public void setScheduleTable() {
-        SetBuilderData setBuilderData = new SetBuilderData();
-        setBuilderData.setTable(tableLayout, getContext());
+    private class OutputPdfTask extends AsyncTask {
+        OutputDialogFragment dialogFragment;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialogFragment = new OutputDialogFragment();
+            dialogFragment.show(getFragmentManager(), "OutputDialogFragment");
+        }
+
+        @Override
+        protected Object doInBackground(Object[] params) {
+            Log.d(TAG, "onMenuItemClick: " + isExternalStorageWritable());
+
+            if (isExternalStorageWritable()) {
+                File file = new File(Environment.getExternalStoragePublicDirectory(
+                        Environment.DIRECTORY_DOWNLOADS), "schedule.pdf");
+                try {
+                    OutputStream os = new FileOutputStream(file);
+                    OutputPdf outputPdf = new OutputPdf();
+                    outputPdf.outputDoc((View)params[0], os); // outputPdf.outputDoc(v, os);
+//                                    OutputStreamWriter writer = new OutputStreamWriter(os);
+//                                    writer.write(hello);
+//                                    writer.close();
+
+                } catch (FileNotFoundException e) {
+                    Log.d(TAG, "onMenuItemClick: " + e.getMessage());
+                }
+                if (file.mkdirs()) {
+                    Log.e(TAG, "Directory created");
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            dialogFragment.dismiss();
+            Toast.makeText(getContext(), "已匯出" + "schedule.pdf至Download資料夾", Toast.LENGTH_SHORT).show();
+        }
     }
 
 //    @Override

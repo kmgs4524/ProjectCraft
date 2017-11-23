@@ -21,8 +21,8 @@ public class CommentViewHolder extends RecyclerView.ViewHolder{
     public CommentViewHolder(View itemView) {
         super(itemView);
         cirView = (CircleImageView) itemView.findViewById(R.id.cir_img_commenter);
-        txtName = (TextView) itemView.findViewById(R.id.txt_item_member_name);
-        txtComm = (TextView) itemView.findViewById(R.id.txt_item_member_comment);
+        txtName = (TextView) itemView.findViewById(R.id.txt_comment_name);
+        txtComm = (TextView) itemView.findViewById(R.id.txt_comment_content);
     }
 
     public CircleImageView getCirView() {

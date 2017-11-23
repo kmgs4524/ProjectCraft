@@ -14,7 +14,6 @@ public class ContentTask implements Parcelable{
     private String responId;
     private String responsible;
     private String date;
-    private String time;
     private String status;
 
     public ContentTask(String taskId, String topic, String content, String responId, String responsible, String date, String time, String status) {
@@ -22,7 +21,6 @@ public class ContentTask implements Parcelable{
         this.topic = topic;
         this.content = content;
         this.date = date;
-        this.time = time;
         this.responId = responId;
         this.responsible = responsible;
         this.status = status;
@@ -99,11 +97,6 @@ public class ContentTask implements Parcelable{
     // date
     public String getDate() {
         return date;
-    }
-
-    // time
-    public String getTime() {
-        return time;
     }
 
     @Override

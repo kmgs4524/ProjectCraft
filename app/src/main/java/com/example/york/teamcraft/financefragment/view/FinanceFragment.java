@@ -6,26 +6,34 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.accountingitemdialogfragment.AddAccountingItemDialog;
+import com.example.york.teamcraft.accountingitemdialogfragment.AccountingItemFragment;
+import com.example.york.teamcraft.financefragment.ProgressWheel;
 import com.example.york.teamcraft.financefragment.model.AccountingItem;
+import com.example.york.teamcraft.financefragment.viewmodel.SetBudget;
 import com.example.york.teamcraft.financefragment.viewmodel.SetFloatingButton;
-import com.example.york.teamcraft.financefragment.viewmodel.SetRecyclerViewData;
+import com.example.york.teamcraft.financefragment.viewmodel.SetAccountingItem;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class FinanceFragment extends Fragment implements FinanceView{
+public class FinanceFragment extends Fragment implements FinanceView {
+    private static String TAG = "FinanceFragment";
     // view
+    @BindView(R.id.progress_bar_remaining_amount)
+    ProgressWheel progressWheel;
+    @BindView(R.id.txt_budget)
+    TextView txtBudget;
+    @BindView(R.id.txt_total_cost)
+    TextView txtTotalCost;
     @BindView(R.id.fab_add_accounting_item)
     FloatingActionButton fabAddItem;
     @BindView(R.id.recycler_view_accounting)
@@ -33,7 +41,8 @@ public class FinanceFragment extends Fragment implements FinanceView{
     private RecyclerView.Adapter<AccountingItemViewHolder> adapter;
     private RecyclerView.LayoutManager layoutManager;
     // view model
-    private SetRecyclerViewData setRecyclerViewData;
+    private SetBudget setBudget;
+    private SetAccountingItem setAccountingItem;
     private SetFloatingButton setFloatingButton;
 
     public static FinanceFragment newInstance() {
@@ -55,8 +64,10 @@ public class FinanceFragment extends Fragment implements FinanceView{
         View view = inflater.inflate(R.layout.team_fragment_finance, container, false);
         ButterKnife.bind(this, view);
 
-        setRecyclerViewData = new SetRecyclerViewData(this);
-        setRecyclerViewData.setRecyclerViewData();
+        setBudget = new SetBudget(this);
+        setBudget.setData();
+        setAccountingItem = new SetAccountingItem(this);
+        setAccountingItem.setRecyclerViewData();
         setFloatingButton = new SetFloatingButton(this);
         setFloatingButton.setFinanceView();
 
@@ -64,11 +75,27 @@ public class FinanceFragment extends Fragment implements FinanceView{
     }
 
     @Override
-    public void initRecyclerView(ArrayList<AccountingItem> list) {
-        adapter = new AccountingItemAdapter(list);
+    public void initProgressBar(int budget, int totalCost) {
+        progressWheel.setMax(budget);
+        progressWheel.setProgress(-totalCost);
+    }
+
+    @Override
+    public void initTxtBuget(int budget) {
+        txtBudget.setText(Integer.toString(budget));
+    }
+
+    @Override
+    public void initRecyclerView(final ArrayList<AccountingItem> list) {
+        adapter = new AccountingItemAdapter(list, this);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerAcct.setAdapter(adapter);
         recyclerAcct.setLayoutManager(layoutManager);
+    }
+
+    @Override
+    public void initTxtTotalCost(int cost) {
+        txtTotalCost.setText(Integer.toString(cost));
     }
 
     @Override
@@ -76,8 +103,8 @@ public class FinanceFragment extends Fragment implements FinanceView{
         fabAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddAccountingItemDialog dialog = new AddAccountingItemDialog();
-                dialog.show(getFragmentManager(), "AddAccountingItemDialog");
+                AccountingItemFragment dialog = new AccountingItemFragment();
+                dialog.show(getFragmentManager(), "AccountingItemFragment");
             }
         });
     }

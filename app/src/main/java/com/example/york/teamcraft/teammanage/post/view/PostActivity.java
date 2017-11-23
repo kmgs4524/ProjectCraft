@@ -15,17 +15,30 @@ import com.example.york.teamcraft.teammanage.model.Post;
 import com.example.york.teamcraft.teammanage.post.model.Comment;
 import com.example.york.teamcraft.teammanage.post.presenter.PostPresenter;
 import com.example.york.teamcraft.teammanage.post.presenter.PostPresenterImpl;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class PostActivity extends AppCompatActivity implements PostView{
     // view
-    private TextView txtTopic;
-    private TextView txtDate;
-    private TextView txtContent;
-    private EditText edtMessg;
-    private ImageView imgSend;
-    private RecyclerView recyclerComment;
+    @BindView(R.id.img_poster)
+    CircleImageView imgPoster;
+    @BindView(R.id.txt_poster_name)
+    TextView txtPosterName;
+    @BindView(R.id.txt_post_date)
+    TextView txtPostDate;
+    @BindView(R.id.txt_post_content)
+    TextView txtPostContent;
+    @BindView(R.id.edt_message_text)
+    EditText edtMessg;
+    @BindView(R.id.img_send_comment)
+    ImageView imgSend;
+    @BindView(R.id.recycler_view_post_comment)
+    RecyclerView recyclerComment;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     // presenter
@@ -37,39 +50,26 @@ public class PostActivity extends AppCompatActivity implements PostView{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.team_activity_post_content);
-        // find view
-        initTxtView();
+        ButterKnife.bind(this);
         // get bundle
         Bundle bundle = getIntent().getExtras();
         Post post = bundle.getParcelable("Post");
         postId = post.getPostId();  // 取得post id
         // init presenter
         postPresenter = new PostPresenterImpl(this);
+        postPresenter.setPostData(post);    // 設定貼文內容
         postPresenter.setRecyclerData(post.getPostId());    // 設定RecyclerView的資料來源
         postPresenter.setSendMessg();
-
-        txtTopic.setText(post.getTopic());
-        txtDate.setText(post.getDate());
-        txtContent.setText(post.getContent());
-    }
-
-    public void initTxtView() {
-        txtTopic = (TextView) findViewById(R.id.txt_post_topic);
-        txtDate = (TextView) findViewById(R.id.txt_post_date);
-        txtContent = (TextView) findViewById(R.id.txt_post_content);
     }
 
     public void initRecyclerView(ArrayList<Comment> commList) {
         layoutManager = new LinearLayoutManager(this);
-        recyclerComment = (RecyclerView) findViewById(R.id.recycler_view_post_comment);
         adapter = new CommentItemAdapter(commList, this);
         recyclerComment.setLayoutManager(layoutManager);
         recyclerComment.setAdapter(adapter);
     }
 
     public void initMessg() {
-        edtMessg = (EditText) findViewById(R.id.edt_message_text);
-        imgSend = (ImageView) findViewById(R.id.img_send_comment);
         imgSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,4 +78,14 @@ public class PostActivity extends AppCompatActivity implements PostView{
         });
     }
 
+    @Override
+    public void setPostData(Post post) {
+        // 設定大頭照圖片
+        Picasso.with(this)
+                .load(post.getImageUrl())
+                .into(imgPoster);
+        txtPosterName.setText(post.getPosterName());
+        txtPostDate.setText(post.getDate());
+        txtPostContent.setText(post.getContent());
+    }
 }

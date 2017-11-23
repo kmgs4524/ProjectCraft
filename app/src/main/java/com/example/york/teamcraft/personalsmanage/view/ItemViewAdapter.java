@@ -70,7 +70,6 @@ public  class ItemViewAdapter extends RecyclerView.Adapter<ItemContentTaskHolder
         });
         holder.getTxtTitle().setText(taskList.get(position).getTopic());
         holder.getTxtDate().setText(taskList.get(position).getDate());
-        holder.getTxtTime().setText(taskList.get(position).getTime());
     }
 
     // Return the size of your dataset (invoked by the layout manager)

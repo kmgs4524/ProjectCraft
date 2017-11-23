@@ -20,11 +20,9 @@ import com.example.york.teamcraft.teammanage.model.Post;
 import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.login.view.SignInActivity;
-import com.example.york.teamcraft.teammanage.model.ReadUser;
 import com.example.york.teamcraft.teammanage.model.ReadTeam;
 import com.example.york.teamcraft.teammanage.post.view.PostActivity;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
@@ -53,7 +51,7 @@ public class BoardFragment extends Fragment implements BoardView {
     private ReadTeam readTeam;
     // UI View
     @BindView(R.id.recycler_view_board) RecyclerView recyclerView;
-    private BoardItemAdapter calendarItemAdapter;
+    private BoardItemAdapter boardItemAdapter;
     private RecyclerView.LayoutManager layoutManager;
     @BindView(R.id.progress_act) ProgressBar progressBar;
     @BindView(R.id.fab_add) FloatingActionButton fabAdd;
@@ -87,12 +85,12 @@ public class BoardFragment extends Fragment implements BoardView {
             // init Database Model
             readTeam = new ReadTeam();
 
-            readTeam.getTeamAct(new CallBack<ArrayList<Post>>() {
+            readTeam.getTeamPost(new CallBack<ArrayList<Post>>() {
                 @Override
                 public void update(final ArrayList<Post> list) {
                     progressBar.setVisibility(View.GONE);
                     // 設定CalendarItemAdapter
-                    calendarItemAdapter = new BoardItemAdapter(getContext(), list, new View.OnClickListener() {   // 傳入listener callback
+                    boardItemAdapter = new BoardItemAdapter(getContext(), list, new View.OnClickListener() {   // 傳入listener callback
                         @Override
                         public void onClick(View v) {
                             int pos = recyclerView.indexOfChild(v);
@@ -104,7 +102,7 @@ public class BoardFragment extends Fragment implements BoardView {
                             startActivity(intent);
                         }
                     });
-                    recyclerView.setAdapter(calendarItemAdapter);
+                    recyclerView.setAdapter(boardItemAdapter);
                 }
             });
         }

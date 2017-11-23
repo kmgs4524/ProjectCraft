@@ -8,22 +8,22 @@ import android.os.Parcelable;
  */
 
 public class Post implements Parcelable{
-    private String posterName;
-    private String topic;
-    private String date;
-    private String time;
-    private String content;
-    private String postId;
-    private String imageUrl;
-    private int favorite;
+    private String posterName;  // 貼文者姓名
+    private String date;    // 貼文日期
+    private String time;    // 貼文時間
+    private String content; // 內容
+    private String postId;  // 貼文id
+    private String imageUrl;    // 貼文者的大頭照url
+    private int favoriteNum;   // 按喜歡的數量
+    private int commentNum;    // 留言的數量
 
-    public Post(String posterName, String topic, String date, String content, String postId, int favorite, String time, String imageUrl) {
+    public Post(String posterName, String date, String content, String postId, int favoriteNum, int commentNum, String time, String imageUrl) {
         this.posterName = posterName;
-        this.topic = topic;
         this.date = date;
         this.content = content;
         this.postId = postId;
-        this.favorite = favorite;
+        this.favoriteNum = favoriteNum;
+        this.commentNum = commentNum;
         this.time = time;
         this.imageUrl = imageUrl;
     }
@@ -31,26 +31,44 @@ public class Post implements Parcelable{
     public Post() {}
 
     protected Post(Parcel in) {
-        topic = in.readString();
+        posterName = in.readString();
         date = in.readString();
+        time = in.readString();
         content = in.readString();
         postId = in.readString();
+        imageUrl = in.readString();
     }
 
     public String getPosterName() {
         return posterName;
     }
 
-    public String getTopic() {
-        return topic;
+    public void setPosterName(String posterName) {
+        this.posterName = posterName;
     }
 
     public String getDate() {
         return date;
     }
 
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
     public String getContent() {
         return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getPostId() {
@@ -61,16 +79,28 @@ public class Post implements Parcelable{
         this.postId = postId;
     }
 
-    public String getTime() {
-        return time;
-    }
-
-    public int getFavorite() {
-        return favorite;
-    }
-
     public String getImageUrl() {
         return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public int getFavoriteNum() {
+        return favoriteNum;
+    }
+
+    public void setFavoriteNum(int favoriteNum) {
+        this.favoriteNum = favoriteNum;
+    }
+
+    public int getCommentNum() {
+        return commentNum;
+    }
+
+    public void setCommentNum(int commentNum) {
+        this.commentNum = commentNum;
     }
 
     public static final Creator<Post> CREATOR = new Creator<Post>() {
@@ -93,12 +123,12 @@ public class Post implements Parcelable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(posterName);
-        dest.writeString(topic);
         dest.writeString(date);
         dest.writeString(time);
         dest.writeString(content);
         dest.writeString(postId);
         dest.writeString(imageUrl);
-        dest.writeInt(favorite);
+        dest.writeInt(favoriteNum);
+        dest.writeInt(commentNum);
     }
 }

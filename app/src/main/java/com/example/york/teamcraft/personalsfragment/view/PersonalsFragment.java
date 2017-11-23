@@ -2,23 +2,27 @@ package com.example.york.teamcraft.personalsfragment.view;
 
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.login.view.SignInActivity;
-import com.example.york.teamcraft.personalsfragment.viewmodel.SetPersonalData;
+import com.example.york.teamcraft.personalsfragment.viewmodel.SetPersonalTask;
+import com.example.york.teamcraft.personalsfragment.viewmodel.SetProfileData;
 import com.example.york.teamcraft.personalsfragment.viewmodel.SignIn;
-import com.example.york.teamcraft.personalsmanage.view.PersonalTasksActivity;
+import com.example.york.teamcraft.personalsmanage.model.DataPath;
+import com.example.york.teamcraft.taskfragment.model.ContentTask;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,9 +33,24 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * A simple {@link Fragment} subclass.
  */
 public class PersonalsFragment extends Fragment implements PersonalsView{
+    private static String TAG = "PersonalsFragment";
+    // view
     @BindView(R.id.cir_img_personals) CircleImageView cirImgPersonals;
+    @BindView(R.id.txt_personal_name) TextView txtName;
     @BindView(R.id.txt_personal_email) TextView txtEmail;
-    private SetPersonalData setPersonalData;
+    @BindView(R.id.txt_personal_team) TextView txtTeam;
+    @BindView(R.id.txt_personal_group) TextView txtGroup;
+    @BindView(R.id.txt_personal_position) TextView txtPosition;
+    @BindView(R.id.txt_undo_num) TextView txtUndoNum;
+    @BindView(R.id.txt_done_num) TextView txtDoneNum;
+    @BindView(R.id.recycler_view_personal_task)
+    RecyclerView recyclerViewPersonalTask;
+    private RecyclerView.LayoutManager layoutManager;
+    private PersonalTaskAdapter adapter;
+    // view model
+    private SetProfileData setProfileData;
+    private SetPersonalTask setPersonalTask;
+    private SignIn signIn;
 
     public static PersonalsFragment newInstance() {
         Bundle args = new Bundle();
@@ -51,17 +70,31 @@ public class PersonalsFragment extends Fragment implements PersonalsView{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_personals, container, false);
         ButterKnife.bind(this, view);
-
-        setPersonalData = new SetPersonalData(this);
-        setPersonalData.setData();
+        // 設定個人資料
+        setProfileData = new SetProfileData(this);
+        setProfileData.setData();
+        // 設定被分派細項工作
+        Log.d(TAG, "onCreateView: " + "setPersonalTask");
+        setPersonalTask = new SetPersonalTask(this);
+        setPersonalTask.initData();
 
         return view;
     }
 
     public void setCirImgPersonals(String imageUrl) {
-        Picasso.with(getContext())
-                .load(imageUrl)
-                .into(cirImgPersonals);
+        try {
+            Picasso.with(getContext())
+                    .load(imageUrl)
+                    .into(cirImgPersonals);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @OnClick(R.id.img_sign_in)
+    public void signIn() {
+        signIn = new SignIn(this);
+        signIn.checkStatus();
     }
 
     @Override
@@ -77,28 +110,26 @@ public class PersonalsFragment extends Fragment implements PersonalsView{
     }
 
     @Override
-    public void setTxtEmail(String email) {
+    public void setTaskNum(int undoNum, int doneNum) {
+        txtUndoNum.setText(Integer.toString(undoNum));
+        txtDoneNum.setText(Integer.toString(doneNum));
+    }
+
+    @Override
+    public void initRecyclerView(ArrayList<DataPath> pathList, ArrayList<ContentTask> taskList) {
+        Log.d(TAG, "initRecyclerView: pathList: " + pathList.size() + " taskList: " + taskList.size());
+        layoutManager = new LinearLayoutManager(getContext());
+        adapter = new PersonalTaskAdapter(getContext(), recyclerViewPersonalTask, pathList, taskList);
+        recyclerViewPersonalTask.setLayoutManager(layoutManager);
+        recyclerViewPersonalTask.setAdapter(adapter);
+    }
+
+    @Override
+    public void setProfile(String name, String email, String team, String group, String position) {
+        txtName.setText(name);
         txtEmail.setText(email);
+        txtTeam.setText(team);
+        txtGroup.setText(group);
+        txtPosition.setText(position);
     }
-
-    @OnClick(R.id.btn_personal_tasks)
-    public void startPersonTaskAct() {
-        Intent intent = new Intent();
-        intent.setClass(getContext(), PersonalTasksActivity.class);
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.btn_account_management)
-    public void startAccountManagAct() {
-        Intent intent = new Intent();
-        intent.setClass(getContext(), PersonalTasksActivity.class);
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.img_sign_out)
-    public void signOut() {
-        SignIn signIn = new SignIn(this);
-        signIn.checkStatus();
-    }
-
 }

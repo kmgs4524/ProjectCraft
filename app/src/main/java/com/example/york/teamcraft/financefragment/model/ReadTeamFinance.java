@@ -18,7 +18,6 @@ import java.util.Iterator;
 
 public class ReadTeamFinance {
     private static String TAG = "ReadTeamFinance";
-
     private DatabaseReference teamFinanRef;
 
     public void getAccountingItem(String teamId, final CallBack<ArrayList<AccountingItem>> callBack) {
@@ -35,6 +34,32 @@ public class ReadTeamFinance {
                 }
                 Log.d(TAG, "onDataChange: " + itemlist.size());
                 callBack.update(itemlist);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void getCostItem(String teamId, final CallBack<ArrayList<AccountingItem>> callBack) {
+        teamFinanRef = FirebaseDatabase.getInstance().getReference().child("teamFinance").child(teamId);
+        teamFinanRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<AccountingItem> itemList = new ArrayList<>();
+                Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();
+                while (iterator.hasNext()) {
+                    DataSnapshot nextSnapShot = iterator.next();
+                    String type = nextSnapShot.child("type").getValue(String.class);
+                    if(type.equals("cost")) {
+                        AccountingItem item = nextSnapShot.getValue(AccountingItem.class);
+                        itemList.add(item);
+                    }
+                }
+                Log.d(TAG, "onDataChange: " + itemList.size());
+                callBack.update(itemList);
             }
 
             @Override

@@ -64,10 +64,10 @@ public class BoardItemAdapter extends RecyclerView.Adapter<BoardItemAdapter.View
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String title = dataList.get(position).getTopic();
+        String title = dataList.get(position).getContent();
         String date = dataList.get(position).getDate();
         String time = dataList.get(position).getTime();
-        int favorite = dataList.get(position).getFavorite();
+        int favorite = dataList.get(position).getFavoriteNum();
         String imgUrl = dataList.get(position).getImageUrl();
 
         holder.txtTitle.setText(title);

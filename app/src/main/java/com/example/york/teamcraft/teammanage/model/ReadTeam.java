@@ -50,8 +50,8 @@ public class ReadTeam {
 
     }
 
-    public void getTeamAct(final CallBack< ArrayList<Post> > callback) {
-        teamActRef = FirebaseDatabase.getInstance().getReference().child("teamActivities");
+    public void getTeamPost(final CallBack< ArrayList<Post> > callback) {
+        teamActRef = FirebaseDatabase.getInstance().getReference().child("teamPosts");
         readUser.getUserData(new CallBack<User>() {
             @Override
             public void update(User data) {
@@ -179,6 +179,23 @@ public class ReadTeam {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.d("DatabaseError", databaseError.getMessage());
+            }
+        });
+    }
+
+    // 取得團隊名稱
+    public void getTeamName(final String teamId, final CallBack<String> callBack) {
+        final DatabaseReference teamsRef = FirebaseDatabase.getInstance().getReference().child("teams");
+        teamsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String teamName = dataSnapshot.child(teamId).child("name").getValue(String.class);
+                callBack.update(teamName);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d(TAG, "onCancelled: " + databaseError.getDetails());
             }
         });
     }
