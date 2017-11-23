@@ -40,10 +40,12 @@ public class SetSpinnerData {
                     public void update(ArrayList<GroupMember> memList) {
                         Log.d("member data", Integer.toString(memList.size()));
                         for(final GroupMember member: memList) {
+                            Log.d("setData", "update: " + "name:" + member.getName() + " url: " + member.getPhotoUrl());
                             readUser.getUserImageUrl(member.getUserId(), new CallBack<String>() {
                                 @Override
                                 public void update(String imageUrl) {
                                     member.setPhotoUrl(imageUrl);   // 設定photoUrl
+                                    Log.d("setData", "update: " + "name:" + member.getName() + " url: " + member.getPhotoUrl());
                                 }
                             });
                         }
