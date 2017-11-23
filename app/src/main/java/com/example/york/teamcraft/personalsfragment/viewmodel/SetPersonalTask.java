@@ -1,5 +1,7 @@
 package com.example.york.teamcraft.personalsfragment.viewmodel;
 
+import android.util.Log;
+
 import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.CallBackTwoArgs;
 import com.example.york.teamcraft.personalsfragment.view.PersonalsView;
@@ -39,6 +41,7 @@ public class SetPersonalTask {
                         @Override
                         public void update(String data) {
                             ReadGroupTasks readGroupTasks = new ReadGroupTasks();
+                            Log.d("", "update: " + user.getGroupId());
                             readGroupTasks.getPersonalTask(user.getGroupId(), data, new CallBackTwoArgs<ArrayList<DataPath>, ArrayList<ContentTask>>() {
                                 @Override
                                 public void update(ArrayList<DataPath> pathList, ArrayList<ContentTask> taskList) {

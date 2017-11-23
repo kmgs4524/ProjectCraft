@@ -129,14 +129,14 @@ public class SignInPresenterImpl implements SignInPresenter {
     // 確認資料庫中是否存在使用者的資料
     public void confirmUserExist() {
         final ReadUser readUser = new ReadUser();
-
+        Log.d("url", "confirmUserExist: " + user.getPhotoUrl().toString());
         final Task<Boolean> taskCheck = readUser.checkUserExist();    // 確認users node是否已有目前登入使用者的資料
         taskCheck.addOnSuccessListener(new OnSuccessListener<Boolean>() {
             @Override
             public void onSuccess(Boolean aBoolean) {
                 if (aBoolean == false) {    // 若尚未有資料
                     WriteUser writeUser = new WriteUser();
-                    writeUser.pushData(user.getDisplayName(), user.getEmail(), "0");    // 首次使用google登入時，會將google帳號的資料寫入user node
+                    writeUser.pushData(user.getDisplayName(), user.getEmail(), user.getPhotoUrl().toString());    // 首次使用google登入時，會將google帳號的資料寫入user node
                     startSelectTeam();
                 } else {    // 若已有資料
                     Task<Boolean> taskCheckTeam = readUser.checkUserTeam();

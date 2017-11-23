@@ -67,6 +67,7 @@ public class SetProfileData {
                                                     GroupMember nextMember = iterator.next();
                                                     if(nextMember.getName().equals(user.getName())) {
                                                         String position = nextMember.getPosition();
+                                                        Log.d(TAG, "update: " + "email:" + user.getEmail() + " name:" + user.getName());
                                                         personalsView.setProfile(user.getName(), user.getEmail(), teamName, finalGroupName, position);
                                                     }
                                                 } catch (NoSuchElementException e) {
