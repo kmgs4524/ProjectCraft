@@ -12,28 +12,107 @@
         layout="@layout/toolbar" />
     
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_poster"
         android:layout_width="40dp"
-        android:layout_height="40dp" />
-
-
+        android:layout_height="40dp"
+        android:layout_below="@+id/toolbar"
+        android:layout_margin="10dp"
+        android:src="@drawable/profile"/>
 
     <TextView
-        android:id="@+id/txt_post_content"
+        android:id="@+id/txt_poster_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"/>
+        android:layout_toRightOf="@+id/img_poster"
+        android:layout_alignTop="@+id/img_poster"
+        android:text="name"/>
 
     <TextView
         android:id="@+id/txt_post_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txt_post_content"/>
+        android:layout_toRightOf="@+id/img_poster"
+        android:layout_below="@+id/txt_poster_name"
+        android:text="date"/>
+
+    <TextView
+        android:id="@+id/txt_post_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/img_poster"
+        android:layout_marginTop="4dp"
+        android:layout_alignLeft="@+id/img_poster"
+        android:textColor="@color/icons"
+        android:text="content"/>
+
+    <TextView
+        android:id="@+id/txt_favorite_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_post_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="0"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_post_content"
+        android:layout_toRightOf="@+id/txt_favorite_num"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="10dp"
+        android:text="like"/>
+
+    <ImageView
+        android:id="@+id/img_favorite"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/txt_favorite_num"
+        android:layout_alignLeft="@+id/txt_favorite_num"
+        android:layout_marginTop="8dp"
+        android:src="@mipmap/ic_favorite_white_24dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/img_favorite"
+        android:layout_below="@+id/txt_favorite_num"
+        android:layout_marginLeft="4dp"
+        android:layout_alignTop="@+id/img_favorite"
+        android:layout_alignBottom="@+id/img_favorite"
+        android:gravity="center"
+        android:text="like"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/img_favorite">
+
+        <android.support.v4.widget.Space
+            android:layout_weight="0.05"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/secondary_text"/>
+
+        <android.support.v4.widget.Space
+            android:layout_weight="0.05"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
     <android.support.v4.widget.Space
         android:id="@+id/spacer_below_txt_post_content"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:layout_below="@+id/txt_post_date"/>
+        android:layout_below="@+id/img_favorite"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_post_comment"

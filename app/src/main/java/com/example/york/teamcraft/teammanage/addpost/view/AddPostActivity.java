@@ -68,7 +68,7 @@ public class AddPostActivity extends AppCompatActivity implements AddPostView, D
             case R.id.action_done:
                 // 傳送目前的日期,時間以及要張貼的內容
                 addPostPresenter.addNewPost(Calendar.getInstance().get(Calendar.YEAR) + // 年
-                        "/" + Calendar.getInstance().get(Calendar.MONTH) +  // 月
+                        "/" + (Calendar.getInstance().get(Calendar.MONTH) + 1) +  // 月
                         "/" + Calendar.getInstance().get(Calendar.DATE),    // 日
                         Calendar.getInstance().get(Calendar.HOUR) + // 時
                         ":" + Calendar.getInstance().get(Calendar.MINUTE),  // 分
