@@ -76,7 +76,7 @@ public class TaskFragment extends Fragment implements TaskFragmentView {
         return view;
     }
 
-    // 設定新增群組工作的加號按鈕
+    // 設定新增群組任務的加號按鈕
     public void setImgAddGroupTaskListener() {
         imgAdd.setVisibility(View.VISIBLE);
         imgAdd.setOnClickListener(new View.OnClickListener() {

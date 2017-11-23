@@ -29,6 +29,7 @@ public class ReadTeamMember {
         teamMemRef.child(teamId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                // 迭代出teamId的所有child
                 Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();
                 while (iterator.hasNext()) {
 //                    Log.d("groupMember data", iterator.next().toString());

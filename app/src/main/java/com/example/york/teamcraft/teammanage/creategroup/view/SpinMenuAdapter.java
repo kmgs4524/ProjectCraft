@@ -3,6 +3,7 @@ package com.example.york.teamcraft.teammanage.creategroup.view;
 import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.data.GroupMember;
+import com.example.york.teamcraft.teammanage.jointeam.model.TeamMember;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -59,8 +62,9 @@ public class SpinMenuAdapter extends ArrayAdapter<GroupMember> {
         TextView txtName = (TextView) view.findViewById(R.id.txt_spin_team_member_name);
         txtName.setText(itemList.get(position).getName());
         CircleImageView circleImageView = (CircleImageView) view.findViewById(R.id.cir_img_spin_team_member);
-//        circleImageView.setImageResource();
-
+        Picasso.with(getContext())
+                .load(itemList.get(position).getPhotoUrl())
+                .into(circleImageView);
         return view;
     }
 
