@@ -64,6 +64,7 @@ public class CreateGroupActivity extends AppCompatActivity implements CreateGrou
         spinMenuAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spnTeamMember.setAdapter(spinMenuAdapter);
+        spnTeamMember.setFocusable(false);
         spnTeamMember.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
