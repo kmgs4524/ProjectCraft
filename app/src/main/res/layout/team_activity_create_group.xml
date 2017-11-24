@@ -14,16 +14,16 @@
     <android.support.v4.widget.Space
         android:id="@+id/spacer_on_img_group"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="80dp"
         android:layout_below="@id/toolbar"/>
 
     <ImageView
         android:id="@+id/img_group"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_below="@+id/spacer_on_img_group"
         android:layout_centerInParent="true"
-        app:srcCompat="@drawable/profile" />
+        app:srcCompat="@drawable/create_group_background" />
 
     <LinearLayout
         android:id="@+id/linearLayout_group_name"
@@ -39,10 +39,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/toolbar"
-
             android:layout_marginTop="15dp"
-            android:text="名稱"
-            android:textSize="18sp" />
+            android:text="名稱" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -63,7 +61,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout_group_member"
-        android:layout_width="240dp"
+        android:layout_width="230dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
         android:layout_below="@+id/spacer_on_group_member"
@@ -72,15 +70,15 @@
 
         <TextView
             android:id="@+id/txt_group_member"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="成員："
-            android:textSize="18sp" />
+            android:text="成員：" />
 
         <android.support.v7.widget.AppCompatSpinner
             android:id="@+id/spin_team_member"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></android.support.v7.widget.AppCompatSpinner>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"></android.support.v7.widget.AppCompatSpinner>
 
     </LinearLayout>
 
@@ -95,7 +93,7 @@
     <android.support.v4.widget.Space
         android:id="@+id/spacer_on_create_btn"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="70dp"
         android:layout_below="@+id/linearLayout_group_member"/>
 
     <Button
@@ -106,8 +104,7 @@
         android:layout_centerVertical="true"
         android:layout_below="@+id/spacer_on_create_btn"
         android:layout_weight="1"
-        android:text="創建"
-        android:textSize="18sp" />
+        android:text="創建" />
 
 
 </RelativeLayout>
