@@ -57,20 +57,14 @@ public class SpinMenuAdapter extends ArrayAdapter<GroupMember> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = fragmentActivity.getLayoutInflater();
-        if(position == 0) {
-            View view = new View(getContext());
-            view.setMinimumHeight(0);
-            return view;
-        } else {
-            View view = inflater.inflate(R.layout.spinner_item_layout, parent, false);
-            TextView txtName = (TextView) view.findViewById(R.id.txt_spin_team_member_name);
-            txtName.setText(itemList.get(position).getName());
-            CircleImageView circleImageView = (CircleImageView) view.findViewById(R.id.cir_img_spin_team_member);
-            Picasso.with(getContext())
-                    .load(itemList.get(position).getPhotoUrl())
-                    .into(circleImageView);
-            return view;
-        }
+        View view = inflater.inflate(R.layout.spinner_item_layout, parent, false);
+        TextView txtName = (TextView) view.findViewById(R.id.txt_spin_team_member_name);
+        txtName.setText(itemList.get(position).getName());
+        CircleImageView circleImageView = (CircleImageView) view.findViewById(R.id.cir_img_spin_team_member);
+        Picasso.with(getContext())
+                .load(itemList.get(position).getPhotoUrl())
+                .into(circleImageView);
+        return view;
     }
 
 }

@@ -25,6 +25,7 @@ public class CreateGroupActivity extends AppCompatActivity implements CreateGrou
     private EditText edtGroupName;
     private TextView txtGroupMember;
     private Spinner spnTeamMember;
+    private Button btnAddMember;
     private Button btnCreate;
     // presenter
     private CreateGroupPresenter createGroupPresenter;
@@ -58,23 +59,19 @@ public class CreateGroupActivity extends AppCompatActivity implements CreateGrou
     // 設定Spinner
     public void setSpinMenu(final ArrayList<GroupMember> memList) {
         spnTeamMember = (Spinner) findViewById(R.id.spin_team_member);
+        btnAddMember = (Button) findViewById(R.id.btn_add_group_member);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<GroupMember> spinMenuAdapter = new SpinMenuAdapter(this, R.layout.spinner_init, memList);
         // Specify the layout to use when the list of choices appears
         spinMenuAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spnTeamMember.setAdapter(spinMenuAdapter);
-        spnTeamMember.setFocusable(false);
-        spnTeamMember.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        btnAddMember.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                createGroupPresenter.saveSpinnerData(memList.get(position));
-                txtGroupMember.setText(txtGroupMember.getText() + " " + memList.get(position).getName());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
+            public void onClick(View v) {
+                // 將spinner被選擇的項目加入暫存的list
+                createGroupPresenter.saveSpinnerData(memList.get(spnTeamMember.getSelectedItemPosition()));
+                txtGroupMember.setText(txtGroupMember.getText() + " " + memList.get(spnTeamMember.getSelectedItemPosition()).getName());
             }
         });
     }
