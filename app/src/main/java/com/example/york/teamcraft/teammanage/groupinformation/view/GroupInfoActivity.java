@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.targetfragment.view.TargetFragment;
@@ -52,13 +53,15 @@ public class GroupInfoActivity extends AppCompatActivity implements GroupInfoVie
         Bundle bundle = getIntent().getExtras();
         groupName = bundle.getString("name");
         groupId = bundle.getString("id");
+        Log.d("GroupInfoActivity", "getPassedGroupData: " + groupId);
     }
 
     public void setFragment() {
         // init fragment manager, transaction
         fragmentManager = this.getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragTarget = TargetFragment.newInstance(null, null);
+        Log.d("GroupInfoActivity", "setFragment: " + groupId);
+        fragTarget = TargetFragment.newInstance(groupId, null, null);
         fragTask = TaskFragment.newInstance(groupId);
         fragmentTransaction.add(R.id.team_activity_group_layout, fragTarget, "TARGET_FRAG");
         fragmentTransaction.add(R.id.team_activity_group_layout, fragTask, "TASK_FRAG") ;
@@ -67,7 +70,7 @@ public class GroupInfoActivity extends AppCompatActivity implements GroupInfoVie
 
     @Override
     public void passData(String groupTaskName, ContentTask contentTask) {
-        TargetFragment fragTarget = TargetFragment.newInstance(groupTaskName, contentTask);
+        TargetFragment fragTarget = TargetFragment.newInstance(groupId, groupTaskName, contentTask);
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.fragment_grouptask_detail, fragTarget, "TARGET_FRAG")
                     .commit();

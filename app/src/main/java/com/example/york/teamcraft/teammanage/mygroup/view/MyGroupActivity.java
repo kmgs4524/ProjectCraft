@@ -54,7 +54,7 @@ public class MyGroupActivity extends AppCompatActivity implements MyGroupView, P
         // init fragment manager, transaction
         fragmentManager = this.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragTarget = TargetFragment.newInstance(null, null);
+        fragTarget = TargetFragment.newInstance(null, null, null);
         fragTask = TaskFragment.newInstance(groupId);
 
         fragmentTransaction.add(R.id.linearLayout_my_group, fragTarget, "TARGET_FRAG");
@@ -64,7 +64,7 @@ public class MyGroupActivity extends AppCompatActivity implements MyGroupView, P
 
     @Override
     public void passData(String groupTaskName, ContentTask contentTask) {
-        TargetFragment fragTarget = TargetFragment.newInstance(groupTaskName, contentTask);
+        TargetFragment fragTarget = TargetFragment.newInstance(groupId, groupTaskName, contentTask);
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.fragment_grouptask_detail, fragTarget, "TARGET_FRAG")
                 .commit();
