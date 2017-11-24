@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -7,36 +8,44 @@
     <android.support.v4.widget.Space
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0.4"/>
+        android:layout_weight="0.2"/>
 
     <TextView
         android:id="@+id/txt_progress_group_name"
-        android:layout_width="wrap_content"
+        android:layout_width="50dp"
         android:layout_height="40dp"
-        android:layout_weight="0.5"
+        android:layout_marginRight="6dp"
         android:gravity="center_vertical"
-        android:textSize="18sp"
         android:text="器材組"/>
 
-    <ProgressBar
+    <com.akexorcist.roundcornerprogressbar.IconRoundCornerProgressBar
         android:id="@+id/progress_bar_group"
-        style="@android:style/Widget.Holo.Light.ProgressBar.Horizontal"
         android:layout_weight="4"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:indeterminate="false"
-        android:max="100"
-        android:theme="@style/LinearProgress" />
+        android:layout_gravity="center"
+        app:rcProgressColor="@color/md_red_200"
+        app:rcMax="100"/>
+
+    <!--<ProgressBar-->
+        <!--android:id="@+id/progress_bar_group"-->
+        <!--style="@android:style/Widget.Holo.Light.ProgressBar.Horizontal"-->
+        <!--android:layout_weight="4"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_vertical"-->
+        <!--android:indeterminate="false"-->
+        <!--android:max="100"-->
+        <!--android:theme="@style/LinearProgress" />-->
 
     <TextView
         android:id="@+id/txt_progress_percent"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
-        android:layout_marginLeft="20dp"
         android:gravity="right"
         android:textSize="18sp"
+        android:textColor="@color/color_accent"
         android:text="0%"/>
 
 </LinearLayout>

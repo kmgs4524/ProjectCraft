@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.akexorcist.roundcornerprogressbar.IconRoundCornerProgressBar;
 import com.example.york.teamcraft.R;
 
 /**
@@ -14,12 +15,13 @@ import com.example.york.teamcraft.R;
 public class TaskProgressHolder extends RecyclerView.ViewHolder{
     private TextView txtGroupName;
     private TextView txtProgPercent;
-    private ProgressBar progGroup;
+    private IconRoundCornerProgressBar progGroup;
+//    private ProgressBar progGroup;
 
     public TaskProgressHolder(View itemView) {
         super(itemView);
         txtGroupName = (TextView) itemView.findViewById(R.id.txt_progress_group_name);
-        progGroup = (ProgressBar) itemView.findViewById(R.id.progress_bar_group);
+        progGroup = (IconRoundCornerProgressBar) itemView.findViewById(R.id.progress_bar_group);
         txtProgPercent = (TextView) itemView.findViewById(R.id.txt_progress_percent);
     }
 
@@ -27,9 +29,13 @@ public class TaskProgressHolder extends RecyclerView.ViewHolder{
         return txtGroupName;
     }
 
-    public ProgressBar getProgGroup() {
+    public IconRoundCornerProgressBar getProgGroup() {
         return progGroup;
     }
+
+//    public ProgressBar getProgGroup() {
+//        return progGroup;
+//    }
 
     public TextView getTxtProgPercent() {
         return txtProgPercent;
