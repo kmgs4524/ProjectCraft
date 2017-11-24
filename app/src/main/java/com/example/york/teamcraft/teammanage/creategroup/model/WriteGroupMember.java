@@ -26,7 +26,7 @@ public class WriteGroupMember {
         groupMebMap = new HashMap<>();
 
         for(GroupMember mem: memList) {
-            groupMebMap.put(mem.getUserId(), new GroupMember(mem.getName(), mem.getUserId(), mem.getPosition()));
+            groupMebMap.put(mem.getUserId(), new GroupMember(mem.getName(), mem.getUserId(), mem.getPosition(), "0"));
         }
         groupMemRef.child(groupId).updateChildren(groupMebMap);
     }

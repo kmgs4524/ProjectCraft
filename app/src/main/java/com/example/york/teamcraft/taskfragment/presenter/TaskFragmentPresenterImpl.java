@@ -48,7 +48,7 @@ public class TaskFragmentPresenterImpl implements TaskFragmentPresenter {
                                     while (iterator.hasNext()) {
                                         GroupMember nextMem = iterator.next();
                                         if (nextMem.getUserId().equals(userId)) {
-                                            if(nextMem.getPosition().equals("director")) {  // 若使用者的position等於"director"
+                                            if(nextMem.getPosition().equals("組長")) {  // 若使用者的position等於"director"
                                                 taskFragmentView.setImgAddGroupTaskListener();
                                             }
                                         }

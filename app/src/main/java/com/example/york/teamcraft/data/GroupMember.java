@@ -9,11 +9,13 @@ public class GroupMember {
     private String name;    // 姓名
     private String userId;    // user id
     private String position; // 職位
+    private String photoUrl;    // 大頭貼
 
-    public GroupMember(String name, String id, String pos) {
+    public GroupMember(String name, String id, String pos, String url) {
         this.name = name;
         this.userId = id;
         this.position = pos;
+        this.photoUrl = url;
     }
 
     public GroupMember() {}
@@ -40,5 +42,13 @@ public class GroupMember {
 
     public void setPosition(String position) {
         this.position = position;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 }

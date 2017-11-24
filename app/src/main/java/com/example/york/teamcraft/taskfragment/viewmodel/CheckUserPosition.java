@@ -40,7 +40,7 @@ public class CheckUserPosition {
                         while (iterator.hasNext()) {
                             GroupMember nextMem = iterator.next();
                             if (nextMem.getUserId().equals(userId)) {   // 若在群組中找到自己的user id
-                                if (nextMem.getPosition().equals("director")) {
+                                if (nextMem.getPosition().equals("組長")) {
                                     callBack.update(true);
                                 } else {
                                     callBack.update(false);

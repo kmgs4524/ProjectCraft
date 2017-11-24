@@ -129,7 +129,6 @@ public class SignInPresenterImpl implements SignInPresenter {
     // 確認資料庫中是否存在使用者的資料
     public void confirmUserExist() {
         final ReadUser readUser = new ReadUser();
-        Log.d("url", "confirmUserExist: " + user.getPhotoUrl().toString());
         final Task<Boolean> taskCheck = readUser.checkUserExist();    // 確認users node是否已有目前登入使用者的資料
         taskCheck.addOnSuccessListener(new OnSuccessListener<Boolean>() {
             @Override

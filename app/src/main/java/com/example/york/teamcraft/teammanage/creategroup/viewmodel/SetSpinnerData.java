@@ -6,6 +6,8 @@ import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.data.GroupMember;
 import com.example.york.teamcraft.teammanage.creategroup.model.ReadTeamMember;
 import com.example.york.teamcraft.teammanage.creategroup.view.CreateGroupView;
+import com.example.york.teamcraft.teammanage.jointeam.model.TeamMember;
+import com.example.york.teamcraft.teammanage.model.Group;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
 import com.example.york.teamcraft.teammanage.model.User;
 
@@ -35,9 +37,19 @@ public class SetSpinnerData {
                 readTeamMember = new ReadTeamMember();
                 readTeamMember.getGroupMember(data.getTeamId(), new CallBack<ArrayList<GroupMember>>() {
                     @Override
-                    public void update(ArrayList<GroupMember> data) {
-                        Log.d("member data", Integer.toString(data.size()));
-                        createGroupView.setSpinMenu(data);
+                    public void update(ArrayList<GroupMember> memList) {
+                        Log.d("member data", Integer.toString(memList.size()));
+                        for(final GroupMember member: memList) {
+                            Log.d("setData", "update: " + "name:" + member.getName() + " url: " + member.getPhotoUrl());
+                            readUser.getUserImageUrl(member.getUserId(), new CallBack<String>() {
+                                @Override
+                                public void update(String imageUrl) {
+                                    member.setPhotoUrl(imageUrl);   // 設定photoUrl
+                                    Log.d("setData", "update: " + "name:" + member.getName() + " url: " + member.getPhotoUrl());
+                                }
+                            });
+                        }
+                        createGroupView.setSpinMenu(memList);
                     }
                 });
             }
