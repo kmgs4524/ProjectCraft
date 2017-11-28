@@ -43,7 +43,6 @@ public class GroupManageFragment extends Fragment implements GroupManageView{
         ButterKnife.bind(this, view);
         // init Presenter
         groupManagePresenter = new GroupManagePresenterImpl(this);
-        groupManagePresenter.addTaskProgress(); // add task progress fragment
         groupManagePresenter.initRecyclerProgressData();
         groupManagePresenter.initRecyclerGroupData();
         return view;
@@ -63,19 +62,6 @@ public class GroupManageFragment extends Fragment implements GroupManageView{
         recyclerGroup.setLayoutManager(groupLayoutManager);
         DividerItemDecoration divider = new DividerItemDecoration(recyclerGroup.getContext(), groupLayoutManager.getOrientation());
         recyclerGroup.addItemDecoration(divider);
-    }
-
-    @Override
-    public void addTaskProgressFrag() {
-//        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-//        transaction.add(R.id.team_groupmanage_fragment, ActionFragment.newInstance());  // 包含新增成員, 建立群組, 工作表選項的fragment
-//        transaction.add(R.id.team_groupmanage_fragment, TaskProgressFragment.newInstance());    // 群組進度的fragment
-//        transaction.commit();
-//
-//        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-//        params.addRule(RelativeLayout.BELOW, R.id.linearLayout_task_progress);
-//
-//        recyclerGroup.setLayoutParams(params);
     }
 
     public static GroupManageFragment newInstance() {
