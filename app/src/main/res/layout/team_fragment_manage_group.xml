@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:id="@+id/team_groupmanage_fragment"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
+    <fragment
+        android:name="com.example.york.teamcraft.teammanage.actionfragment.ActionFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_group_progress"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
 
     <!-- 顯示各個group的recycler view -->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_group"
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="0dp" />
 
-</RelativeLayout>
+</LinearLayout>

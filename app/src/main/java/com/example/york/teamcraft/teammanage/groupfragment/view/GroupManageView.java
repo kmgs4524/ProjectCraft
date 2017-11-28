@@ -1,6 +1,7 @@
 package com.example.york.teamcraft.teammanage.groupfragment.view;
 
 import com.example.york.teamcraft.teammanage.model.Group;
+import com.example.york.teamcraft.teammanage.taskprogress.model.GroupProgress;
 
 import java.util.ArrayList;
 
@@ -9,6 +10,7 @@ import java.util.ArrayList;
  */
 
 public interface GroupManageView {
-    public abstract void initRecyclerView(ArrayList<Group> list);
+    public abstract void initRecyclerProgress(ArrayList<GroupProgress> progList);
+    public abstract void initRecyclerGroup(ArrayList<Group> list);
     public abstract void addTaskProgressFrag();
 }

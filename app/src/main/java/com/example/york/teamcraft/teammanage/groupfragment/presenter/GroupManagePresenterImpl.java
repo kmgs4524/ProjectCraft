@@ -1,14 +1,12 @@
 package com.example.york.teamcraft.teammanage.groupfragment.presenter;
 
 import com.example.york.teamcraft.CallBack;
-import com.example.york.teamcraft.teammanage.groupfragment.view.GroupManageFragment;
 import com.example.york.teamcraft.teammanage.groupfragment.view.GroupManageView;
 import com.example.york.teamcraft.teammanage.model.Group;
 import com.example.york.teamcraft.teammanage.model.ReadTeam;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
-import com.example.york.teamcraft.teammanage.model.User;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+import com.example.york.teamcraft.teammanage.taskprogress.model.GroupProgress;
+import com.example.york.teamcraft.teammanage.taskprogress.viewmodel.SetAdapterData;
 
 import java.util.ArrayList;
 
@@ -19,15 +17,15 @@ import java.util.ArrayList;
 public class GroupManagePresenterImpl implements GroupManagePresenter{
     // view
     private GroupManageView groupManageFragment;
-
     // ReadTeam Model
-    private ReadUser readUser;
     private ReadTeam readTeam;
+    // view model
+    private SetAdapterData setAdapterData;
 
     public GroupManagePresenterImpl(GroupManageView view) {
         this.groupManageFragment = view;
-        this.readUser = new ReadUser();
         this.readTeam = new ReadTeam();
+        this.setAdapterData = new SetAdapterData();
     }
 
     @Override
@@ -36,11 +34,21 @@ public class GroupManagePresenterImpl implements GroupManagePresenter{
     }
 
     @Override
-    public void initRecyclerViewData() {
+    public void initRecyclerProgressData() {
+        setAdapterData.setData(new CallBack<ArrayList<GroupProgress>>() {
+            @Override
+            public void update(ArrayList<GroupProgress> data) {
+                groupManageFragment.initRecyclerProgress(data);
+            }
+        });
+    }
+
+    @Override
+    public void initRecyclerGroupData() {
         readTeam.getTeamGroup(new CallBack<ArrayList<Group>>() {
             @Override
             public void update(ArrayList<Group> data) {
-                groupManageFragment.initRecyclerView(data);
+                groupManageFragment.initRecyclerGroup(data);
             }
         });
     }

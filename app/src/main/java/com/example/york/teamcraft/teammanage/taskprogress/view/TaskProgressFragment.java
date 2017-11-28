@@ -71,5 +71,4 @@ public class TaskProgressFragment extends Fragment implements TaskProgressView{
         recyclerView.setLayoutManager(layoutManager);
     }
 
-
 }
