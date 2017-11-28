@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.teammanage.taskprogress.model.GroupMissionProgress;
@@ -44,7 +45,11 @@ public class TaskProgressFragment extends Fragment implements TaskProgressView{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.team_fragment_taskprogress, container, false);
+        View view = inflater.inflate(R.layout.team_fragment_taskprogress, container, false);
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        params.addRule(RelativeLayout.BELOW, R.id.linear_layout_action);
+        view.setLayoutParams(params);
 
         initRecycler(view);
         taskFragmentPresenter = new TaskProgressPresenterImpl(this);

@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.example.york.teamcraft.memberfragment.MemberFragment;
 import com.example.york.teamcraft.teammanage.groupfragment.view.GroupManageFragment;
 
 /**
@@ -21,7 +22,7 @@ public class TeamPagerAdapter extends FragmentPagerAdapter{
         Fragment selectedFrag = new GroupManageFragment();
         switch (position) {
             case 0:
-                selectedFrag = new GroupManageFragment();
+                selectedFrag = new MemberFragment();
                 break;
             case 1:
                 selectedFrag = new GroupManageFragment();

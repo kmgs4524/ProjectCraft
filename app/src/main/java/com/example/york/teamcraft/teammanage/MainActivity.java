@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
         // 進入MainActivity後，預設顯示PersonalsFragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main_content, PersonalsFragment.newInstance());
-//        transaction.replace(R.id.main_content, ScheduleFragment.newInstance());
         transaction.commit();
 
         //Set up  the ViewPager with the section adapter.

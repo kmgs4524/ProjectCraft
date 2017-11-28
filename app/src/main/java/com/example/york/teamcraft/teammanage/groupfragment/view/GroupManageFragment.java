@@ -49,7 +49,6 @@ public class GroupManageFragment extends Fragment implements GroupManageView{
         groupManagePresenter = new GroupManagePresenterImpl(this);
         groupManagePresenter.addTaskProgress(); // add task progress fragment
         groupManagePresenter.initRecyclerViewData();
-//        initFab();
         return view;
     }
 
@@ -69,10 +68,10 @@ public class GroupManageFragment extends Fragment implements GroupManageView{
         transaction.add(R.id.team_groupmanage_fragment, TaskProgressFragment.newInstance());    // 群組進度的fragment
         transaction.commit();
 
-//        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-//        params.addRule(RelativeLayout.BELOW, R.id.linearLayout_task_progress);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        params.weight = 1;
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        params.addRule(RelativeLayout.BELOW, R.id.linearLayout_task_progress);
+//        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+//        params.weight = 1;
         recyclerView.setLayoutParams(params);
     }
 
