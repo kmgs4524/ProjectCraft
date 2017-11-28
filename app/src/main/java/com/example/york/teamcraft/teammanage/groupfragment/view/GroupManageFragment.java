@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.example.york.teamcraft.R;
@@ -37,10 +38,6 @@ public class GroupManageFragment extends Fragment implements GroupManageView{
     private GroupManagePresenter groupManagePresenter;
     // view
     @BindView(R.id.recycler_view_group) RecyclerView recyclerView;
-//    @BindView(R.id.fab_schedule)
-//    com.getbase.floatingactionbutton.FloatingActionButton fabSched;
-//    @BindView(R.id.fab_finance)
-//    com.getbase.floatingactionbutton.FloatingActionButton fabFinan;
     private LinearLayoutManager layoutManager;
 
     @Nullable
@@ -72,28 +69,12 @@ public class GroupManageFragment extends Fragment implements GroupManageView{
         transaction.add(R.id.team_groupmanage_fragment, TaskProgressFragment.newInstance());    // 群組進度的fragment
         transaction.commit();
 
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        params.addRule(RelativeLayout.BELOW, R.id.linearLayout_task_progress);
+//        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+//        params.addRule(RelativeLayout.BELOW, R.id.linearLayout_task_progress);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        params.weight = 1;
         recyclerView.setLayoutParams(params);
     }
-
-    //設定FloatingActionButton的listener
-//    private void initFab(){
-//        fabSched.setOnClickListener(new View.OnClickListener() {
-//            @Override public void onClick(View v) {
-//                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//                transaction.replace(R.id.main_content, ScheduleFragment.newInstance());
-//                transaction.commit();
-//            }
-//        });
-//    }
-
-//    @OnClick(R.id.fab_finance)
-//    public void startFinance() {
-//        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//        transaction.replace(R.id.main_content, FinanceFragment.newInstance());
-//        transaction.commit();
-//    }
 
     public static GroupManageFragment newInstance() {
         Bundle args = new Bundle();

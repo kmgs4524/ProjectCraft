@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.financefragment.view.FinanceFragment;
 import com.example.york.teamcraft.personalsfragment.view.PersonalsFragment;
+import com.example.york.teamcraft.teamfragment.TeamFragment;
 import com.example.york.teamcraft.teammanage.board.view.BoardFragment;
 import com.example.york.teamcraft.teammanage.groupfragment.view.GroupManageFragment;
 
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 //                        selectedFrag = ScheduleFragment.newInstance();
                         break;
                     case R.id.action_item_team:
-                        selectedFrag = GroupManageFragment.newInstance();
+                        selectedFrag = TeamFragment.newInstance();
                         break;
                     case R.id.action_item_board:
                         selectedFrag = BoardFragment.newInstance();
