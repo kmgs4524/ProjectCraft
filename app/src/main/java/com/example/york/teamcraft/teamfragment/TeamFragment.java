@@ -34,11 +34,9 @@ public class TeamFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_team, container, false);
         pager = (ViewPager) view.findViewById(R.id.pager);
         tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
-        adapter = new TeamPagerAdapter(getFragmentManager());
+        adapter = new TeamPagerAdapter(getChildFragmentManager());
 
         pager.setAdapter(adapter);
-        tabLayout.addTab(tabLayout.newTab().setText("成員"));
-        tabLayout.addTab(tabLayout.newTab().setText("群組"));
         tabLayout.setupWithViewPager(pager);
 
         return view;

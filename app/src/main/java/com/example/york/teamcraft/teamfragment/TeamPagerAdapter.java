@@ -46,7 +46,6 @@ public class TeamPagerAdapter extends FragmentPagerAdapter{
                 title = "群組";
                 break;
         }
-
         return title;
     }
 }
