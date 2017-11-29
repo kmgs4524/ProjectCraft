@@ -68,6 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/edt_accounting_item_name"
             android:layout_toRightOf="@+id/img_accounting_item_amount"
+            android:inputType="number"
             android:hint="金額" />
 
         <ImageView
@@ -86,6 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/edt_accounting_item_amount"
             android:layout_toRightOf="@+id/img_accounting_item_date"
+            android:inputType="date"
             android:hint="日期" />
 
         <ImageView
