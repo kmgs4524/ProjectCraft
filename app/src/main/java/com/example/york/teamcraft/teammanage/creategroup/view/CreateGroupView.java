@@ -11,5 +11,6 @@ import java.util.ArrayList;
 
 public interface CreateGroupView {
     public void finishCreate();
+    public void initGridView();
     public void setSpinMenu(ArrayList<GroupMember> memList);
 }

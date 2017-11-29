@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -20,13 +21,18 @@ import com.example.york.teamcraft.teammanage.jointeam.model.TeamMember;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class CreateGroupActivity extends AppCompatActivity implements CreateGroupView{
     //view
-    private EditText edtGroupName;
-    private TextView txtGroupMember;
-    private Spinner spnTeamMember;
-    private Button btnAddMember;
-    private Button btnCreate;
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.edt_group_name) EditText edtGroupName;
+    @BindView(R.id.txt_group_member) TextView txtGroupMember;
+    @BindView(R.id.grid_view_selected_member) GridView gridSelectedMember;
+    @BindView(R.id.spin_team_member) Spinner spnTeamMember;
+    @BindView(R.id.btn_add_group_member) Button btnAddMember;
+    @BindView(R.id.btn_create) Button btnCreate;
     // presenter
     private CreateGroupPresenter createGroupPresenter;
 
@@ -34,8 +40,8 @@ public class CreateGroupActivity extends AppCompatActivity implements CreateGrou
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.team_activity_create_group);
+        ButterKnife.bind(this);
         initToolBar();
-        initInputView();
         createGroupPresenter = new CreateGroupPresenterImpl(this);
         createGroupPresenter.setSpinMenu();
         initCreateBtn();
@@ -43,41 +49,46 @@ public class CreateGroupActivity extends AppCompatActivity implements CreateGrou
 
     // 設置ToolBar
     private void initToolBar(){
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("創建群組");
         Log.d("PersonalTasksActivity", "init ToolBar");
     }
 
-    // 設置EditText
-    public void initInputView() {
-        edtGroupName = (EditText) findViewById(R.id.edt_group_name);
-        spnTeamMember = (Spinner) findViewById(R.id.spin_team_member);
-        txtGroupMember =(TextView) findViewById(R.id.txt_group_member);
+    @Override
+    public void initGridView() {
+
     }
 
     // 設定Spinner
     public void setSpinMenu(final ArrayList<GroupMember> memList) {
-        spnTeamMember = (Spinner) findViewById(R.id.spin_team_member);
-        btnAddMember = (Button) findViewById(R.id.btn_add_group_member);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<GroupMember> spinMenuAdapter = new SpinMenuAdapter(this, R.layout.spinner_init, memList);
         // Specify the layout to use when the list of choices appears
         spinMenuAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spnTeamMember.setAdapter(spinMenuAdapter);
+        final CreateGroupActivity activity = this;
         btnAddMember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // 將spinner被選擇的項目加入暫存的list
                 createGroupPresenter.saveSpinnerData(memList.get(spnTeamMember.getSelectedItemPosition()));
-                txtGroupMember.setText(txtGroupMember.getText() + " " + memList.get(spnTeamMember.getSelectedItemPosition()).getName());
+                Log.d("setSpinMenu", "size: " + createGroupPresenter.getSaveGroupMember().getMemList().size());
+                gridSelectedMember.setAdapter(new SelectedViewAdapter(activity, createGroupPresenter.getSaveGroupMember().getMemList()));
+                // 設定點擊GridView項目的listener
+                gridSelectedMember.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Log.d("setSpinMenu:", "position: " + position);
+                        createGroupPresenter.getSaveGroupMember().getMemList().remove(position);    // 項目被點擊後就從儲存被選擇成員的list中刪除該成員
+                        gridSelectedMember.setAdapter(new SelectedViewAdapter(activity, createGroupPresenter.getSaveGroupMember().getMemList()));   // 刪除後再次更新GridView
+                    }
+                });
             }
         });
     }
 
     public void initCreateBtn() {
-        btnCreate = (Button) findViewById(R.id.btn_create);
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
