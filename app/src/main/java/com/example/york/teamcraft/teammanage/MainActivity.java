@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.financefragment.view.FinanceFragment;
 import com.example.york.teamcraft.personalsfragment.view.PersonalsFragment;
+import com.example.york.teamcraft.teamfragment.TeamFragment;
 import com.example.york.teamcraft.teammanage.board.view.BoardFragment;
 import com.example.york.teamcraft.teammanage.groupfragment.view.GroupManageFragment;
 
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 //                        selectedFrag = ScheduleFragment.newInstance();
                         break;
                     case R.id.action_item_team:
-                        selectedFrag = GroupManageFragment.newInstance();
+                        selectedFrag = TeamFragment.newInstance();
                         break;
                     case R.id.action_item_board:
                         selectedFrag = BoardFragment.newInstance();
@@ -62,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
         // 進入MainActivity後，預設顯示PersonalsFragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main_content, PersonalsFragment.newInstance());
-//        transaction.replace(R.id.main_content, ScheduleFragment.newInstance());
         transaction.commit();
 
         //Set up  the ViewPager with the section adapter.

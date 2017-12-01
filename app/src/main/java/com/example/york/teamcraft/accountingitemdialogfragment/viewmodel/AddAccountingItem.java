@@ -15,13 +15,19 @@ public class AddAccountingItem {
     private WriteFinance writeFinance;
     private ReadUser readUser;
 
-    public void addItem(final String name, final String amount, final String payer, final String date, final String type) {
+    public void addItem(final String name, final String strAmount, final String payer, final String date, final String type) {
         ReadUser readUser = new ReadUser();
         readUser.getUserData(new CallBack<User>() {
             @Override
             public void update(User data) {
                 WriteFinance writeFinance = new WriteFinance();
-                writeFinance.pushData(data.getTeamId(), new AccountingItem(name, Integer.parseInt(amount), date, payer, type));
+                int amount = 0;
+                if(type.equals("cost")) {
+                    amount = - Integer.parseInt(strAmount);
+                } else {
+                    amount = Integer.parseInt(strAmount);
+                }
+                writeFinance.pushData(data.getTeamId(), new AccountingItem(name, amount, date, payer, type));
             }
         });
     }

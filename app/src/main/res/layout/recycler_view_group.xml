@@ -14,7 +14,7 @@
             android:id="@+id/cir_img_member"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_margin="15dp"
+            android:layout_margin="6dp"
             android:src="@drawable/create_group_background"/>
 
         <TextView
@@ -22,7 +22,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:textSize="18sp"
             android:text="name"/>
 
         <RelativeLayout
@@ -31,8 +30,8 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:tint="@color/color_primary"

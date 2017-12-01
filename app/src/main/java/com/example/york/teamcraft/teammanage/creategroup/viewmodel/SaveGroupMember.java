@@ -16,10 +16,12 @@ public class SaveGroupMember {
         this.memList = new ArrayList<>();
     }
 
-    //
+    // 加入成員
     public void addMember(GroupMember groupMember) {
-        memList.add(groupMember);
-    };
+        if(!memList.contains(groupMember)) {
+            memList.add(groupMember);
+        }
+    }
 
     public ArrayList<GroupMember> getMemList() {
         return memList;
