@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.example.york.teamcraft.memberfragment.MemberFragment;
+import com.example.york.teamcraft.memberfragment.view.MemberFragment;
 import com.example.york.teamcraft.teammanage.groupfragment.view.GroupManageFragment;
 
 /**
