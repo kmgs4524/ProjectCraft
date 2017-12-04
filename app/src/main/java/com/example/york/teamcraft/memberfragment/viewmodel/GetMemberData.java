@@ -3,6 +3,8 @@ package com.example.york.teamcraft.memberfragment.viewmodel;
 import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.addcontenttask.model.ReadGroupMember;
 import com.example.york.teamcraft.data.GroupMember;
+import com.example.york.teamcraft.memberfragment.data.SectionOrItem;
+import com.example.york.teamcraft.memberfragment.view.MemberView;
 import com.example.york.teamcraft.teammanage.creategroup.model.ReadTeamMember;
 import com.example.york.teamcraft.teammanage.jointeam.model.TeamMember;
 import com.example.york.teamcraft.teammanage.model.Group;
@@ -17,23 +19,40 @@ import java.util.ArrayList;
  */
 
 public class GetMemberData {
+    // view
+    private MemberView view;
+    // model
     private ReadTeam readTeam;
     private ReadGroupMember readGroupMember;
     private ReadUser readUser;
 
-    public GetMemberData() {
-        readGroupMember = new ReadGroupMember();
-        readUser = new ReadUser();
+    public GetMemberData(MemberView view) {
+        this.view = view;
+        this.readGroupMember = new ReadGroupMember();
+        this.readUser = new ReadUser();
     }
 
     public void getData() {
+        final ArrayList<SectionOrItem> sectionOrItems = new ArrayList<>();
         readUser.getUserData(new CallBack<User>() {
             @Override
             public void update(User user) {
                 readTeam.getTeamGroupByDataChange(user.getTeamId(), new CallBack<ArrayList<Group>>() {
                     @Override
-                    public void update(ArrayList<Group> data) {
+                    public void update(ArrayList<Group> groups) {
+                        for(Group group: groups) {
+                            SectionOrItem section = SectionOrItem.createSection(group.getName());
+                            sectionOrItems.add(section);
+                            readGroupMember.getGroupMember(group.getId(), new CallBack<ArrayList<GroupMember>>() {
+                                @Override
+                                public void update(ArrayList<GroupMember> groupMembers) {
+                                    for(GroupMember groupMember: groupMembers) {
+//                                        SectionOrItem item = SectionOrItem.createItem(groupMember.getName(), );
 
+                                    }
+                                }
+                            });
+                        }
                     }
                 });
             }
