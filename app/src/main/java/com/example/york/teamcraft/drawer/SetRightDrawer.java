@@ -31,7 +31,7 @@ public class SetRightDrawer {
 //        recyclerView = (RecyclerView) act.findViewById(R.id.recycler_view_right_drawer);
 //
 //        readUser = new ReadUser();
-//        readUser.getUserData(new CallBack<User>() {
+//        readUser.getCurrentLogInUserData(new CallBack<User>() {
 //            @Override
 //            public void update(User user) {
 //                readTeamMember = new ReadTeamMember();

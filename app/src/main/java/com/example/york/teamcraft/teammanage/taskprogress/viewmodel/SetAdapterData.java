@@ -8,7 +8,6 @@ import com.example.york.teamcraft.teammanage.model.Group;
 import com.example.york.teamcraft.teammanage.model.ReadTeam;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
 import com.example.york.teamcraft.teammanage.model.User;
-import com.example.york.teamcraft.teammanage.taskprogress.model.GroupMissionProgress;
 import com.example.york.teamcraft.teammanage.taskprogress.model.GroupProgress;
 
 import java.util.ArrayList;
@@ -34,7 +33,7 @@ public class SetAdapterData {
     public void setData(final CallBack<ArrayList<GroupProgress>> callBack) {
         progList = new ArrayList<>();
 
-        readUser.getUserData(new CallBack<User>() {
+        readUser.getCurrentLogInUserData(new CallBack<User>() {
             @Override
             public void update(User user) {
                 readTeam.getTeamGroupByDataChange(user.getTeamId(), new CallBack<ArrayList<Group>>() {

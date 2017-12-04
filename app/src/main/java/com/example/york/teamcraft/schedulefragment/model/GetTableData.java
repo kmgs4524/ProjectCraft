@@ -1,7 +1,5 @@
 package com.example.york.teamcraft.schedulefragment.model;
 
-import android.util.Log;
-
 import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.CallBackTwoArgs;
 import com.example.york.teamcraft.schedulefragment.data.RowData;
@@ -31,7 +29,7 @@ public class GetTableData {
 
     public void getData(final CallBack<ArrayList<RowData>> callBack) {
         readUser = new ReadUser();
-        readUser.getUserData(new CallBack<User>() {
+        readUser.getCurrentLogInUserData(new CallBack<User>() {
             @Override
             public void update(User user) {
                 readTeam = new ReadTeam();

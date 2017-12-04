@@ -6,7 +6,6 @@ import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.CallBackTwoArgs;
 import com.example.york.teamcraft.personalsfragment.view.PersonalsView;
 import com.example.york.teamcraft.personalsmanage.model.DataPath;
-import com.example.york.teamcraft.personalsmanage.view.PersonalTasksView;
 import com.example.york.teamcraft.taskfragment.model.ContentTask;
 import com.example.york.teamcraft.taskfragment.model.ReadGroupTasks;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
@@ -33,7 +32,7 @@ public class SetPersonalTask {
     public void initData() {
         if(FirebaseAuth.getInstance().getCurrentUser() != null) {
             readUser = new ReadUser();
-            readUser.getUserData(new CallBack<User>() {
+            readUser.getCurrentLogInUserData(new CallBack<User>() {
                 @Override
                 public void update(User data) {
                     final User user = data;

@@ -1,7 +1,5 @@
 package com.example.york.teamcraft.financefragment.viewmodel;
 
-import android.util.Log;
-
 import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.financefragment.model.AccountingItem;
 import com.example.york.teamcraft.financefragment.model.ReadTeamBudget;
@@ -30,7 +28,7 @@ public class SetBudget {
 
     public void setData() {
         readUser = new ReadUser();
-        readUser.getUserData(new CallBack<User>() {
+        readUser.getCurrentLogInUserData(new CallBack<User>() {
             @Override
             public void update(final User user) {
                 readTeamBudget = new ReadTeamBudget();

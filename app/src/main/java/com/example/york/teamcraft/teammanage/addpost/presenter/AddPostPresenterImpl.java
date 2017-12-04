@@ -8,9 +8,6 @@ import com.example.york.teamcraft.teammanage.model.User;
 import com.example.york.teamcraft.teammanage.model.WritePost;
 import com.example.york.teamcraft.teammanage.post.model.WritePostComments;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Created by York on 2017/9/30.
  */
@@ -60,7 +57,7 @@ public class AddPostPresenterImpl implements AddPostPresenter {
                 readUser.getUserImageUrl(userId, new CallBack<String>() {
                     @Override
                     public void update(final String url) {
-                        readUser.getUserData(new CallBack<User>() {
+                        readUser.getCurrentLogInUserData(new CallBack<User>() {
                             @Override
                             public void update(User user) {
                                 Post post = new Post(user.getName(), date, content, "", 0, 0, time, url);

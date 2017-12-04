@@ -1,11 +1,8 @@
 package com.example.york.teamcraft.teammanage.model;
 
-import android.provider.ContactsContract;
 import android.util.Log;
 
 import com.example.york.teamcraft.CallBack;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -52,7 +49,7 @@ public class ReadTeam {
 
     public void getTeamPost(final CallBack<ArrayList<Post>> callback) {
         teamActRef = FirebaseDatabase.getInstance().getReference().child("teamPosts");
-        readUser.getUserData(new CallBack<User>() {
+        readUser.getCurrentLogInUserData(new CallBack<User>() {
             @Override
             public void update(User data) {
                 DatabaseReference ref = teamActRef.child(data.getTeamId()).getRef();
@@ -93,7 +90,7 @@ public class ReadTeam {
     public void getTeamGroup(final CallBack<ArrayList<Group>> callback) {
         teamGroRef = FirebaseDatabase.getInstance().getReference().child("teamGroups");
         groupList = new ArrayList<>();
-        readUser.getUserData(new CallBack<User>() {
+        readUser.getCurrentLogInUserData(new CallBack<User>() {
             @Override
             public void update(User data) {
                 DatabaseReference ref = teamGroRef.child(data.getTeamId()).getRef();

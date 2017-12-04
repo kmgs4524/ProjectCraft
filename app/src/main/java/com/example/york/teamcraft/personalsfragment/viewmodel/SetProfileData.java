@@ -38,7 +38,7 @@ public class SetProfileData {
             //
         } else {
             readUser = new ReadUser();
-            readUser.getUserData(new CallBack<User>() {
+            readUser.getCurrentLogInUserData(new CallBack<User>() {
                 @Override
                 public void update(final User user) {
                     personalsView.setCirImgPersonals(user.getImageUrl());

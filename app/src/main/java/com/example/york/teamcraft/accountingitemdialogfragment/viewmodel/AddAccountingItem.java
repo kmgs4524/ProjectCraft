@@ -17,7 +17,7 @@ public class AddAccountingItem {
 
     public void addItem(final String name, final String strAmount, final String payer, final String date, final String type) {
         ReadUser readUser = new ReadUser();
-        readUser.getUserData(new CallBack<User>() {
+        readUser.getCurrentLogInUserData(new CallBack<User>() {
             @Override
             public void update(User data) {
                 WriteFinance writeFinance = new WriteFinance();

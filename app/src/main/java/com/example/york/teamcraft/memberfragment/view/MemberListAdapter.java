@@ -58,6 +58,7 @@ public class MemberListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        // 連接資料時，先檢查sectionOr
         if(sectionOrItems.get(position).isItem()) {
             Log.d("onBindViewHolder", "is item");
             Log.d("onBindViewHolder", "name: " + sectionOrItems.get(position).getMemberName());
@@ -66,6 +67,7 @@ public class MemberListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             ((ItemViewHolder) holder).setItemPortrait(sectionOrItems.get(position).getImageUrl());
             ((ItemViewHolder) holder).setItemName(sectionOrItems.get(position).getMemberName());
             ((ItemViewHolder) holder).setItemEmail(sectionOrItems.get(position).getEmail());
+            ((ItemViewHolder) holder).setItemPosition(sectionOrItems.get(position).getPosition());
         } else {
             Log.d("onBindViewHolder", "is section");
             ((SectionViewHolder) holder).setSectionName(sectionOrItems.get(position).getGroupName());
@@ -94,12 +96,14 @@ public class MemberListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         private CircleImageView imgPortrait;
         private TextView txtItemName;
         private TextView txtItemEmail;
+        private TextView txtItemPosition;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
             imgPortrait = (CircleImageView) itemView.findViewById(R.id.img_group_member);
             txtItemName = (TextView) itemView.findViewById(R.id.txt_item_group_member_name);
             txtItemEmail = (TextView) itemView.findViewById(R.id.txt_group_member_email);
+            txtItemPosition = (TextView) itemView.findViewById(R.id.txt_group_member_leader);
         }
 
         public void setItemPortrait(String imageUrl) {
@@ -116,6 +120,13 @@ public class MemberListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         public void setItemEmail(String memberEmail) {
             txtItemEmail.setText(memberEmail);
             Log.d("onBindViewHolder", "setItemEmail: " + memberEmail);
+        }
+
+        public void setItemPosition(String position) {
+            // 若成員的職位為組員的話就把組長的TextView隱藏
+            if(position.equals("組員")) {
+                txtItemPosition.setVisibility(View.GONE);
+            }
         }
     }
 }

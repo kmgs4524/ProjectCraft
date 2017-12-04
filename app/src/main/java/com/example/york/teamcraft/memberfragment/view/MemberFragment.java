@@ -38,7 +38,7 @@ public class MemberFragment extends Fragment implements MemberView{
         View view = inflater.inflate(R.layout.fragment_member, container, false);
         ButterKnife.bind(this, view);
 
-        presenter = new MemberFragmentPresenterImpl();
+        presenter = new MemberFragmentPresenterImpl(this);
         presenter.initRecyclerViewData();
 
         return view;

@@ -6,7 +6,6 @@ import com.example.york.teamcraft.addcontenttask.view.AddContentTaskView;
 import com.example.york.teamcraft.data.GroupMember;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
 import com.example.york.teamcraft.teammanage.model.User;
-import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
 
@@ -28,7 +27,7 @@ public class SetSpinData {
     }
 
     public void setData() {
-        readUser.getUserData(new CallBack<User>() {
+        readUser.getCurrentLogInUserData(new CallBack<User>() {
             @Override
             public void update(User data) {
                 readGroupMember.getGroupMember(data.getGroupId(), new CallBack<ArrayList<GroupMember>>() {

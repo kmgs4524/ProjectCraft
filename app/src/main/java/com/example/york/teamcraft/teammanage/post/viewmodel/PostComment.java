@@ -5,7 +5,6 @@ import com.example.york.teamcraft.teammanage.model.ReadUser;
 import com.example.york.teamcraft.teammanage.model.User;
 import com.example.york.teamcraft.teammanage.post.model.Comment;
 import com.example.york.teamcraft.teammanage.post.model.WritePostComments;
-import com.google.android.gms.tasks.OnSuccessListener;
 
 /**
  * Created by York on 2017/10/20.
@@ -22,7 +21,7 @@ public class PostComment {
     }
 
     public void post(final String postId, final String messg) {
-        readUser.getUserData(new CallBack<User>() {
+        readUser.getCurrentLogInUserData(new CallBack<User>() {
             @Override
             public void update(User data) {
                 final User user = data;
