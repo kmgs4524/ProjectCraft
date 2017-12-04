@@ -16,6 +16,7 @@ import com.example.york.teamcraft.taskfragment.view.TaskFragment;
 import com.example.york.teamcraft.teammanage.groupinformation.presenter.GroupInfoPresenter;
 import com.example.york.teamcraft.teammanage.groupinformation.presenter.GroupInfoPresenterImpl;
 
+// 群組任務的畫面，包含TargetFragment、TaskFragment
 public class GroupInfoActivity extends AppCompatActivity implements GroupInfoView, PassDataListener {
     private GroupInfoPresenter groupInfoPresenter;
     private FragmentManager fragmentManager;

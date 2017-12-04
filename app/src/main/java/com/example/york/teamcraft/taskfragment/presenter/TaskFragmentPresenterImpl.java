@@ -35,8 +35,8 @@ public class TaskFragmentPresenterImpl implements TaskFragmentPresenter {
     public void checkUserGroup(final String groupId) {
         readUser.getUserData(new CallBack<User>() {
             @Override
-            public void update(User data) {
-                if (groupId.equals(data.getGroupId())) { // 若使用者的group id 等於目前點擊群組的id
+            public void update(User user) {
+                if (groupId.equals(user.getGroupId())) { // 若使用者的group id 等於目前點擊群組的id
                     readUser.getUserId(new CallBack<String>() {
                         @Override
                         public void update(String data) {

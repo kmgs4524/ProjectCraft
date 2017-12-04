@@ -6,6 +6,8 @@ import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.taskfragment.model.ReadGroupTasks;
 import com.example.york.teamcraft.teammanage.model.Group;
 import com.example.york.teamcraft.teammanage.model.ReadTeam;
+import com.example.york.teamcraft.teammanage.model.ReadUser;
+import com.example.york.teamcraft.teammanage.model.User;
 import com.example.york.teamcraft.teammanage.taskprogress.model.GroupMissionProgress;
 import com.example.york.teamcraft.teammanage.taskprogress.model.GroupProgress;
 
@@ -17,12 +19,14 @@ import java.util.Iterator;
  */
 
 public class SetAdapterData {
+    private ReadUser readUser;
     private ReadTeam readTeam;
     private ReadGroupTasks readGroupTasks;
 
     private ArrayList<GroupProgress> progList;
 
     public SetAdapterData() {
+        this.readUser = new ReadUser();
         this.readTeam = new ReadTeam();
         this.readGroupTasks = new ReadGroupTasks();
     }
@@ -30,45 +34,50 @@ public class SetAdapterData {
     public void setData(final CallBack<ArrayList<GroupProgress>> callBack) {
         progList = new ArrayList<>();
 
-        readTeam.getTeamGroupByDataChange(new CallBack<ArrayList<Group>>() {
+        readUser.getUserData(new CallBack<User>() {
             @Override
-            public void update(ArrayList<Group> data) {
-                Iterator<Group> iterator = data.iterator(); // 迭代出team中所有的group
-                while (iterator.hasNext()) {
-                    final Group nextGroup = iterator.next();
+            public void update(User user) {
+                readTeam.getTeamGroupByDataChange(user.getTeamId(), new CallBack<ArrayList<Group>>() {
+                    @Override
+                    public void update(ArrayList<Group> data) {
+                        Iterator<Group> iterator = data.iterator(); // 迭代出team中所有的group
+                        while (iterator.hasNext()) {
+                            final Group nextGroup = iterator.next();
 
 //                    Log.d("nextgroup", nextGroup.getName());
-                    readGroupTasks.getAllContentTaskNum(nextGroup.getId(), new CallBack<GroupProgress>() {
-                        @Override
-                        public void update(GroupProgress data) {
-                            data.setGroupName(nextGroup.getName());
-                            boolean exist = false;
-                            int index = 0;
+                            readGroupTasks.getAllContentTaskNum(nextGroup.getId(), new CallBack<GroupProgress>() {
+                                @Override
+                                public void update(GroupProgress data) {
+                                    data.setGroupName(nextGroup.getName());
+                                    boolean exist = false;
+                                    int index = 0;
 
-                            if(progList.isEmpty()) {
-                               progList.add(data);
-                            } else {
-                                for(int i = 0; i < progList.size(); i++) {
-                                    if(progList.get(i).getGroupName().equals(nextGroup.getName())) {
-                                        exist = true;
-                                        index = i;
+                                    if(progList.isEmpty()) {
+                                        progList.add(data);
+                                    } else {
+                                        for(int i = 0; i < progList.size(); i++) {
+                                            if(progList.get(i).getGroupName().equals(nextGroup.getName())) {
+                                                exist = true;
+                                                index = i;
+                                            }
+                                        }
+                                        if(exist) {
+                                            progList.set(index, data);
+                                            Log.d("nextgroup", "groupName: " + data.getGroupName() + " totalNum: " + data.getTotalTaskNum() + " checkedNum: " + data.getCheckedTaskNum());
+                                        } else {
+                                            progList.add(data);
+                                            Log.d("nextgroup", "groupName: " + data.getGroupName() + " totalNum: " + data.getTotalTaskNum() + " checkedNum: " + data.getCheckedTaskNum());
+                                        }
                                     }
-                                }
-                                if(exist) {
-                                    progList.set(index, data);
-                                    Log.d("nextgroup", "groupName: " + data.getGroupName() + " totalNum: " + data.getTotalTaskNum() + " checkedNum: " + data.getCheckedTaskNum());
-                                } else {
-                                    progList.add(data);
-                                    Log.d("nextgroup", "groupName: " + data.getGroupName() + " totalNum: " + data.getTotalTaskNum() + " checkedNum: " + data.getCheckedTaskNum());
-                                }
-                            }
 
-                            Log.d("nextgroup", Integer.toString(progList.size()));
-                            callBack.update(progList);
+                                    Log.d("nextgroup", Integer.toString(progList.size()));
+                                    callBack.update(progList);
+                                }
+                            });
+
                         }
-                    });
-
-                }
+                    }
+                });
             }
         });
     }
