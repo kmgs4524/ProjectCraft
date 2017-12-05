@@ -7,6 +7,8 @@ import com.example.york.teamcraft.addcontenttask.model.ReadGroupMember;
 import com.example.york.teamcraft.data.GroupMember;
 import com.example.york.teamcraft.memberfragment.data.SectionOrItem;
 import com.example.york.teamcraft.memberfragment.view.MemberView;
+import com.example.york.teamcraft.teammanage.creategroup.model.ReadTeamMember;
+import com.example.york.teamcraft.teammanage.jointeam.model.TeamMember;
 import com.example.york.teamcraft.teammanage.model.Group;
 import com.example.york.teamcraft.teammanage.model.ReadTeam;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
@@ -26,15 +28,34 @@ public class GetMemberData {
     private ReadTeam readTeam;
     private ReadGroupMember readGroupMember;
     private ReadUser readUser;
+    private ReadTeamMember readTeamMember;
 
     public GetMemberData(MemberView view) {
         this.memberView = view;
         this.readTeam = new ReadTeam();
         this.readGroupMember = new ReadGroupMember();
         this.readUser = new ReadUser();
+        this.readTeamMember = new ReadTeamMember();
     }
 
-    public void getData() {
+    public void merge() {
+        getData(new CallBack<ArrayList<SectionOrItem>>() {
+            @Override
+            public void update(final ArrayList<SectionOrItem> distributedSection) {
+                getUnDistributedMember(new CallBack<ArrayList<SectionOrItem>>() {
+                    @Override
+                    public void update(ArrayList<SectionOrItem> undistributedSection) {
+                        Log.d("merge", "distributedSection: " + distributedSection.size());
+                        Log.d("merge", "undistributedSection: " + undistributedSection.size());
+                        distributedSection.addAll(undistributedSection);
+                        memberView.initRecyclerView(distributedSection);
+                    }
+                });
+            }
+        });
+    }
+
+    public void getData(final CallBack<ArrayList<SectionOrItem>> callBack) {
         readUser.getCurrentLogInUserData(new CallBack<User>() {
             @Override
             public void update(User user) {
@@ -43,14 +64,15 @@ public class GetMemberData {
                     @Override
                     public void update(ArrayList<Group> groups) {
                         final ArrayList<SectionOrItem> sectionOrItems = new ArrayList<>();  // 傳入MemberListAdapter的ArrayList<SectionOrItem>
-                        for(final Group group: groups) {
+                        for (final Group group : groups) {
                             // 再用groupId取得每個群組的所有成員
                             readGroupMember.getGroupMember(group.getId(), new CallBack<ArrayList<GroupMember>>() {
                                 @Override
                                 public void update(final ArrayList<GroupMember> groupMembers) {
                                     // 迭代出Group的每個member並將其資料用來創造作為item的SectionOrItem object
-                                    for(final GroupMember member: groupMembers) {
+                                    for (final GroupMember member : groupMembers) {
                                         final SectionOrItem item = SectionOrItem.createItem(member.getName(), "0", "0", member.getPosition());
+                                        // 取得每個成員的email, imageUrl
                                         readUser.getUserDataById(member.getUserId(), new CallBack<User>() {
                                             @Override
                                             public void update(User userInGroup) {
@@ -62,21 +84,96 @@ public class GetMemberData {
                                                 }
                                                 item.setEmail(userInGroup.getEmail());
                                                 item.setImageUrl(userInGroup.getImageUrl());
-                                                if(member.getPosition().equals("組長")) {
+                                                if (member.getPosition().equals("組長")) {
                                                     item.setPosition("組長");
                                                 } else {
                                                     item.setPosition("組員");
                                                 }
                                                 sectionOrItems.add(item);
-                                                memberView.initRecyclerView(sectionOrItems);
-                                                Log.d("GetMemberData", "sectionOrItems size: " + sectionOrItems.size());
+
+                                                callBack.update(sectionOrItems);
+//                                                memberView.initRecyclerView(sectionOrItems);
+//                                                Log.d("GetMemberData", "sectionOrItems size: " + sectionOrItems.size());
                                             }
                                         });
                                     }
                                 }
                             });
                         }
+                    }
+                });
+            }
+        });
+    }
 
+    public void getUnDistributedMember(final CallBack<ArrayList<SectionOrItem>> callBack) {
+        readUser.getCurrentLogInUserData(new CallBack<User>() {
+            @Override
+            public void update(final User user) {
+                readTeamMember.getTeamMember(user.getTeamId(), new CallBack<ArrayList<TeamMember>>() {
+                    @Override
+                    public void update(final ArrayList<TeamMember> teamMembers) {
+                        readTeam.getTeamGroupByDataChange(user.getTeamId(), new CallBack<ArrayList<Group>>() {
+                            @Override
+                            public void update(ArrayList<Group> groups) {
+                                final ArrayList<GroupMember> allGroupMembers = new ArrayList<>(); // 儲存所有的群組成員
+//                                Log.d("getUnDistributedMember", "groups size: " + groups.size());
+                                for (Group group : groups) {
+                                    readGroupMember.getGroupMember(group.getId(), new CallBack<ArrayList<GroupMember>>() {
+                                        @Override
+                                        public void update(ArrayList<GroupMember> groupMembers) {
+                                            Log.d("getUnDistributedMember", "groupMembers size: " + groupMembers.size());
+                                            for (GroupMember groupMember : groupMembers) {
+                                                allGroupMembers.add(groupMember);
+                                            }
+                                            Log.d("getUnDistributedMember", "allGroupMembers size: " + allGroupMembers.size());
+                                            final ArrayList<TeamMember> restTeamMembers = new ArrayList<>();
+                                            for (TeamMember teamMember : teamMembers) {
+                                                try {
+                                                    restTeamMembers.add(teamMember.clone());
+                                                } catch (CloneNotSupportedException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                            Log.d("getUnDistributedMember", "before restTeamMembers size: " + restTeamMembers.size());
+
+                                            for (GroupMember groupMember : allGroupMembers) {
+                                                Iterator<TeamMember> iterator = restTeamMembers.iterator();
+                                                while (iterator.hasNext()) {
+                                                    TeamMember nextGroupMember = iterator.next();
+                                                    if (nextGroupMember.getUserId().equals(groupMember.getUserId())) {
+                                                        iterator.remove();
+                                                    }
+                                                }
+                                            }
+                                            Log.d("getUnDistributedMember", "after restTeamMembers size: " + restTeamMembers.size());
+
+                                            final ArrayList<SectionOrItem> sectionOrItems = new ArrayList<>();
+                                            for(final TeamMember teamMember: restTeamMembers) {
+                                                final SectionOrItem item = SectionOrItem.createItem(teamMember.getName(), "0", "0", "0");
+                                                readUser.getUserDataById(teamMember.getUserId(), new CallBack<User>() {
+                                                    @Override
+                                                    public void update(User userInTeam) {
+                                                        if(restTeamMembers.indexOf(teamMember) == 0) {
+                                                            SectionOrItem section = SectionOrItem.createSection("未分組");
+                                                            sectionOrItems.add(section);
+                                                        }
+                                                        item.setIsItem(true);
+                                                        item.setEmail(userInTeam.getEmail());
+                                                        item.setImageUrl(userInTeam.getImageUrl());
+                                                        item.setPosition("無");
+
+                                                        sectionOrItems.add(item);
+                                                        callBack.update(sectionOrItems);
+                                                    }
+                                                });
+                                            }
+
+                                        }
+                                    });
+                                }
+                            }
+                        });
                     }
                 });
             }

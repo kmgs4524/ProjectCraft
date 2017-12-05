@@ -4,7 +4,7 @@ package com.example.york.teamcraft.teammanage.jointeam.model;
  * Created by York on 2017/10/23.
  */
 
-public class TeamMember {
+public class TeamMember implements Cloneable{
     private String name;
     private String userId;
     private String photoUrl;
@@ -37,5 +37,19 @@ public class TeamMember {
 
     public void setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
+    }
+
+
+    @Override
+    public TeamMember clone() throws CloneNotSupportedException {
+        super.clone();
+        TeamMember clonedTeamMember = new TeamMember();
+        clonedTeamMember.name = name.substring(0);
+        clonedTeamMember.userId = userId.substring(0);
+        if(photoUrl != null) {
+            clonedTeamMember.photoUrl = photoUrl.substring(0);
+        }
+
+        return clonedTeamMember;
     }
 }
