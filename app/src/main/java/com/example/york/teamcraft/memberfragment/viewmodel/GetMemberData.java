@@ -30,6 +30,8 @@ public class GetMemberData {
     private ReadUser readUser;
     private ReadTeamMember readTeamMember;
 
+    private ArrayList<GroupMember> allGroupMembers = new ArrayList<>(); // 儲存所有的群組成員
+
     public GetMemberData(MemberView view) {
         this.memberView = view;
         this.readTeam = new ReadTeam();
@@ -41,65 +43,81 @@ public class GetMemberData {
     public void getData() {
         readUser.getCurrentLogInUserData(new CallBack<User>() {
             @Override
-            public void update(User user) {
-                // 先取得團隊的所有群組
-                readTeam.getTeamGroupByDataChange(user.getTeamId(), new CallBack<ArrayList<Group>>() {
+            public void update(final User user) {
+                readTeamMember.getTeamMember(user.getTeamId(), new CallBack<ArrayList<TeamMember>>() {
                     @Override
-                    public void update(ArrayList<Group> groups) {
-                        final ArrayList<SectionOrItem> sectionOrItems = new ArrayList<>();  // 傳入MemberListAdapter的ArrayList<SectionOrItem>
-                        for (final Group group : groups) {
-                            // 再用groupId取得每個群組的所有成員
-                            readGroupMember.getGroupMember(group.getId(), new CallBack<ArrayList<GroupMember>>() {
-                                @Override
-                                public void update(final ArrayList<GroupMember> groupMembers) {
-                                    // 迭代出Group的每個member並將其資料用來創造作為item的SectionOrItem object
-                                    for (final GroupMember member : groupMembers) {
-                                        final SectionOrItem item = SectionOrItem.createItem(member.getName(), "0", "0", member.getPosition());
-                                        // 取得每個成員的email, imageUrl
-                                        readUser.getUserDataById(member.getUserId(), new CallBack<User>() {
-                                            @Override
-                                            public void update(User userInGroup) {
-                                                // 若迭代出第一個group member，則先放入作為群組名稱的section
-                                                if (groupMembers.indexOf(member) == 0) {
-                                                    // 將迭代出團隊的每個group其名稱用來創造作為section的SectionOrItem object
-                                                    SectionOrItem section = SectionOrItem.createSection(group.getName());
-                                                    sectionOrItems.add(section);
-                                                }
-                                                item.setEmail(userInGroup.getEmail());
-                                                item.setImageUrl(userInGroup.getImageUrl());
-                                                if (member.getPosition().equals("組長")) {
-                                                    item.setPosition("組長");
-                                                } else {
-                                                    item.setPosition("組員");
-                                                }
-                                                sectionOrItems.add(item);
+                    public void update(final ArrayList<TeamMember> teamMembers) {
+                        // 先取得團隊的所有群組
+                        readTeam.getTeamGroupByDataChange(user.getTeamId(), new CallBack<ArrayList<Group>>() {
+                            @Override
+                            public void update(final ArrayList<Group> groups) {
+                                getUnDistributedMember(teamMembers, groups, new CallBack<ArrayList<SectionOrItem>>() {
+                                    @Override
+                                    public void update(final ArrayList<SectionOrItem> undistributedSection) {
 
-//                                                getUnDistributedMember();
-                                                memberView.initRecyclerView(sectionOrItems);
+                                        final ArrayList<SectionOrItem> sectionOrItems = new ArrayList<>();  // 傳入MemberListAdapter的ArrayList<SectionOrItem>
+                                        for (final Group group : groups) {
+                                            // 再用groupId取得每個群組的所有成員
+                                            readGroupMember.getGroupMember(group.getId(), new CallBack<ArrayList<GroupMember>>() {
+                                                @Override
+                                                public void update(final ArrayList<GroupMember> groupMembers) {
+                                                    // 迭代出Group的每個member並將其資料用來創造作為item的SectionOrItem object
+                                                    for (final GroupMember member : groupMembers) {
+                                                        final SectionOrItem item = SectionOrItem.createItem(member.getName(), "0", "0", member.getPosition());
+                                                        // 取得每個成員的email, imageUrl
+                                                        readUser.getUserDataById(member.getUserId(), new CallBack<User>() {
+                                                            @Override
+                                                            public void update(User userInGroup) {
+                                                                // 若迭代出第一個group member，則先放入作為群組名稱的section
+                                                                if (groupMembers.indexOf(member) == 0) {
+                                                                    // 將迭代出團隊的每個group其名稱用來創造作為section的SectionOrItem object
+                                                                    SectionOrItem section = SectionOrItem.createSection(group.getName());
+                                                                    sectionOrItems.add(section);
+                                                                }
+                                                                item.setEmail(userInGroup.getEmail());
+                                                                item.setImageUrl(userInGroup.getImageUrl());
+                                                                if (member.getPosition().equals("組長")) {
+                                                                    item.setPosition("組長");
+                                                                } else {
+                                                                    item.setPosition("組員");
+                                                                }
+                                                                sectionOrItems.add(item);
+
+                                                                if((groups.indexOf(group) == groups.size() - 1) && (groupMembers.indexOf(member) == groupMembers.size() - 1)) {
+                                                                    sectionOrItems.addAll(undistributedSection);
+                                                                }
+                                                                memberView.initRecyclerView(sectionOrItems);
 //                                                Log.d("GetMemberData", "sectionOrItems size: " + sectionOrItems.size());
-                                            }
-                                        });
+                                                            }
+                                                        });
+                                                    }
+                                                }
+                                            });
+                                        }
+
                                     }
-                                }
-                            });
-                        }
+                                });
+
+                            }
+                        });
                     }
                 });
             }
         });
     }
 
-    public void getUnDistributedMember() {
-        readUser.getCurrentLogInUserData(new CallBack<User>() {
-            @Override
-            public void update(final User user) {
-                readTeamMember.getTeamMember(user.getTeamId(), new CallBack<ArrayList<TeamMember>>() {
-                    @Override
-                    public void update(final ArrayList<TeamMember> teamMembers) {
-                        readTeam.getTeamGroupByDataChange(user.getTeamId(), new CallBack<ArrayList<Group>>() {
-                            @Override
-                            public void update(ArrayList<Group> groups) {
-                                final ArrayList<GroupMember> allGroupMembers = new ArrayList<>(); // 儲存所有的群組成員
+    public void getUnDistributedMember(final ArrayList<TeamMember> teamMembers, ArrayList<Group> groups, final CallBack<ArrayList<SectionOrItem>> callBack) {
+//        readUser.getCurrentLogInUserData(new CallBack<User>() {
+//            @Override
+//            public void update(final User user) {
+//                readTeamMember.getTeamMember(user.getTeamId(), new CallBack<ArrayList<TeamMember>>() {
+//                    @Override
+//                    public void update(final ArrayList<TeamMember> teamMembers) {
+//                        readTeam.getTeamGroupByDataChange(user.getTeamId(), new CallBack<ArrayList<Group>>() {
+//                            @Override
+//                            public void update(ArrayList<Group> groups) {
+
+//                                final ArrayList<GroupMember> allGroupMembers = new ArrayList<>(); // 儲存所有的群組成員
 //                                Log.d("getUnDistributedMember", "groups size: " + groups.size());
                                 for (Group group : groups) {
                                     readGroupMember.getGroupMember(group.getId(), new CallBack<ArrayList<GroupMember>>() {
@@ -139,18 +157,20 @@ public class GetMemberData {
                                                         item.setPosition("無");
 
                                                         sectionOrItems.add(item);
-                                                        memberView.initRecyclerView(sectionOrItems);
+                                                        callBack.update(sectionOrItems);
+//                                                        memberView.initRecyclerView(sectionOrItems);
                                                     }
                                                 });
                                             }
                                         }
                                     });
                                 }
-                            }
-                        });
-                    }
-                });
-            }
-        });
+
+//                            }
+//                        });
+//                    }
+//                });
+//            }
+//        });
     }
 }
