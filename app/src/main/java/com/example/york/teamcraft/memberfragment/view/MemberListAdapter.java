@@ -123,7 +123,7 @@ public class MemberListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         public void setItemPosition(String position) {
-            // 若成員的職位為組員的話就把組長的TextView隱藏
+            // 若成員的職位為組長的話就顯示組長的TextView
             if(position.equals("組長")) {
                 txtItemPosition.setVisibility(View.VISIBLE);
             }

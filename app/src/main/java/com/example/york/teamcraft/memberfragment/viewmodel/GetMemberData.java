@@ -30,7 +30,7 @@ public class GetMemberData {
     private ReadUser readUser;
     private ReadTeamMember readTeamMember;
 
-    private ArrayList<GroupMember> allGroupMembers = new ArrayList<>(); // 儲存所有的群組成員
+    private ArrayList<GroupMember> allGroupMembers = new ArrayList<>(); // 儲存各個小組的所有群組成員，用在getUnDistributedMember()中與teamMembers做比較
 
     public GetMemberData(MemberView view) {
         this.memberView = view;
@@ -51,6 +51,7 @@ public class GetMemberData {
                         readTeam.getTeamGroupByDataChange(user.getTeamId(), new CallBack<ArrayList<Group>>() {
                             @Override
                             public void update(final ArrayList<Group> groups) {
+                                // 取得未分組成員的ArrayList<SectionOrItem>
                                 getUnDistributedMember(teamMembers, groups, new CallBack<ArrayList<SectionOrItem>>() {
                                     @Override
                                     public void update(final ArrayList<SectionOrItem> undistributedSection) {
@@ -82,12 +83,12 @@ public class GetMemberData {
                                                                     item.setPosition("組員");
                                                                 }
                                                                 sectionOrItems.add(item);
-
-                                                                if((groups.indexOf(group) == groups.size() - 1) && (groupMembers.indexOf(member) == groupMembers.size() - 1)) {
+                                                                // 若已迭代到最後一個群組的最後一位成員時，則將未分組成員的secOrItems加到目前已分組的secOrItems ArrayList
+                                                                if ((groups.indexOf(group) == groups.size() - 1) && (groupMembers.indexOf(member) == groupMembers.size() - 1)) {
                                                                     sectionOrItems.addAll(undistributedSection);
                                                                 }
                                                                 memberView.initRecyclerView(sectionOrItems);
-//                                                Log.d("GetMemberData", "sectionOrItems size: " + sectionOrItems.size());
+
                                                             }
                                                         });
                                                     }
@@ -107,70 +108,52 @@ public class GetMemberData {
     }
 
     public void getUnDistributedMember(final ArrayList<TeamMember> teamMembers, ArrayList<Group> groups, final CallBack<ArrayList<SectionOrItem>> callBack) {
-//        readUser.getCurrentLogInUserData(new CallBack<User>() {
-//            @Override
-//            public void update(final User user) {
-//                readTeamMember.getTeamMember(user.getTeamId(), new CallBack<ArrayList<TeamMember>>() {
-//                    @Override
-//                    public void update(final ArrayList<TeamMember> teamMembers) {
-//                        readTeam.getTeamGroupByDataChange(user.getTeamId(), new CallBack<ArrayList<Group>>() {
-//                            @Override
-//                            public void update(ArrayList<Group> groups) {
+        for (Group group : groups) {
+            readGroupMember.getGroupMember(group.getId(), new CallBack<ArrayList<GroupMember>>() {
+                @Override
+                public void update(ArrayList<GroupMember> groupMembers) {
+                    Log.d("getUnDistributedMember", "groupMembers size: " + groupMembers.size());
+                    for (GroupMember groupMember : groupMembers) {
+                        allGroupMembers.add(groupMember);
+                    }
+                    Log.d("getUnDistributedMember", "allGroupMembers size: " + allGroupMembers.size());
 
-//                                final ArrayList<GroupMember> allGroupMembers = new ArrayList<>(); // 儲存所有的群組成員
-//                                Log.d("getUnDistributedMember", "groups size: " + groups.size());
-                                for (Group group : groups) {
-                                    readGroupMember.getGroupMember(group.getId(), new CallBack<ArrayList<GroupMember>>() {
-                                        @Override
-                                        public void update(ArrayList<GroupMember> groupMembers) {
-                                            Log.d("getUnDistributedMember", "groupMembers size: " + groupMembers.size());
-                                            for (GroupMember groupMember : groupMembers) {
-                                                allGroupMembers.add(groupMember);
-                                            }
-                                            Log.d("getUnDistributedMember", "allGroupMembers size: " + allGroupMembers.size());
+                    // 比較團隊成員中和所有已分組成員，將已分組的成員從teamMembers中刪除
+                    for (GroupMember groupMember : allGroupMembers) {
+                        Iterator<TeamMember> iterator = teamMembers.iterator();
+                        while (iterator.hasNext()) {
+                            TeamMember nextGroupMember = iterator.next();
+                            if (nextGroupMember.getUserId().equals(groupMember.getUserId())) {
+                                iterator.remove();
+                            }
+                        }
+                    }
+                    Log.d("getUnDistributedMember", "after restTeamMembers size: " + teamMembers.size());
 
-                                            // 比較團隊成員中和所有已分組成員，將已分組的成員從teamMembers中刪除
-                                            for (GroupMember groupMember : allGroupMembers) {
-                                                Iterator<TeamMember> iterator = teamMembers.iterator();
-                                                while (iterator.hasNext()) {
-                                                    TeamMember nextGroupMember = iterator.next();
-                                                    if (nextGroupMember.getUserId().equals(groupMember.getUserId())) {
-                                                        iterator.remove();
-                                                    }
-                                                }
-                                            }
-                                            Log.d("getUnDistributedMember", "after restTeamMembers size: " + teamMembers.size());
-
-                                            final ArrayList<SectionOrItem> sectionOrItems = new ArrayList<>();
-                                            for(final TeamMember teamMember: teamMembers) {
-                                                final SectionOrItem item = SectionOrItem.createItem(teamMember.getName(), "0", "0", "0");
-                                                readUser.getUserDataById(teamMember.getUserId(), new CallBack<User>() {
-                                                    @Override
-                                                    public void update(User userInTeam) {
-                                                        if(teamMembers.indexOf(teamMember) == 0) {
-                                                            SectionOrItem section = SectionOrItem.createSection("未分組");
-                                                            sectionOrItems.add(section);
-                                                        }
-                                                        item.setIsItem(true);
-                                                        item.setEmail(userInTeam.getEmail());
-                                                        item.setImageUrl(userInTeam.getImageUrl());
-                                                        item.setPosition("無");
-
-                                                        sectionOrItems.add(item);
-                                                        callBack.update(sectionOrItems);
-//                                                        memberView.initRecyclerView(sectionOrItems);
-                                                    }
-                                                });
-                                            }
-                                        }
-                                    });
+                    final ArrayList<SectionOrItem> sectionOrItems = new ArrayList<>();
+                    for (final TeamMember teamMember : teamMembers) {
+                        final SectionOrItem item = SectionOrItem.createItem(teamMember.getName(), "0", "0", "0");
+                        readUser.getUserDataById(teamMember.getUserId(), new CallBack<User>() {
+                            @Override
+                            public void update(User userInTeam) {
+                                if (teamMembers.indexOf(teamMember) == 0) {
+                                    SectionOrItem section = SectionOrItem.createSection("未分組");
+                                    sectionOrItems.add(section);
                                 }
+                                item.setIsItem(true);
+                                item.setEmail(userInTeam.getEmail());
+                                item.setImageUrl(userInTeam.getImageUrl());
+                                item.setPosition("無");
 
-//                            }
-//                        });
-//                    }
-//                });
-//            }
-//        });
+                                sectionOrItems.add(item);
+                                callBack.update(sectionOrItems);
+//                                                        memberView.initRecyclerView(sectionOrItems);
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
     }
 }
