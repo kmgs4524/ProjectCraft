@@ -17,6 +17,7 @@ public class MemberFragmentPresenterImpl implements MemberFragmentPresenter{
     @Override
     public void initRecyclerViewData() {
         GetMemberData getMemberData = new GetMemberData(memberView);
-        getMemberData.merge();
+        getMemberData.getData();
+//        getMemberData.getUnDistributedMember();
     }
 }

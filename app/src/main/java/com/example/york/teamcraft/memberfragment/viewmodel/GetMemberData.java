@@ -38,24 +38,7 @@ public class GetMemberData {
         this.readTeamMember = new ReadTeamMember();
     }
 
-    public void merge() {
-        getData(new CallBack<ArrayList<SectionOrItem>>() {
-            @Override
-            public void update(final ArrayList<SectionOrItem> distributedSection) {
-                getUnDistributedMember(new CallBack<ArrayList<SectionOrItem>>() {
-                    @Override
-                    public void update(ArrayList<SectionOrItem> undistributedSection) {
-                        Log.d("merge", "distributedSection: " + distributedSection.size());
-                        Log.d("merge", "undistributedSection: " + undistributedSection.size());
-                        distributedSection.addAll(undistributedSection);
-                        memberView.initRecyclerView(distributedSection);
-                    }
-                });
-            }
-        });
-    }
-
-    public void getData(final CallBack<ArrayList<SectionOrItem>> callBack) {
+    public void getData() {
         readUser.getCurrentLogInUserData(new CallBack<User>() {
             @Override
             public void update(User user) {
@@ -91,8 +74,8 @@ public class GetMemberData {
                                                 }
                                                 sectionOrItems.add(item);
 
-                                                callBack.update(sectionOrItems);
-//                                                memberView.initRecyclerView(sectionOrItems);
+//                                                getUnDistributedMember();
+                                                memberView.initRecyclerView(sectionOrItems);
 //                                                Log.d("GetMemberData", "sectionOrItems size: " + sectionOrItems.size());
                                             }
                                         });
@@ -106,7 +89,7 @@ public class GetMemberData {
         });
     }
 
-    public void getUnDistributedMember(final CallBack<ArrayList<SectionOrItem>> callBack) {
+    public void getUnDistributedMember() {
         readUser.getCurrentLogInUserData(new CallBack<User>() {
             @Override
             public void update(final User user) {
@@ -127,18 +110,10 @@ public class GetMemberData {
                                                 allGroupMembers.add(groupMember);
                                             }
                                             Log.d("getUnDistributedMember", "allGroupMembers size: " + allGroupMembers.size());
-                                            final ArrayList<TeamMember> restTeamMembers = new ArrayList<>();
-                                            for (TeamMember teamMember : teamMembers) {
-                                                try {
-                                                    restTeamMembers.add(teamMember.clone());
-                                                } catch (CloneNotSupportedException e) {
-                                                    e.printStackTrace();
-                                                }
-                                            }
-                                            Log.d("getUnDistributedMember", "before restTeamMembers size: " + restTeamMembers.size());
 
+                                            // 比較團隊成員中和所有已分組成員，將已分組的成員從teamMembers中刪除
                                             for (GroupMember groupMember : allGroupMembers) {
-                                                Iterator<TeamMember> iterator = restTeamMembers.iterator();
+                                                Iterator<TeamMember> iterator = teamMembers.iterator();
                                                 while (iterator.hasNext()) {
                                                     TeamMember nextGroupMember = iterator.next();
                                                     if (nextGroupMember.getUserId().equals(groupMember.getUserId())) {
@@ -146,15 +121,15 @@ public class GetMemberData {
                                                     }
                                                 }
                                             }
-                                            Log.d("getUnDistributedMember", "after restTeamMembers size: " + restTeamMembers.size());
+                                            Log.d("getUnDistributedMember", "after restTeamMembers size: " + teamMembers.size());
 
                                             final ArrayList<SectionOrItem> sectionOrItems = new ArrayList<>();
-                                            for(final TeamMember teamMember: restTeamMembers) {
+                                            for(final TeamMember teamMember: teamMembers) {
                                                 final SectionOrItem item = SectionOrItem.createItem(teamMember.getName(), "0", "0", "0");
                                                 readUser.getUserDataById(teamMember.getUserId(), new CallBack<User>() {
                                                     @Override
                                                     public void update(User userInTeam) {
-                                                        if(restTeamMembers.indexOf(teamMember) == 0) {
+                                                        if(teamMembers.indexOf(teamMember) == 0) {
                                                             SectionOrItem section = SectionOrItem.createSection("未分組");
                                                             sectionOrItems.add(section);
                                                         }
@@ -164,11 +139,10 @@ public class GetMemberData {
                                                         item.setPosition("無");
 
                                                         sectionOrItems.add(item);
-                                                        callBack.update(sectionOrItems);
+                                                        memberView.initRecyclerView(sectionOrItems);
                                                     }
                                                 });
                                             }
-
                                         }
                                     });
                                 }
