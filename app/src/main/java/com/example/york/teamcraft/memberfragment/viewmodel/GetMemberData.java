@@ -147,7 +147,6 @@ public class GetMemberData {
 
                                 sectionOrItems.add(item);
                                 callBack.update(sectionOrItems);
-//                                                        memberView.initRecyclerView(sectionOrItems);
                             }
                         });
                     }

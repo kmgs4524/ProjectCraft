@@ -44,12 +44,10 @@ public class MemberListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if(viewType == 0) {
-            Log.d("onCreateViewHolder", "is section");
             View sectionView = LayoutInflater.from(context).inflate(R.layout.recycler_view_section_group, parent, false);
             SectionViewHolder sectionHolder = new SectionViewHolder(sectionView);
             return  sectionHolder;
         } else {
-            Log.d("onCreateViewHolder", "is item");
             View itemView = LayoutInflater.from(context).inflate(R.layout.recycler_view_group_member, parent, false);
             ItemViewHolder itemHolder = new ItemViewHolder(itemView);
             return  itemHolder;
@@ -60,8 +58,6 @@ public class MemberListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         // 連接資料時，先檢查sectionOr
         if(sectionOrItems.get(position).isItem()) {
-            Log.d("onBindViewHolder", "is item");
-            Log.d("onBindViewHolder", "name: " + sectionOrItems.get(position).getMemberName());
             ItemViewHolder itemHolder = (ItemViewHolder) holder;
             itemHolder.setItemName(sectionOrItems.get(position).getMemberName());
             ((ItemViewHolder) holder).setItemPortrait(sectionOrItems.get(position).getImageUrl());
@@ -69,7 +65,7 @@ public class MemberListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             ((ItemViewHolder) holder).setItemEmail(sectionOrItems.get(position).getEmail());
             ((ItemViewHolder) holder).setItemPosition(sectionOrItems.get(position).getPosition());
         } else {
-            Log.d("onBindViewHolder", "is section");
+
             ((SectionViewHolder) holder).setSectionName(sectionOrItems.get(position).getGroupName());
         }
     }
@@ -113,13 +109,11 @@ public class MemberListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         public void setItemName(String memberName) {
-            Log.d("onBindViewHolder", "setItemName: " + memberName);
             txtItemName.setText(memberName);
         }
 
         public void setItemEmail(String memberEmail) {
             txtItemEmail.setText(memberEmail);
-            Log.d("onBindViewHolder", "setItemEmail: " + memberEmail);
         }
 
         public void setItemPosition(String position) {

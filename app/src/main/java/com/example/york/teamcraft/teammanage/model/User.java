@@ -12,13 +12,15 @@ public class User {
     private String imageUrl;
     private String teamId;
     private String groupId;
+    private String status;
 
-    public User(String n, String e, String url, String tId, String gId) {
+    public User(String n, String e, String url, String tId, String gId, String status) {
         this.name = n;
         this.email = e;
         this.imageUrl = url;
         this.teamId = tId;
         this.groupId = gId;
+        this.status = status;
     }
 
     public User() {
@@ -38,4 +40,6 @@ public class User {
     public String getTeamId() { return teamId; }
 
     public String getGroupId() { return groupId; }
+
+    public String getStatus() { return status; }
 }

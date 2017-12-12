@@ -66,9 +66,33 @@ public class ReadUser {
     }
 
     // 取得目前登入使用者的資料
-    public void getCurrentLogInUserData(final CallBack<User> callBack) {
+    public void getCurrentLogInUserDataForSingleEvent(final CallBack<User> callBack) {
         Query query = usersRef.orderByChild("email").equalTo(email);    // 搜尋出想要的email
         query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(final DataSnapshot dataSnapshot) {
+                Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();
+                DataSnapshot snap;
+                while (iterator.hasNext()) {
+                    snap = iterator.next();
+                    user = snap.getValue(User.class);
+                    callBack.update(user);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                if (databaseError != null) {
+                    Log.d("onCancelled", databaseError.getMessage());
+                }
+            }
+
+        });
+    }
+
+    public void getCurrentLogInUserData(final CallBack<User> callBack) {
+        Query query = usersRef.orderByChild("email").equalTo(email);    // 搜尋出想要的email
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
                 Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();

@@ -18,6 +18,5 @@ public class MemberFragmentPresenterImpl implements MemberFragmentPresenter{
     public void initRecyclerViewData() {
         GetMemberData getMemberData = new GetMemberData(memberView);
         getMemberData.getData();
-//        getMemberData.getUnDistributedMember();
     }
 }

@@ -30,4 +30,8 @@ public class WriteGroupMember {
         }
         groupMemRef.child(groupId).updateChildren(groupMebMap);
     }
+
+    public void changeGroupMemberName(String groupId, String userId, String userName) {
+        groupMemRef.child(groupId).child(userId).child("name").setValue(userName);
+    }
 }

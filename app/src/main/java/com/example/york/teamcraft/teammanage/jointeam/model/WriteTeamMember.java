@@ -26,4 +26,8 @@ public class WriteTeamMember {
         teamsMemRef.child(teamId).updateChildren(memMap);
     }
 
+    public void changeTeamMember(String teamId, String userId, String userName) {
+        teamsMemRef.child(teamId).child(userId).child("name").setValue(userName);
+    }
+
 }

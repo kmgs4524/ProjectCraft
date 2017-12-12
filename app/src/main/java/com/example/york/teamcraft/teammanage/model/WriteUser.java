@@ -53,7 +53,7 @@ public class WriteUser {
     // 在users插入新的user object
     public void pushData(String name, String email, String downloadUrl) {
         String key = usersRef.push().getKey();
-        userMap.put(key, new User(name, email, downloadUrl, "0", "0")); // User(name, email, teamId, groupId)
+        userMap.put(key, new User(name, email, downloadUrl, "0", "0", "")); // User(name, email, teamId, groupId)
         usersRef.updateChildren(userMap);
     }
 
@@ -67,5 +67,13 @@ public class WriteUser {
             DatabaseReference childRef = usersRef.child(member.getUserId());
             childRef.child("groupId").setValue(groupId);
         }
+    }
+
+    public void updateUserName(String userId, String name) {
+        usersRef.child(userId).child("name").setValue(name);
+    }
+
+    public void updateUserStatus(String userId, String status) {
+        usersRef.child(userId).child("status").setValue(status);
     }
 }
