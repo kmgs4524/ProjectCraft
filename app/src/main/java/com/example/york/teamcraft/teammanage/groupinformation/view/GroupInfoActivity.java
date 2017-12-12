@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.targetfragment.view.TargetFragment;
@@ -46,8 +48,19 @@ public class GroupInfoActivity extends AppCompatActivity implements GroupInfoVie
     //設置ToolBar
     public void initToolBar(String groupName) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.inflateMenu(R.menu.add_group_member_action_button);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if(item.getItemId() == R.id.action_add_new_group_member) {
+                    Toast.makeText(getApplicationContext(), "click", Toast.LENGTH_SHORT).show();
+                }
+                return true;
+            }
+        });
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(groupName);
+
     }
 
     public void getPassedGroupData() {
