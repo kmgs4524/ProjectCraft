@@ -6,9 +6,7 @@ import com.example.york.teamcraft.teammanage.jointeam.view.JoinTeamView;
 import com.example.york.teamcraft.teammanage.model.ReadTeam;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
 import com.example.york.teamcraft.teammanage.model.User;
-import com.example.york.teamcraft.teammanage.model.WriteTeam;
 import com.example.york.teamcraft.teammanage.model.WriteUser;
-import com.google.android.gms.tasks.OnSuccessListener;
 
 /**
  * Created by York on 2017/10/23.
@@ -40,7 +38,7 @@ public class JoinExistTeam {
                             writeUser = new WriteUser();
                             writeUser.updateUserTeam(userId, teamId); // 將teamId寫入user child
 
-                            readUser.getUserData(new CallBack<User>() {
+                            readUser.getCurrentLogInUserData(new CallBack<User>() {
                                 @Override
                                 public void update(User data) {
                                     writeTeamMember = new WriteTeamMember();

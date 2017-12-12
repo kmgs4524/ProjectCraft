@@ -5,7 +5,6 @@ import com.example.york.teamcraft.personalsmanage.model.WriteGroupTask;
 import com.example.york.teamcraft.taskfragment.model.ReadGroupTasks;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
 import com.example.york.teamcraft.teammanage.model.User;
-import com.google.android.gms.tasks.OnSuccessListener;
 
 /**
  * Created by York on 2017/10/18.
@@ -23,7 +22,7 @@ public class DeleteContentTask {
     }
 
     public void deleteTask(final String groupTaskName, final String taskId) {
-        readUser.getUserData(new CallBack<User>() {
+        readUser.getCurrentLogInUserData(new CallBack<User>() {
             @Override
             public void update(User data) {
                 writeGroupTask.deleteContentTask(data.getGroupId(), groupTaskName, taskId);

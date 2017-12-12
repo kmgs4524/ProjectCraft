@@ -8,8 +8,6 @@ import com.example.york.teamcraft.teammanage.creategroup.view.CreateGroupView;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
 import com.example.york.teamcraft.teammanage.model.User;
 import com.example.york.teamcraft.teammanage.model.WriteUser;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
 
@@ -44,7 +42,7 @@ public class CreateNewGroup {
     }
 
     public void create(final String groupName, final ArrayList<GroupMember> memList) {
-        readUser.getUserData(new CallBack<User>() {
+        readUser.getCurrentLogInUserData(new CallBack<User>() {
             @Override
             public void update(User data) {
                 final String groupId = writeTeamGroup.pushData(data.getTeamId(), groupName);  // 更新teamGroups節點並回傳groupId

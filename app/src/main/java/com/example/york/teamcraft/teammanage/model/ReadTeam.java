@@ -1,11 +1,8 @@
 package com.example.york.teamcraft.teammanage.model;
 
-import android.provider.ContactsContract;
 import android.util.Log;
 
 import com.example.york.teamcraft.CallBack;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -50,9 +47,9 @@ public class ReadTeam {
 
     }
 
-    public void getTeamPost(final CallBack< ArrayList<Post> > callback) {
+    public void getTeamPost(final CallBack<ArrayList<Post>> callback) {
         teamActRef = FirebaseDatabase.getInstance().getReference().child("teamPosts");
-        readUser.getUserData(new CallBack<User>() {
+        readUser.getCurrentLogInUserData(new CallBack<User>() {
             @Override
             public void update(User data) {
                 DatabaseReference ref = teamActRef.child(data.getTeamId()).getRef();
@@ -90,10 +87,10 @@ public class ReadTeam {
 
     }
 
-    public void getTeamGroup(final CallBack< ArrayList<Group> > callback) {
+    public void getTeamGroup(final CallBack<ArrayList<Group>> callback) {
         teamGroRef = FirebaseDatabase.getInstance().getReference().child("teamGroups");
         groupList = new ArrayList<>();
-        readUser.getUserData(new CallBack<User>() {
+        readUser.getCurrentLogInUserData(new CallBack<User>() {
             @Override
             public void update(User data) {
                 DatabaseReference ref = teamGroRef.child(data.getTeamId()).getRef();
@@ -131,32 +128,29 @@ public class ReadTeam {
 
     }
 
-    public void getTeamGroupByDataChange(final CallBack< ArrayList<Group> > callback) {
+    public void getTeamGroupByDataChange(String teamId, final CallBack<ArrayList<Group>> callback) {
         groupList = new ArrayList<>();
         teamGroRef = FirebaseDatabase.getInstance().getReference().child("teamGroups");
-        readUser.getUserData(new CallBack<User>() {
+
+        DatabaseReference ref = teamGroRef.child(teamId).getRef();
+
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
-            public void update(User data) {
-                DatabaseReference ref = teamGroRef.child(data.getTeamId()).getRef();
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterator<DataSnapshot> childSnapShot = dataSnapshot.getChildren().iterator();
+                while (childSnapShot.hasNext()) {
+                    Group group = childSnapShot.next().getValue(Group.class);
+                    groupList.add(group);
+                }
+                callback.update(groupList);
+            }
 
-                ref.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        Iterator<DataSnapshot> childSnapShot = dataSnapshot.getChildren().iterator();
-                        while (childSnapShot.hasNext()) {
-                            Group group = childSnapShot.next().getValue(Group.class);
-                            groupList.add(group);
-                        }
-                        callback.update(groupList);
-                    }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
             }
         });
+
     }
 
     public void checkTeamExist(final String teamId, final CallBack<Boolean> callBack) {
@@ -169,7 +163,7 @@ public class ReadTeam {
                 Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();    // 取得擁有每個team child node的Iterator
                 while (iterator.hasNext()) {
                     DataSnapshot nextSnapShot = iterator.next();
-                    if(teamId.equals(nextSnapShot.getKey())) {
+                    if (teamId.equals(nextSnapShot.getKey())) {
                         exist = true;
                     }
                 }

@@ -1,14 +1,11 @@
 package com.example.york.teamcraft.targetfragment.viewmodel;
 
-import android.util.Log;
-
 import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.targetfragment.view.TargetFragment;
 import com.example.york.teamcraft.taskfragment.viewmodel.CheckUserGroup;
 import com.example.york.teamcraft.taskfragment.viewmodel.CheckUserPosition;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
 import com.example.york.teamcraft.teammanage.model.User;
-import com.squareup.picasso.Target;
 
 /**
  * Created by York on 2017/11/24.
@@ -30,7 +27,7 @@ public class SetButtonVisibility {
     }
 
     public void setVisibility(final String groupId) {
-        readUser.getUserData(new CallBack<User>() {
+        readUser.getCurrentLogInUserData(new CallBack<User>() {
             @Override
             public void update(final User user) {
                 // 先根據TargetFragment收到的groupId判斷是否與user目前的組別相同

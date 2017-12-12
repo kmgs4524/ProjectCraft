@@ -22,11 +22,11 @@ public class SetAccountingItem {
 
     public void setRecyclerViewData() {
         ReadUser readUser = new ReadUser();
-        readUser.getUserData(new CallBack<User>() {
+        readUser.getCurrentLogInUserData(new CallBack<User>() {
             @Override
-            public void update(User data) {
+            public void update(User user) {
                 ReadTeamFinance readTeamFinance = new ReadTeamFinance();
-                readTeamFinance.getAccountingItem(data.getTeamId(), new CallBack<ArrayList<AccountingItem>>() {
+                readTeamFinance.getAccountingItem(user.getTeamId(), new CallBack<ArrayList<AccountingItem>>() {
                     @Override
                     public void update(ArrayList<AccountingItem> itemList) {
                         // 設定品項資料

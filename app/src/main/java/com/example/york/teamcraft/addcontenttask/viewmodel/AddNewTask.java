@@ -4,7 +4,6 @@ import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.addcontenttask.view.AddContentTaskView;
 import com.example.york.teamcraft.personalsmanage.model.WriteGroupTask;
 import com.example.york.teamcraft.taskfragment.model.ContentTask;
-import com.example.york.teamcraft.taskfragment.model.ReadGroupTasks;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
 import com.example.york.teamcraft.teammanage.model.User;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -27,7 +26,7 @@ public class AddNewTask {
     }
 
     public void addContentTask(final String groupName, final ContentTask contentTask) {
-        readUser.getUserData(new CallBack<User>() {
+        readUser.getCurrentLogInUserData(new CallBack<User>() {
             @Override
             public void update(User data) {
                 writeGroupTask.writeContentTask(data.getGroupId(), groupName, contentTask)

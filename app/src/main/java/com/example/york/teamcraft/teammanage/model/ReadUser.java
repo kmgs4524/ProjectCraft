@@ -65,7 +65,8 @@ public class ReadUser {
 
     }
 
-    public void getUserData(final CallBack<User> callBack) {
+    // 取得目前登入使用者的資料
+    public void getCurrentLogInUserDataForSingleEvent(final CallBack<User> callBack) {
         Query query = usersRef.orderByChild("email").equalTo(email);    // 搜尋出想要的email
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -89,7 +90,7 @@ public class ReadUser {
         });
     }
 
-    public void getUserDataByCallBack(final CallBack<User> callBack) {
+    public void getCurrentLogInUserData(final CallBack<User> callBack) {
         Query query = usersRef.orderByChild("email").equalTo(email);    // 搜尋出想要的email
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -101,6 +102,26 @@ public class ReadUser {
                     user = snap.getValue(User.class);
                     callBack.update(user);
                 }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                if (databaseError != null) {
+                    Log.d("onCancelled", databaseError.getMessage());
+                }
+            }
+
+        });
+    }
+
+    // 藉由user id 取得特定使用者的資料
+    public void getUserDataById(String userId, final CallBack<User> callBack) {
+        DatabaseReference childRef = usersRef.child(userId);
+        childRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(final DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                callBack.update(user);
             }
 
             @Override

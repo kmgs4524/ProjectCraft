@@ -1,7 +1,5 @@
 package com.example.york.teamcraft.schedulefragment.model;
 
-import android.util.Log;
-
 import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.CallBackTwoArgs;
 import com.example.york.teamcraft.schedulefragment.data.RowData;
@@ -22,6 +20,7 @@ import java.util.Iterator;
 
 public class GetTableData {
     // database model
+    private ReadUser readUser;
     private ReadTeam readTeam;
     private ReadGroupTasks readGroupTasks;
     // collection
@@ -29,22 +28,29 @@ public class GetTableData {
     private HashMap<String, ArrayList<RowData>> map;
 
     public void getData(final CallBack<ArrayList<RowData>> callBack) {
-        readTeam = new ReadTeam();
-        readTeam.getTeamGroupByDataChange(new CallBack<ArrayList<Group>>() {
+        readUser = new ReadUser();
+        readUser.getCurrentLogInUserData(new CallBack<User>() {
             @Override
-            public void update(ArrayList<Group> groupList) {
-                readGroupTasks = new ReadGroupTasks();
+            public void update(User user) {
+                readTeam = new ReadTeam();
+                readTeam.getTeamGroupByDataChange(user.getTeamId(), new CallBack<ArrayList<Group>>() {
+                    @Override
+                    public void update(ArrayList<Group> groupList) {
+                        readGroupTasks = new ReadGroupTasks();
 
-                for(final Group group: groupList) {
-                    readGroupTasks.getAllTaskByValueEvent(group.getId(), new CallBackTwoArgs<ArrayList<String>, HashMap<String, ArrayList<ContentTask>>>() {
-                        @Override
-                        public void update(ArrayList<String> list, HashMap<String, ArrayList<ContentTask>> stringArrayListHashMap) {
-                            setRowData(group.getName(), list, stringArrayListHashMap, callBack);
+                        for(final Group group: groupList) {
+                            readGroupTasks.getAllTaskByValueEvent(group.getId(), new CallBackTwoArgs<ArrayList<String>, HashMap<String, ArrayList<ContentTask>>>() {
+                                @Override
+                                public void update(ArrayList<String> list, HashMap<String, ArrayList<ContentTask>> stringArrayListHashMap) {
+                                    setRowData(group.getName(), list, stringArrayListHashMap, callBack);
+                                }
+                            });
                         }
-                    });
-                }
+                    }
+                });
             }
         });
+
     }
 
     public void setRowData(String groupName, ArrayList<String> list, HashMap<String, ArrayList<ContentTask>> stringArrayListHashMap, CallBack<ArrayList<RowData>> callBack) {

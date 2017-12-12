@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.login.view.SignInActivity;
+import com.example.york.teamcraft.personaldata.view.PersonalDataActivity;
 import com.example.york.teamcraft.personalsfragment.viewmodel.SetPersonalTask;
 import com.example.york.teamcraft.personalsfragment.viewmodel.SetProfileData;
 import com.example.york.teamcraft.personalsfragment.viewmodel.SignIn;
@@ -107,6 +108,9 @@ public class PersonalsFragment extends Fragment implements PersonalsView{
     @Override
     public void showSignOutMesg() {
         Toast.makeText(getContext(), "帳號已登出", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent();
+        intent.setClass(getContext(), SignInActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -132,4 +136,12 @@ public class PersonalsFragment extends Fragment implements PersonalsView{
         txtGroup.setText(group);
         txtPosition.setText(position);
     }
+
+    @OnClick(R.id.img_personal_data)
+    public void startPersonalDataActivity() {
+        Intent intent = new Intent();
+        intent.setClass(getContext(), PersonalDataActivity.class);
+        startActivity(intent);
+    }
+
 }
