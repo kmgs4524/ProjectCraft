@@ -5,5 +5,6 @@ package com.example.york.teamcraft.memberfragment.presenter;
  */
 
 public interface MemberFragmentPresenter {
-    public void initRecyclerViewData();
+    public abstract void initRecyclerViewData();
+    public abstract void initSearchId();
 }

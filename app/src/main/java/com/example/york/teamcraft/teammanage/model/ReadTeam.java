@@ -29,7 +29,7 @@ public class ReadTeam {
     // Firebase Database
     private DatabaseReference teamActRef;
     private DatabaseReference teamGroRef;
-    private DatabaseReference teamRef;
+    private DatabaseReference teamsRef;
 
     private ReadUser readUser;
 
@@ -154,9 +154,9 @@ public class ReadTeam {
     }
 
     public void checkTeamExist(final String teamId, final CallBack<Boolean> callBack) {
-        teamRef = FirebaseDatabase.getInstance().getReference().child("teams");
+        teamsRef = FirebaseDatabase.getInstance().getReference().child("teams");
 
-        teamRef.addValueEventListener(new ValueEventListener() {
+        teamsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 boolean exist = false;
@@ -190,6 +190,22 @@ public class ReadTeam {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.d(TAG, "onCancelled: " + databaseError.getDetails());
+            }
+        });
+    }
+
+    public void getSearchId(String teamId, final CallBack<String> callBack) {
+        teamsRef = FirebaseDatabase.getInstance().getReference().child("teams");
+        teamsRef.child(teamId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String searchId = dataSnapshot.child("searchId").getValue(String.class);
+                callBack.update(searchId);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d(TAG, "onCancelled: " + databaseError);
             }
         });
     }
