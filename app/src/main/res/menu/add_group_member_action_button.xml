@@ -5,5 +5,5 @@
         android:id="@+id/action_add_new_group_member"
         android:icon="@mipmap/ic_person_add_white_24dp"
         android:title="add button"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="always" />
 </menu>
