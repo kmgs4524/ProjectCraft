@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.york.teamcraft.addgroupmember.AddGroupMemberActivity">
+    tools:context="com.example.york.teamcraft.addgroupmember.view.AddGroupMemberActivity">
 
     <include
         layout="@layout/toolbar"
@@ -18,7 +18,7 @@
         android:id="@+id/include" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view_team_member_list"
+        android:id="@+id/recycler_view_team_member"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"

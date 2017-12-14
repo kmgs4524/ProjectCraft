@@ -10,10 +10,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.addgroupmember.AddGroupMemberActivity;
+import com.example.york.teamcraft.addgroupmember.view.AddGroupMemberActivity;
 import com.example.york.teamcraft.targetfragment.view.TargetFragment;
 import com.example.york.teamcraft.taskfragment.model.ContentTask;
 import com.example.york.teamcraft.taskfragment.view.PassDataListener;
