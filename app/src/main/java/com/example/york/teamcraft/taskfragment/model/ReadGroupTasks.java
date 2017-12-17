@@ -178,67 +178,37 @@ public class ReadGroupTasks {
 
     // 需要groupId, responId，取得個人被分派工作的taskIdList, taskList
     public void getPersonalTask(final String groupId, final String responId, final CallBackTwoArgs<ArrayList<DataPath>, ArrayList<ContentTask>> callBack) {
-        final ArrayList<DataPath> pathList = new ArrayList<>(); // DataPath List : 負責存放 groupId, groupTaskName, taskId
-        final ArrayList<ContentTask> contentTasks = new ArrayList<>();  // GroupTask List
 
-        try {
-            DatabaseReference groupRef = groupTasksRef.child(groupId);    // groupId node
-            groupRef.addChildEventListener(new ChildEventListener() {   // 迭代出某一群組底下的各個群組任務
-                @Override
-                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+        DatabaseReference groupIdRef = groupTasksRef.child(groupId).getRef();
+        groupIdRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot groupIdSnapshot) {
+                ArrayList<DataPath> dataPaths = new ArrayList<>(); // DataPath List : 負責存放 groupId, groupTaskName, taskId
+                ArrayList<ContentTask> contentTasks = new ArrayList<>();  // GroupTask List
 
-                    Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();    // 擁有群組活動中的每個細項活動iterator
-                    while (iterator.hasNext()) {    // 迭代出每個細項活動
-                        DataSnapshot nextSnapShot = iterator.next();    // nextSnapShot為"key: taskId"的節點
-                        ContentTask task = nextSnapShot.getValue(ContentTask.class);
-
-                        if (task.getResponId().equals(responId)) {
-                            Log.d("wanted data", groupId + " " + dataSnapshot.getKey() + " " + nextSnapShot.getKey());  // 確認取得的資料無誤
-                            DataPath dataPath = new DataPath(groupId, dataSnapshot.getKey(), nextSnapShot.getKey());
-                            contentTasks.add(task);
-                            pathList.add(dataPath);
+                Iterator<DataSnapshot> groupIdIterator = groupIdSnapshot.getChildren().iterator();
+                while (groupIdIterator.hasNext()) {
+                    DataSnapshot groupTaskSnapShot = groupIdIterator.next();
+                    Iterator<DataSnapshot> groupTaskIterator = groupTaskSnapShot.getChildren().iterator();
+                    while(groupTaskIterator.hasNext()) {
+                        DataSnapshot contentTaskSnapShot = groupTaskIterator.next();
+                        ContentTask contentTask = contentTaskSnapShot.getValue(ContentTask.class);
+                        if(responId.equals(contentTask.getResponId())) {
+                            contentTasks.add(contentTask);
+                            DataPath dataPath = new DataPath(groupId, groupTaskSnapShot.getKey(), contentTaskSnapShot.getKey());
+                            dataPaths.add(dataPath);
                         }
                     }
-                    callBack.update(pathList, contentTasks);
                 }
+                callBack.update(dataPaths, contentTasks);
+            }
 
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                    ArrayList<ContentTask> taskList = new ArrayList<>();  // GroupTask List
-                    Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();    // 擁有群組活動中的每個細項活動iterator
-                    while (iterator.hasNext()) {    // 迭代出每個細項活動
-                        DataSnapshot nextSnapShot = iterator.next();    // nextSnapShot為"key: taskId"的節點
-//                    DataPath dataPath = new DataPath(groupId, , nextSnapShot.getKey());
-                        ContentTask task = nextSnapShot.getValue(ContentTask.class);
-//                    ContentTask task = iterator.next().getValue(ContentTask.class);
-                        if (task.getResponId().equals(responId)) {
-                            Log.d("wanted data", groupId + " " + dataSnapshot.getKey() + " " + nextSnapShot.getKey());  // 確認取得的資料無誤
-                            DataPath dataPath = new DataPath(groupId, dataSnapshot.getKey(), nextSnapShot.getKey());
-                            taskList.add(task);
-                            pathList.add(dataPath);
-                        }
-                    }
-                    callBack.update(pathList, taskList);
-                }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
+        });
 
-                }
-
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-        } catch(NullPointerException e ) {
-            e.printStackTrace();
-        }
     }
 
     public void getAllContentTaskNum(final String groupId, final CallBack<GroupProgress> callBack) {
