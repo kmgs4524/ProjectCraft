@@ -9,11 +9,12 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.york.teamcraft.teammanage.addpost.view.AddPostActivity;
 import com.example.york.teamcraft.teammanage.model.Post;
@@ -25,8 +26,6 @@ import com.example.york.teamcraft.teammanage.post.view.PostActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,7 +36,6 @@ import butterknife.ButterKnife;
 
 public class BoardFragment extends Fragment implements BoardView {
     private static final String TAG = "BoardFragment";
-    private static final Executor NETWORK_EXECUTOR = Executors.newCachedThreadPool();
 
     public static BoardFragment newInstance() {
         Bundle args = new Bundle();
@@ -50,6 +48,11 @@ public class BoardFragment extends Fragment implements BoardView {
     // Database Model
     private ReadTeam readTeam;
     // UI View
+    // empty state
+    @BindView(R.id.img_board_empty_state) ImageView imgBoardEmptyState;
+    @BindView(R.id.divider_board_empty_state) View dividerEmptyState;
+    @BindView(R.id.txt_board_empty_state) TextView txtEmptyState;
+    // usual state
     @BindView(R.id.recycler_view_board) RecyclerView recyclerView;
     private BoardItemAdapter boardItemAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -84,27 +87,42 @@ public class BoardFragment extends Fragment implements BoardView {
         } else {
             // init Database Model
             readTeam = new ReadTeam();
-
-            readTeam.getTeamPost(new CallBack<ArrayList<Post>>() {
+            readTeam.checkTeamPostExist(new CallBack<Boolean>() {
                 @Override
-                public void update(final ArrayList<Post> list) {
-                    progressBar.setVisibility(View.GONE);
-                    // 設定CalendarItemAdapter
-                    boardItemAdapter = new BoardItemAdapter(getContext(), list, new View.OnClickListener() {   // 傳入listener callback
-                        @Override
-                        public void onClick(View v) {
-                            int pos = recyclerView.indexOfChild(v);
-                            Intent intent = new Intent();
-                            Bundle bundle = new Bundle();
-                            bundle.putParcelable("Post", list.get(pos));    // Post Parcelable
-                            intent.putExtras(bundle);
-                            intent.setClass(getActivity(), PostActivity.class);
-                            startActivity(intent);
-                        }
-                    });
-                    recyclerView.setAdapter(boardItemAdapter);
+                public void update(Boolean isExisting) {
+                    if(isExisting) {
+                        imgBoardEmptyState.setVisibility(View.GONE);
+                        dividerEmptyState.setVisibility(View.GONE);
+                        txtEmptyState.setVisibility(View.GONE);
+
+                        readTeam.getTeamPost(new CallBack<ArrayList<Post>>() {
+                            @Override
+                            public void update(final ArrayList<Post> list) {
+                                progressBar.setVisibility(View.GONE);
+                                // 設定CalendarItemAdapter
+                                boardItemAdapter = new BoardItemAdapter(getContext(), list, new View.OnClickListener() {   // 傳入listener callback
+                                    @Override
+                                    public void onClick(View v) {
+                                        int pos = recyclerView.indexOfChild(v);
+                                        Intent intent = new Intent();
+                                        Bundle bundle = new Bundle();
+                                        bundle.putParcelable("Post", list.get(pos));    // Post Parcelable
+                                        intent.putExtras(bundle);
+                                        intent.setClass(getActivity(), PostActivity.class);
+                                        startActivity(intent);
+                                    }
+                                });
+                                recyclerView.setAdapter(boardItemAdapter);
+                            }
+                        });
+                    } else {
+                        imgBoardEmptyState.setVisibility(View.VISIBLE);
+                        dividerEmptyState.setVisibility(View.VISIBLE);
+                        txtEmptyState.setVisibility(View.VISIBLE);
+                    }
                 }
             });
+
         }
         return view;
     }
