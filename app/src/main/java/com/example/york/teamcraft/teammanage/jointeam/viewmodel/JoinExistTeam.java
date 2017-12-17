@@ -1,6 +1,7 @@
 package com.example.york.teamcraft.teammanage.jointeam.viewmodel;
 
 import com.example.york.teamcraft.CallBack;
+import com.example.york.teamcraft.CallBackTwoArgs;
 import com.example.york.teamcraft.teammanage.jointeam.model.WriteTeamMember;
 import com.example.york.teamcraft.teammanage.jointeam.view.JoinTeamView;
 import com.example.york.teamcraft.teammanage.model.ReadTeam;
@@ -25,12 +26,12 @@ public class JoinExistTeam {
         this.joinTeamView = view;
     }
 
-    public void checkTeam(final String teamId) {
+    public void checkTeam(final String searchId) {
         this.readTeam = new ReadTeam();
-        readTeam.checkTeamExist(teamId, new CallBack<Boolean>() {
+        readTeam.checkTeamExist(searchId, new CallBackTwoArgs<Boolean, String>() {
             @Override
-            public void update(Boolean data) {
-                if(data) {
+            public void update(Boolean isExist, final String teamId) {
+                if(isExist) {
                     readUser = new ReadUser();
                     readUser.getUserId(new CallBack<String>() {
                         @Override
@@ -40,9 +41,9 @@ public class JoinExistTeam {
 
                             readUser.getCurrentLogInUserData(new CallBack<User>() {
                                 @Override
-                                public void update(User data) {
+                                public void update(User user) {
                                     writeTeamMember = new WriteTeamMember();
-                                    writeTeamMember.updateTeamMember(teamId, userId, data.getName()); // 將user id, user name 寫入teamsMember child node
+                                    writeTeamMember.updateTeamMember(teamId, userId, user.getName()); // 將user id, user name 寫入teamsMember child node
                                     joinTeamView.startTeamMainActivity();   // 進入團隊管理的MainActivity
                                 }
                             });

@@ -38,12 +38,13 @@ public class SetPersonalTask {
                     final User user = data;
                     readUser.getUserId(new CallBack<String>() {
                         @Override
-                        public void update(String data) {
+                        public void update(String userId) {
                             ReadGroupTasks readGroupTasks = new ReadGroupTasks();
                             Log.d("", "update: " + user.getGroupId());
-                            readGroupTasks.getPersonalTask(user.getGroupId(), data, new CallBackTwoArgs<ArrayList<DataPath>, ArrayList<ContentTask>>() {
+                            readGroupTasks.getPersonalTask(user.getGroupId(), userId, new CallBackTwoArgs<ArrayList<DataPath>, ArrayList<ContentTask>>() {
                                 @Override
                                 public void update(ArrayList<DataPath> pathList, ArrayList<ContentTask> taskList) {
+                                    Log.d("initData", "update: " + taskList.size());
                                     // 設定RecyclerView
                                     personalsView.initRecyclerView(pathList, taskList);
                                     // 設定UNDO, DONE

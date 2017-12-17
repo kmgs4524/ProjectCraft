@@ -35,4 +35,8 @@ public class WriteTeam {
         return dbSource.getTask();
     }
 
+    public void changeSearchId(String teamId, String searchId) {
+        teamsRef.child(teamId).child("searchId").setValue(searchId);
+    }
+
 }

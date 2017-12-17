@@ -55,7 +55,6 @@ public class PersonalsFragment extends Fragment implements PersonalsView{
 
     public static PersonalsFragment newInstance() {
         Bundle args = new Bundle();
-
         PersonalsFragment fragment = new PersonalsFragment();
         fragment.setArguments(args);
         return fragment;
@@ -119,6 +118,7 @@ public class PersonalsFragment extends Fragment implements PersonalsView{
         txtDoneNum.setText(Integer.toString(doneNum));
     }
 
+    // 設置被分派細項工作的RecyclerView
     @Override
     public void initRecyclerView(ArrayList<DataPath> pathList, ArrayList<ContentTask> taskList) {
         Log.d(TAG, "initRecyclerGroup: pathList: " + pathList.size() + " taskList: " + taskList.size());
@@ -137,6 +137,7 @@ public class PersonalsFragment extends Fragment implements PersonalsView{
         txtPosition.setText(position);
     }
 
+    // 進入個人資料畫面
     @OnClick(R.id.img_personal_data)
     public void startPersonalDataActivity() {
         Intent intent = new Intent();
