@@ -3,6 +3,7 @@ package com.example.york.teamcraft.teammanage.model;
 import android.util.Log;
 
 import com.example.york.teamcraft.CallBack;
+import com.example.york.teamcraft.CallBackTwoArgs;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -153,21 +154,25 @@ public class ReadTeam {
 
     }
 
-    public void checkTeamExist(final String teamId, final CallBack<Boolean> callBack) {
+    public void checkTeamExist(final String searchId, final CallBackTwoArgs<Boolean, String> callBack) {
         teamsRef = FirebaseDatabase.getInstance().getReference().child("teams");
 
-        teamsRef.addValueEventListener(new ValueEventListener() {
+        teamsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                String nextTeamId = "";
                 boolean exist = false;
                 Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();    // 取得擁有每個team child node的Iterator
                 while (iterator.hasNext()) {
-                    DataSnapshot nextSnapShot = iterator.next();
-                    if (teamId.equals(nextSnapShot.getKey())) {
+                    DataSnapshot nextTeamSnapShot = iterator.next();
+                    String nextTeamSearchId = nextTeamSnapShot.child("searchId").getValue(String.class);
+
+                    if (searchId.equals(nextTeamSearchId)) {
                         exist = true;
+                        nextTeamId = nextTeamSnapShot.getKey();
                     }
                 }
-                callBack.update(exist);
+                callBack.update(exist, nextTeamId);
             }
 
             @Override

@@ -29,6 +29,8 @@ public class MemberListAdapter extends RecyclerView.Adapter<MemberListAdapter.Me
         this.context = context;
     }
 
+
+
     @Override
     public MemberViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(context).inflate(R.layout.recycler_view_team_member, parent, false);
@@ -68,5 +70,14 @@ public class MemberListAdapter extends RecyclerView.Adapter<MemberListAdapter.Me
         public void setTxtName(String name) {
             txtName.setText(name);
         }
+
+        public String getTxtName() {
+            return txtName.getText().toString();
+        }
+
+        public boolean getCheckBoxStatus() {
+            return checkBox.isChecked();
+        }
+
     }
 }
