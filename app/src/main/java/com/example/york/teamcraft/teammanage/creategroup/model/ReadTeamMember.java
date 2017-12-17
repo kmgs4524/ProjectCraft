@@ -23,6 +23,20 @@ public class ReadTeamMember {
         teamMemRef = FirebaseDatabase.getInstance().getReference().child("teamMembers");
     }
 
+    public void checkTeamMemberExist(String teamId, final CallBack<Boolean> callBack) {
+        teamMemRef.child(teamId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot teamIdSnapshot) {
+                callBack.update(teamIdSnapshot.exists());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     public void getGroupMember(String teamId, final CallBack<ArrayList<GroupMember>> callBack) {
         final ArrayList<GroupMember> memList = new ArrayList<>();
 

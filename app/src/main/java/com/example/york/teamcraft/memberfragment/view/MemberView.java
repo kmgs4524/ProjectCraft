@@ -9,6 +9,8 @@ import java.util.ArrayList;
  */
 
 public interface MemberView {
+    public abstract void hideEmptyView();
+    public abstract void showEmptyView();
     public abstract void initTxtSearchId(String searchId);
     public abstract void initRecyclerView(ArrayList<SectionOrItem> sectionOrItems);
 }
