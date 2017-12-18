@@ -145,7 +145,7 @@ public class ReadTeam {
                     }
                 });
             }
-        }); // 取得擁有User Data的Task
+        });
 
     }
 
