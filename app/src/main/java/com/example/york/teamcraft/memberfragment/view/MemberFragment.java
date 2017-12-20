@@ -1,6 +1,7 @@
 package com.example.york.teamcraft.memberfragment.view;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,13 +9,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.R;
+import com.example.york.teamcraft.addteammember.view.AddTeamMemberActivity;
 import com.example.york.teamcraft.memberfragment.data.SectionOrItem;
 import com.example.york.teamcraft.memberfragment.presenter.MemberFragmentPresenter;
 import com.example.york.teamcraft.memberfragment.presenter.MemberFragmentPresenterImpl;
-import com.example.york.teamcraft.modifysearchiddialogfragment.ModifySearchId;
 import com.example.york.teamcraft.modifysearchiddialogfragment.ModifySearchIdDialogFragment;
 
 import java.util.ArrayList;
@@ -26,6 +29,13 @@ import butterknife.OnClick;
 public class MemberFragment extends Fragment implements MemberView{
     // presenter
     MemberFragmentPresenter presenter;
+    // empty state view
+    @BindView(R.id.img_member_empty_state)
+    ImageView imgEmptyState;
+    @BindView(R.id.divider_member_empty_state)
+    View dividerEmptyState;
+    @BindView(R.id.txt_member_empty_state)
+    TextView txtInstruction;
     // view
     @BindView(R.id.txt_search_id)
     TextView txtSearchId;
@@ -45,9 +55,34 @@ public class MemberFragment extends Fragment implements MemberView{
 
         presenter = new MemberFragmentPresenterImpl(this);
         presenter.initSearchId();
-        presenter.initRecyclerViewData();
+        presenter.checkState(new CallBack<Boolean>() {
+            @Override
+            public void update(Boolean isExisting) {
+                if(isExisting) {
+                    hideEmptyView();
+                    presenter.initRecyclerViewData();
+                } else {
+                    showEmptyView();
+                }
+            }
+        });
 
         return view;
+    }
+
+    @Override
+    public void hideEmptyView() {
+        imgEmptyState.setVisibility(View.GONE);
+        dividerEmptyState.setVisibility(View.GONE);
+        txtInstruction.setVisibility(View.GONE);
+    }
+
+    // 若為empty state時顯示初始畫面
+    @Override
+    public void showEmptyView() {
+        imgEmptyState.setVisibility(View.VISIBLE);
+        dividerEmptyState.setVisibility(View.VISIBLE);
+        txtInstruction.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -65,6 +100,13 @@ public class MemberFragment extends Fragment implements MemberView{
     public void showModifyDialogFragment() {
         ModifySearchIdDialogFragment modifySearchIdDialogFragment = new ModifySearchIdDialogFragment();
         modifySearchIdDialogFragment.show(getFragmentManager(), "ModifySearchIdDialogFragment");
+    }
+
+    @OnClick(R.id.btn_member_empty_state)
+    public void addTeamMember() {
+        Intent intent = new Intent();
+        intent.setClass(getActivity(), AddTeamMemberActivity.class);
+        startActivity(intent);
     }
 
 }

@@ -46,39 +46,46 @@ public class SetProfileData {
                     readTeam.getTeamName(user.getTeamId(), new CallBack<String>() {
                         @Override
                         public void update(final String teamName) {
-                            readTeam.getTeamGroup(new CallBack<ArrayList<Group>>() {
-                                @Override
-                                public void update(final ArrayList<Group> groupList) {
-                                    String groupName = "None";
-                                    for(Group group: groupList) {
-                                        if(group.getId().equals(user.getGroupId())) {
-                                            groupName = group.getName();
-                                        }
-                                    }
-                                    final String finalGroupName = groupName;
-                                    readGroupMember = new ReadGroupMember();
-                                    readGroupMember.getGroupMember(user.getGroupId(), new CallBack<ArrayList<GroupMember>>() {
-                                        @Override
-                                        public void update(ArrayList<GroupMember> memList) {
-                                            Iterator<GroupMember> iterator = memList.iterator();
-                                            while(iterator.hasNext()) {
-                                                // 若user存在於GroupMember List中
-                                                try{
-                                                    GroupMember nextMember = iterator.next();
-                                                    if(nextMember.getName().equals(user.getName())) {
-                                                        String position = nextMember.getPosition();
-                                                        Log.d(TAG, "update: " + "email:" + user.getEmail() + " name:" + user.getName());
-                                                        personalsView.setProfile(user.getName(), user.getEmail(), teamName, finalGroupName, position);
-                                                    }
-                                                } catch (NoSuchElementException e) {
-//                                                    Log.d(TAG, "update: " + ;);
-                                                    e.printStackTrace();
-                                                }
+                            if(!user.getGroupId().equals("0")) {
+                                // 若使用者已屬於某個群組下
+                                readTeam.getTeamGroup(new CallBack<ArrayList<Group>>() {
+                                    @Override
+                                    public void update(final ArrayList<Group> groupList) {
+                                        String groupName = "None";
+                                        for(Group group: groupList) {
+                                            if(group.getId().equals(user.getGroupId())) {
+                                                groupName = group.getName();
                                             }
                                         }
-                                    });
-                                }
-                            });
+                                        final String finalGroupName = groupName;
+                                        readGroupMember = new ReadGroupMember();
+
+                                        readGroupMember.getGroupMember(user.getGroupId(), new CallBack<ArrayList<GroupMember>>() {
+                                            @Override
+                                            public void update(ArrayList<GroupMember> memList) {
+                                                Iterator<GroupMember> iterator = memList.iterator();
+                                                while(iterator.hasNext()) {
+                                                    // 若user存在於GroupMember List中
+                                                    try{
+                                                        GroupMember nextMember = iterator.next();
+                                                        if(nextMember.getName().equals(user.getName())) {
+                                                            String position = nextMember.getPosition();
+                                                            Log.d(TAG, "update: " + "email:" + user.getEmail() + " name:" + user.getName());
+                                                            personalsView.setProfile(user.getName(), user.getEmail(), teamName, finalGroupName, position);
+                                                        }
+                                                    } catch (NoSuchElementException e) {
+//                                                    Log.d(TAG, "update: " + ;);
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+                                            }
+                                        });
+                                    }
+                                });
+                            } else {
+                                // 使用者尚未屬於任何群組
+                                personalsView.setProfile(user.getName(), user.getEmail(), teamName, "無", "無");
+                            }
                         }
                     });
                 }

@@ -3,6 +3,7 @@ package com.example.york.teamcraft.teammanage.model;
 import android.util.Log;
 
 import com.example.york.teamcraft.CallBack;
+import com.example.york.teamcraft.CallBackTwoArgs;
 import com.google.android.gms.common.api.BooleanResult;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
@@ -16,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -133,6 +135,34 @@ public class ReadUser {
 
         });
 
+    }
+    // 用email取得user的id, data，若找不到符合的user回傳"none"回userId
+    public void getUserIdAndDataByEmail(final String email, final CallBackTwoArgs<String, User> callBack) {
+        usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot usersSnapshot) {
+                boolean isExisting = false;
+                Iterator<DataSnapshot> iterator = usersSnapshot.getChildren().iterator();
+                DataSnapshot userIdSnapShot = null;
+                while(iterator.hasNext()) {
+                    userIdSnapShot = iterator.next();
+                    User user = userIdSnapShot.getValue(User.class);
+                    if(user.getEmail().equals(email)) {
+                        isExisting = true;
+                    }
+                }
+                if(isExisting) {
+                    callBack.update(userIdSnapShot.getKey(), user);
+                } else {
+                    callBack.update("none", null);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public Task<Boolean> checkUserExist() {

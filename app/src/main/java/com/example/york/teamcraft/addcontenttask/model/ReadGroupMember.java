@@ -24,6 +24,20 @@ public class ReadGroupMember {
         groupMemRef = FirebaseDatabase.getInstance().getReference().child("groupMembers");
     }
 
+    public void checkGroupMemberExist(String groupId, final CallBack<Boolean> callBack) {
+        groupMemRef.child(groupId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot groupIdSnapshot) {
+                callBack.update(groupIdSnapshot.exists());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     public void getGroupMember(String groupId, final CallBack<ArrayList<GroupMember>> callBack) {
         final ArrayList<GroupMember> memList = new ArrayList<>();
 
@@ -31,6 +45,7 @@ public class ReadGroupMember {
         childRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                dataSnapshot.exists();
                 Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();
                 while(iterator.hasNext()) {
                     DataSnapshot memSnapShot =iterator.next();

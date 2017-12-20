@@ -28,7 +28,7 @@ public class ReadTeam {
     private FirebaseUser user;
 
     // Firebase Database
-    private DatabaseReference teamActRef;
+    private DatabaseReference teamPostsRef;
     private DatabaseReference teamGroRef;
     private DatabaseReference teamsRef;
 
@@ -48,12 +48,32 @@ public class ReadTeam {
 
     }
 
+    public void checkTeamPostExist(final CallBack<Boolean> callBack) {
+        teamPostsRef = FirebaseDatabase.getInstance().getReference().child("teamPosts");
+        readUser.getCurrentLogInUserDataForSingleEvent(new CallBack<User>() {
+            @Override
+            public void update(User user) {
+                teamPostsRef.child(user.getTeamId()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        callBack.update(dataSnapshot.exists());
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
+    }
+
     public void getTeamPost(final CallBack<ArrayList<Post>> callback) {
-        teamActRef = FirebaseDatabase.getInstance().getReference().child("teamPosts");
+        teamPostsRef = FirebaseDatabase.getInstance().getReference().child("teamPosts");
         readUser.getCurrentLogInUserData(new CallBack<User>() {
             @Override
-            public void update(User data) {
-                DatabaseReference ref = teamActRef.child(data.getTeamId()).getRef();
+            public void update(User user) {
+                DatabaseReference ref = teamPostsRef.child(user.getTeamId()).getRef();
                 ref.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -125,7 +145,7 @@ public class ReadTeam {
                     }
                 });
             }
-        }); // 取得擁有User Data的Task
+        });
 
     }
 
