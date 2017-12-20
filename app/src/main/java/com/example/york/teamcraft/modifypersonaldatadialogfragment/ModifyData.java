@@ -30,7 +30,7 @@ public class ModifyData {
                     @Override
                     public void update(User user) {
                         writeUser.updateUserName(userId, name);
-                        writeTeamMember.changeTeamMember(user.getTeamId(), userId, name);
+                        writeTeamMember.changeTeamMemberName(user.getTeamId(), userId, name);
                         writeGroupMember.changeGroupMemberName(user.getGroupId(), userId, name);
                     }
                 });

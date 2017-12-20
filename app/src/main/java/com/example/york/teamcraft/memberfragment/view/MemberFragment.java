@@ -1,6 +1,7 @@
 package com.example.york.teamcraft.memberfragment.view;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,10 +14,10 @@ import android.widget.TextView;
 
 import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.R;
+import com.example.york.teamcraft.addteammember.view.AddTeamMemberActivity;
 import com.example.york.teamcraft.memberfragment.data.SectionOrItem;
 import com.example.york.teamcraft.memberfragment.presenter.MemberFragmentPresenter;
 import com.example.york.teamcraft.memberfragment.presenter.MemberFragmentPresenterImpl;
-import com.example.york.teamcraft.modifysearchiddialogfragment.ModifySearchId;
 import com.example.york.teamcraft.modifysearchiddialogfragment.ModifySearchIdDialogFragment;
 
 import java.util.ArrayList;
@@ -99,6 +100,13 @@ public class MemberFragment extends Fragment implements MemberView{
     public void showModifyDialogFragment() {
         ModifySearchIdDialogFragment modifySearchIdDialogFragment = new ModifySearchIdDialogFragment();
         modifySearchIdDialogFragment.show(getFragmentManager(), "ModifySearchIdDialogFragment");
+    }
+
+    @OnClick(R.id.btn_member_empty_state)
+    public void addTeamMember() {
+        Intent intent = new Intent();
+        intent.setClass(getActivity(), AddTeamMemberActivity.class);
+        startActivity(intent);
     }
 
 }

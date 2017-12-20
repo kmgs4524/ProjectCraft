@@ -1,5 +1,6 @@
 package com.example.york.teamcraft.teammanage.jointeam.model;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -19,14 +20,15 @@ public class WriteTeamMember {
         this.teamsMemRef = FirebaseDatabase.getInstance().getReference().child("teamMembers");
     }
 
-    public void updateTeamMember(String teamId, String userId, String userName) {
-        TeamMember teamMember = new TeamMember(userName);
+    public Task<Void> updateTeamMember(String teamId, String teamMemberUserId, String teamMemberName) {
+        TeamMember teamMember = new TeamMember(teamMemberName);
         Map<String, Object> memMap = new HashMap<>();
-        memMap.put(userId, teamMember);
-        teamsMemRef.child(teamId).updateChildren(memMap);
+        memMap.put(teamMemberUserId, teamMember);
+        Task<Void> taskUpdate = teamsMemRef.child(teamId).updateChildren(memMap);
+        return taskUpdate;
     }
 
-    public void changeTeamMember(String teamId, String userId, String userName) {
+    public void changeTeamMemberName(String teamId, String userId, String userName) {
         teamsMemRef.child(teamId).child(userId).child("name").setValue(userName);
     }
 

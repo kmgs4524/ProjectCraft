@@ -68,7 +68,8 @@
         <activity android:name=".teammanage.jointeam.view.JoinTeamActivity" />
         <activity android:name=".teammanage.tasktable.TaskTableActivity" />
         <activity android:name=".personaldata.view.PersonalDataActivity" />
-        <activity android:name=".addgroupmember.view.AddGroupMemberActivity"></activity>
+        <activity android:name=".addgroupmember.view.AddGroupMemberActivity" />
+        <activity android:name=".addteammember.view.AddTeamMemberActivity"></activity>
     </application>
 
 </manifest>
