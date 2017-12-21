@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,6 +38,8 @@ public class MemberFragment extends Fragment implements MemberView{
     View dividerEmptyState;
     @BindView(R.id.txt_member_empty_state)
     TextView txtInstruction;
+    @BindView(R.id.btn_member_empty_state)
+    Button btnEmptyStateAddMember;
     // view
     @BindView(R.id.txt_search_id)
     TextView txtSearchId;
@@ -60,6 +64,7 @@ public class MemberFragment extends Fragment implements MemberView{
             public void update(Boolean isExisting) {
                 if(isExisting) {
                     hideEmptyView();
+                    showMemberList();
                     presenter.initRecyclerViewData();
                 } else {
                     showEmptyView();
@@ -70,11 +75,18 @@ public class MemberFragment extends Fragment implements MemberView{
         return view;
     }
 
+    // 隱藏empty state的畫面元件
     @Override
     public void hideEmptyView() {
         imgEmptyState.setVisibility(View.GONE);
         dividerEmptyState.setVisibility(View.GONE);
         txtInstruction.setVisibility(View.GONE);
+        btnEmptyStateAddMember.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showMemberList() {
+        recyclerViewMemberList.setVisibility(View.VISIBLE);
     }
 
     // 若為empty state時顯示初始畫面
@@ -83,6 +95,7 @@ public class MemberFragment extends Fragment implements MemberView{
         imgEmptyState.setVisibility(View.VISIBLE);
         dividerEmptyState.setVisibility(View.VISIBLE);
         txtInstruction.setVisibility(View.VISIBLE);
+        btnEmptyStateAddMember.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -94,6 +107,7 @@ public class MemberFragment extends Fragment implements MemberView{
     public void initRecyclerView(ArrayList<SectionOrItem> sectionOrItems) {
         recyclerViewMemberList.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewMemberList.setAdapter(new MemberListAdapter(getContext(), sectionOrItems));
+        Log.d("test recycler", "initRecyclerView: " + sectionOrItems.size());
     }
 
     @OnClick(R.id.btn_modify_search_id)

@@ -9,6 +9,7 @@ import java.util.ArrayList;
  */
 
 public interface MemberView {
+    public abstract void showMemberList();
     public abstract void hideEmptyView();
     public abstract void showEmptyView();
     public abstract void initTxtSearchId(String searchId);

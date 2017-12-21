@@ -12,7 +12,9 @@ import android.widget.Button;
 import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.teammanage.MainActivity;
+import com.example.york.teamcraft.teammanage.jointeam.model.WriteTeamMember;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
+import com.example.york.teamcraft.teammanage.model.User;
 import com.example.york.teamcraft.teammanage.model.WriteTeam;
 import com.example.york.teamcraft.teammanage.model.WriteUser;
 import com.example.york.teamcraft.teammanage.board.view.BoardView;
@@ -36,6 +38,7 @@ public class CreateTeamActivity extends AppCompatActivity implements BoardView{
     private ReadUser readUser;
     private WriteTeam writeTeam;
     private WriteUser writeUser;
+    private WriteTeamMember writeTeamMember;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,7 @@ public class CreateTeamActivity extends AppCompatActivity implements BoardView{
         readUser = new ReadUser();
         writeTeam = new WriteTeam();
         writeUser = new WriteUser();
+        writeTeamMember = new WriteTeamMember();
 
         // find view and set listener
         edtTeamName = (TextInputEditText) findViewById(R.id.edt_team_name);
@@ -65,23 +69,23 @@ public class CreateTeamActivity extends AppCompatActivity implements BoardView{
                         final String teamId = s;
                         readUser.getUserId(new CallBack<String>() {
                             @Override
-                            public void update(String data) {
-                                writeUser.updateUserTeam(data, teamId);
-                                Intent intent = new Intent();
-                                intent.setClass(CreateTeamActivity.this, MainActivity.class);
-                                startActivity(intent);
+                            public void update(final String userId) {
+                                // 更新使用者的team id
+                                writeUser.updateUserTeam(userId, teamId);
+                                readUser.getCurrentLogInUserDataForSingleEvent(new CallBack<User>() {
+                                    @Override
+                                    public void update(User user) {
+                                        // 目前團隊的teamId在teamMember底下新增節點，並以目前登入的使用者來加入第一筆成員資料
+                                        writeTeamMember.updateTeamMember(teamId, userId, user.getName());
+                                        Intent intent = new Intent();
+                                        intent.setClass(CreateTeamActivity.this, MainActivity.class);
+                                        startActivity(intent);
+                                    }
+                                });
                             }
                         });
                     }
                 });
-//                Log.d(TAG, user.getEmail());
-//                readUser.getUserId(user.getEmail(), new CallBack<User>() {
-//                    @Override
-//                    public void update(User user, String key) {
-//                        Log.d(TAG, user.getName());
-//                    }
-//                });
-
             }
         });
         initToolBar();

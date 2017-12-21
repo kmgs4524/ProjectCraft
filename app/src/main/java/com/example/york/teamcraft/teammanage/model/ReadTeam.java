@@ -138,10 +138,26 @@ public class ReadTeam {
 
     }
 
+    // 確認團隊是否已創立群組
+    public void checkTeamGroupExist(String teamId, final CallBack<Boolean> callBack) {
+        teamGroRef = FirebaseDatabase.getInstance().getReference().child("teamGroups");
+        DatabaseReference teamIdRef = teamGroRef.child(teamId).getRef();
+        teamIdRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot teamIdSnapshot) {
+                callBack.update(teamIdSnapshot.exists());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     public void getTeamGroupByDataChange(String teamId, final CallBack<ArrayList<Group>> callback) {
         groupList = new ArrayList<>();
         teamGroRef = FirebaseDatabase.getInstance().getReference().child("teamGroups");
-
         DatabaseReference ref = teamGroRef.child(teamId).getRef();
 
         ref.addValueEventListener(new ValueEventListener() {
