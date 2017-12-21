@@ -8,7 +8,7 @@
     android:layout_height="match_parent">
 
     <FrameLayout
-        android:visibility="gone"
+        android:visibility="visible"
         android:id="@+id/frame_fragment"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -20,8 +20,8 @@
         android:layout_marginTop="0dp">
         <fragment
             android:name="com.example.york.teamcraft.teammanage.actionfragment.ActionFragment"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             fab:layout_constraintTop_toTopOf="parent"
             fab:layout_constraintLeft_toLeftOf="parent"
             fab:layout_constraintRight_toRightOf="parent"
@@ -32,7 +32,6 @@
     <!-- 顯示各個group的recycler view -->
 
     <android.support.v7.widget.RecyclerView
-        android:visibility="gone"
         android:id="@+id/recycler_view_group_progress"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -43,7 +42,6 @@
         fab:layout_constraintHorizontal_bias="0.0" />
 
     <android.support.constraint.Guideline
-        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/guideline"
@@ -53,7 +51,6 @@
         tools:layout_editor_absoluteX="0dp" />
 
     <android.support.v7.widget.RecyclerView
-        android:visibility="gone"
         android:id="@+id/recycler_view_group"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -65,7 +62,7 @@
 
     <ImageView
         android:id="@+id/img_member_empty_state"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:src="@drawable/invite_new_member"
@@ -78,11 +75,12 @@
         android:layout_marginBottom="0dp"
         fab:layout_constraintBottom_toTopOf="@+id/guideline"
         android:layout_marginTop="0dp"
-        fab:layout_constraintTop_toBottomOf="@+id/frame_fragment" />
+        fab:layout_constraintTop_toBottomOf="@+id/frame_fragment"
+        fab:layout_constraintVertical_bias="0.626" />
 
     <View
         android:id="@+id/divider_member_empty_state"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_width="344dp"
         android:layout_height="1dp"
         android:background="@color/secondary_text"
@@ -98,7 +96,7 @@
 
     <TextView
         android:id="@+id/txt_member_empty_state"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:text="團隊還沒群組呢 趕快創立一個群組吧!"
@@ -113,7 +111,7 @@
 
     <Button
         android:id="@+id/btn_member_empty_state"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/color_primary"
