@@ -14,6 +14,6 @@ public class SetFloatingButton {
     }
 
     public void setFinanceView() {
-        financeView.initFab();
+        financeView.initFloatingButton();
     }
 }

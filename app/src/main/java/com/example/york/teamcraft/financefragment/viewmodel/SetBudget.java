@@ -26,7 +26,7 @@ public class SetBudget {
         this.financeView = view;
     }
 
-    public void setData() {
+    public void setBudgetData() {
         readUser = new ReadUser();
         readUser.getCurrentLogInUserData(new CallBack<User>() {
             @Override

@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.example.york.teamcraft.R;
-import com.example.york.teamcraft.teammanage.taskprogress.model.GroupMissionProgress;
 import com.example.york.teamcraft.teammanage.taskprogress.model.GroupProgress;
 import com.example.york.teamcraft.teammanage.taskprogress.presenter.TaskProgressPresenter;
 import com.example.york.teamcraft.teammanage.taskprogress.presenter.TaskProgressPresenterImpl;
@@ -51,14 +50,14 @@ public class TaskProgressFragment extends Fragment implements TaskProgressView{
         params.addRule(RelativeLayout.BELOW, R.id.linear_layout_action);
         view.setLayoutParams(params);
 
-        initRecycler(view);
+        initRecyclerView(view);
         taskFragmentPresenter = new TaskProgressPresenterImpl(this);
         taskFragmentPresenter.setAdapterData();
 
         return view;
     }
 
-    public void initRecycler(View view) {
+    public void initRecyclerView(View view) {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_group_progress);
     }
 

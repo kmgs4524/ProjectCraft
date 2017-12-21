@@ -33,7 +33,7 @@ public class SetProfileData {
         this.personalsView = view;
     }
 
-    public void setData() {
+    public void setProfileData() {
         if(FirebaseAuth.getInstance().getCurrentUser() == null) {
             //
         } else {

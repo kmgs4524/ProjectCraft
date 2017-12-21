@@ -73,34 +73,23 @@ public class ReadTeam {
         readUser.getCurrentLogInUserData(new CallBack<User>() {
             @Override
             public void update(User user) {
-                DatabaseReference ref = teamPostsRef.child(user.getTeamId()).getRef();
-                ref.addChildEventListener(new ChildEventListener() {
+                DatabaseReference teamIdRef = teamPostsRef.child(user.getTeamId()).getRef();
+                teamIdRef.addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        post = dataSnapshot.getValue(Post.class);
-                        postList.add(post);
-
-                        callback.update(postList);
-                    }
-
-                    @Override
-                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                    }
-
-                    @Override
-                    public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                    }
-
-                    @Override
-                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
+                    public void onDataChange(DataSnapshot teamIdSnapshot) {
+                        ArrayList<Post> posts = new ArrayList<Post>();
+                        Iterator<DataSnapshot> iterator = teamIdSnapshot.getChildren().iterator();
+                        while(iterator.hasNext()) {
+                            DataSnapshot nextSnapShot = iterator.next();
+                            Post nextPost = nextSnapShot.getValue(Post.class);
+                            posts.add(nextPost);
+                        }
+                        callback.update(posts);
                     }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-
+                        Log.d(TAG, "onCancelled: " + databaseError.getDetails());
                     }
                 });
             }
