@@ -7,49 +7,125 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <fragment
-        android:name="com.example.york.teamcraft.teammanage.actionfragment.ActionFragment"
+    <FrameLayout
+        android:visibility="gone"
+        android:id="@+id/frame_fragment"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        fab:layout_constraintTop_toTopOf="parent"
-        fab:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="0dp"
         fab:layout_constraintRight_toRightOf="parent"
-        android:id="@+id/fragment" />
+        android:layout_marginLeft="0dp"
+        fab:layout_constraintLeft_toLeftOf="parent"
+        fab:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="0dp">
+        <fragment
+            android:name="com.example.york.teamcraft.teammanage.actionfragment.ActionFragment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            fab:layout_constraintTop_toTopOf="parent"
+            fab:layout_constraintLeft_toLeftOf="parent"
+            fab:layout_constraintRight_toRightOf="parent"
+            android:id="@+id/fragment" />
+    </FrameLayout>
+
 
     <!-- 顯示各個group的recycler view -->
 
     <android.support.v7.widget.RecyclerView
+        android:visibility="gone"
         android:id="@+id/recycler_view_group_progress"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="0dp"
         fab:layout_constraintLeft_toLeftOf="parent"
-        fab:layout_constraintTop_toBottomOf="@+id/fragment"
-        android:layout_marginRight="0dp"
+        fab:layout_constraintTop_toBottomOf="@+id/frame_fragment"
         fab:layout_constraintRight_toRightOf="parent"
-        android:layout_marginBottom="8dp"
         fab:layout_constraintBottom_toTopOf="@+id/guideline"
         fab:layout_constraintHorizontal_bias="0.0" />
 
     <android.support.constraint.Guideline
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/guideline"
         fab:layout_constraintGuide_percent="0.5"
-        android:orientation="horizontal" />
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteY="284dp"
+        tools:layout_editor_absoluteX="0dp" />
 
     <android.support.v7.widget.RecyclerView
+        android:visibility="gone"
         android:id="@+id/recycler_view_group"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="0dp"
-        android:layout_marginLeft="0dp"
         fab:layout_constraintBottom_toBottomOf="parent"
         fab:layout_constraintHorizontal_bias="0.0"
         fab:layout_constraintLeft_toLeftOf="parent"
         fab:layout_constraintRight_toRightOf="parent"
+        fab:layout_constraintTop_toTopOf="@+id/guideline" />
+
+    <ImageView
+        android:id="@+id/img_member_empty_state"
+        android:visibility="visible"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/invite_new_member"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        fab:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        fab:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="0dp"
+        fab:layout_constraintBottom_toTopOf="@+id/guideline"
+        android:layout_marginTop="0dp"
+        fab:layout_constraintTop_toBottomOf="@+id/frame_fragment" />
+
+    <View
+        android:id="@+id/divider_member_empty_state"
+        android:visibility="visible"
+        android:layout_width="344dp"
+        android:layout_height="1dp"
+        android:background="@color/secondary_text"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        fab:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        fab:layout_constraintRight_toRightOf="parent"
+        fab:layout_constraintHorizontal_bias="0.0"
         fab:layout_constraintTop_toTopOf="@+id/guideline"
         android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/txt_member_empty_state"
+        android:visibility="visible"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:text="團隊還沒群組呢 趕快創立一個群組吧!"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="16dp"
+        fab:layout_constraintTop_toBottomOf="@+id/divider_member_empty_state"
+        android:layout_marginLeft="8dp"
+        fab:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        fab:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:id="@+id/btn_member_empty_state"
+        android:visibility="visible"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/color_primary"
+        android:text="建立群組"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="32dp"
+        fab:layout_constraintTop_toBottomOf="@+id/txt_member_empty_state"
+        android:layout_marginLeft="8dp"
+        fab:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        fab:layout_constraintRight_toRightOf="parent"
+        fab:layout_constraintHorizontal_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>
