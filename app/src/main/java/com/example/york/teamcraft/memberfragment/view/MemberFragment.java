@@ -116,7 +116,7 @@ public class MemberFragment extends Fragment implements MemberView{
         modifySearchIdDialogFragment.show(getFragmentManager(), "ModifySearchIdDialogFragment");
     }
 
-    @OnClick(R.id.btn_member_empty_state)
+    @OnClick({R.id.btn_member_empty_state, R.id.fab_add_team_member})
     public void addTeamMember() {
         Intent intent = new Intent();
         intent.setClass(getActivity(), AddTeamMemberActivity.class);

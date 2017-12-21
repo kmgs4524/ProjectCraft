@@ -21,7 +21,6 @@ import butterknife.OnClick;
 
 public class ActionFragment extends Fragment {
     private static String TAG = "ActionFragment";
-    @BindView(R.id.linear_layout_add_member) LinearLayout layoutAddMember;
     @BindView(R.id.linear_layout_create_group) LinearLayout layoutCreateGroup;
     @BindView(R.id.linear_layout_task_table) LinearLayout layoutTaskTable;
 
@@ -46,13 +45,10 @@ public class ActionFragment extends Fragment {
         return view;
     }
 
-    @OnClick({R.id.linear_layout_add_member, R.id.linear_layout_create_group, R.id.linear_layout_task_table})
+    @OnClick({R.id.linear_layout_create_group, R.id.linear_layout_task_table})
     public void startAction(View v) {
         Intent intent = new Intent();
         switch (v.getId()) {
-            case R.id.linear_layout_add_member:
-                Log.d(TAG, "startAction: " + v.getId());
-                break;
             case R.id.linear_layout_create_group:
                 intent.setClass(getActivity(), CreateGroupActivity.class);
                 startActivity(intent);
