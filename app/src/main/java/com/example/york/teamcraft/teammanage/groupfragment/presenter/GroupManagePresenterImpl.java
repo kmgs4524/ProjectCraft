@@ -42,8 +42,8 @@ public class GroupManagePresenterImpl implements GroupManagePresenter{
     public void initRecyclerGroupData() {
         readTeam.getTeamGroup(new CallBack<ArrayList<Group>>() {
             @Override
-            public void update(ArrayList<Group> data) {
-                groupManageFragment.initRecyclerGroup(data);
+            public void update(ArrayList<Group> groups) {
+                groupManageFragment.initRecyclerGroup(groups);
             }
         });
     }
