@@ -6,7 +6,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,7 +64,7 @@ public class FinanceFragment extends Fragment implements FinanceView {
         ButterKnife.bind(this, view);
 
         setBudget = new SetBudget(this);
-        setBudget.setData();
+        setBudget.setBudgetData();
         setAccountingItem = new SetAccountingItem(this);
         setAccountingItem.setRecyclerViewData();
         setFloatingButton = new SetFloatingButton(this);
@@ -99,7 +98,7 @@ public class FinanceFragment extends Fragment implements FinanceView {
     }
 
     @Override
-    public void initFab() {
+    public void initFloatingButton() {
         fabAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

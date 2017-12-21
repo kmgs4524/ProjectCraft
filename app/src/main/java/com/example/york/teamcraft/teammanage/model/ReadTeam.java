@@ -73,34 +73,23 @@ public class ReadTeam {
         readUser.getCurrentLogInUserData(new CallBack<User>() {
             @Override
             public void update(User user) {
-                DatabaseReference ref = teamPostsRef.child(user.getTeamId()).getRef();
-                ref.addChildEventListener(new ChildEventListener() {
+                DatabaseReference teamIdRef = teamPostsRef.child(user.getTeamId()).getRef();
+                teamIdRef.addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        post = dataSnapshot.getValue(Post.class);
-                        postList.add(post);
-
-                        callback.update(postList);
-                    }
-
-                    @Override
-                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                    }
-
-                    @Override
-                    public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                    }
-
-                    @Override
-                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
+                    public void onDataChange(DataSnapshot teamIdSnapshot) {
+                        ArrayList<Post> posts = new ArrayList<Post>();
+                        Iterator<DataSnapshot> iterator = teamIdSnapshot.getChildren().iterator();
+                        while(iterator.hasNext()) {
+                            DataSnapshot nextSnapShot = iterator.next();
+                            Post nextPost = nextSnapShot.getValue(Post.class);
+                            posts.add(nextPost);
+                        }
+                        callback.update(posts);
                     }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-
+                        Log.d(TAG, "onCancelled: " + databaseError.getDetails());
                     }
                 });
             }
@@ -149,10 +138,26 @@ public class ReadTeam {
 
     }
 
+    // 確認團隊是否已創立群組
+    public void checkTeamGroupExist(String teamId, final CallBack<Boolean> callBack) {
+        teamGroRef = FirebaseDatabase.getInstance().getReference().child("teamGroups");
+        DatabaseReference teamIdRef = teamGroRef.child(teamId).getRef();
+        teamIdRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot teamIdSnapshot) {
+                callBack.update(teamIdSnapshot.exists());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     public void getTeamGroupByDataChange(String teamId, final CallBack<ArrayList<Group>> callback) {
         groupList = new ArrayList<>();
         teamGroRef = FirebaseDatabase.getInstance().getReference().child("teamGroups");
-
         DatabaseReference ref = teamGroRef.child(teamId).getRef();
 
         ref.addValueEventListener(new ValueEventListener() {

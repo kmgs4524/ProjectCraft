@@ -72,7 +72,7 @@ public class PersonalsFragment extends Fragment implements PersonalsView{
         ButterKnife.bind(this, view);
         // 設定個人資料
         setProfileData = new SetProfileData(this);
-        setProfileData.setData();
+        setProfileData.setProfileData();
         // 設定被分派細項工作
         Log.d(TAG, "onCreateView: " + "setPersonalTask");
         setPersonalTask = new SetPersonalTask(this);

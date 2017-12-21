@@ -9,5 +9,4 @@ import com.example.york.teamcraft.teammanage.model.ReadTeam;
 public class GetPostData {
     private ReadTeam readTeam;
 
-
 }
