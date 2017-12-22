@@ -65,7 +65,6 @@ public class SetProfileData {
                                         }
                                         final String finalGroupName = groupNames;
                                         personalsView.setProfile(user.getName(), user.getEmail(), teamName, finalGroupName);
-
                                     }
                                 });
                             } else {

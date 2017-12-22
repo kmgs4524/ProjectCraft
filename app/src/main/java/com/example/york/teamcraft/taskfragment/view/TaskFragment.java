@@ -71,9 +71,13 @@ public class TaskFragment extends Fragment implements TaskFragmentView {
         setExpandList();
         // 先檢查使用者的group id及position，再決定是否呼叫setImgAddGroupTaskListener()以顯示新增群組工作的按鈕
         taskFragmentPresenter = new TaskFragmentPresenterImpl(this);
-        taskFragmentPresenter.checkUserGroup(groupId);
-
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        taskFragmentPresenter.checkUserGroup(groupId);
     }
 
     // 設定新增群組任務的加號按鈕
@@ -100,17 +104,17 @@ public class TaskFragment extends Fragment implements TaskFragmentView {
         readGroupTasks = new ReadGroupTasks();
         readGroupTasks.getAllTask(groupId, new CallBackTwoArgs< ArrayList<String>, HashMap<String, ArrayList<ContentTask>> >() {
             @Override
-            public void update(final ArrayList<String> list, final HashMap<String, ArrayList<ContentTask>> map) {
+            public void update(final ArrayList<String> groupTasks, final HashMap<String, ArrayList<ContentTask>> map) {
                 // init adapter
-                adapter = new ExpandableListAdapter(getActivity(), list, map, groupId);
+                adapter = new ExpandableListAdapter(getActivity(), groupTasks, map, groupId);
                 // set adapter
                 expandListView.setAdapter(adapter);
                 // set listener
                 expandListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {  // 設定點擊細項工作後，將content task傳送到TargetFragment
                     @Override
                     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                        ContentTask contentTask = map.get(list.get(groupPosition)).get(childPosition);
-                        callback.passData(list.get(groupPosition), contentTask);
+                        ContentTask contentTask = map.get(groupTasks.get(groupPosition)).get(childPosition);
+                        callback.passData(groupTasks.get(groupPosition), contentTask);
                         return false;
                     }
                 });

@@ -127,7 +127,9 @@ public class PersonalsFragment extends Fragment implements PersonalsView{
     public void initRecyclerView(ArrayList<DataPath> pathList, ArrayList<ContentTask> taskList) {
         Log.d(TAG, "initRecyclerGroup: pathList: " + pathList.size() + " taskList: " + taskList.size());
         layoutManager = new LinearLayoutManager(getContext());
-        adapter = new PersonalTaskAdapter(getContext(), recyclerViewPersonalTask, pathList, taskList);
+        ArrayList<DataPath> paths = new ArrayList<>(pathList);
+        ArrayList<ContentTask> contentTasks = new ArrayList<>(taskList);
+        adapter = new PersonalTaskAdapter(getContext(), recyclerViewPersonalTask, paths, contentTasks);
         recyclerViewPersonalTask.setLayoutManager(layoutManager);
         recyclerViewPersonalTask.setAdapter(adapter);
     }

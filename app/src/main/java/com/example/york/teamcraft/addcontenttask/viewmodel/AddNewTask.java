@@ -16,12 +16,10 @@ public class AddNewTask {
     // view
     AddContentTaskView addContentTaskView;
     // model
-    private ReadUser readUser;
     private WriteGroupTask writeGroupTask;
 
     public AddNewTask(AddContentTaskView view) {
         addContentTaskView = view;
-        readUser = new ReadUser();
         writeGroupTask = new WriteGroupTask();
     }
 

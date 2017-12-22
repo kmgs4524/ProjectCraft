@@ -23,6 +23,7 @@ public class SetPersonalTask {
     private PersonalsView personalsView;
     // model
     private ReadUser readUser;
+    private ReadGroupTasks readGroupTasks;
 
     public SetPersonalTask(PersonalsView view) {
         this.personalsView = view;
@@ -34,24 +35,30 @@ public class SetPersonalTask {
         final int[] doneNum = {0};
         if(FirebaseAuth.getInstance().getCurrentUser() != null) {
             readUser = new ReadUser();
+            readGroupTasks = new ReadGroupTasks();
             readUser.getCurrentLogInUserData(new CallBack<User>() {
                 @Override
                 public void update(final User user) {
                     readUser.getUserId(new CallBack<String>() {
                         @Override
                         public void update(String userId) {
-                            ReadGroupTasks readGroupTasks = new ReadGroupTasks();
                             Log.d("SetPersonalTask", "update: " + user.getGroupIds());
+                            final ArrayList<ContentTask> personalContentTasks = new ArrayList<>();
+                            final ArrayList<DataPath> taskDataPaths = new ArrayList<>();
                             for(String groupId: user.getGroupIds()) {
-                                Log.d("SetPersonalTask", "groupId: " + groupId);
                                 readGroupTasks.getPersonalTask(groupId, userId, new CallBackTwoArgs<ArrayList<DataPath>, ArrayList<ContentTask>>() {
                                     @Override
                                     public void update(ArrayList<DataPath> dataPaths, ArrayList<ContentTask> contentTasks) {
-                                        Log.d("initData", "update: " + contentTasks.size());
+                                        Log.d("initData", "tasks: " + contentTasks.size());
+//                                        Log.d("initData", "personal tasks: " + personalContentTasks.size());
+                                        personalContentTasks.addAll(contentTasks);
+                                        taskDataPaths.addAll(dataPaths);
                                         // 設定RecyclerView
                                         personalsView.initRecyclerView(dataPaths, contentTasks);
+                                        Log.d("SetPersonalTask", "contentTasks size: " + contentTasks.size());
+                                        personalContentTasks.clear();
+                                        taskDataPaths.clear();
                                         // 設定UNDO, DONE
-
                                         for(ContentTask task: contentTasks) {
                                             if(task.getStatus().equals("undo")) {
                                                 undoNum[0]++;
