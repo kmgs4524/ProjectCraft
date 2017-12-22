@@ -14,11 +14,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,7 +28,6 @@ import java.util.Map;
  */
 
 public class ReadUser {
-    private FirebaseUser firebaseUser;
     private DatabaseReference rootRef;
     private DatabaseReference usersRef;
     private String email;
@@ -39,12 +40,10 @@ public class ReadUser {
 
     }
 
-    // 可藉由email找出user的其他資料並放入User object，並利用CallBack與User object互動
-
-    public void getUserId(final CallBack<String> c) {
+    // 取得目前登入使用者的user id
+    public void getUserId(final CallBack<String> callBack) {
         Query query = usersRef.orderByChild("email").equalTo(email);    // 搜尋出想要的email
-        final TaskCompletionSource<String> source = new TaskCompletionSource<>();
-        query.addValueEventListener(new ValueEventListener() {
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
                 Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();
@@ -52,7 +51,7 @@ public class ReadUser {
                 if (iterator.hasNext()) {
                     snap = iterator.next();
                     String key = snap.getKey();    // user Id
-                    c.update(key);
+                    callBack.update(key);
                 }
             }
 
@@ -78,6 +77,8 @@ public class ReadUser {
                 while (iterator.hasNext()) {
                     snap = iterator.next();
                     user = snap.getValue(User.class);
+                    GenericTypeIndicator<List<String>> indicator = new GenericTypeIndicator<List<String>>() {};
+                    user.setGroupId((ArrayList<String>)snap.child("groupId").getValue(indicator));
                     callBack.update(user);
                 }
             }
@@ -102,6 +103,8 @@ public class ReadUser {
                 while (iterator.hasNext()) {
                     snap = iterator.next();
                     user = snap.getValue(User.class);
+                    GenericTypeIndicator<List<String>> indicator = new GenericTypeIndicator<List<String>>() {};
+                    user.setGroupId((ArrayList<String>)snap.child("groupId").getValue(indicator));
                     callBack.update(user);
                 }
             }

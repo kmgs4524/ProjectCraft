@@ -35,28 +35,30 @@ public class TaskFragmentPresenterImpl implements TaskFragmentPresenter {
         readUser.getCurrentLogInUserData(new CallBack<User>() {
             @Override
             public void update(User user) {
-                if (groupId.equals(user.getGroupId())) { // 若使用者的group id 等於目前點擊群組的id
-                    readUser.getUserId(new CallBack<String>() {
-                        @Override
-                        public void update(String data) {
-                            final String userId = data;
-                            readGroupMember.getGroupMember(groupId, new CallBack<ArrayList<GroupMember>>() {
-                                @Override
-                                public void update(ArrayList<GroupMember> data) {
-                                    Iterator<GroupMember> iterator = data.iterator();
-                                    while (iterator.hasNext()) {
-                                        GroupMember nextMem = iterator.next();
-                                        if (nextMem.getUserId().equals(userId)) {
-                                            if(nextMem.getPosition().equals("組長")) {  // 若使用者的position等於"director"
-                                                taskFragmentView.setImgAddGroupTaskListener();
+                for(final String groupId: user.getGroupIds()) {
+                    if (groupId.equals(user.getGroupIds())) { // 若使用者的group id 等於目前點擊群組的id
+                        readUser.getUserId(new CallBack<String>() {
+                            @Override
+                            public void update(final String userId) {
+                                readGroupMember.getGroupMember(groupId, new CallBack<ArrayList<GroupMember>>() {
+                                    @Override
+                                    public void update(ArrayList<GroupMember> groupMembers) {
+                                        Iterator<GroupMember> iterator = groupMembers.iterator();
+                                        while (iterator.hasNext()) {
+                                            GroupMember nextMem = iterator.next();
+                                            if (nextMem.getUserId().equals(userId)) {
+                                                if(nextMem.getPosition().equals("組長")) {  // 若使用者的position等於"director"
+                                                    taskFragmentView.setImgAddGroupTaskListener();
+                                                }
                                             }
                                         }
                                     }
-                                }
-                            });
-                        }
-                    });
+                                });
+                            }
+                        });
+                    }
                 }
+
             }
         });
     }

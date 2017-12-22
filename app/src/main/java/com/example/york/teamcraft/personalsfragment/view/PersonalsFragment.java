@@ -71,13 +71,18 @@ public class PersonalsFragment extends Fragment implements PersonalsView{
         ButterKnife.bind(this, view);
         // 設定個人資料
         setProfileData = new SetProfileData(this);
-        setProfileData.setProfileData();
         // 設定被分派細項工作
         Log.d(TAG, "onCreateView: " + "setPersonalTask");
         setPersonalTask = new SetPersonalTask(this);
-        setPersonalTask.initData();
 
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        setProfileData.setProfileData();
+        setPersonalTask.initData();
     }
 
     public void setCirImgPersonals(String imageUrl) {
@@ -112,9 +117,9 @@ public class PersonalsFragment extends Fragment implements PersonalsView{
     }
 
     @Override
-    public void setTaskNum(int undoNum, int doneNum) {
-        txtUndoNum.setText(Integer.toString(undoNum));
-        txtDoneNum.setText(Integer.toString(doneNum));
+    public void setTaskNum(int[] undoNum, int[] doneNum) {
+        txtUndoNum.setText(Integer.toString(undoNum[0]));
+        txtDoneNum.setText(Integer.toString(doneNum[0]));
     }
 
     // 設置被分派細項工作的RecyclerView
@@ -128,7 +133,7 @@ public class PersonalsFragment extends Fragment implements PersonalsView{
     }
 
     @Override
-    public void setProfile(String name, String email, String team, String group, String position) {
+    public void setProfile(String name, String email, String team, String group) {
         txtName.setText(name);
         txtEmail.setText(email);
         txtTeam.setText(team);

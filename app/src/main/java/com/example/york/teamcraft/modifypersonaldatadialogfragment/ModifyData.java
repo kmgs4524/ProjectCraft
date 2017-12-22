@@ -31,7 +31,9 @@ public class ModifyData {
                     public void update(User user) {
                         writeUser.updateUserName(userId, name);
                         writeTeamMember.changeTeamMemberName(user.getTeamId(), userId, name);
-                        writeGroupMember.changeGroupMemberName(user.getGroupId(), userId, name);
+                        for(String groupId: user.getGroupIds()) {
+                            writeGroupMember.changeGroupMemberName(groupId, userId, name);
+                        }
                     }
                 });
             }

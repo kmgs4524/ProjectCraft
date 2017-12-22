@@ -18,12 +18,7 @@ public class ConfirmContentTask {
         this.writeGroupTask = new WriteGroupTask();
     }
 
-    public void confirmTask(final String groupTaskName, final String taskId) {
-        readUser.getCurrentLogInUserData(new CallBack<User>() {
-            @Override
-            public void update(User data) {
-                writeGroupTask.confirmContentTask(data.getGroupId(), groupTaskName, taskId);
-            }
-        });
+    public void confirmTask(String groupId, final String groupTaskName, final String taskId) {
+        writeGroupTask.confirmContentTask(groupId, groupTaskName, taskId);
     }
 }

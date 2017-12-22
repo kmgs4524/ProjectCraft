@@ -25,18 +25,18 @@ public class AddNewTask {
         writeGroupTask = new WriteGroupTask();
     }
 
-    public void addContentTask(final String groupName, final ContentTask contentTask) {
-        readUser.getCurrentLogInUserData(new CallBack<User>() {
-            @Override
-            public void update(User data) {
-                writeGroupTask.writeContentTask(data.getGroupId(), groupName, contentTask)
+    public void addContentTask(final String groupId, final String groupName, final ContentTask contentTask) {
+//        readUser.getCurrentLogInUserData(new CallBack<User>() {
+//            @Override
+//            public void update(User data) {
+                writeGroupTask.writeContentTask(groupId, groupName, contentTask)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 addContentTaskView.finishActivity();
                             }
                         });
-            }
-        });
+//            }
+//        });
     }
 }
