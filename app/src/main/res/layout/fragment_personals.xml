@@ -94,14 +94,6 @@
                 android:textColor="@color/icons"
                 android:text="小組"/>
 
-            <TextView
-                android:id="@+id/txt_personal_position"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textColor="@color/icons"
-                android:text="職位"/>
         </LinearLayout>
 
         <LinearLayout
@@ -122,12 +114,6 @@
                 android:gravity="center"
                 android:text="GROUP"/>
 
-            <TextView
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="POSITION"/>
         </LinearLayout>
 
     </LinearLayout>

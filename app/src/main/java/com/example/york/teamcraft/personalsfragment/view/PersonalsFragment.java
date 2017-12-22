@@ -41,7 +41,6 @@ public class PersonalsFragment extends Fragment implements PersonalsView{
     @BindView(R.id.txt_personal_email) TextView txtEmail;
     @BindView(R.id.txt_personal_team) TextView txtTeam;
     @BindView(R.id.txt_personal_group) TextView txtGroup;
-    @BindView(R.id.txt_personal_position) TextView txtPosition;
     @BindView(R.id.txt_undo_num) TextView txtUndoNum;
     @BindView(R.id.txt_done_num) TextView txtDoneNum;
     @BindView(R.id.recycler_view_personal_task)
@@ -134,7 +133,6 @@ public class PersonalsFragment extends Fragment implements PersonalsView{
         txtEmail.setText(email);
         txtTeam.setText(team);
         txtGroup.setText(group);
-        txtPosition.setText(position);
     }
 
     // 進入個人資料畫面
