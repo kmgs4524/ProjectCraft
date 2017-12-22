@@ -119,7 +119,7 @@ public class ReadUser {
     // 藉由user id 取得特定使用者的資料
     public void getUserDataById(String userId, final CallBack<User> callBack) {
         DatabaseReference childRef = usersRef.child(userId);
-        childRef.addValueEventListener(new ValueEventListener() {
+        childRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);

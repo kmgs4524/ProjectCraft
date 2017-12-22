@@ -11,6 +11,7 @@ import com.example.york.teamcraft.teammanage.creategroup.model.ReadTeamMember;
 import com.example.york.teamcraft.teammanage.jointeam.model.TeamMember;
 import com.example.york.teamcraft.teammanage.model.Group;
 import com.example.york.teamcraft.teammanage.model.ReadTeam;
+import com.example.york.teamcraft.teammanage.model.ReadTeamGroup;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
 import com.example.york.teamcraft.teammanage.model.User;
 
@@ -29,6 +30,7 @@ public class GetMemberData {
     private ReadGroupMember readGroupMember;
     private ReadUser readUser;
     private ReadTeamMember readTeamMember;
+    private ReadTeamGroup readTeamGroup;
 
     private ArrayList<GroupMember> allGroupMembers = new ArrayList<>(); // 儲存各個小組的所有群組成員，用在getUnDistributedMember()中與teamMembers做比較
 
@@ -38,10 +40,11 @@ public class GetMemberData {
         this.readGroupMember = new ReadGroupMember();
         this.readUser = new ReadUser();
         this.readTeamMember = new ReadTeamMember();
+        this.readTeamGroup = new ReadTeamGroup();
     }
 
     public void getData() {
-        readUser.getCurrentLogInUserData(new CallBack<User>() {
+        readUser.getCurrentLogInUserDataForSingleEvent(new CallBack<User>() {
             @Override
             public void update(final User user) {
                 readTeamMember.getTeamMember(user.getTeamId(), new CallBack<ArrayList<TeamMember>>() {
@@ -53,7 +56,7 @@ public class GetMemberData {
                             public void update(Boolean isExisting) {
                                 if(isExisting) {
                                     // 先取得團隊的所有群組
-                                    readTeam.getTeamGroupByDataChange(user.getTeamId(), new CallBack<ArrayList<Group>>() {
+                                    readTeamGroup.getTeamGroups(user.getTeamId(), new CallBack<ArrayList<Group>>() {
                                         @Override
                                         public void update(final ArrayList<Group> groups) {
                                             // 取得未分組成員的ArrayList<SectionOrItem>
@@ -61,7 +64,7 @@ public class GetMemberData {
                                                 @Override
                                                 public void update(final ArrayList<SectionOrItem> undistributedSection) {
                                                     final ArrayList<SectionOrItem> sectionOrItems = new ArrayList<>();  // 傳入MemberListAdapter的ArrayList<SectionOrItem>
-
+                                                    Log.d("getData", "undistribute size: " + undistributedSection.size());
                                                     for (final Group group : groups) {
                                                         // 再用groupId取得每個群組的所有成員
                                                         readGroupMember.getGroupMember(group.getId(), new CallBack<ArrayList<GroupMember>>() {
@@ -146,14 +149,18 @@ public class GetMemberData {
                                 }
                             }
                         }
-                        Log.d("getUnDistributedMember", "after restTeamMembers size: " + teamMembers.size());
-                        // 將未分組的TeamMembers轉換成SectionOrItems
-                        translateTeamMembersToSection(teamMembers, new CallBack<ArrayList<SectionOrItem>>() {
-                            @Override
-                            public void update(ArrayList<SectionOrItem> sectionOrItems) {
-                                callBack.update(sectionOrItems);
-                            }
-                        });
+                        if(teamMembers.isEmpty()) {
+                            // 若沒有未分組的成員就傳空的SectionOrItem ArrayList
+                            callBack.update(new ArrayList<SectionOrItem>());
+                        } else {
+                            // 將未分組的TeamMembers轉換成SectionOrItems
+                            translateTeamMembersToSection(teamMembers, new CallBack<ArrayList<SectionOrItem>>() {
+                                @Override
+                                public void update(ArrayList<SectionOrItem> sectionOrItems) {
+                                    callBack.update(sectionOrItems);
+                                }
+                            });
+                        }
                     }
                 });
             }

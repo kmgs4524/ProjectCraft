@@ -42,10 +42,10 @@ public class CreateNewGroup {
     }
 
     public void create(final String groupName, final ArrayList<GroupMember> memList) {
-        readUser.getCurrentLogInUserData(new CallBack<User>() {
+        readUser.getCurrentLogInUserDataForSingleEvent(new CallBack<User>() {
             @Override
-            public void update(User data) {
-                final String groupId = writeTeamGroup.pushData(data.getTeamId(), groupName);  // 更新teamGroups節點並回傳groupId
+            public void update(User user) {
+                final String groupId = writeTeamGroup.pushData(user.getTeamId(), groupName);  // 更新teamGroups節點並回傳groupId
                 readUser.getUserId(new CallBack<String>() {
                     @Override
                     public void update(String userId) {

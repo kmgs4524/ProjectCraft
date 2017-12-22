@@ -61,10 +61,15 @@ public class GroupManageFragment extends Fragment implements GroupManageView{
         ButterKnife.bind(this, view);
         // init Presenter
         groupManagePresenter = new GroupManagePresenterImpl(this);
+        return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
         groupManagePresenter.checkTeamGroupExist();
         groupManagePresenter.initRecyclerProgressData();
         groupManagePresenter.initRecyclerGroupData();
-        return view;
     }
 
     @Override
