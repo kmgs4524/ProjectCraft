@@ -117,9 +117,9 @@ public class PersonalsFragment extends Fragment implements PersonalsView{
     }
 
     @Override
-    public void setTaskNum(int[] undoNum, int[] doneNum) {
-        txtUndoNum.setText(Integer.toString(undoNum[0]));
-        txtDoneNum.setText(Integer.toString(doneNum[0]));
+    public void setTaskNum(int undoNum, int doneNum) {
+        txtUndoNum.setText(Integer.toString(undoNum));
+        txtDoneNum.setText(Integer.toString(doneNum));
     }
 
     // 設置被分派細項工作的RecyclerView

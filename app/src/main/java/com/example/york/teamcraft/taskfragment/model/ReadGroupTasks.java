@@ -177,7 +177,7 @@ public class ReadGroupTasks {
     }
 
     // 需要groupId, responId，取得個人被分派工作的taskIdList, taskList
-    public void getPersonalTask(final String groupId, final String responId, final CallBackTwoArgs<ArrayList<DataPath>, ArrayList<ContentTask>> callBack) {
+    public void getPersonalTask(final String responId, final CallBackTwoArgs<ArrayList<DataPath>, ArrayList<ContentTask>> callBack) {
 
 //        DatabaseReference groupIdRef = groupTasksRef.child(groupId).getRef();
         groupTasksRef.addValueEventListener(new ValueEventListener() {

@@ -31,8 +31,7 @@ public class SetPersonalTask {
 
     // 設定RecyclerView的資料
     public void initData() {
-        final int[] undoNum = {0};
-        final int[] doneNum = {0};
+
         if(FirebaseAuth.getInstance().getCurrentUser() != null) {
             readUser = new ReadUser();
             readGroupTasks = new ReadGroupTasks();
@@ -45,21 +44,21 @@ public class SetPersonalTask {
                             Log.d("SetPersonalTask", "update: " + user.getGroupIds());
 //                            final ArrayList<ContentTask> personalContentTasks = new ArrayList<>();
 //                            final ArrayList<DataPath> taskDataPaths = new ArrayList<>();
-
-                                readGroupTasks.getPersonalTask("123", userId, new CallBackTwoArgs<ArrayList<DataPath>, ArrayList<ContentTask>>() {
+                                readGroupTasks.getPersonalTask(userId, new CallBackTwoArgs<ArrayList<DataPath>, ArrayList<ContentTask>>() {
                                     @Override
                                     public void update(ArrayList<DataPath> dataPaths, ArrayList<ContentTask> contentTasks) {
                                         // 設定RecyclerView
                                         personalsView.initRecyclerView(dataPaths, contentTasks);
-
-//                                        // 設定UNDO, DONE
-//                                        for(ContentTask task: contentTasks) {
-//                                            if(task.getStatus().equals("undo")) {
-//                                                undoNum[0]++;
-//                                            } else if(task.getStatus().equals("done")) {
-//                                                doneNum[0]++;
-//                                            }
-//                                        }
+//                                       // 設定UNDO, DONE
+                                        int undoNum = 0;    // 未完成的工作數量
+                                        int doneNum = 0;    // 已完成的工作數量
+                                        for(ContentTask task: contentTasks) {
+                                            if(task.getStatus().equals("undo")) {
+                                                undoNum++;
+                                            } else if(task.getStatus().equals("done")) {
+                                                doneNum++;
+                                            }
+                                        }
                                         personalsView.setTaskNum(undoNum, doneNum);
                                     }
                                 });
