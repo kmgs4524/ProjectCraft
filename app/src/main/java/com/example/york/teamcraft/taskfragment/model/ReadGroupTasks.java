@@ -145,13 +145,13 @@ public class ReadGroupTasks {
     }
 
     public void getAllTaskByValueEvent(String groupId, final CallBackTwoArgs<ArrayList<String>, HashMap<String, ArrayList<ContentTask>>> callBack) {
-        final ArrayList<String> groupTaskNameList = new ArrayList<>();  // 群組任務名稱的list
-        final HashMap<String, ArrayList<ContentTask>> itemMap = new HashMap<>();    // 細項任務的map，key: 群組任務名稱, value: 細項任務的list
-
         DatabaseReference childRef = groupTasksRef.child(groupId);
         childRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<String> groupTaskNameList = new ArrayList<>();  // 群組任務名稱的list
+                HashMap<String, ArrayList<ContentTask>> itemMap = new HashMap<>();    // 細項任務的map，key: 群組任務名稱, value: 細項任務的list
+
                 Iterator<DataSnapshot> groupTaskIterator = dataSnapshot.getChildren().iterator();
                 while (groupTaskIterator.hasNext()) {
                     DataSnapshot groupTaskNameShot = groupTaskIterator.next();   // 群組名稱的節點
@@ -196,17 +196,7 @@ public class ReadGroupTasks {
                             }
                         }
                     }
-//                    while (groupTaskIterator.hasNext()) {
-//                        DataSnapshot contentTaskSnapShot = groupTaskIterator.next();
-//                        ContentTask contentTask = contentTaskSnapShot.getValue(ContentTask.class);
-//                        if (responId.equals(contentTask.getResponId())) {
-//                            contentTasks.add(contentTask);
-//                            DataPath dataPath = new DataPath(groupId, groupTaskSnapShot.getKey(), contentTaskSnapShot.getKey());
-//                            dataPaths.add(dataPath);
-//                        }
-//                    }
                 }
-//                Log.d("onDataChange", "cotentTasks size: " + contentTasks.size());
                 callBack.update(dataPaths, contentTasks);
             }
 

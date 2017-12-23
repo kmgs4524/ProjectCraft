@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.schedulefragment.viewmodel.OutputPdf;
-import com.example.york.teamcraft.schedulefragment.viewmodel.SetBuilderData;
+import com.example.york.teamcraft.schedulefragment.viewmodel.SetScheduleTable;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -37,7 +37,7 @@ public class ScheduleFragment extends Fragment {
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
     // view model
-    private SetBuilderData setBuilderData;
+    private SetScheduleTable setScheduleTable;
 
     @BindView(R.id.tableLayout_schedule)
     TableLayout tableLayout;
@@ -67,8 +67,8 @@ public class ScheduleFragment extends Fragment {
         verifyStoragePermissions();
         inflateActionBtn(tableLayout);
         // 將Table Row放入Table Layout
-        setBuilderData = new SetBuilderData();
-        setBuilderData.setTable(tableLayout, getContext());
+        setScheduleTable = new SetScheduleTable();
+        setScheduleTable.setTable(tableLayout, getContext());
 
         return view;
     }

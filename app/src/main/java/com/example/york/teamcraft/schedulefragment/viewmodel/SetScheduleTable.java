@@ -20,8 +20,8 @@ import java.util.ArrayList;
  * Created by York on 2017/10/28.
  */
 
-public class SetBuilderData {
-    private static String TAG = "SetBuilderData";
+public class SetScheduleTable {
+    private static String TAG = "SetScheduleTable";
 
     // model
     private GetTableData getTableData;
@@ -33,10 +33,10 @@ public class SetBuilderData {
         getTableData.getData(new CallBack<ArrayList<RowData>>() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
-            public void update(ArrayList<RowData> rowList) {
-                Log.d(TAG, Integer.toString(rowList.size()));
+            public void update(ArrayList<RowData> rowDataCollection) {
+                Log.d(TAG, Integer.toString(rowDataCollection.size()));
                 builder = new ScheduleTableBuilder(layout, context);
-                for(RowData row: rowList) {
+                for(RowData row: rowDataCollection) {
                     TableRow tableRow = (TableRow) LayoutInflater.from(context).inflate(R.layout.table_row, null);
                     builder.setTableRow(tableRow)
                             .setRowData(row)

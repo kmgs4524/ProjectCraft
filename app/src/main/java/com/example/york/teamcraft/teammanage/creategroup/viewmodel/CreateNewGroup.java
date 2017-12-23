@@ -8,8 +8,10 @@ import com.example.york.teamcraft.teammanage.creategroup.view.CreateGroupView;
 import com.example.york.teamcraft.teammanage.model.ReadUser;
 import com.example.york.teamcraft.teammanage.model.User;
 import com.example.york.teamcraft.teammanage.model.WriteUser;
+import com.google.firebase.database.GenericTypeIndicator;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by York on 2017/10/13.
@@ -44,7 +46,7 @@ public class CreateNewGroup {
     public void create(final String groupName, final ArrayList<GroupMember> memList) {
         readUser.getCurrentLogInUserDataForSingleEvent(new CallBack<User>() {
             @Override
-            public void update(User user) {
+            public void update(final User user) {
                 final String groupId = writeTeamGroup.pushData(user.getTeamId(), groupName);  // 更新teamGroups節點並回傳groupId
                 readUser.getUserId(new CallBack<String>() {
                     @Override
@@ -53,7 +55,9 @@ public class CreateNewGroup {
                         writeGroupMember = new WriteGroupMember();
                         writeGroupMember.pushData(memList, groupId);    // 更新groupMembers節點的資料
                         writeUser = new WriteUser();
-                        writeUser.updateUserGroup(memList, groupId);   // 更新user child node的groupId
+                        ArrayList<String> groupIds = user.getGroupIds();
+                        groupIds.add(groupId);
+                        writeUser.updateUserGroup(userId, groupIds);   // 更新user child node的groupId
                     }
                 });
                 createGroupView.finishCreate();

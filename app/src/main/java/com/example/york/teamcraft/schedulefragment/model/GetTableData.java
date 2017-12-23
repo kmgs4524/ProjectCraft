@@ -29,20 +29,19 @@ public class GetTableData {
 
     public void getData(final CallBack<ArrayList<RowData>> callBack) {
         readUser = new ReadUser();
-        readUser.getCurrentLogInUserData(new CallBack<User>() {
+        readUser.getCurrentLogInUserDataForSingleEvent(new CallBack<User>() {
             @Override
             public void update(User user) {
                 readTeam = new ReadTeam();
                 readTeam.getTeamGroupByDataChange(user.getTeamId(), new CallBack<ArrayList<Group>>() {
                     @Override
-                    public void update(ArrayList<Group> groupList) {
+                    public void update(ArrayList<Group> groups) {
                         readGroupTasks = new ReadGroupTasks();
-
-                        for(final Group group: groupList) {
+                        for(final Group group: groups) {
                             readGroupTasks.getAllTaskByValueEvent(group.getId(), new CallBackTwoArgs<ArrayList<String>, HashMap<String, ArrayList<ContentTask>>>() {
                                 @Override
-                                public void update(ArrayList<String> list, HashMap<String, ArrayList<ContentTask>> stringArrayListHashMap) {
-                                    setRowData(group.getName(), list, stringArrayListHashMap, callBack);
+                                public void update(ArrayList<String> groupTasks, HashMap<String, ArrayList<ContentTask>> stringArrayListHashMap) {
+                                    setRowData(group.getName(), groupTasks, stringArrayListHashMap, callBack);
                                 }
                             });
                         }

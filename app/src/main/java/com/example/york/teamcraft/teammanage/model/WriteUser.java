@@ -41,7 +41,7 @@ public class WriteUser {
             // 檢查寫入資料庫是否成功
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                if(databaseError != null) {
+                if (databaseError != null) {
                     Log.d("Data could not be saved", databaseError.getMessage());   // 若失敗即記錄錯誤訊息
                 } else {
                     Log.d("updateUser", "Data be saved successfully");
@@ -62,15 +62,8 @@ public class WriteUser {
         childRef.child("teamId").setValue(teamId);
     }
 
-    public void updateUserGroup(ArrayList<GroupMember> memList, String groupId) {
-        for(GroupMember member: memList) {
-            DatabaseReference childRef = usersRef.child(member.getUserId());
-//            childRef.child("groupId").setValue(groupId);
-            ArrayList<String> strList = new ArrayList<>();
-            strList.add("123");
-            strList.add("490");
-            childRef.child("groupId").setValue(strList);
-        }
+    public void updateUserGroup(String userId, ArrayList<String> groupIds) {
+        usersRef.child(userId).child("groupId").setValue(groupIds);
     }
 
     public void updateUserName(String userId, String name) {
