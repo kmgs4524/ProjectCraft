@@ -178,29 +178,35 @@ public class ReadGroupTasks {
 
     // 需要groupId, responId，取得個人被分派工作的taskIdList, taskList
     public void getPersonalTask(final String groupId, final String responId, final CallBackTwoArgs<ArrayList<DataPath>, ArrayList<ContentTask>> callBack) {
-        final ArrayList<DataPath> dataPaths = new ArrayList<>(); // DataPath List : 負責存放 groupId, groupTaskName, taskId
-        final ArrayList<ContentTask> contentTasks = new ArrayList<>();  // GroupTask List
 
-
-        DatabaseReference groupIdRef = groupTasksRef.child(groupId).getRef();
-        groupIdRef.addValueEventListener(new ValueEventListener() {
+//        DatabaseReference groupIdRef = groupTasksRef.child(groupId).getRef();
+        groupTasksRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot groupIdSnapshot) {
-                Iterator<DataSnapshot> groupIdIterator = groupIdSnapshot.getChildren().iterator();
-                while (groupIdIterator.hasNext()) {
-                    DataSnapshot groupTaskSnapShot = groupIdIterator.next();
-                    Iterator<DataSnapshot> groupTaskIterator = groupTaskSnapShot.getChildren().iterator();
-                    while (groupTaskIterator.hasNext()) {
-                        DataSnapshot contentTaskSnapShot = groupTaskIterator.next();
-                        ContentTask contentTask = contentTaskSnapShot.getValue(ContentTask.class);
-                        if (responId.equals(contentTask.getResponId())) {
-                            contentTasks.add(contentTask);
-                            DataPath dataPath = new DataPath(groupId, groupTaskSnapShot.getKey(), contentTaskSnapShot.getKey());
-                            dataPaths.add(dataPath);
+            public void onDataChange(DataSnapshot groupTasksSnapshot) {
+                final ArrayList<DataPath> dataPaths = new ArrayList<>(); // DataPath List : 負責存放 groupId, groupTaskName, taskId
+                final ArrayList<ContentTask> contentTasks = new ArrayList<>();  // GroupTask List
+                for(DataSnapshot groupIdSnapShot: groupTasksSnapshot.getChildren()) {
+                    for(DataSnapshot groupTaskSnapShot: groupIdSnapShot.getChildren()) {
+                        for(DataSnapshot contentTaskSnapShot: groupTaskSnapShot.getChildren()) {
+                            ContentTask contentTask = contentTaskSnapShot.getValue(ContentTask.class);
+                            if(contentTask.getResponId().equals(responId)) {
+                                contentTasks.add(contentTask);
+                                DataPath dataPath = new DataPath(groupIdSnapShot.getKey(), groupTaskSnapShot.getKey(), contentTaskSnapShot.getKey());
+                                dataPaths.add(dataPath);
+                            }
                         }
                     }
+//                    while (groupTaskIterator.hasNext()) {
+//                        DataSnapshot contentTaskSnapShot = groupTaskIterator.next();
+//                        ContentTask contentTask = contentTaskSnapShot.getValue(ContentTask.class);
+//                        if (responId.equals(contentTask.getResponId())) {
+//                            contentTasks.add(contentTask);
+//                            DataPath dataPath = new DataPath(groupId, groupTaskSnapShot.getKey(), contentTaskSnapShot.getKey());
+//                            dataPaths.add(dataPath);
+//                        }
+//                    }
                 }
-                Log.d("onDataChange", "cotentTasks size: " + contentTasks.size());
+//                Log.d("onDataChange", "cotentTasks size: " + contentTasks.size());
                 callBack.update(dataPaths, contentTasks);
             }
 

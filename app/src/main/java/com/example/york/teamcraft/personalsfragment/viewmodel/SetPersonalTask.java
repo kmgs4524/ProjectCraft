@@ -43,33 +43,27 @@ public class SetPersonalTask {
                         @Override
                         public void update(String userId) {
                             Log.d("SetPersonalTask", "update: " + user.getGroupIds());
-                            final ArrayList<ContentTask> personalContentTasks = new ArrayList<>();
-                            final ArrayList<DataPath> taskDataPaths = new ArrayList<>();
-                            for(String groupId: user.getGroupIds()) {
-                                readGroupTasks.getPersonalTask(groupId, userId, new CallBackTwoArgs<ArrayList<DataPath>, ArrayList<ContentTask>>() {
+//                            final ArrayList<ContentTask> personalContentTasks = new ArrayList<>();
+//                            final ArrayList<DataPath> taskDataPaths = new ArrayList<>();
+
+                                readGroupTasks.getPersonalTask("123", userId, new CallBackTwoArgs<ArrayList<DataPath>, ArrayList<ContentTask>>() {
                                     @Override
                                     public void update(ArrayList<DataPath> dataPaths, ArrayList<ContentTask> contentTasks) {
-                                        Log.d("initData", "tasks: " + contentTasks.size());
-//                                        Log.d("initData", "personal tasks: " + personalContentTasks.size());
-                                        personalContentTasks.addAll(contentTasks);
-                                        taskDataPaths.addAll(dataPaths);
                                         // 設定RecyclerView
                                         personalsView.initRecyclerView(dataPaths, contentTasks);
-                                        Log.d("SetPersonalTask", "contentTasks size: " + contentTasks.size());
-                                        personalContentTasks.clear();
-                                        taskDataPaths.clear();
-                                        // 設定UNDO, DONE
-                                        for(ContentTask task: contentTasks) {
-                                            if(task.getStatus().equals("undo")) {
-                                                undoNum[0]++;
-                                            } else if(task.getStatus().equals("done")) {
-                                                doneNum[0]++;
-                                            }
-                                        }
+
+//                                        // 設定UNDO, DONE
+//                                        for(ContentTask task: contentTasks) {
+//                                            if(task.getStatus().equals("undo")) {
+//                                                undoNum[0]++;
+//                                            } else if(task.getStatus().equals("done")) {
+//                                                doneNum[0]++;
+//                                            }
+//                                        }
                                         personalsView.setTaskNum(undoNum, doneNum);
                                     }
                                 });
-                            }
+
 
                         }
                     });
