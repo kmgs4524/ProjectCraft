@@ -1,5 +1,7 @@
 package com.example.york.teamcraft.financefragment.model;
 
+import android.util.Log;
+
 import com.example.york.teamcraft.CallBack;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,6 +29,21 @@ public class ReadTeamBudget {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+    }
+
+    public void checkBudgetExist(String teamId, final CallBack<Boolean> callBack) {
+        teamBudgetRef = FirebaseDatabase.getInstance().getReference().child("teamBudgets").child(teamId);
+        teamBudgetRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot teamBudgetSnapshot) {
+                callBack.update(teamBudgetSnapshot.exists());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d(TAG, "onCancelled: " + databaseError.toString());
             }
         });
     }

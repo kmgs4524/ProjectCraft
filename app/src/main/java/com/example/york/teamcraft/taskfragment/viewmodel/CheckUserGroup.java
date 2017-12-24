@@ -23,15 +23,17 @@ public class CheckUserGroup {
 
     // 檢查傳入的groupId與user的groupId是否相同
     public void checkGroup(final String groupId, final CallBack<Boolean> callBack) {
-        readUser.getCurrentLogInUserData(new CallBack<User>() {
+        readUser.getCurrentLogInUserDataForSingleEvent(new CallBack<User>() {
             @Override
             public void update(User user) {
-                if(user.getGroupId().equals(groupId)) {
-                    Log.d("checkGroup", "user group " + groupId + " passed group: " + groupId);
-                    callBack.update(true);
-                } else {
-                    callBack.update(false);
+                boolean isSame = false;
+                for(String userGroupId: user.getGroupIds()) {
+                    if(userGroupId.equals(groupId)) {
+                        Log.d("checkGroup", "user group " + userGroupId + " passed group: " + groupId);
+                        isSame = true;
+                    }
                 }
+                callBack.update(isSame);
             }
         });
     }

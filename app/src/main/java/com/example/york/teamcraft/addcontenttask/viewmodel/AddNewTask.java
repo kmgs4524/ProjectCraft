@@ -16,27 +16,25 @@ public class AddNewTask {
     // view
     AddContentTaskView addContentTaskView;
     // model
-    private ReadUser readUser;
     private WriteGroupTask writeGroupTask;
 
     public AddNewTask(AddContentTaskView view) {
         addContentTaskView = view;
-        readUser = new ReadUser();
         writeGroupTask = new WriteGroupTask();
     }
 
-    public void addContentTask(final String groupName, final ContentTask contentTask) {
-        readUser.getCurrentLogInUserData(new CallBack<User>() {
-            @Override
-            public void update(User data) {
-                writeGroupTask.writeContentTask(data.getGroupId(), groupName, contentTask)
+    public void addContentTask(final String groupId, final String groupName, final ContentTask contentTask) {
+//        readUser.getCurrentLogInUserData(new CallBack<User>() {
+//            @Override
+//            public void update(User data) {
+                writeGroupTask.writeContentTask(groupId, groupName, contentTask)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 addContentTaskView.finishActivity();
                             }
                         });
-            }
-        });
+//            }
+//        });
     }
 }

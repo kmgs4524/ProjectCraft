@@ -10,6 +10,9 @@ import java.util.ArrayList;
  */
 
 public interface GroupManageView {
+    public abstract void showActionLayout();
+    public abstract void showEmptyState();
+    public abstract void hideEmptyState();
     public abstract void initRecyclerProgress(ArrayList<GroupProgress> progList);
     public abstract void initRecyclerGroup(ArrayList<Group> list);
 }

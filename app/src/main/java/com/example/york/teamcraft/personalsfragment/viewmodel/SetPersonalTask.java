@@ -23,6 +23,7 @@ public class SetPersonalTask {
     private PersonalsView personalsView;
     // model
     private ReadUser readUser;
+    private ReadGroupTasks readGroupTasks;
 
     public SetPersonalTask(PersonalsView view) {
         this.personalsView = view;
@@ -30,36 +31,39 @@ public class SetPersonalTask {
 
     // 設定RecyclerView的資料
     public void initData() {
+
         if(FirebaseAuth.getInstance().getCurrentUser() != null) {
             readUser = new ReadUser();
+            readGroupTasks = new ReadGroupTasks();
             readUser.getCurrentLogInUserData(new CallBack<User>() {
                 @Override
-                public void update(User data) {
-                    final User user = data;
+                public void update(final User user) {
                     readUser.getUserId(new CallBack<String>() {
                         @Override
                         public void update(String userId) {
-                            ReadGroupTasks readGroupTasks = new ReadGroupTasks();
-                            Log.d("", "update: " + user.getGroupId());
-                            readGroupTasks.getPersonalTask(user.getGroupId(), userId, new CallBackTwoArgs<ArrayList<DataPath>, ArrayList<ContentTask>>() {
-                                @Override
-                                public void update(ArrayList<DataPath> pathList, ArrayList<ContentTask> taskList) {
-                                    Log.d("initData", "update: " + taskList.size());
-                                    // 設定RecyclerView
-                                    personalsView.initRecyclerView(pathList, taskList);
-                                    // 設定UNDO, DONE
-                                    int undoNum = 0;
-                                    int doneNum = 0;
-                                    for(ContentTask task: taskList) {
-                                        if(task.getStatus().equals("undo")) {
-                                            undoNum++;
-                                        } else if(task.getStatus().equals("done")) {
-                                            doneNum++;
+                            Log.d("SetPersonalTask", "update: " + user.getGroupIds());
+//                            final ArrayList<ContentTask> personalContentTasks = new ArrayList<>();
+//                            final ArrayList<DataPath> taskDataPaths = new ArrayList<>();
+                                readGroupTasks.getPersonalTask(userId, new CallBackTwoArgs<ArrayList<DataPath>, ArrayList<ContentTask>>() {
+                                    @Override
+                                    public void update(ArrayList<DataPath> dataPaths, ArrayList<ContentTask> contentTasks) {
+                                        // 設定RecyclerView
+                                        personalsView.initRecyclerView(dataPaths, contentTasks);
+//                                       // 設定UNDO, DONE
+                                        int undoNum = 0;    // 未完成的工作數量
+                                        int doneNum = 0;    // 已完成的工作數量
+                                        for(ContentTask task: contentTasks) {
+                                            if(task.getStatus().equals("undo")) {
+                                                undoNum++;
+                                            } else if(task.getStatus().equals("done")) {
+                                                doneNum++;
+                                            }
                                         }
+                                        personalsView.setTaskNum(undoNum, doneNum);
                                     }
-                                    personalsView.setTaskNum(undoNum, doneNum);
-                                }
-                            });
+                                });
+
+
                         }
                     });
                 }

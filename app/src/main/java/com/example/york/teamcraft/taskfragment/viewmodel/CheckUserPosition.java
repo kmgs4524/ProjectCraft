@@ -27,12 +27,10 @@ public class CheckUserPosition {
     }
 
     public void checkPosition(final String groupId, final CallBack<Boolean> callBack) {
-        Log.d("checktrue", groupId);
         readUser.getUserId(new CallBack<String>() {
             @Override
-            public void update(String data) {
-                final String userId = data; // 使用者的user id
-                Log.d("checktrue", data);
+            public void update(final String userId) {
+                Log.d("checktrue", userId);
                 readGroupMember.getGroupMember(groupId, new CallBack<ArrayList<GroupMember>>() {
                     @Override
                     public void update(ArrayList<GroupMember> data) {

@@ -14,4 +14,8 @@ public interface FinanceView {
     public abstract void initRecyclerView(ArrayList<AccountingItem> list);
     public abstract void initTxtTotalCost(int cost);
     public abstract void initFloatingButton();
+    public abstract void showEmptyState();
+    public abstract void hideEmptyState();
+    public abstract void showUsualState();
+    public abstract void hideUsualState();
 }

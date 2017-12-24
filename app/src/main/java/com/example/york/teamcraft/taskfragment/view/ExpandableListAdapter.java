@@ -2,7 +2,6 @@ package com.example.york.teamcraft.taskfragment.view;
 
 import android.content.Intent;
 import android.graphics.Paint;
-import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,35 +27,35 @@ import java.util.HashMap;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private FragmentActivity context;
-    private ArrayList<String> groupList;
+    private ArrayList<String> groupTasks;
     private HashMap<String, ArrayList<ContentTask>> itemMap;
     private String groupId;
 
-    public ExpandableListAdapter(FragmentActivity context, ArrayList<String> list, HashMap<String, ArrayList<ContentTask>> map, String id) {
+    public ExpandableListAdapter(FragmentActivity context, ArrayList<String> groupTasks, HashMap<String, ArrayList<ContentTask>> map, String groupId) {
         this.context = context;
-        this.groupList = list;
+        this.groupTasks = groupTasks;
         this.itemMap = map;
-        this.groupId = id;
+        this.groupId = groupId;
     }
 
     @Override
     public int getGroupCount() {
-        return groupList.size();
+        return groupTasks.size();
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return itemMap.get(groupList.get(groupPosition)).size();
+        return itemMap.get(groupTasks.get(groupPosition)).size();
     }
 
     @Override
     public Object getGroup(int groupPosition) {
-        return groupList.get(groupPosition);
+        return groupTasks.get(groupPosition);
     }
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return itemMap.get(groupList.get(groupPosition)).get(childPosition);
+        return itemMap.get(groupTasks.get(groupPosition)).get(childPosition);
     }
 
     @Override
@@ -79,7 +78,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     public View getGroupView(final int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         final View view = LayoutInflater.from(context).inflate(R.layout.expandlist_group, null);
         TextView txtTitle = (TextView) view.findViewById(R.id.txt_expand_group);
-        txtTitle.setText(groupList.get(groupPosition)); // 群組任務名稱
+        txtTitle.setText(groupTasks.get(groupPosition)); // 群組任務名稱
 
         final ImageView imgAdd = (ImageView) view.findViewById(R.id.img_expand_add_contenttask);
         // 判斷使用者是否屬於點選的群組，再判斷是否屬於該組的組長，若皆符合就顯示新增細項工作的加號按鈕
@@ -101,8 +100,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                                         // 按下群組任務名稱旁的加號後，進入新增細項工作的畫面
                                         Intent intent = new Intent();
                                         // 傳送group name到AddContentTaskActivity
-                                        Log.d("groupTask", groupList.get(groupPosition));
-                                        intent.putExtra("groupTaskName", groupList.get(groupPosition));
+                                        Log.d("groupTask", groupTasks.get(groupPosition));
+                                        intent.putExtra("groupId", groupId);
+                                        intent.putExtra("groupTaskName", groupTasks.get(groupPosition));
                                         intent.setClass(context, AddContentTaskActivity.class);
                                         context.startActivity(intent);
                                     }
@@ -120,7 +120,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         // contentTask object
-        ContentTask itemTask = itemMap.get(groupList.get(groupPosition)).get(childPosition);
+        ContentTask itemTask = itemMap.get(groupTasks.get(groupPosition)).get(childPosition);
         // view
         View view = LayoutInflater.from(context).inflate(R.layout.expandlist_item, null);
         TextView txtTitle = (TextView) view.findViewById(R.id.txt_expand_item);

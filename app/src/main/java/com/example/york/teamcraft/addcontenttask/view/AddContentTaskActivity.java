@@ -28,6 +28,7 @@ import java.util.ArrayList;
 // 此Activity使用view model與後端互動
 public class AddContentTaskActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, AddContentTaskView{
     // 傳進來的group id
+    private String groupId;
     private String groupName;
     // view
     private EditText edtTitle;
@@ -59,12 +60,13 @@ public class AddContentTaskActivity extends AppCompatActivity implements DatePic
         saveInputData = new SaveInputData();
         addNewTask = new AddNewTask(this);
         // set date source of responsible
-        setSpinData.setData();
+        setSpinData.setData(groupId);
     }
 
     // 取得TaskFragment傳來的group name
     public void getPassedGroupName() {
         Intent intent = getIntent();
+        this.groupId = intent.getExtras().getString("groupId");
         this.groupName = intent.getExtras().getString("groupTaskName");
     }
 
@@ -114,7 +116,7 @@ public class AddContentTaskActivity extends AppCompatActivity implements DatePic
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addNewTask.addContentTask(groupName, new ContentTask(
+                addNewTask.addContentTask(groupId, groupName, new ContentTask(
                         null,
                         edtTitle.getText().toString(),
                         edtContent.getText().toString(),

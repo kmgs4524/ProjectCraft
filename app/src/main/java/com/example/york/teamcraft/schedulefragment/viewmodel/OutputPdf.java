@@ -16,7 +16,7 @@ public class OutputPdf {
     // create a new document
     private PdfDocument document = new PdfDocument();
 
-    public void outputDoc(View content, OutputStream stream) {
+    public void outputPdfDocument(View content, OutputStream stream) {
         // crate a page description
         PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(1920, 1080, 1).setContentRect(new Rect(50, 50, 1870, 1030)).create();
 

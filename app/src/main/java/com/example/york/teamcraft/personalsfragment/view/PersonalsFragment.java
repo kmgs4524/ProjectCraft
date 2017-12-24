@@ -41,7 +41,6 @@ public class PersonalsFragment extends Fragment implements PersonalsView{
     @BindView(R.id.txt_personal_email) TextView txtEmail;
     @BindView(R.id.txt_personal_team) TextView txtTeam;
     @BindView(R.id.txt_personal_group) TextView txtGroup;
-    @BindView(R.id.txt_personal_position) TextView txtPosition;
     @BindView(R.id.txt_undo_num) TextView txtUndoNum;
     @BindView(R.id.txt_done_num) TextView txtDoneNum;
     @BindView(R.id.recycler_view_personal_task)
@@ -72,13 +71,18 @@ public class PersonalsFragment extends Fragment implements PersonalsView{
         ButterKnife.bind(this, view);
         // 設定個人資料
         setProfileData = new SetProfileData(this);
-        setProfileData.setProfileData();
         // 設定被分派細項工作
         Log.d(TAG, "onCreateView: " + "setPersonalTask");
         setPersonalTask = new SetPersonalTask(this);
-        setPersonalTask.initData();
 
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        setProfileData.setProfileData();
+        setPersonalTask.initData();
     }
 
     public void setCirImgPersonals(String imageUrl) {
@@ -123,18 +127,19 @@ public class PersonalsFragment extends Fragment implements PersonalsView{
     public void initRecyclerView(ArrayList<DataPath> pathList, ArrayList<ContentTask> taskList) {
         Log.d(TAG, "initRecyclerGroup: pathList: " + pathList.size() + " taskList: " + taskList.size());
         layoutManager = new LinearLayoutManager(getContext());
-        adapter = new PersonalTaskAdapter(getContext(), recyclerViewPersonalTask, pathList, taskList);
+        ArrayList<DataPath> paths = new ArrayList<>(pathList);
+        ArrayList<ContentTask> contentTasks = new ArrayList<>(taskList);
+        adapter = new PersonalTaskAdapter(getContext(), recyclerViewPersonalTask, paths, contentTasks);
         recyclerViewPersonalTask.setLayoutManager(layoutManager);
         recyclerViewPersonalTask.setAdapter(adapter);
     }
 
     @Override
-    public void setProfile(String name, String email, String team, String group, String position) {
+    public void setProfile(String name, String email, String team, String group) {
         txtName.setText(name);
         txtEmail.setText(email);
         txtTeam.setText(team);
         txtGroup.setText(group);
-        txtPosition.setText(position);
     }
 
     // 進入個人資料畫面

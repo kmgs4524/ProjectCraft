@@ -21,12 +21,7 @@ public class DeleteContentTask {
         this.writeGroupTask = new WriteGroupTask();
     }
 
-    public void deleteTask(final String groupTaskName, final String taskId) {
-        readUser.getCurrentLogInUserData(new CallBack<User>() {
-            @Override
-            public void update(User data) {
-                writeGroupTask.deleteContentTask(data.getGroupId(), groupTaskName, taskId);
-            }
-        });
+    public void deleteTask(String groupId, final String groupTaskName, final String taskId) {
+        writeGroupTask.deleteContentTask(groupId, groupTaskName, taskId);
     }
 }

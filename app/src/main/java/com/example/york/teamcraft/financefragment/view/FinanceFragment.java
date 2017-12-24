@@ -9,12 +9,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.R;
 import com.example.york.teamcraft.accountingitemdialogfragment.AccountingItemFragment;
 import com.example.york.teamcraft.financefragment.ProgressWheel;
 import com.example.york.teamcraft.financefragment.model.AccountingItem;
+import com.example.york.teamcraft.financefragment.viewmodel.CheckTeamFinance;
 import com.example.york.teamcraft.financefragment.viewmodel.SetBudget;
 import com.example.york.teamcraft.financefragment.viewmodel.SetFloatingButton;
 import com.example.york.teamcraft.financefragment.viewmodel.SetAccountingItem;
@@ -26,6 +30,15 @@ import butterknife.ButterKnife;
 
 public class FinanceFragment extends Fragment implements FinanceView {
     private static String TAG = "FinanceFragment";
+    // empty state view
+    @BindView(R.id.img_finance_finance_empty_state)
+    ImageView imgEmptyState;
+    @BindView(R.id.divider_finance_empty_state)
+    View dividerEmptyState;
+    @BindView(R.id.txt_finance_empty_state)
+    TextView txtEmptyState;
+    @BindView(R.id.btn_finance_empty_state)
+    Button btnEmptyState;
     // view
     @BindView(R.id.progress_bar_remaining_amount)
     ProgressWheel progressWheel;
@@ -40,6 +53,7 @@ public class FinanceFragment extends Fragment implements FinanceView {
     private RecyclerView.Adapter<AccountingItemViewHolder> adapter;
     private RecyclerView.LayoutManager layoutManager;
     // view model
+    private CheckTeamFinance checkTeamFinance;
     private SetBudget setBudget;
     private SetAccountingItem setAccountingItem;
     private SetFloatingButton setFloatingButton;
@@ -63,14 +77,31 @@ public class FinanceFragment extends Fragment implements FinanceView {
         View view = inflater.inflate(R.layout.team_fragment_finance, container, false);
         ButterKnife.bind(this, view);
 
+        checkTeamFinance = new CheckTeamFinance();
         setBudget = new SetBudget(this);
-        setBudget.setBudgetData();
         setAccountingItem = new SetAccountingItem(this);
-        setAccountingItem.setRecyclerViewData();
         setFloatingButton = new SetFloatingButton(this);
-        setFloatingButton.setFinanceView();
 
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        checkTeamFinance.checkBudgetExist(new CallBack<Boolean>() {
+            @Override
+            public void update(Boolean exist) {
+                if(exist) {
+//                    showUsualState();
+                    setBudget.setBudgetData();
+                    setAccountingItem.setRecyclerViewData();
+                    setFloatingButton.setFinanceView();
+                } else {
+                    hideUsualState();
+                    showEmptyState();
+                }
+            }
+        });
     }
 
     @Override
@@ -106,6 +137,38 @@ public class FinanceFragment extends Fragment implements FinanceView {
                 dialog.show(getFragmentManager(), "AccountingItemFragment");
             }
         });
+    }
+
+    @Override
+    public void showEmptyState() {
+        imgEmptyState.setVisibility(View.VISIBLE);
+        dividerEmptyState.setVisibility(View.VISIBLE);
+        txtEmptyState.setVisibility(View.VISIBLE);
+        btnEmptyState.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideEmptyState() {
+        imgEmptyState.setVisibility(View.GONE);
+        dividerEmptyState.setVisibility(View.GONE);
+        txtEmptyState.setVisibility(View.GONE);
+        btnEmptyState.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showUsualState() {
+        progressWheel.setVisibility(View.VISIBLE);
+        txtBudget.setVisibility(View.VISIBLE);
+        txtTotalCost.setVisibility(View.VISIBLE);
+        fabAddItem.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideUsualState() {
+        progressWheel.setVisibility(View.GONE);
+        txtBudget.setVisibility(View.GONE);
+        txtTotalCost.setVisibility(View.GONE);
+        fabAddItem.setVisibility(View.GONE);
     }
 
 }

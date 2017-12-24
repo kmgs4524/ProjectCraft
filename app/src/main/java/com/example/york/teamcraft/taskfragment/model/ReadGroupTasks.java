@@ -145,13 +145,13 @@ public class ReadGroupTasks {
     }
 
     public void getAllTaskByValueEvent(String groupId, final CallBackTwoArgs<ArrayList<String>, HashMap<String, ArrayList<ContentTask>>> callBack) {
-        final ArrayList<String> groupTaskNameList = new ArrayList<>();  // 群組任務名稱的list
-        final HashMap<String, ArrayList<ContentTask>> itemMap = new HashMap<>();    // 細項任務的map，key: 群組任務名稱, value: 細項任務的list
-
         DatabaseReference childRef = groupTasksRef.child(groupId);
         childRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<String> groupTaskNameList = new ArrayList<>();  // 群組任務名稱的list
+                HashMap<String, ArrayList<ContentTask>> itemMap = new HashMap<>();    // 細項任務的map，key: 群組任務名稱, value: 細項任務的list
+
                 Iterator<DataSnapshot> groupTaskIterator = dataSnapshot.getChildren().iterator();
                 while (groupTaskIterator.hasNext()) {
                     DataSnapshot groupTaskNameShot = groupTaskIterator.next();   // 群組名稱的節點
@@ -177,26 +177,23 @@ public class ReadGroupTasks {
     }
 
     // 需要groupId, responId，取得個人被分派工作的taskIdList, taskList
-    public void getPersonalTask(final String groupId, final String responId, final CallBackTwoArgs<ArrayList<DataPath>, ArrayList<ContentTask>> callBack) {
+    public void getPersonalTask(final String responId, final CallBackTwoArgs<ArrayList<DataPath>, ArrayList<ContentTask>> callBack) {
 
-        DatabaseReference groupIdRef = groupTasksRef.child(groupId).getRef();
-        groupIdRef.addValueEventListener(new ValueEventListener() {
+//        DatabaseReference groupIdRef = groupTasksRef.child(groupId).getRef();
+        groupTasksRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot groupIdSnapshot) {
-                ArrayList<DataPath> dataPaths = new ArrayList<>(); // DataPath List : 負責存放 groupId, groupTaskName, taskId
-                ArrayList<ContentTask> contentTasks = new ArrayList<>();  // GroupTask List
-
-                Iterator<DataSnapshot> groupIdIterator = groupIdSnapshot.getChildren().iterator();
-                while (groupIdIterator.hasNext()) {
-                    DataSnapshot groupTaskSnapShot = groupIdIterator.next();
-                    Iterator<DataSnapshot> groupTaskIterator = groupTaskSnapShot.getChildren().iterator();
-                    while(groupTaskIterator.hasNext()) {
-                        DataSnapshot contentTaskSnapShot = groupTaskIterator.next();
-                        ContentTask contentTask = contentTaskSnapShot.getValue(ContentTask.class);
-                        if(responId.equals(contentTask.getResponId())) {
-                            contentTasks.add(contentTask);
-                            DataPath dataPath = new DataPath(groupId, groupTaskSnapShot.getKey(), contentTaskSnapShot.getKey());
-                            dataPaths.add(dataPath);
+            public void onDataChange(DataSnapshot groupTasksSnapshot) {
+                final ArrayList<DataPath> dataPaths = new ArrayList<>(); // DataPath List : 負責存放 groupId, groupTaskName, taskId
+                final ArrayList<ContentTask> contentTasks = new ArrayList<>();  // GroupTask List
+                for(DataSnapshot groupIdSnapShot: groupTasksSnapshot.getChildren()) {
+                    for(DataSnapshot groupTaskSnapShot: groupIdSnapShot.getChildren()) {
+                        for(DataSnapshot contentTaskSnapShot: groupTaskSnapShot.getChildren()) {
+                            ContentTask contentTask = contentTaskSnapShot.getValue(ContentTask.class);
+                            if(contentTask.getResponId().equals(responId)) {
+                                contentTasks.add(contentTask);
+                                DataPath dataPath = new DataPath(groupIdSnapShot.getKey(), groupTaskSnapShot.getKey(), contentTaskSnapShot.getKey());
+                                dataPaths.add(dataPath);
+                            }
                         }
                     }
                 }

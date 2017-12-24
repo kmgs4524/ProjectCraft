@@ -102,30 +102,13 @@ public class ReadTeam {
         groupList = new ArrayList<>();
         readUser.getCurrentLogInUserData(new CallBack<User>() {
             @Override
-            public void update(User data) {
-                DatabaseReference ref = teamGroRef.child(data.getTeamId()).getRef();
+            public void update(User user) {
+                DatabaseReference teamIdRef = teamGroRef.child(user.getTeamId()).getRef();
 
-                ref.addChildEventListener(new ChildEventListener() {
+                teamIdRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        group = dataSnapshot.getValue(Group.class);
-                        groupList.add(group);
-                        callback.update(groupList);
-                    }
-
-                    @Override
-                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                    }
-
-                    @Override
-                    public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                    }
-
-                    @Override
-                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
+                    public void onDataChange(DataSnapshot teamIdSnapshot) {
+                        
                     }
 
                     @Override

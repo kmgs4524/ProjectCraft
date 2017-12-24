@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public interface PersonalsView {
     public abstract void setCirImgPersonals(String imageUrl);
-    public abstract void setProfile(String name, String email, String team, String group, String position);
+    public abstract void setProfile(String name, String email, String team, String group);
     public abstract void startSignInActivity();
     public abstract void showSignOutMesg();
     public abstract void setTaskNum(int undoNum, int doneNum);

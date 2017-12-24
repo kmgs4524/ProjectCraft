@@ -26,17 +26,17 @@ public class SetSpinData {
         readGroupMember = new ReadGroupMember();
     }
 
-    public void setData() {
-        readUser.getCurrentLogInUserData(new CallBack<User>() {
-            @Override
-            public void update(User data) {
-                readGroupMember.getGroupMember(data.getGroupId(), new CallBack<ArrayList<GroupMember>>() {
+    public void setData(final String groupId) {
+//        readUser.getCurrentLogInUserData(new CallBack<User>() {
+//            @Override
+//            public void update(User user) {
+                readGroupMember.getGroupMember(groupId, new CallBack<ArrayList<GroupMember>>() {
                     @Override
-                    public void update(ArrayList<GroupMember> data) {
-                        addContentTaskView.setSpinMenu(data);
+                    public void update(ArrayList<GroupMember> groupMembers) {
+                        addContentTaskView.setSpinMenu(groupMembers);
                     }
                 });
-            }
-        });
+//            }
+//        });
     }
 }

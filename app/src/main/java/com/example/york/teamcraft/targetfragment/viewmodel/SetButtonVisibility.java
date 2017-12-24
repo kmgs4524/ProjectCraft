@@ -36,7 +36,7 @@ public class SetButtonVisibility {
                     public void update(Boolean isOwnGroup) {
                         if(isOwnGroup) {
                             // 若為相同的group再判斷user是否為該group的組長
-                            checkUserPosition.checkPosition(user.getGroupId(), new CallBack<Boolean>() {
+                            checkUserPosition.checkPosition(groupId, new CallBack<Boolean>() {
                                 @Override
                                 public void update(Boolean isDirector) {
                                     if(isDirector) {

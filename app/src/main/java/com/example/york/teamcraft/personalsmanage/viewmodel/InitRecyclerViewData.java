@@ -27,23 +27,23 @@ public class InitRecyclerViewData {
     }
 
     public void initData() {
-        readUser.getCurrentLogInUserData(new CallBack<User>() {
-            @Override
-            public void update(User data) {
-                final User user = data;
-                readUser.getUserId(new CallBack<String>() {
-                    @Override
-                    public void update(String data) {
-                        ReadGroupTasks readGroupTasks = new ReadGroupTasks();
-                        readGroupTasks.getPersonalTask(user.getGroupId(), data, new CallBackTwoArgs<ArrayList<DataPath>, ArrayList<ContentTask>>() {
-                            @Override
-                            public void update(ArrayList<DataPath> pathList, ArrayList<ContentTask> taskList) {
-                                personalTasksView.initRecycleView(pathList, taskList);
-                            }
-                        });
-                    }
-                });
-            }
-        });
+//        readUser.getCurrentLogInUserData(new CallBack<User>() {
+//            @Override
+//            public void update(User data) {
+//                final User user = data;
+//                readUser.getUserId(new CallBack<String>() {
+//                    @Override
+//                    public void update(String data) {
+//                        ReadGroupTasks readGroupTasks = new ReadGroupTasks();
+//                        readGroupTasks.getPersonalTask(user.getGroupIds(), data, new CallBackTwoArgs<ArrayList<DataPath>, ArrayList<ContentTask>>() {
+//                            @Override
+//                            public void update(ArrayList<DataPath> pathList, ArrayList<ContentTask> taskList) {
+//                                personalTasksView.initRecycleView(pathList, taskList);
+//                            }
+//                        });
+//                    }
+//                });
+//            }
+//        });
     }
 }

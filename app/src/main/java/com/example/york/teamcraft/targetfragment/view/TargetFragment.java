@@ -87,14 +87,14 @@ public class TargetFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 deleteContentTask = new DeleteContentTask();
-                deleteContentTask.deleteTask(groupTaskName, contentTask.getTaskId());
+                deleteContentTask.deleteTask(groupId, groupTaskName, contentTask.getTaskId());
             }
         });
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 confrimContentTask = new ConfirmContentTask();
-                confrimContentTask.confirmTask(groupTaskName, contentTask.getTaskId());
+                confrimContentTask.confirmTask(groupId, groupTaskName, contentTask.getTaskId());
             }
         });
     }
