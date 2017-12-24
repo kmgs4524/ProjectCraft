@@ -1,5 +1,7 @@
 package com.example.york.teamcraft.financefragment.viewmodel;
 
+import android.util.Log;
+
 import com.example.york.teamcraft.CallBack;
 import com.example.york.teamcraft.financefragment.model.ReadTeamBudget;
 import com.example.york.teamcraft.financefragment.model.ReadTeamFinance;
@@ -24,6 +26,7 @@ public class CheckTeamFinance {
                 readTeamBudget.checkBudgetExist(user.getTeamId(), new CallBack<Boolean>() {
                     @Override
                     public void update(Boolean exist) {
+                        Log.d("CheckTeamFinance", "update: " + exist);
                         callBack.update(exist);
                     }
                 });

@@ -140,7 +140,7 @@ public class ScheduleFragment extends Fragment {
                 try {
                     OutputStream os = new FileOutputStream(file);
                     OutputPdf outputPdf = new OutputPdf();
-                    outputPdf.outputDoc((View)params[0], os); // outputPdf.outputDoc(v, os);
+                    outputPdf.outputPdfDocument((View)params[0], os); // outputPdf.outputPdfDocument(v, os);
 //                                    OutputStreamWriter writer = new OutputStreamWriter(os);
 //                                    writer.write(hello);
 //                                    writer.close();

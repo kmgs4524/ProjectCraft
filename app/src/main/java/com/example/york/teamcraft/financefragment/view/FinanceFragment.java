@@ -33,7 +33,7 @@ public class FinanceFragment extends Fragment implements FinanceView {
     // empty state view
     @BindView(R.id.img_finance_finance_empty_state)
     ImageView imgEmptyState;
-    @BindView(R.id.divider_group_manage_empty_state)
+    @BindView(R.id.divider_finance_empty_state)
     View dividerEmptyState;
     @BindView(R.id.txt_finance_empty_state)
     TextView txtEmptyState;
@@ -92,7 +92,7 @@ public class FinanceFragment extends Fragment implements FinanceView {
             @Override
             public void update(Boolean exist) {
                 if(exist) {
-                    hideEmptyState();
+//                    showUsualState();
                     setBudget.setBudgetData();
                     setAccountingItem.setRecyclerViewData();
                     setFloatingButton.setFinanceView();
@@ -153,6 +153,14 @@ public class FinanceFragment extends Fragment implements FinanceView {
         dividerEmptyState.setVisibility(View.GONE);
         txtEmptyState.setVisibility(View.GONE);
         btnEmptyState.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showUsualState() {
+        progressWheel.setVisibility(View.VISIBLE);
+        txtBudget.setVisibility(View.VISIBLE);
+        txtTotalCost.setVisibility(View.VISIBLE);
+        fabAddItem.setVisibility(View.VISIBLE);
     }
 
     @Override
