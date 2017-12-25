@@ -47,7 +47,7 @@ public class SetProfileData {
                         @Override
                         public void update(final String teamName) {
                             Log.d(TAG, "groupId size: " + user.getGroupIds().size());
-                            if(!user.getGroupIds().equals("0")) {
+                            if(!user.getGroupIds().get(0).equals("0")) {
                                 Log.d(TAG, "has group ");
                                 // 若使用者已屬於某個群組下
                                 readTeamGroup.getTeamGroups(user.getTeamId(), new CallBack<ArrayList<Group>>() {
