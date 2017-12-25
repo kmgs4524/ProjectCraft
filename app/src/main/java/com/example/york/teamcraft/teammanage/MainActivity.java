@@ -74,6 +74,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+
     //設置ToolBar
 //    private void initToolBar(){
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

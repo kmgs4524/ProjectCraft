@@ -9,6 +9,8 @@ import com.example.york.teamcraft.teammanage.model.ReadUser;
 import com.example.york.teamcraft.teammanage.model.User;
 import com.example.york.teamcraft.teammanage.model.WriteUser;
 
+import java.util.ArrayList;
+
 /**
  * Created by York on 2017/10/23.
  */
@@ -27,6 +29,8 @@ public class JoinExistTeam {
     }
 
     public void checkTeam(final String searchId) {
+        final ArrayList<String> initGroupIds = new ArrayList<>();   // 為新加入團隊的成員建立groupId的初始值
+        initGroupIds.add("0");
         this.readTeam = new ReadTeam();
         readTeam.checkTeamExist(searchId, new CallBackTwoArgs<Boolean, String>() {
             @Override
@@ -38,7 +42,7 @@ public class JoinExistTeam {
                         public void update(final String userId) {
                             writeUser = new WriteUser();
                             writeUser.updateUserTeam(userId, teamId); // 將teamId寫入user child
-
+                            writeUser.updateUserGroup(userId, initGroupIds);
                             readUser.getCurrentLogInUserData(new CallBack<User>() {
                                 @Override
                                 public void update(User user) {
