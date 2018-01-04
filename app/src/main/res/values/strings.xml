@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TeamCraft</string>
+    <string name="app_name">ProjectCraft</string>
     <string name="action_sign_in_short">Sign in</string>
 
     <!-- Bottom Navigation menu title -->
