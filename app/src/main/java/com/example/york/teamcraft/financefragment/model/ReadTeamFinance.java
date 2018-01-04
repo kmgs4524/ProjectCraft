@@ -37,7 +37,6 @@ public class ReadTeamFinance {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
     }
