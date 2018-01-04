@@ -22,18 +22,18 @@ public class SetAccountingItem {
 
     public void setRecyclerViewData() {
         ReadUser readUser = new ReadUser();
-        readUser.getCurrentLogInUserData(new CallBack<User>() {
+        readUser.getCurrentLogInUserDataForSingleEvent(new CallBack<User>() {
             @Override
             public void update(User user) {
                 ReadTeamFinance readTeamFinance = new ReadTeamFinance();
                 readTeamFinance.getAccountingItem(user.getTeamId(), new CallBack<ArrayList<AccountingItem>>() {
                     @Override
-                    public void update(ArrayList<AccountingItem> itemList) {
+                    public void update(ArrayList<AccountingItem> accountingItems) {
                         // 設定品項資料
-                        financeView.initRecyclerView(itemList);
+                        financeView.initRecyclerView(accountingItems);
                         // 設定總花費
                         int totalCost = 0;
-                        for(AccountingItem item: itemList) {
+                        for(AccountingItem item: accountingItems) {
                             totalCost = totalCost + item.getAmount();
                         }
                         financeView.initTxtTotalCost(totalCost);

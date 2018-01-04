@@ -18,22 +18,21 @@ import java.util.Iterator;
 
 public class ReadTeamFinance {
     private static String TAG = "ReadTeamFinance";
-    private DatabaseReference teamFinanRef;
+    private DatabaseReference teamFinaneRef;
 
     public void getAccountingItem(String teamId, final CallBack<ArrayList<AccountingItem>> callBack) {
-        teamFinanRef = FirebaseDatabase.getInstance().getReference().child("teamFinance").child(teamId);
-        teamFinanRef.addValueEventListener(new ValueEventListener() {
+        teamFinaneRef = FirebaseDatabase.getInstance().getReference().child("teamFinance").child(teamId);
+        teamFinaneRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<AccountingItem> itemlist = new ArrayList<>();
-                Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();
-                while (iterator.hasNext()) {
-                    DataSnapshot nextSnapShot = iterator.next();
-                    AccountingItem item = nextSnapShot.getValue(AccountingItem.class);
-                    itemlist.add(item);
+                ArrayList<AccountingItem> accountingItems = new ArrayList<>();
+                for(DataSnapshot accountingItemSnapShot: dataSnapshot.getChildren()) {
+                    AccountingItem item = accountingItemSnapShot.getValue(AccountingItem.class);
+                    Log.d(TAG, "onDataChange: item name: " + item.getName());
+                    accountingItems.add(item);
                 }
-                Log.d(TAG, "onDataChange: " + itemlist.size());
-                callBack.update(itemlist);
+                callBack.update(accountingItems);
+                Log.d(TAG, "onDataChange: items size: " + accountingItems.size());
             }
 
             @Override
@@ -44,8 +43,8 @@ public class ReadTeamFinance {
     }
 
     public void getCostItem(String teamId, final CallBack<ArrayList<AccountingItem>> callBack) {
-        teamFinanRef = FirebaseDatabase.getInstance().getReference().child("teamFinance").child(teamId);
-        teamFinanRef.addValueEventListener(new ValueEventListener() {
+        teamFinaneRef = FirebaseDatabase.getInstance().getReference().child("teamFinance").child(teamId);
+        teamFinaneRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ArrayList<AccountingItem> itemList = new ArrayList<>();
