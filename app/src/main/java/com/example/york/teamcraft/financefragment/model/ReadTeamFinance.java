@@ -22,7 +22,7 @@ public class ReadTeamFinance {
 
     public void getAccountingItem(String teamId, final CallBack<ArrayList<AccountingItem>> callBack) {
         teamFinaneRef = FirebaseDatabase.getInstance().getReference().child("teamFinance").child(teamId);
-        teamFinaneRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        teamFinaneRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ArrayList<AccountingItem> accountingItems = new ArrayList<>();

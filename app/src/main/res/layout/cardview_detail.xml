@@ -78,7 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="姓名"
+                android:text="負責人"
                 style="@style/TargetCardTextColor"/>
         </LinearLayout>
 
